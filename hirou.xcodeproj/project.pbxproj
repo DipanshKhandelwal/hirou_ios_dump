@@ -16,6 +16,7 @@
 		317E231023C6306D00F8F0C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 317E230E23C6306D00F8F0C1 /* LaunchScreen.storyboard */; };
 		317E231B23C6306D00F8F0C1 /* hirouTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E231A23C6306D00F8F0C1 /* hirouTests.swift */; };
 		317E232623C6306D00F8F0C1 /* hirouUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E232523C6306D00F8F0C1 /* hirouUITests.swift */; };
+		C760AFC4224DACAAF5124B78 /* libPods-hirou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7708D622914DB25722933DEC /* libPods-hirou.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09B53D18299FA1A1A9AA36ED /* Pods-hirou.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hirou.release.xcconfig"; path = "Target Support Files/Pods-hirou/Pods-hirou.release.xcconfig"; sourceTree = "<group>"; };
 		317E22FE23C6306C00F8F0C1 /* hirou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hirou.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		317E230123C6306C00F8F0C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		317E230323C6306C00F8F0C1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +53,8 @@
 		317E232123C6306D00F8F0C1 /* hirouUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hirouUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		317E232523C6306D00F8F0C1 /* hirouUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hirouUITests.swift; sourceTree = "<group>"; };
 		317E232723C6306D00F8F0C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7708D622914DB25722933DEC /* libPods-hirou.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hirou.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C39C6D95DFF4BD26552FF608 /* Pods-hirou.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hirou.debug.xcconfig"; path = "Target Support Files/Pods-hirou/Pods-hirou.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C760AFC4224DACAAF5124B78 /* libPods-hirou.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +90,8 @@
 				317E231923C6306D00F8F0C1 /* hirouTests */,
 				317E232423C6306D00F8F0C1 /* hirouUITests */,
 				317E22FF23C6306C00F8F0C1 /* Products */,
+				F32DF9D13CAD0252E8D582DF /* Pods */,
+				5E7FE8B695FD7659A6ADE524 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,6 +138,24 @@
 			path = hirouUITests;
 			sourceTree = "<group>";
 		};
+		5E7FE8B695FD7659A6ADE524 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7708D622914DB25722933DEC /* libPods-hirou.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F32DF9D13CAD0252E8D582DF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C39C6D95DFF4BD26552FF608 /* Pods-hirou.debug.xcconfig */,
+				09B53D18299FA1A1A9AA36ED /* Pods-hirou.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -138,9 +163,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 317E232A23C6306D00F8F0C1 /* Build configuration list for PBXNativeTarget "hirou" */;
 			buildPhases = (
+				12E0F8C97E1F776E1EF8349D /* [CP] Check Pods Manifest.lock */,
 				317E22FA23C6306C00F8F0C1 /* Sources */,
 				317E22FB23C6306C00F8F0C1 /* Frameworks */,
 				317E22FC23C6306C00F8F0C1 /* Resources */,
+				A78C4069DD99AE826BCF423F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -256,6 +283,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		12E0F8C97E1F776E1EF8349D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-hirou-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A78C4069DD99AE826BCF423F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-hirou/Pods-hirou-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-hirou/Pods-hirou-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-hirou/Pods-hirou-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		317E22FA23C6306C00F8F0C1 /* Sources */ = {
@@ -436,6 +505,7 @@
 		};
 		317E232B23C6306D00F8F0C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C39C6D95DFF4BD26552FF608 /* Pods-hirou.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -453,6 +523,7 @@
 		};
 		317E232C23C6306D00F8F0C1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09B53D18299FA1A1A9AA36ED /* Pods-hirou.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
