@@ -8,11 +8,6 @@
 
 import Foundation
 
-struct Location {
-    var latitude = "";
-    var longitude = "";
-}
-
 class Vehicle {
     //MARK: Properties
     var registrationNumber: String = ""

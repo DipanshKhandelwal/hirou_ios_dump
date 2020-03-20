@@ -23,7 +23,6 @@ class CityDetailViewController: UIViewController {
 //                //                label.text = (detail as AnyObject).model
 //                label.text = ((detail as AnyObject)["model"] as! String)
 //            }
-            
             if let label = modelLabel {
 //                label.text = ((detail as AnyObject)["model"] as! String)
                 label.text = (detail as! Vehicle).model
@@ -40,7 +39,7 @@ class CityDetailViewController: UIViewController {
             }
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         //         Do any additional setup after loading the view.
@@ -53,7 +52,5 @@ class CityDetailViewController: UIViewController {
             configureView()
         }
     }
-    
-    
 }
 
