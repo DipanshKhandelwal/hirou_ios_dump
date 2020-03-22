@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import Mapbox
 
-class RouteDetailsViewController: UIViewController, MGLMapViewDelegate {
+class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
     
     var collectionPoints = [CollectionPoint]()
     var annotations = [MGLPointAnnotation]()

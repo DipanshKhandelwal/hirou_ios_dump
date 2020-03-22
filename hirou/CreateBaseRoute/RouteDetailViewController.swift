@@ -11,9 +11,9 @@ import Alamofire
 
 class CreateRouteViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
-    @IBOutlet weak var customerPicker: UIPickerView!
     @IBOutlet weak var customerTextField: UITextField!
     @IBOutlet weak var routeNameTextField: UITextField!
+    @IBOutlet weak var customerPicker: UIPickerView!
     
     var customers = [Customer]()
     
@@ -64,7 +64,7 @@ class CreateRouteViewController: UIViewController, UIPickerViewDelegate, UIPicke
                 self.customers = []
                 
                 for customer in value as! [Any] {
-                    //                            print("customer", customer)
+                                                print("customer", customer)
                     
                     let name = ((customer as AnyObject)["name"] as! String)
                     let description = ((customer as AnyObject)["description"] as! String)
