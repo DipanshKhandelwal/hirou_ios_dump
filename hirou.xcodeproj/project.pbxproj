@@ -15,8 +15,8 @@
 		314A60D1241F7C43005418EB /* CreateCollectionPointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A60D0241F7C43005418EB /* CreateCollectionPointViewController.swift */; };
 		317E230223C6306C00F8F0C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230123C6306C00F8F0C1 /* AppDelegate.swift */; };
 		317E230423C6306C00F8F0C1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230323C6306C00F8F0C1 /* SceneDelegate.swift */; };
-		317E230623C6306C00F8F0C1 /* CityMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230523C6306C00F8F0C1 /* CityMasterViewController.swift */; };
-		317E230823C6306C00F8F0C1 /* CityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230723C6306C00F8F0C1 /* CityDetailViewController.swift */; };
+		317E230623C6306C00F8F0C1 /* VehicleMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230523C6306C00F8F0C1 /* VehicleMasterViewController.swift */; };
+		317E230823C6306C00F8F0C1 /* VehicleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230723C6306C00F8F0C1 /* VehicleDetailViewController.swift */; };
 		317E230B23C6306C00F8F0C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 317E230923C6306C00F8F0C1 /* Main.storyboard */; };
 		317E230D23C6306D00F8F0C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 317E230C23C6306D00F8F0C1 /* Assets.xcassets */; };
 		317E231023C6306D00F8F0C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 317E230E23C6306D00F8F0C1 /* LaunchScreen.storyboard */; };
@@ -30,8 +30,6 @@
 		31DA88B623F3CF7B00713805 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA88B523F3CF7B00713805 /* Vehicle.swift */; };
 		31E209AA23D0F3550051B14B /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E209A923D0F3550051B14B /* TestViewController.swift */; };
 		31F02C5923E404B500D9228E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F02C5823E404B500D9228E /* SettingsViewController.swift */; };
-		31F9FABC23E40FCF006A6C1F /* VehicleMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F9FABB23E40FCF006A6C1F /* VehicleMasterViewController.swift */; };
-		31F9FABE23E41008006A6C1F /* VehicleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F9FABD23E41008006A6C1F /* VehicleDetailViewController.swift */; };
 		58514F6DD549292BFD156FB8 /* Pods_hirou.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE9740D6C8CD4CA3B0744CD /* Pods_hirou.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,8 +61,8 @@
 		317E22FE23C6306C00F8F0C1 /* hirou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hirou.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		317E230123C6306C00F8F0C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		317E230323C6306C00F8F0C1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		317E230523C6306C00F8F0C1 /* CityMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityMasterViewController.swift; sourceTree = "<group>"; };
-		317E230723C6306C00F8F0C1 /* CityDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetailViewController.swift; sourceTree = "<group>"; };
+		317E230523C6306C00F8F0C1 /* VehicleMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleMasterViewController.swift; sourceTree = "<group>"; };
+		317E230723C6306C00F8F0C1 /* VehicleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailViewController.swift; sourceTree = "<group>"; };
 		317E230A23C6306C00F8F0C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		317E230C23C6306D00F8F0C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		317E230F23C6306D00F8F0C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -83,8 +81,6 @@
 		31DA88B523F3CF7B00713805 /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
 		31E209A923D0F3550051B14B /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		31F02C5823E404B500D9228E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		31F9FABB23E40FCF006A6C1F /* VehicleMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleMasterViewController.swift; sourceTree = "<group>"; };
-		31F9FABD23E41008006A6C1F /* VehicleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailViewController.swift; sourceTree = "<group>"; };
 		9AE9740D6C8CD4CA3B0744CD /* Pods_hirou.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_hirou.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C39C6D95DFF4BD26552FF608 /* Pods-hirou.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hirou.debug.xcconfig"; path = "Target Support Files/Pods-hirou/Pods-hirou.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -118,10 +114,10 @@
 		314A60CF241F7BF3005418EB /* CreateBaseRoute */ = {
 			isa = PBXGroup;
 			children = (
-				31920C9B241C074A00A55403 /* RouteDetailViewController.swift */,
-				314A60D0241F7C43005418EB /* CreateCollectionPointViewController.swift */,
-				3138F1942421FD63007C7434 /* RouteCollectionPointViewController.swift */,
 				3133F2012424BD0A001C158C /* RouteMasterViewController.swift */,
+				31920C9B241C074A00A55403 /* RouteDetailViewController.swift */,
+				3138F1942421FD63007C7434 /* RouteCollectionPointViewController.swift */,
+				314A60D0241F7C43005418EB /* CreateCollectionPointViewController.swift */,
 			);
 			path = CreateBaseRoute;
 			sourceTree = "<group>";
@@ -151,6 +147,7 @@
 		317E230023C6306C00F8F0C1 /* hirou */ = {
 			isa = PBXGroup;
 			children = (
+				3199089C2427656900E028E1 /* Management */,
 				314A60CF241F7BF3005418EB /* CreateBaseRoute */,
 				31920C9D241CC6BC00A55403 /* models */,
 				317E230123C6306C00F8F0C1 /* AppDelegate.swift */,
@@ -163,11 +160,9 @@
 				318D061823DFED1600616E2E /* MainMenuViewController.swift */,
 				318D061623DF89B600616E2E /* RouteCollectionViewController.swift */,
 				31F02C5823E404B500D9228E /* SettingsViewController.swift */,
-				317E230523C6306C00F8F0C1 /* CityMasterViewController.swift */,
-				317E230723C6306C00F8F0C1 /* CityDetailViewController.swift */,
+				317E230523C6306C00F8F0C1 /* VehicleMasterViewController.swift */,
+				317E230723C6306C00F8F0C1 /* VehicleDetailViewController.swift */,
 				31E209A923D0F3550051B14B /* TestViewController.swift */,
-				31F9FABB23E40FCF006A6C1F /* VehicleMasterViewController.swift */,
-				31F9FABD23E41008006A6C1F /* VehicleDetailViewController.swift */,
 			);
 			path = hirou;
 			sourceTree = "<group>";
@@ -200,6 +195,13 @@
 				3133F2032424BE0F001C158C /* BaseRoute.swift */,
 			);
 			path = models;
+			sourceTree = "<group>";
+		};
+		3199089C2427656900E028E1 /* Management */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Management;
 			sourceTree = "<group>";
 		};
 		5E7FE8B695FD7659A6ADE524 /* Frameworks */ = {
@@ -404,15 +406,13 @@
 				31920CA1241CD63600A55403 /* Customer.swift in Sources */,
 				3138F1952421FD63007C7434 /* RouteCollectionPointViewController.swift in Sources */,
 				31920C9F241CD5D900A55403 /* Location.swift in Sources */,
-				317E230623C6306C00F8F0C1 /* CityMasterViewController.swift in Sources */,
-				31F9FABE23E41008006A6C1F /* VehicleDetailViewController.swift in Sources */,
-				31F9FABC23E40FCF006A6C1F /* VehicleMasterViewController.swift in Sources */,
+				317E230623C6306C00F8F0C1 /* VehicleMasterViewController.swift in Sources */,
 				31093F9D23CFA6B40025679A /* LoginViewController.swift in Sources */,
 				3133F2022424BD0A001C158C /* RouteMasterViewController.swift in Sources */,
 				31E209AA23D0F3550051B14B /* TestViewController.swift in Sources */,
 				3133F2042424BE0F001C158C /* BaseRoute.swift in Sources */,
 				314A60D1241F7C43005418EB /* CreateCollectionPointViewController.swift in Sources */,
-				317E230823C6306C00F8F0C1 /* CityDetailViewController.swift in Sources */,
+				317E230823C6306C00F8F0C1 /* VehicleDetailViewController.swift in Sources */,
 				31F02C5923E404B500D9228E /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -136,7 +136,7 @@ class RouteMasterViewController: UITableViewController {
     // MARK: - Segues
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
+        if segue.identifier == "showRouteDetails" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 
                 //                let object = objects[indexPath.row] as! NSDate

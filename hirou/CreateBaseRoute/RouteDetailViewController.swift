@@ -9,10 +9,10 @@
 import UIKit
 import Alamofire
 
-class CreateRouteViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
-    @IBOutlet weak var customerTextField: UITextField!
     @IBOutlet weak var routeNameTextField: UITextField!
+    @IBOutlet weak var customerTextField: UITextField!
     @IBOutlet weak var customerPicker: UIPickerView!
     
     var customers = [Customer]()
@@ -57,12 +57,7 @@ class CreateRouteViewController: UIViewController, UIPickerViewDelegate, UIPicke
             //to get status code
             switch response.result {
             case .success(let value):
-                //                print(String(data: value as! Data, encoding: .utf8)!)
-                //                completion(try? SomeRequest(protobuf: value))
-                //                        print("response", value)
-                //                self.vehicles = value as! [Any]
                 self.customers = []
-                
                 for customer in value as! [Any] {
                                                 print("customer", customer)
                     
@@ -71,19 +66,10 @@ class CreateRouteViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     
                     let customerObj = Customer( name: name, description: description)
                     self.customers.append(customerObj!)
-                    //                            self.customerPicker.reloadData()
                 }
                 
                 self.customerPicker.reloadAllComponents()
-                //                        if(self.customers.count > 0) {
-                //                            self.customerTextField.text = self.customers[0].name
-                //                        }
-                
-                //                        DispatchQueue.main.async {
-                //                            self.tableView.reloadData()
-                //                        }
-                //                print("vehicles",self.vehicles)
-            //                self.tableView.reloadData()
+
             case .failure(let error):
                 print(error)
                 //                completion(nil)
@@ -142,8 +128,8 @@ class CreateRouteViewController: UIViewController, UIPickerViewDelegate, UIPicke
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      // Get the new view controller using segue.destination.
      // Pass the selected object to the new view controller.
-        if segue.identifier == "showRouteDetails" {
-            let controller = (segue.destination as! RouteDetailsViewController)
+        if segue.identifier == "showRouteCollectionPoints" {
+            let controller = (segue.destination as! RouteCollectionPointViewController)
             if let detail = detailItem {
 //                print("id", )
                 controller.detailItem = (detail as! BaseRoute).id
