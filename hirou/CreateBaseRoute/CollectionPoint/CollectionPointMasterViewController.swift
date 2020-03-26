@@ -1,18 +1,18 @@
 //
-//  RouteListTableViewController.swift
+//  CollectionPointMasterViewController.swift
 //  hirou
 //
-//  Created by Dipansh Khandelwal on 20/03/20.
+//  Created by Dipansh Khandelwal on 24/03/20.
 //  Copyright © 2020 Dipansh Khandelwal. All rights reserved.
 //
 
 import UIKit
 import Alamofire
 
-class RouteMasterViewController: UITableViewController {
+class CollectionPointMasterViewController: UITableViewController {
     
-    var detailViewController: RouteDetailViewController? = nil
-    var baseRoutes = [BaseRoute]()
+    var detailViewController: CollectionPointDetailViewController? = nil
+    var collectionPoints = [CollectionPoint]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,41 +29,72 @@ class RouteMasterViewController: UITableViewController {
         //        navigationItem.rightBarButtonItem = addButton
         if let split = splitViewController {
             let controllers = split.viewControllers
-            detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? RouteDetailViewController
+            detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? CollectionPointDetailViewController
         }
     }
     
+    var detailItem: Any? {
+        didSet {
+            // Update the view.
+            configureView()
+        }
+    }
+    
+    func configureView() {
+        if let detail = detailItem {
+            print("id", (detail as! Int))
+        }
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
-        
-        
-        AF.request("http://127.0.0.1:8000/api/base_route/", method: .get).responseJSON { response in
+
+//        if let detail = detailItem {
+//            let id = (detail as! Int)
+            let url = "http://127.0.0.1:8000/api/base_route/1/"
+            
+            AF.request(url, method: .get).responseJSON { response in
+                //to get status code
+                switch response.result {
+                case .success(let value):
+                    // print(String(data: value as! Data, encoding: .utf8)!)
+                    // completion(try? SomeRequest(protobuf: value))
+                                    print("response", value)
+                    // self.vehicles = value as! [Any]
+                    self.collectionPoints = []
+//                    self.annotations = []
+                    let cps = (value as AnyObject)["collection_point"]
                     
-                    //to get status code
-                    switch response.result {
-                    case .success(let value):
-                        self.baseRoutes = []
+                    for collectionPoint in cps as! [Any] {
+                        //                    print("collectionPoint", collectionPoint)
                         
-                        for baseRoute in value as! [Any] {
-                            let id = ((baseRoute as AnyObject)["id"] as! Int)
-                            let name = ((baseRoute as AnyObject)["name"] as! String)
-                            let customer = (((baseRoute as AnyObject)["customer"] as AnyObject)["name"] as! String)
- 
-                            
-                            let baseRouteObj = BaseRoute(id: id, name: name, customer: customer)
-                            self.baseRoutes.append(baseRouteObj!)
-        //                    self.tableView.reloadData()
-                        }
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                        }
-                    case .failure(let error):
-                        print(error)
-        //                completion(nil)
+                        
+                        let id = ((collectionPoint as AnyObject)["id"] as! Int)
+                        let name = ((collectionPoint as AnyObject)["name"] as! String)
+                        let address = ((collectionPoint as AnyObject)["address"] as! String)
+                        let route = ((collectionPoint as AnyObject)["route"] as! Int)
+                        
+                        let locationCoordinates = ((collectionPoint as AnyObject)["location"] as! String).split{$0 == ","}.map(String.init)
+                        let location = Location( latitude: locationCoordinates[0], longitude : locationCoordinates[1] )
+                        
+                        let sequence = ((collectionPoint as AnyObject)["sequence"] as! Int)
+                        // let image = ((collectionPoint as AnyObject)["image"] as! String?)
+                        
+                        let collectionPointObj = CollectionPoint(id: id, name: name, address: address, route: route, location: location, sequence: sequence, image: "")
+                        
+                        self.collectionPoints.append(collectionPointObj!)
                     }
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+//                    self.addPointsTopMap()
                     
+                case .failure(let error):
+                    print(error)
                 }
-        
+            }
+//        }
         
         super.viewWillAppear(animated)
     }
@@ -77,14 +108,14 @@ class RouteMasterViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.baseRoutes.count
+        return self.collectionPoints.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "collectionPointCell", for: indexPath)
         
-        let route = baseRoutes[indexPath.row]
-        cell.textLabel!.text = route.name
+        let collectionPoint = collectionPoints[indexPath.row]
+        cell.textLabel!.text = collectionPoint.name
         return cell
     }
     
@@ -126,14 +157,14 @@ class RouteMasterViewController: UITableViewController {
     // MARK: - Segues
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showRouteDetails" {
+        if segue.identifier == "showCollectionPointDetails" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 
                 //                let object = objects[indexPath.row] as! NSDate
-                let route = self.baseRoutes[indexPath.row]
-                let controller = (segue.destination as! UINavigationController).topViewController as! RouteDetailViewController
+                let collectionPoint = self.collectionPoints[indexPath.row]
+                let controller = (segue.destination as! UINavigationController).topViewController as! CollectionPointDetailViewController
                 //                controller.detailItem = object
-                controller.detailItem = route as Any
+                controller.detailItem = collectionPoint as Any
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
                 detailViewController = controller

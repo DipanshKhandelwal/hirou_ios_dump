@@ -214,7 +214,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <state key="normal" title="Create Base Route"/>
                                                 <connections>
-                                                    <segue destination="E5v-Kc-5f2" kind="presentation" id="6Q5-6J-LRg"/>
+                                                    <segue destination="E5v-Kc-5f2" kind="showDetail" id="6Q5-6J-LRg"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -388,10 +388,11 @@
                 <navigationController id="vC3-pB-5Vb" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="DjV-YW-jjY">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="712" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TT7-9S-9LE">
+                        <rect key="frame" x="-28" y="-20" width="0.0" height="0.0"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -405,13 +406,13 @@
         <!--Route Collection Point View Controller-->
         <scene sceneID="z56-oo-hOT">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="K5w-d3-16T" customClass="RouteCollectionPointViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="K5w-d3-16T" customClass="RouteCollectionPointViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YrC-XY-CeD">
-                        <rect key="frame" x="0.0" y="0.0" width="712" height="928"/>
+                        <rect key="frame" x="0.0" y="0.0" width="712" height="984"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8KB-yz-UU7" customClass="MGLMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="712" height="928"/>
+                                <rect key="frame" x="0.0" y="0.0" width="712" height="984"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="88" translatesAutoresizingMaskIntoConstraints="NO" id="gbK-wx-eM5" userLabel="ContainerView">
@@ -432,7 +433,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <state key="normal" title="CREATE"/>
                                                 <connections>
-                                                    <segue destination="94Z-gN-hEt" kind="show" id="qaH-Da-feN"/>
+                                                    <segue destination="y29-yR-YbL" kind="showDetail" id="twq-mw-gst"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -517,32 +518,16 @@
             </objects>
             <point key="canvasLocation" x="707" y="1727"/>
         </scene>
-        <!--Create Collection Point View Controller-->
-        <scene sceneID="2a9-Qx-D7G">
-            <objects>
-                <viewController modalPresentationStyle="fullScreen" id="94Z-gN-hEt" customClass="CreateCollectionPointViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="umy-zc-JpF">
-                        <rect key="frame" x="0.0" y="0.0" width="712" height="928"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="wyd-ha-4bY"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Jk2-Kl-84D"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sKK-jM-b8K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1502" y="1727"/>
-        </scene>
         <!--Detail-->
         <scene sceneID="yUG-lL-AsK">
             <objects>
                 <viewController title="Detail" modalPresentationStyle="fullScreen" id="JEX-9P-axG" customClass="VehicleDetailViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="svH-Pt-448">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="974"/>
+                        <rect key="frame" x="0.0" y="0.0" width="712" height="928"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2M-D9-qO2">
-                                <rect key="frame" x="326" y="835" width="116" height="39"/>
+                                <rect key="frame" x="298" y="789" width="116" height="39"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                 <state key="normal" title="Go to map !!"/>
                                 <connections>
@@ -556,7 +541,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="LeM-x6-pXY">
-                                <rect key="frame" x="69" y="58" width="630" height="741.5"/>
+                                <rect key="frame" x="69" y="58" width="574" height="695.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="55" translatesAutoresizingMaskIntoConstraints="NO" id="0PL-Yy-DoY">
                                         <rect key="frame" x="20" y="20" width="310.5" height="318.5"/>
@@ -615,7 +600,7 @@
                                         </subviews>
                                     </stackView>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="bG9-rI-xSk">
-                                        <rect key="frame" x="20" y="371.5" width="590" height="350"/>
+                                        <rect key="frame" x="20" y="371.5" width="534" height="304"/>
                                     </mapView>
                                 </subviews>
                                 <edgeInsets key="layoutMargins" top="20" left="20" bottom="20" right="20"/>
@@ -654,7 +639,7 @@
             <objects>
                 <viewController id="4S2-GN-XcH" customClass="TestViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Xo4-su-k27">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="974"/>
+                        <rect key="frame" x="0.0" y="0.0" width="712" height="928"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="SoM-ZL-3Q8"/>
@@ -718,7 +703,7 @@
         <!--Master-->
         <scene sceneID="U6e-Iq-HX2">
             <objects>
-                <tableViewController title="Master" modalPresentationStyle="fullScreen" clearsSelectionOnViewWillAppear="NO" id="8zy-G3-CJg" customClass="RouteMasterViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Master" clearsSelectionOnViewWillAppear="NO" id="8zy-G3-CJg" customClass="RouteMasterViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="p1t-w0-k6v">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="974"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -762,6 +747,7 @@
         <scene sceneID="rQH-Zo-gWJ">
             <objects>
                 <navigationController id="qu2-Qa-EoI" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Fdh-95-YAI"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="7sT-mo-KK9">
                         <rect key="frame" x="0.0" y="0.0" width="712" height="56"/>
@@ -782,7 +768,7 @@
         <!--Detail-->
         <scene sceneID="91b-q7-pRr">
             <objects>
-                <viewController title="Detail" modalPresentationStyle="fullScreen" id="8Lu-KB-8Xt" customClass="RouteDetailViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Detail" id="8Lu-KB-8Xt" customClass="RouteDetailViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zcb-E0-gba">
                         <rect key="frame" x="0.0" y="0.0" width="712" height="928"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -840,7 +826,7 @@
                                         <rect key="frame" x="0.0" y="309.5" width="570" height="30"/>
                                         <state key="normal" title="Next"/>
                                         <connections>
-                                            <segue destination="K5w-d3-16T" kind="show" identifier="showRouteCollectionPoints" id="i6t-Gk-9GH"/>
+                                            <segue destination="K5w-d3-16T" kind="showDetail" identifier="showRouteCollectionPoints" id="i6t-Gk-9GH"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -853,7 +839,7 @@
                                 </constraints>
                             </stackView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JGC-Ok-sii">
-                                <rect key="frame" x="196" y="540" width="320" height="216"/>
+                                <rect key="frame" x="196" y="539.5" width="320" height="216"/>
                             </pickerView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -870,7 +856,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Route Details" id="Ie3-w4-jEz" userLabel="Route Details"/>
                     <connections>
-                        <outlet property="customerPicker" destination="JGC-Ok-sii" id="vgC-3v-voq"/>
+                        <outlet property="customerPicker" destination="JGC-Ok-sii" id="w9R-hn-fgL"/>
                         <outlet property="customerTextField" destination="jIv-rB-1Vk" id="Pem-ZU-kPd"/>
                         <outlet property="routeNameTextField" destination="K9h-Ak-fJC" id="1BL-om-2GM"/>
                     </connections>
@@ -878,6 +864,194 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JMV-3R-aHg" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-31.25" y="1726.7578125"/>
+        </scene>
+        <!--Split View Controller-->
+        <scene sceneID="ied-2J-2uk">
+            <objects>
+                <splitViewController id="y29-yR-YbL" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="JpH-Uo-aTn"/>
+                    <connections>
+                        <segue destination="mBN-AK-IzB" kind="relationship" relationship="masterViewController" id="Y3F-Sb-8Mo"/>
+                        <segue destination="lU6-MM-cQm" kind="relationship" relationship="detailViewController" id="YSO-hA-LPQ"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ISb-fV-bjn" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1511" y="1727"/>
+        </scene>
+        <!--Master-->
+        <scene sceneID="YIt-R8-2xi">
+            <objects>
+                <navigationController title="Master" id="mBN-AK-IzB" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="QKs-p5-k9J">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Fx9-6H-G54" kind="relationship" relationship="rootViewController" id="XGa-iE-8YF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I7d-LS-4Td" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2318" y="1378"/>
+        </scene>
+        <!--Master-->
+        <scene sceneID="Y3C-qc-LE6">
+            <objects>
+                <tableViewController title="Master" modalPresentationStyle="fullScreen" clearsSelectionOnViewWillAppear="NO" id="Fx9-6H-G54" customClass="CollectionPointMasterViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ZMQ-Fw-nfU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="974"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="collectionPointCell" textLabel="1LJ-gk-eLy" style="IBUITableViewCellStyleDefault" id="6NC-aC-LI4">
+                                <rect key="frame" x="0.0" y="28" width="320" height="47.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6NC-aC-LI4" id="1DY-6b-Y9I">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1LJ-gk-eLy">
+                                            <rect key="frame" x="16" y="0.0" width="288" height="47.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <segue destination="lU6-MM-cQm" kind="showDetail" identifier="showCollectionPointDetails" id="nz5-wI-aUO"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="Fx9-6H-G54" id="N7j-a1-659"/>
+                            <outlet property="delegate" destination="Fx9-6H-G54" id="5zh-hG-ueX"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Collection Point List" id="M6r-fU-vjK"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gtG-6Z-rgW" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3021" y="1378"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="WUV-Na-Pre">
+            <objects>
+                <navigationController id="lU6-MM-cQm" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="EaX-Di-DHy"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO"/>
+                    <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="GSY-ds-qu4">
+                        <rect key="frame" x="0.0" y="0.0" width="712" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0Rj-hG-yxX">
+                        <rect key="frame" x="-28" y="-20" width="0.0" height="0.0"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="xsF-ox-xTh" kind="relationship" relationship="rootViewController" id="A2q-VV-9aw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NxW-4k-ZND" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2318" y="2072"/>
+        </scene>
+        <!--Detail-->
+        <scene sceneID="zqJ-5M-ZoT">
+            <objects>
+                <viewController title="Detail" modalPresentationStyle="fullScreen" id="xsF-ox-xTh" customClass="CollectionPointDetailViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OvU-Ae-Sff">
+                        <rect key="frame" x="0.0" y="0.0" width="712" height="928"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="55" translatesAutoresizingMaskIntoConstraints="NO" id="9FY-vf-WBL">
+                                <rect key="frame" x="100" y="147" width="120.5" height="318.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VP3-7k-9kB">
+                                        <rect key="frame" x="0.0" y="0.0" width="87" height="69.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FHX-Ma-SLp">
+                                                <rect key="frame" x="0.0" y="0.0" width="87" height="41"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0l-lY-xJO">
+                                                <rect key="frame" x="0.0" y="49" width="45" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="yZb-KX-YSp">
+                                        <rect key="frame" x="0.0" y="124.5" width="120.5" height="69.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9d-gM-Sc3">
+                                                <rect key="frame" x="0.0" y="0.0" width="120.5" height="41"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dL-ma-FMC">
+                                                <rect key="frame" x="0.0" y="49" width="63" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="CHa-tP-nXy">
+                                        <rect key="frame" x="0.0" y="249" width="27.5" height="69.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Id" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1NM-ML-mTx">
+                                                <rect key="frame" x="0.0" y="0.0" width="27.5" height="41"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="id" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HzF-Tp-Aah">
+                                                <rect key="frame" x="0.0" y="49" width="14" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NWt-Ux-ZyH">
+                                <rect key="frame" x="333" y="684" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="9FY-vf-WBL" firstAttribute="leading" secondItem="Xtt-bt-qkj" secondAttribute="leading" constant="100" id="13t-D4-yle"/>
+                            <constraint firstItem="9FY-vf-WBL" firstAttribute="centerX" secondItem="Xtt-bt-qkj" secondAttribute="centerX" id="EHh-jE-MqQ"/>
+                            <constraint firstItem="NWt-Ux-ZyH" firstAttribute="centerX" secondItem="Xtt-bt-qkj" secondAttribute="centerX" id="TrB-z6-g2B"/>
+                            <constraint firstItem="NWt-Ux-ZyH" firstAttribute="top" secondItem="9FY-vf-WBL" secondAttribute="bottom" constant="200" id="Xq2-5J-2gs"/>
+                            <constraint firstItem="9FY-vf-WBL" firstAttribute="width" secondItem="Xtt-bt-qkj" secondAttribute="width" multiplier="0.7" id="leJ-eo-8sF"/>
+                            <constraint firstItem="9FY-vf-WBL" firstAttribute="top" secondItem="Xtt-bt-qkj" secondAttribute="top" constant="147" id="ukd-ZX-vQf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Xtt-bt-qkj"/>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Collection Point Details" id="xgK-PS-Clr" userLabel="Vehicle Details"/>
+                    <connections>
+                        <outlet property="addressTextField" destination="4dL-ma-FMC" id="29c-47-cCt"/>
+                        <outlet property="idTextField" destination="HzF-Tp-Aah" id="1qO-Qj-1de"/>
+                        <outlet property="nameTextField" destination="Q0l-lY-xJO" id="usc-zy-a0D"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eLs-hj-ZJd" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3050" y="2072"/>
         </scene>
     </scenes>
     <resources>
@@ -895,7 +1069,8 @@
         <image name="table.badge.more.fill" catalog="system" width="64" height="44"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="nz5-wI-aUO"/>
         <segue reference="mh8-Fl-wAU"/>
-        <segue reference="Tll-UG-LXB"/>
+        <segue reference="6S0-TO-JiA"/>
     </inferredMetricsTieBreakers>
 </document>

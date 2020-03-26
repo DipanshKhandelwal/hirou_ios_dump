@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		31093F9D23CFA6B40025679A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31093F9C23CFA6B40025679A /* LoginViewController.swift */; };
+		312E9A2A242A39980073D165 /* CollectionPointMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312E9A29242A39980073D165 /* CollectionPointMasterViewController.swift */; };
+		312E9A2D242A39F10073D165 /* CollectionPointDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312E9A2C242A39F10073D165 /* CollectionPointDetailViewController.swift */; };
 		3133F2022424BD0A001C158C /* RouteMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3133F2012424BD0A001C158C /* RouteMasterViewController.swift */; };
 		3133F2042424BE0F001C158C /* BaseRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3133F2032424BE0F001C158C /* BaseRoute.swift */; };
 		3138F1932421F5CC007C7434 /* CollectionPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3138F1922421F5CC007C7434 /* CollectionPoint.swift */; };
 		3138F1952421FD63007C7434 /* RouteCollectionPointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3138F1942421FD63007C7434 /* RouteCollectionPointViewController.swift */; };
-		314A60D1241F7C43005418EB /* CreateCollectionPointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A60D0241F7C43005418EB /* CreateCollectionPointViewController.swift */; };
 		317E230223C6306C00F8F0C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230123C6306C00F8F0C1 /* AppDelegate.swift */; };
 		317E230423C6306C00F8F0C1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230323C6306C00F8F0C1 /* SceneDelegate.swift */; };
 		317E230623C6306C00F8F0C1 /* VehicleMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230523C6306C00F8F0C1 /* VehicleMasterViewController.swift */; };
@@ -53,11 +54,12 @@
 /* Begin PBXFileReference section */
 		09B53D18299FA1A1A9AA36ED /* Pods-hirou.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hirou.release.xcconfig"; path = "Target Support Files/Pods-hirou/Pods-hirou.release.xcconfig"; sourceTree = "<group>"; };
 		31093F9C23CFA6B40025679A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		312E9A29242A39980073D165 /* CollectionPointMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointMasterViewController.swift; sourceTree = "<group>"; };
+		312E9A2C242A39F10073D165 /* CollectionPointDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointDetailViewController.swift; sourceTree = "<group>"; };
 		3133F2012424BD0A001C158C /* RouteMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMasterViewController.swift; sourceTree = "<group>"; };
 		3133F2032424BE0F001C158C /* BaseRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRoute.swift; sourceTree = "<group>"; };
 		3138F1922421F5CC007C7434 /* CollectionPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPoint.swift; sourceTree = "<group>"; };
 		3138F1942421FD63007C7434 /* RouteCollectionPointViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCollectionPointViewController.swift; sourceTree = "<group>"; };
-		314A60D0241F7C43005418EB /* CreateCollectionPointViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCollectionPointViewController.swift; sourceTree = "<group>"; };
 		317E22FE23C6306C00F8F0C1 /* hirou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hirou.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		317E230123C6306C00F8F0C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		317E230323C6306C00F8F0C1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -111,13 +113,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		312E9A2B242A39A70073D165 /* CollectionPoint */ = {
+			isa = PBXGroup;
+			children = (
+				312E9A29242A39980073D165 /* CollectionPointMasterViewController.swift */,
+				312E9A2C242A39F10073D165 /* CollectionPointDetailViewController.swift */,
+			);
+			path = CollectionPoint;
+			sourceTree = "<group>";
+		};
 		314A60CF241F7BF3005418EB /* CreateBaseRoute */ = {
 			isa = PBXGroup;
 			children = (
+				312E9A2B242A39A70073D165 /* CollectionPoint */,
 				3133F2012424BD0A001C158C /* RouteMasterViewController.swift */,
 				31920C9B241C074A00A55403 /* RouteDetailViewController.swift */,
 				3138F1942421FD63007C7434 /* RouteCollectionPointViewController.swift */,
-				314A60D0241F7C43005418EB /* CreateCollectionPointViewController.swift */,
 			);
 			path = CreateBaseRoute;
 			sourceTree = "<group>";
@@ -411,8 +422,9 @@
 				3133F2022424BD0A001C158C /* RouteMasterViewController.swift in Sources */,
 				31E209AA23D0F3550051B14B /* TestViewController.swift in Sources */,
 				3133F2042424BE0F001C158C /* BaseRoute.swift in Sources */,
-				314A60D1241F7C43005418EB /* CreateCollectionPointViewController.swift in Sources */,
+				312E9A2A242A39980073D165 /* CollectionPointMasterViewController.swift in Sources */,
 				317E230823C6306C00F8F0C1 /* VehicleDetailViewController.swift in Sources */,
+				312E9A2D242A39F10073D165 /* CollectionPointDetailViewController.swift in Sources */,
 				31F02C5923E404B500D9228E /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

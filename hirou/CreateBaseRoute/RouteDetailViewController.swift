@@ -59,8 +59,6 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             case .success(let value):
                 self.customers = []
                 for customer in value as! [Any] {
-                                                print("customer", customer)
-                    
                     let name = ((customer as AnyObject)["name"] as! String)
                     let description = ((customer as AnyObject)["description"] as! String)
                     

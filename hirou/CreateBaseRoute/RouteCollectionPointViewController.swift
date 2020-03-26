@@ -43,7 +43,6 @@ class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
         if let detail = detailItem {
             let id = (detail as! Int)
             let url = "http://127.0.0.1:8000/api/base_route/"+String(id)+"/"
-            print("url", url)
             
             AF.request(url, method: .get).responseJSON { response in
                 //to get status code
@@ -92,8 +91,6 @@ class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
             let annotation = MGLPointAnnotation()
             let lat = Double(cp.location.latitude)!
             let long = Double(cp.location.longitude)!
-            print("lat", lat)
-            print("long", long)
             annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
             //            annotation.coordinate = CLLocationCoordinate2D(latitude: 35.03946, longitude: 135.72956)
             annotation.title = cp.name
@@ -199,14 +196,18 @@ class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
     //    }
     
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    // MARK: - Navigation
     
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "showRouteCollectionPoints" {
+            let controller = (segue.destination as! CollectionPointMasterViewController)
+            if let detail = detailItem {
+                controller.detailItem = (detail as! BaseRoute).id
+            }
+        }
+    }
 }
