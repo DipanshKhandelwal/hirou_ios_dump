@@ -20,8 +20,8 @@ class CollectionPointMasterViewController: UITableViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
-//         Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-         self.navigationItem.rightBarButtonItem = self.editButtonItem
+        //         Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         navigationItem.leftBarButtonItem = editButtonItem
         
@@ -42,59 +42,59 @@ class CollectionPointMasterViewController: UITableViewController {
     
     func configureView() {
         if let detail = detailItem {
-            print("id", (detail as! Int))
+            print("id hahahaahha", (detail as! Int))
         }
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
-
-//        if let detail = detailItem {
-//            let id = (detail as! Int)
-            let url = "http://127.0.0.1:8000/api/base_route/1/"
-            
-            AF.request(url, method: .get).responseJSON { response in
-                //to get status code
-                switch response.result {
-                case .success(let value):
-                    // print(String(data: value as! Data, encoding: .utf8)!)
-                    // completion(try? SomeRequest(protobuf: value))
-                                    print("response", value)
-                    // self.vehicles = value as! [Any]
-                    self.collectionPoints = []
-//                    self.annotations = []
-                    let cps = (value as AnyObject)["collection_point"]
+        
+        //        if let detail = detailItem {
+        //            let id = (detail as! Int)
+        let url = "http://127.0.0.1:8000/api/base_route/1/"
+        
+        AF.request(url, method: .get).responseJSON { response in
+            //to get status code
+            switch response.result {
+            case .success(let value):
+                // print(String(data: value as! Data, encoding: .utf8)!)
+                // completion(try? SomeRequest(protobuf: value))
+                print("response", value)
+                // self.vehicles = value as! [Any]
+                self.collectionPoints = []
+                //                    self.annotations = []
+                let cps = (value as AnyObject)["collection_point"]
+                
+                for collectionPoint in cps as! [Any] {
+                    //                    print("collectionPoint", collectionPoint)
                     
-                    for collectionPoint in cps as! [Any] {
-                        //                    print("collectionPoint", collectionPoint)
-                        
-                        
-                        let id = ((collectionPoint as AnyObject)["id"] as! Int)
-                        let name = ((collectionPoint as AnyObject)["name"] as! String)
-                        let address = ((collectionPoint as AnyObject)["address"] as! String)
-                        let route = ((collectionPoint as AnyObject)["route"] as! Int)
-                        
-                        let locationCoordinates = ((collectionPoint as AnyObject)["location"] as! String).split{$0 == ","}.map(String.init)
-                        let location = Location( latitude: locationCoordinates[0], longitude : locationCoordinates[1] )
-                        
-                        let sequence = ((collectionPoint as AnyObject)["sequence"] as! Int)
-                        // let image = ((collectionPoint as AnyObject)["image"] as! String?)
-                        
-                        let collectionPointObj = CollectionPoint(id: id, name: name, address: address, route: route, location: location, sequence: sequence, image: "")
-                        
-                        self.collectionPoints.append(collectionPointObj!)
-                    }
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
-//                    self.addPointsTopMap()
                     
-                case .failure(let error):
-                    print(error)
+                    let id = ((collectionPoint as AnyObject)["id"] as! Int)
+                    let name = ((collectionPoint as AnyObject)["name"] as! String)
+                    let address = ((collectionPoint as AnyObject)["address"] as! String)
+                    let route = ((collectionPoint as AnyObject)["route"] as! Int)
+                    
+                    let locationCoordinates = ((collectionPoint as AnyObject)["location"] as! String).split{$0 == ","}.map(String.init)
+                    let location = Location( latitude: locationCoordinates[0], longitude : locationCoordinates[1] )
+                    
+                    let sequence = ((collectionPoint as AnyObject)["sequence"] as! Int)
+                    // let image = ((collectionPoint as AnyObject)["image"] as! String?)
+                    
+                    let collectionPointObj = CollectionPoint(id: id, name: name, address: address, route: route, location: location, sequence: sequence, image: "")
+                    
+                    self.collectionPoints.append(collectionPointObj!)
                 }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                //                    self.addPointsTopMap()
+                
+            case .failure(let error):
+                print(error)
             }
-//        }
+        }
+        //        }
         
         super.viewWillAppear(animated)
     }
@@ -119,13 +119,11 @@ class CollectionPointMasterViewController: UITableViewController {
         return cell
     }
     
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
     
     /*
      // Override to support editing the table view.
@@ -139,23 +137,20 @@ class CollectionPointMasterViewController: UITableViewController {
      }
      */
     
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
     
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+        print("fromIndexPath", fromIndexPath)
+        print("to", to)
+    }
+    
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
     
     // MARK: - Segues
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showCollectionPointDetails" {
             if let indexPath = tableView.indexPathForSelectedRow {

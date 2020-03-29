@@ -203,11 +203,12 @@ class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         
-        if segue.identifier == "showRouteCollectionPoints" {
-            let controller = (segue.destination as! CollectionPointMasterViewController)
-            if let detail = detailItem {
-                controller.detailItem = (detail as! BaseRoute).id
-            }
+        if segue.identifier == "showCollectionPoints" {
+//            let controller = (segue.destination as! CollectionPointMasterViewController)
+//            if let detail = detailItem {
+//                print("set show coll poi", (detail as! BaseRoute).id)
+//                controller.detailItem = (detail as! BaseRoute).id
+//            }
         }
     }
 }
