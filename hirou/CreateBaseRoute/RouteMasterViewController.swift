@@ -9,6 +9,13 @@
 import UIKit
 import Alamofire
 
+class RouteTableViewCell : UITableViewCell {
+    @IBOutlet weak var routeNameLabel: UILabel!
+    @IBOutlet weak var customerLabel: UILabel!
+    @IBOutlet weak var garbageTypeLabel: UILabel!
+    
+}
+
 class RouteMasterViewController: UITableViewController {
     
     var detailViewController: RouteDetailViewController? = nil
@@ -81,10 +88,13 @@ class RouteMasterViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! RouteTableViewCell
         
         let route = baseRoutes[indexPath.row]
-        cell.textLabel!.text = route.name
+//        cell.textLabel!.text = route.name
+        cell.routeNameLabel?.text = route.name
+        cell.customerLabel?.text = route.customer
+        cell.garbageTypeLabel?.text = "None for now"
         return cell
     }
     

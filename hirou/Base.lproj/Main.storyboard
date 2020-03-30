@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="E5v-Kc-5f2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BGN-LU-jTo">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
@@ -703,29 +703,52 @@
         <!--Master-->
         <scene sceneID="U6e-Iq-HX2">
             <objects>
-                <tableViewController title="Master" clearsSelectionOnViewWillAppear="NO" id="8zy-G3-CJg" customClass="RouteMasterViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="p1t-w0-k6v">
+                <tableViewController title="Master" automaticallyAdjustsScrollViewInsets="NO" clearsSelectionOnViewWillAppear="NO" id="8zy-G3-CJg" customClass="RouteMasterViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="p1t-w0-k6v">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="974"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reuseIdentifier" textLabel="OMS-Uu-xNj" style="IBUITableViewCellStyleDefault" id="1lc-mf-Fr0">
-                                <rect key="frame" x="0.0" y="28" width="320" height="47.5"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reuseIdentifier" rowHeight="75" id="1lc-mf-Fr0" customClass="RouteTableViewCell" customModule="hirou" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="320" height="75"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1lc-mf-Fr0" id="Vmk-Gw-ocY">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OMS-Uu-xNj">
-                                            <rect key="frame" x="16" y="0.0" width="288" height="47.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Route Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIL-Qi-iCu" userLabel="Route Name">
+                                            <rect key="frame" x="16" y="5" width="94" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdj-Ho-OgX" userLabel="Customer">
+                                            <rect key="frame" x="16" y="35" width="56" height="15"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Garbage Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ixe-Bq-xiP">
+                                            <rect key="frame" x="16" y="55" width="80" height="15"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Rdj-Ho-OgX" firstAttribute="leading" secondItem="Vmk-Gw-ocY" secondAttribute="leading" constant="16" id="1cB-s4-3ja" userLabel="Customer.leading = leading + 15"/>
+                                        <constraint firstItem="jIL-Qi-iCu" firstAttribute="top" secondItem="Vmk-Gw-ocY" secondAttribute="top" constant="5" id="5y2-bh-mH9" userLabel="Route Name.top = top + 15"/>
+                                        <constraint firstItem="jIL-Qi-iCu" firstAttribute="leading" secondItem="Vmk-Gw-ocY" secondAttribute="leading" constant="16" id="Nn0-9t-b35" userLabel="Route Name.leading = leading + 15"/>
+                                        <constraint firstItem="Ixe-Bq-xiP" firstAttribute="leading" secondItem="Vmk-Gw-ocY" secondAttribute="leading" constant="16" id="SQs-Gx-MY9" userLabel="Garbage Type Label.leading = leading + 15"/>
+                                        <constraint firstItem="Rdj-Ho-OgX" firstAttribute="top" secondItem="jIL-Qi-iCu" secondAttribute="bottom" constant="9" id="i5N-nj-yCg" userLabel="Customer.top = Route Name.bottom + 10"/>
+                                        <constraint firstItem="Ixe-Bq-xiP" firstAttribute="top" secondItem="Rdj-Ho-OgX" secondAttribute="bottom" constant="5" id="pRN-5r-9Ns" userLabel="Garbage Type Label.top = Customer.bottom + 10"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
+                                    <outlet property="customerLabel" destination="Rdj-Ho-OgX" id="bOB-xp-Qrk"/>
+                                    <outlet property="garbageTypeLabel" destination="Ixe-Bq-xiP" id="fmn-xm-1m8"/>
+                                    <outlet property="routeNameLabel" destination="jIL-Qi-iCu" id="WFx-UX-WvL"/>
                                     <segue destination="qu2-Qa-EoI" kind="showDetail" identifier="showRouteDetails" id="mh8-Fl-wAU"/>
                                 </connections>
                             </tableViewCell>
@@ -741,7 +764,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZt-OE-6hY" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-13" y="996"/>
+            <point key="canvasLocation" x="-13.28125" y="995.50781249999989"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rQH-Zo-gWJ">
