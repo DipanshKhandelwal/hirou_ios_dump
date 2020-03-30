@@ -9,12 +9,18 @@
 import UIKit
 import Alamofire
 import Mapbox
+import Foundation
+import MapboxCoreNavigation
+import MapboxNavigation
+import MapboxDirections
+import Alamofire
 
 class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
     
     var collectionPoints = [CollectionPoint]()
     var annotations = [MGLPointAnnotation]()
     @IBOutlet var mapView: MGLMapView!
+    @IBOutlet weak var navigate: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +29,38 @@ class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
         
         mapView.delegate = self
         configureView()
+    }
+    
+    @IBAction func navigatePressed(_ sender: UIButton) {
+        startNavigation()
+    }
+
+    func startNavigation() {
+        var waypoints = [CLLocationCoordinate2D]()
+
+        for cp in self.collectionPoints {
+            let lat = Double(cp.location.latitude)!
+            let long = Double(cp.location.longitude)!
+            waypoints.append(CLLocationCoordinate2DMake(lat, long))
+            if(waypoints.count >= 3) {break};
+        }
+
+        let options = NavigationRouteOptions(coordinates: waypoints)
+
+        Directions.shared.calculate(options) { (waypoints, routes, error) in
+            guard let route = routes?.first, error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+
+            // For demonstration purposes, simulate locations if the Simulate Navigation option is on.
+            let navigationService = MapboxNavigationService(route: route, simulating: .always)
+            let navigationOptions = NavigationOptions(navigationService: navigationService)
+            let navigationViewController = NavigationViewController(for: route, options: navigationOptions)
+            navigationViewController.modalPresentationStyle = .fullScreen
+
+            self.present(navigationViewController, animated: true, completion: nil)
+        }
     }
     
     var detailItem: Any? {
@@ -34,45 +72,33 @@ class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
     
     func configureView() {
         if let detail = detailItem {
-            print("id", (detail as! Int))
+            print("id", (detail as! BaseRoute).id)
         }
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         if let detail = detailItem {
-            let id = (detail as! Int)
+            let id = (detail as! BaseRoute).id
             let url = "http://127.0.0.1:8000/api/base_route/"+String(id)+"/"
             
             AF.request(url, method: .get).responseJSON { response in
                 //to get status code
                 switch response.result {
                 case .success(let value):
-                    // print(String(data: value as! Data, encoding: .utf8)!)
-                    // completion(try? SomeRequest(protobuf: value))
-                    //                print("response", value)
-                    // self.vehicles = value as! [Any]
                     self.collectionPoints = []
                     self.annotations = []
                     let cps = (value as AnyObject)["collection_point"]
                     
                     for collectionPoint in cps as! [Any] {
-                        //                    print("collectionPoint", collectionPoint)
-                        
-                        
                         let id = ((collectionPoint as AnyObject)["id"] as! Int)
                         let name = ((collectionPoint as AnyObject)["name"] as! String)
                         let address = ((collectionPoint as AnyObject)["address"] as! String)
                         let route = ((collectionPoint as AnyObject)["route"] as! Int)
-                        
                         let locationCoordinates = ((collectionPoint as AnyObject)["location"] as! String).split{$0 == ","}.map(String.init)
                         let location = Location( latitude: locationCoordinates[0], longitude : locationCoordinates[1] )
-                        
                         let sequence = ((collectionPoint as AnyObject)["sequence"] as! Int)
-                        // let image = ((collectionPoint as AnyObject)["image"] as! String?)
-                        
                         let collectionPointObj = CollectionPoint(id: id, name: name, address: address, route: route, location: location, sequence: sequence, image: "")
-                        
                         self.collectionPoints.append(collectionPointObj!)
                     }
                     self.addPointsTopMap()
@@ -204,11 +230,11 @@ class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
         // Pass the selected object to the new view controller.
         
         if segue.identifier == "showCollectionPoints" {
-//            let controller = (segue.destination as! CollectionPointMasterViewController)
-//            if let detail = detailItem {
-//                print("set show coll poi", (detail as! BaseRoute).id)
-//                controller.detailItem = (detail as! BaseRoute).id
-//            }
+            //            let controller = (segue.destination as! CollectionPointMasterViewController)
+            //            if let detail = detailItem {
+            //                print("set show coll poi", (detail as! BaseRoute).id)
+            //                controller.detailItem = (detail as! BaseRoute).id
+            //            }
         }
     }
 }
