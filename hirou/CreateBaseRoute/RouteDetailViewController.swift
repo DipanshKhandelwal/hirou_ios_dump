@@ -127,10 +127,9 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
      // Get the new view controller using segue.destination.
      // Pass the selected object to the new view controller.
         if segue.identifier == "showRouteCollectionPoints" {
-            let controller = (segue.destination as! UINavigationController).topViewController as! RouteCollectionPointViewController
+            let controller = (segue.destination as! RouteCollectionPointViewController)
             if let detail = detailItem {
-//                print("id", )
-                controller.detailItem = (detail as! BaseRoute).id
+                controller.detailItem = (detail as! BaseRoute)
             }
         }
         

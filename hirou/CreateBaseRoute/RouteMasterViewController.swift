@@ -18,7 +18,7 @@ class RouteTableViewCell : UITableViewCell {
 
 class RouteMasterViewController: UITableViewController {
     
-    var detailViewController: RouteDetailViewController? = nil
+//    var detailViewController: RouteDetailViewController? = nil
     var baseRoutes = [BaseRoute]()
     
     override func viewDidLoad() {
@@ -28,20 +28,20 @@ class RouteMasterViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
         
 //         Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-         self.navigationItem.rightBarButtonItem = self.editButtonItem
+//         self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        navigationItem.leftBarButtonItem = editButtonItem
-        
-        //        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
-        //        navigationItem.rightBarButtonItem = addButton
-        if let split = splitViewController {
-            let controllers = split.viewControllers
-            detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? RouteDetailViewController
-        }
+//        navigationItem.leftBarButtonItem = editButtonItem
+//
+//        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
+//        navigationItem.rightBarButtonItem = addButton
+//        if let split = splitViewController {
+//            let controllers = split.viewControllers
+//            detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? RouteDetailViewController
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
+//        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         
         
         AF.request("http://127.0.0.1:8000/api/base_route/", method: .get).responseJSON { response in
@@ -133,20 +133,19 @@ class RouteMasterViewController: UITableViewController {
      }
      */
     
+    @objc
+    func insertNewObject(_ sender: Any) {
+        
+    }
+    
     // MARK: - Segues
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showRouteDetails" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                
-                //                let object = objects[indexPath.row] as! NSDate
                 let route = self.baseRoutes[indexPath.row]
-                let controller = (segue.destination as! UINavigationController).topViewController as! RouteDetailViewController
-                //                controller.detailItem = object
+                let controller = (segue.destination as! RouteDetailViewController)
                 controller.detailItem = route as Any
-                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-                controller.navigationItem.leftItemsSupplementBackButton = true
-                detailViewController = controller
             }
         }
     }
