@@ -32,28 +32,13 @@ class CollectionPointMasterViewController: UITableViewController {
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? CollectionPointDetailViewController
         }
     }
-    
-    var detailItem: Any? {
-        didSet {
-            // Update the view.
-            configureView()
-        }
-    }
-    
-    func configureView() {
-        if let detail = detailItem {
-            print("id hahahaahha", (detail as! Int))
-        }
-    }
-    
-    
+
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         
-        //        if let detail = detailItem {
-        //            let id = (detail as! Int)
-        let url = "http://127.0.0.1:8000/api/base_route/1/"
-        
+        let id = UserDefaults.standard.string(forKey: "selectedRoute")!
+        let url = "http://127.0.0.1:8000/api/base_route/"+String(id)+"/"
+
         AF.request(url, method: .get).responseJSON { response in
             //to get status code
             switch response.result {

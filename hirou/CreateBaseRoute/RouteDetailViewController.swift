@@ -49,6 +49,8 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             if let label = self.customerTextField {
                 label.text = (detail as! BaseRoute).customer
             }
+            
+            UserDefaults.standard.set((detail as! BaseRoute).id, forKey: "selectedRoute")
         }
     }
     
