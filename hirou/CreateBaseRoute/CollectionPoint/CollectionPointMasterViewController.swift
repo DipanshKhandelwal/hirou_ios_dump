@@ -9,6 +9,12 @@
 import UIKit
 import Alamofire
 
+class CollectionPointTableViewCell : UITableViewCell {
+    @IBOutlet weak var collectionPointIndexLabel: UILabel!
+    @IBOutlet weak var collectionPointNameLabel: UILabel!
+    @IBOutlet weak var collectionPointAddressLabel: UILabel!
+}
+
 class CollectionPointMasterViewController: UITableViewController {
     
     var detailViewController: CollectionPointDetailViewController? = nil
@@ -97,10 +103,12 @@ class CollectionPointMasterViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "collectionPointCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "collectionPointCell", for: indexPath) as! CollectionPointTableViewCell
         
         let collectionPoint = collectionPoints[indexPath.row]
-        cell.textLabel!.text = collectionPoint.name
+        cell.collectionPointNameLabel!.text = collectionPoint.name
+        cell.collectionPointAddressLabel!.text = collectionPoint.address
+        cell.collectionPointIndexLabel!.text = String(indexPath.row)
         return cell
     }
     
@@ -127,6 +135,15 @@ class CollectionPointMasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         print("fromIndexPath", fromIndexPath)
         print("to", to)
+        let fromIndex = fromIndexPath[1]
+        let toIndex = to[1]
+        let cp: CollectionPoint = self.collectionPoints[fromIndex]
+        self.collectionPoints[fromIndex] = self.collectionPoints[toIndex]
+        self.collectionPoints[toIndex] = cp
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     // Override to support conditional rearranging of the table view.

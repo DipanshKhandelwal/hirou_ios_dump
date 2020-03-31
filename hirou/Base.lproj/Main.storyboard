@@ -415,23 +415,23 @@
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="974"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="gbK-wx-eM5" userLabel="ContainerView">
-                                <rect key="frame" x="199" y="50" width="370" height="125"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="gbK-wx-eM5" userLabel="ContainerView">
+                                <rect key="frame" x="628" y="20" width="120" height="85"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="J7P-WF-ueT">
-                                        <rect key="frame" x="0.0" y="0.0" width="90" height="125"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="85"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="GQM-Fe-Elg">
-                                                <rect key="frame" x="0.0" y="0.5" width="90" height="89"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="GQM-Fe-Elg">
+                                                <rect key="frame" x="0.0" y="0.5" width="50" height="49"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="90" id="01U-4s-kkW"/>
+                                                    <constraint firstAttribute="width" constant="50" id="01U-4s-kkW"/>
                                                     <constraint firstAttribute="width" secondItem="GQM-Fe-Elg" secondAttribute="height" multiplier="1:1" id="yPF-Wj-SmY"/>
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="BWF-4U-INg">
-                                                <rect key="frame" x="0.0" y="95" width="90" height="30"/>
+                                                <rect key="frame" x="0.0" y="55" width="50" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="CREATE"/>
+                                                <state key="normal" title="Edit"/>
                                                 <connections>
                                                     <segue destination="y29-yR-YbL" kind="showDetail" identifier="showCollectionPoints" id="j4m-Dy-GbK"/>
                                                 </connections>
@@ -439,39 +439,22 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Wdq-uY-Yf3">
-                                        <rect key="frame" x="140" y="0.0" width="90" height="125"/>
+                                        <rect key="frame" x="70" y="0.0" width="50" height="85"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="car.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Ukh-7K-RMf">
-                                                <rect key="frame" x="0.0" y="1.5" width="90" height="87.5"/>
+                                                <rect key="frame" x="0.0" y="1.5" width="50" height="47.5"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="90" id="1Ge-ca-rdV" userLabel="width = 90"/>
+                                                    <constraint firstAttribute="width" constant="50" id="1Ge-ca-rdV" userLabel="width = 90"/>
                                                     <constraint firstAttribute="width" secondItem="Ukh-7K-RMf" secondAttribute="height" multiplier="1:1" id="CIZ-Vc-2DZ"/>
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="kC9-y9-qAx">
-                                                <rect key="frame" x="0.0" y="95" width="90" height="30"/>
+                                                <rect key="frame" x="0.0" y="55" width="50" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="AUTO GENERATE"/>
+                                                <state key="normal" title="Route"/>
                                                 <connections>
                                                     <action selector="navigatePressed:" destination="K5w-d3-16T" eventType="touchUpInside" id="kpx-l6-LuK"/>
                                                 </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fd5-Ok-0d9">
-                                        <rect key="frame" x="280" y="0.0" width="90" height="125"/>
-                                        <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="e7d-9I-1IR">
-                                                <rect key="frame" x="0.0" y="0.5" width="90" height="89"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" secondItem="e7d-9I-1IR" secondAttribute="height" multiplier="1:1" id="0IJ-Yb-FeR"/>
-                                                    <constraint firstAttribute="width" constant="90" id="fcc-OL-tc8"/>
-                                                </constraints>
-                                            </imageView>
-                                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Gxl-4e-5Cn">
-                                                <rect key="frame" x="0.0" y="95" width="90" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="FINISH"/>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -483,8 +466,8 @@
                             <constraint firstItem="8KB-yz-UU7" firstAttribute="leading" secondItem="czU-13-YWy" secondAttribute="leading" id="31S-xE-yzm"/>
                             <constraint firstItem="8KB-yz-UU7" firstAttribute="height" secondItem="czU-13-YWy" secondAttribute="height" id="Hgy-gH-jgG"/>
                             <constraint firstItem="8KB-yz-UU7" firstAttribute="top" secondItem="czU-13-YWy" secondAttribute="top" id="KMY-XF-Vla"/>
-                            <constraint firstItem="gbK-wx-eM5" firstAttribute="top" secondItem="czU-13-YWy" secondAttribute="top" constant="50" id="OGY-q5-G0Y"/>
-                            <constraint firstItem="gbK-wx-eM5" firstAttribute="centerX" secondItem="czU-13-YWy" secondAttribute="centerX" id="Xa9-5O-WsQ"/>
+                            <constraint firstItem="gbK-wx-eM5" firstAttribute="top" secondItem="czU-13-YWy" secondAttribute="top" constant="20" id="OGY-q5-G0Y"/>
+                            <constraint firstItem="czU-13-YWy" firstAttribute="trailing" secondItem="gbK-wx-eM5" secondAttribute="trailing" constant="20" id="Sz1-NS-4SO"/>
                             <constraint firstItem="8KB-yz-UU7" firstAttribute="width" secondItem="czU-13-YWy" secondAttribute="width" id="e50-79-M2R"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="czU-13-YWy"/>
@@ -842,7 +825,7 @@
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ISb-fV-bjn" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1991" y="983"/>
+            <point key="canvasLocation" x="1346" y="983"/>
         </scene>
         <!--Master-->
         <scene sceneID="YIt-R8-2xi">
@@ -858,34 +841,57 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I7d-LS-4Td" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2847" y="786"/>
+            <point key="canvasLocation" x="2191" y="720"/>
         </scene>
         <!--Master-->
         <scene sceneID="Y3C-qc-LE6">
             <objects>
                 <tableViewController title="Master" modalPresentationStyle="fullScreen" clearsSelectionOnViewWillAppear="NO" id="Fx9-6H-G54" customClass="CollectionPointMasterViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ZMQ-Fw-nfU">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ZMQ-Fw-nfU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="974"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="collectionPointCell" textLabel="1LJ-gk-eLy" style="IBUITableViewCellStyleDefault" id="6NC-aC-LI4">
-                                <rect key="frame" x="0.0" y="28" width="320" height="47.5"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="collectionPointCell" rowHeight="70" id="6NC-aC-LI4" customClass="CollectionPointTableViewCell" customModule="hirou" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="320" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6NC-aC-LI4" id="1DY-6b-Y9I">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1LJ-gk-eLy">
-                                            <rect key="frame" x="16" y="0.0" width="288" height="47.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="i" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rcp-Fd-uef">
+                                            <rect key="frame" x="16" y="24.5" width="4" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collection Point Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szn-tL-5Fp" userLabel="Collection Point Name">
+                                            <rect key="frame" x="36" y="12" width="169.5" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collection Point Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NoP-Ta-uoU" userLabel="Collection Point Address">
+                                            <rect key="frame" x="36" y="41" width="139" height="15"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="rcp-Fd-uef" firstAttribute="leading" secondItem="1DY-6b-Y9I" secondAttribute="leading" constant="15.999999999999829" id="MWG-BY-X68"/>
+                                        <constraint firstItem="rcp-Fd-uef" firstAttribute="centerY" secondItem="1DY-6b-Y9I" secondAttribute="centerY" id="Na9-CT-gWx"/>
+                                        <constraint firstItem="szn-tL-5Fp" firstAttribute="top" secondItem="1DY-6b-Y9I" secondAttribute="top" constant="12" id="Pw6-F6-YzU"/>
+                                        <constraint firstItem="szn-tL-5Fp" firstAttribute="leading" secondItem="rcp-Fd-uef" secondAttribute="trailing" constant="16" id="S3Q-b4-zFH"/>
+                                        <constraint firstItem="NoP-Ta-uoU" firstAttribute="top" secondItem="szn-tL-5Fp" secondAttribute="bottom" constant="8" id="fmc-Vv-IDl" userLabel="Collection Point Address.top = Collection Point Name.bottom + 8"/>
+                                        <constraint firstItem="NoP-Ta-uoU" firstAttribute="leading" secondItem="rcp-Fd-uef" secondAttribute="trailing" constant="15.999999999999829" id="rs6-XP-Eqa"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
+                                    <outlet property="collectionPointAddressLabel" destination="NoP-Ta-uoU" id="cc6-1I-JR7"/>
+                                    <outlet property="collectionPointIndexLabel" destination="rcp-Fd-uef" id="1QH-Go-Nkk"/>
+                                    <outlet property="collectionPointNameLabel" destination="szn-tL-5Fp" id="hH1-HJ-6RZ"/>
                                     <segue destination="lU6-MM-cQm" kind="showDetail" identifier="showCollectionPointDetails" id="nz5-wI-aUO"/>
                                 </connections>
                             </tableViewCell>
@@ -901,7 +907,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gtG-6Z-rgW" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3557" y="786"/>
+            <point key="canvasLocation" x="2863" y="720"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WUV-Na-Pre">
@@ -923,7 +929,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NxW-4k-ZND" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2847" y="1496"/>
+            <point key="canvasLocation" x="2191" y="1388"/>
         </scene>
         <!--Detail-->
         <scene sceneID="zqJ-5M-ZoT">
@@ -992,9 +998,6 @@
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NWt-Ux-ZyH">
                                 <rect key="frame" x="333" y="684" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
-                                <connections>
-                                    <segue destination="Rcu-xf-JUg" kind="show" id="UKp-YY-7Ab"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -1018,23 +1021,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eLs-hj-ZJd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3557" y="1496"/>
-        </scene>
-        <!--Route Navigation View Controller-->
-        <scene sceneID="gyv-Kp-smU">
-            <objects>
-                <viewController id="Rcu-xf-JUg" customClass="RouteNavigationViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="POU-0s-TY4">
-                        <rect key="frame" x="0.0" y="0.0" width="712" height="928"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="HIw-23-fDb"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="iVB-Wu-KlN"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jOp-Pa-8eE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4266" y="1496"/>
+            <point key="canvasLocation" x="2864" y="1388"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
@@ -1044,15 +1031,14 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="car.fill" catalog="system" width="128" height="93"/>
-        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
         <image name="clock.fill" catalog="system" width="128" height="121"/>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="globe" catalog="system" width="128" height="121"/>
         <image name="map.fill" catalog="system" width="128" height="113"/>
         <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
+        <image name="pencil.circle" catalog="system" width="128" height="121"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="plus.circle" catalog="system" width="128" height="121"/>
         <image name="table.badge.more.fill" catalog="system" width="128" height="88"/>
     </resources>
 </document>
