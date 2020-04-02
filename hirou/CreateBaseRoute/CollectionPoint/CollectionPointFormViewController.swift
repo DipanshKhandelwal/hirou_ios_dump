@@ -20,6 +20,7 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        cpMapView.delegate = self
         // Do any additional setup after loading the view.
         configureView()
     }
@@ -44,6 +45,38 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
             if let label = self.cpCoordinateslabel {
                 label.text = String((detail as! CollectionPoint).id)
             }
+            
+            if let map = self.cpMapView {
+                let annotation = MGLPointAnnotation()
+                let lat = Double((detail as! CollectionPoint).location.latitude)!
+                let long = Double((detail as! CollectionPoint).location.longitude)!
+                annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                //            annotation.coordinate = CLLocationCoordinate2D(latitude: 35.03946, longitude: 135.72956)
+                annotation.title = (detail as! CollectionPoint).name
+                annotation.subtitle = "\(annotation.coordinate.latitude), \(annotation.coordinate.longitude)"
+                map.addAnnotation(annotation)
+                // Center the map on the annotation.
+                map.setCenter(annotation.coordinate, zoomLevel: 14, animated: false)
+                
+                // Pop-up the callout view.
+                map.selectAnnotation(annotation, animated: true, completionHandler: nil)
+            }
         }
+    }
+    
+    
+
+    
+    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        return true
+    }
+    
+    func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 60, height: 50))
+        label.textAlignment = .right
+        label.textColor = UIColor(red: 0.81, green: 0.71, blue: 0.23, alpha: 1)
+        label.text = "CP"
+        
+        return label
     }
 }
