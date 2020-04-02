@@ -26,6 +26,7 @@
 		31920C9C241C074A00A55403 /* RouteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31920C9B241C074A00A55403 /* RouteDetailViewController.swift */; };
 		31920C9F241CD5D900A55403 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31920C9E241CD5D900A55403 /* Location.swift */; };
 		31920CA1241CD63600A55403 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31920CA0241CD63600A55403 /* Customer.swift */; };
+		31C24F1B2435E6BF000C3206 /* CollectionPointFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C24F1A2435E6BF000C3206 /* CollectionPointFormViewController.swift */; };
 		31DA88B623F3CF7B00713805 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA88B523F3CF7B00713805 /* Vehicle.swift */; };
 		31E209AA23D0F3550051B14B /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E209A923D0F3550051B14B /* TestViewController.swift */; };
 		58514F6DD549292BFD156FB8 /* Pods_hirou.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE9740D6C8CD4CA3B0744CD /* Pods_hirou.framework */; };
@@ -75,6 +76,7 @@
 		31920C9B241C074A00A55403 /* RouteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailViewController.swift; sourceTree = "<group>"; };
 		31920C9E241CD5D900A55403 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		31920CA0241CD63600A55403 /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		31C24F1A2435E6BF000C3206 /* CollectionPointFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointFormViewController.swift; sourceTree = "<group>"; };
 		31DA88B523F3CF7B00713805 /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
 		31E209A923D0F3550051B14B /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		9AE9740D6C8CD4CA3B0744CD /* Pods_hirou.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_hirou.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,6 +114,7 @@
 			children = (
 				312E9A29242A39980073D165 /* CollectionPointMasterViewController.swift */,
 				312E9A2C242A39F10073D165 /* CollectionPointDetailViewController.swift */,
+				31C24F1A2435E6BF000C3206 /* CollectionPointFormViewController.swift */,
 			);
 			path = CollectionPoint;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31C24F1B2435E6BF000C3206 /* CollectionPointFormViewController.swift in Sources */,
 				31920C9C241C074A00A55403 /* RouteDetailViewController.swift in Sources */,
 				31DA88B623F3CF7B00713805 /* Vehicle.swift in Sources */,
 				3138F1932421F5CC007C7434 /* CollectionPoint.swift in Sources */,

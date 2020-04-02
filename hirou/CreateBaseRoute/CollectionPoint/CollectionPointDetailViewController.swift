@@ -149,10 +149,10 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         guard gesture.state == .ended else { return }
         let spot = gesture.location(in: mapView)
         guard let location = mapView?.convert(spot, toCoordinateFrom: mapView) else { return }
-
+        
         mapView.removeAnnotation(self.newAnnotation)
         self.newAnnotation = MGLPointAnnotation()
-
+        
         self.newAnnotation.coordinate = location
         //            annotation.coordinate = CLLocationCoordinate2D(latitude: 35.03946, longitude: 135.72956)
         self.newAnnotation.title = "New Collection Point"
@@ -176,14 +176,16 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     
     func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
         let addPoint = UIButton(type: .contactAdd)
-        addPoint.addTarget(self, action: #selector(addPointSegue(sender:)), for: .touchUpInside)
+        addPoint.addTarget(self, action: #selector(addPointSegue(sender:)), for: .touchDown)
         return addPoint
     }
     
-        @objc func addPointSegue(sender: UIButton) {
-            performSegue(withIdentifier: "addNewCollectionPoint", sender: nil)
+    @objc func addPointSegue(sender: UIButton) {
+        DispatchQueue.main.async() {
+            self.performSegue(withIdentifier: "addCollectionPoint", sender: self)
         }
-        
+    }
+    
     //    func mapView(_ mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
     //        // Hide the callout view.
     //        mapView.deselectAnnotation(annotation, animated: false)

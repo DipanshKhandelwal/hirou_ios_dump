@@ -206,9 +206,17 @@ class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
     
     
     func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
-        return UIButton(type: .detailDisclosure)
+        let editButton = UIButton(type: .detailDisclosure)
+        editButton.addTarget(self, action: #selector(editPointSegue(sender:)), for: .touchDown)
+        return editButton
     }
     
+    @objc func editPointSegue(sender: UIButton) {
+        DispatchQueue.main.async() {
+            self.performSegue(withIdentifier: "editCollectionPoint", sender: self)
+        }
+    }
+
 //    func mapView(_ mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
 //        // Hide the callout view.
 //        mapView.deselectAnnotation(annotation, animated: false)
@@ -217,6 +225,4 @@ class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
 //        //        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 //        //        self.present(alert, animated: true, completion: nil)
 //    }
-    
-    
 }
