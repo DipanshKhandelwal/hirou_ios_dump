@@ -211,6 +211,21 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
             print("self.id", ss)
         }
     }
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "addCollectionPoint" {
+            let controller = (segue.destination as! CollectionPointFormViewController)
+            let lat = self.newAnnotation.coordinate.latitude
+            let long = self.newAnnotation.coordinate.longitude
+            let loc = Location(latitude: String(lat), longitude: String(long))
+            let cp = CollectionPoint(id: 0, name: "name", address: "address", route: 0, location: loc, sequence: 0, image: "")
+            controller.detailItem = cp
+        }
+    }
 }
 
 

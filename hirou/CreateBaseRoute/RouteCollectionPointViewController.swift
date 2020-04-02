@@ -18,6 +18,7 @@ import Alamofire
 class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
     
     var collectionPoints = [CollectionPoint]()
+    var selectedCollectionPoint : CollectionPoint!
     var annotations = [MGLPointAnnotation]()
     @IBOutlet var mapView: MGLMapView!
     @IBOutlet weak var navigate: UIButton!
@@ -120,7 +121,7 @@ class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
             annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
             //            annotation.coordinate = CLLocationCoordinate2D(latitude: 35.03946, longitude: 135.72956)
             annotation.title = cp.name
-            annotation.subtitle = "\(Double(round(annotation.coordinate.latitude*1000)/1000)), \(Double(round(annotation.coordinate.longitude*1000)/1000))"
+            annotation.subtitle = "\(annotation.coordinate.latitude), \(annotation.coordinate.longitude)"
             annotations.append(annotation)
         }
         
@@ -207,6 +208,20 @@ class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
     
     func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
         let editButton = UIButton(type: .detailDisclosure)
+        
+
+        print("self.selectedAnnotation.coordinate", annotation.coordinate)
+        
+        var currentIndex = 0
+        for cp in self.collectionPoints {
+            if cp.location.latitude == String(annotation.coordinate.latitude) {
+                self.selectedCollectionPoint = self.collectionPoints[currentIndex];
+                break
+            }
+            currentIndex += 1
+        }
+        
+        
         editButton.addTarget(self, action: #selector(editPointSegue(sender:)), for: .touchDown)
         return editButton
     }
@@ -225,4 +240,12 @@ class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
 //        //        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 //        //        self.present(alert, animated: true, completion: nil)
 //    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "editCollectionPoint" {
+            let controller = (segue.destination as! CollectionPointFormViewController)
+            controller.detailItem = self.selectedCollectionPoint
+        }
+    }
 }
