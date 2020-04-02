@@ -13,9 +13,9 @@ import Mapbox
 class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
 
     
-    @IBOutlet weak var cpNameLabel: UILabel!
-    @IBOutlet weak var cpAddressLabel: UILabel!
-    @IBOutlet weak var cpCoordinateslabel: UILabel!
+    @IBOutlet weak var cpNameLabel: UITextField!
+    @IBOutlet weak var cpAddressLabel: UITextField!
+    @IBOutlet weak var cpCoordinateslabel: UITextField!
     @IBOutlet var cpMapView: MGLMapView!
     
     override func viewDidLoad() {
