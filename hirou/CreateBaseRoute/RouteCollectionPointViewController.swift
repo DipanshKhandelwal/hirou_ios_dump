@@ -34,31 +34,31 @@ class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
     @IBAction func navigatePressed(_ sender: UIButton) {
         startNavigation()
     }
-
+    
     func startNavigation() {
         var waypoints = [CLLocationCoordinate2D]()
-
+        
         for cp in self.collectionPoints {
             let lat = Double(cp.location.latitude)!
             let long = Double(cp.location.longitude)!
             waypoints.append(CLLocationCoordinate2DMake(lat, long))
             if(waypoints.count >= 3) {break};
         }
-
+        
         let options = NavigationRouteOptions(coordinates: waypoints)
-
+        
         Directions.shared.calculate(options) { (waypoints, routes, error) in
             guard let route = routes?.first, error == nil else {
                 print(error!.localizedDescription)
                 return
             }
-
+            
             // For demonstration purposes, simulate locations if the Simulate Navigation option is on.
             let navigationService = MapboxNavigationService(route: route, simulating: .always)
             let navigationOptions = NavigationOptions(navigationService: navigationService)
             let navigationViewController = NavigationViewController(for: route, options: navigationOptions)
             navigationViewController.modalPresentationStyle = .fullScreen
-
+            
             self.present(navigationViewController, animated: true, completion: nil)
         }
     }
@@ -188,7 +188,6 @@ class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
             }
             
             mapView.setVisibleCoordinateBounds(MGLCoordinateBoundsMake(CLLocationCoordinate2DMake(southWestLatitude, southWestLongitude), CLLocationCoordinate2DMake(northEastLatitude, northEastLongitude)), animated: true)
-            
         }
     }
     
@@ -210,31 +209,14 @@ class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
         return UIButton(type: .detailDisclosure)
     }
     
-    //    func mapView(_ mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
-    //        // Hide the callout view.
-    //        mapView.deselectAnnotation(annotation, animated: false)
-    //
-    //        // Show an alert containing the annotation's details
-    ////        let alert = UIAlertController(title: annotation.title!!, message: "A lovely (if touristy) place.", preferredStyle: .alert)
-    ////        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-    ////        self.present(alert, animated: true, completion: nil)
-    //
-    //    }
+//    func mapView(_ mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
+//        // Hide the callout view.
+//        mapView.deselectAnnotation(annotation, animated: false)
+//        // Show an alert containing the annotation's details
+//        //        let alert = UIAlertController(title: annotation.title!!, message: "A lovely (if touristy) place.", preferredStyle: .alert)
+//        //        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//        //        self.present(alert, animated: true, completion: nil)
+//    }
     
     
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-        
-//        if segue.identifier == "showCollectionPoints" {
-            //            let controller = (segue.destination as! CollectionPointMasterViewController)
-            //            if let detail = detailItem {
-            //                print("set show coll poi", (detail as! BaseRoute).id)
-            //                controller.detailItem = (detail as! BaseRoute).id
-            //            }
-//        }
-    }
 }

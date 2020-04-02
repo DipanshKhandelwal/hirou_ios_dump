@@ -154,18 +154,18 @@ class CollectionPointMasterViewController: UITableViewController {
     
     // MARK: - Segues
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showCollectionPointDetails" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                
-                //                let object = objects[indexPath.row] as! NSDate
-                let collectionPoint = self.collectionPoints[indexPath.row]
-                let controller = (segue.destination as! UINavigationController).topViewController as! CollectionPointDetailViewController
-                //                controller.detailItem = object
-                controller.detailItem = collectionPoint as Any
-                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-                controller.navigationItem.leftItemsSupplementBackButton = true
-                detailViewController = controller
-            }
-        }
+//        if segue.identifier == "showCollectionPointDetails" {
+//            if let indexPath = tableView.indexPathForSelectedRow {
+//
+//                //                let object = objects[indexPath.row] as! NSDate
+//                let collectionPoint = self.collectionPoints[indexPath.row]
+//                let controller = (segue.destination as! UINavigationController).topViewController as! CollectionPointDetailViewController
+//                //                controller.detailItem = object
+//                controller.detailItem = collectionPoint as Any
+//                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+//                controller.navigationItem.leftItemsSupplementBackButton = true
+//                detailViewController = controller
+//            }
+//        }
     }
 }
