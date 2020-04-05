@@ -10,10 +10,11 @@ import Foundation
 
 class Customer {
     //MARK: Properties
+    var id: Int
     var name: String
     var description : String = ""
     
-    init?(name : String, description: String) {
+    init?(name : String, description: String, id: Int) {
         // Initialization should fail if there is no name.
         if name.isEmpty  {
             return nil
@@ -21,6 +22,7 @@ class Customer {
         
         // Initialize stored properties.
         self.name = name
+        self.id = id
         self.description = description
     }
 }
