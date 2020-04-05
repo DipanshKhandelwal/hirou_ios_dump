@@ -30,7 +30,30 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
     }
     
     func saveCPCall() {
-        
+        let id = (detailItem as! CollectionPoint).id
+        if id != -1 {
+            let id = String((detailItem as! CollectionPoint).id)
+            let parameters: [String: String] = [
+                "name": String(self.cpNameLabel.text!),
+                "location": self.cpCoordinatesLat.text! + "," + self.cpCoordinatesLong.text! ,
+                "address": self.cpAddressLabel.text ?? "nil",
+                "sequence": self.cpSequence.text ?? "0"
+            ]
+            AF.request("http://127.0.0.1:8000/api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
+                .responseString {
+                    response in
+                    switch response.result {
+                    case .success(let value):
+                        print("value", value)
+                        _ = self.navigationController?.popViewController(animated: true)
+
+                    case .failure(let error):
+                        print(error)
+                    }
+            }
+        } else {
+            // create new collection point here
+        }
     }
     
     func deleteCPCall() {
