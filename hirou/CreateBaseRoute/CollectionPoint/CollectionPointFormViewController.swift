@@ -52,7 +52,26 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
                     }
             }
         } else {
-            // create new collection point here
+            let routeId = (detailItem as! CollectionPoint).route
+            let parameters: [String: String] = [
+                "name": String(self.cpNameLabel.text!),
+                "location": self.cpCoordinatesLat.text! + "," + self.cpCoordinatesLong.text! ,
+                "address": self.cpAddressLabel.text ?? "nil",
+                "route": String(routeId),
+                "sequence": self.cpSequence.text ?? "0"
+            ]
+            AF.request("http://127.0.0.1:8000/api/collection_point/", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
+                .responseJSON {
+                    response in
+                    switch response.result {
+                    case .success(let value):
+                        print("value", value)
+                        _ = self.navigationController?.popViewController(animated: true)
+                        
+                    case .failure(let error):
+                        print(error)
+                    }
+            }
         }
     }
     
