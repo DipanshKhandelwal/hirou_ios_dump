@@ -59,7 +59,6 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     case .success(let value):
                         print("value", value)
                         self.newRoute = nil
-                        
                         let id = ((value as AnyObject)["id"] as! Int)
                         let name = ((value as AnyObject)["name"] as! String)
                         let customer = ((value as AnyObject)["customer"] as! Int)
@@ -196,10 +195,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if(self.customers.count >= row) {
             self.customerTextField.text = self.customers[row].name
-            print("editing", self.selectedCustomerId as Int)
             self.selectedCustomerId = self.customers[row].id
-            print("done", self.selectedCustomerId as Int)
-            
         }
         self.customerPicker.isHidden = true
         self.customerTextField.resignFirstResponder()

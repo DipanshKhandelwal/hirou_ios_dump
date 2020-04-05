@@ -421,7 +421,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="J7P-WF-ueT">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="85"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="GQM-Fe-Elg">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="GQM-Fe-Elg">
                                                 <rect key="frame" x="0.0" y="0.5" width="50" height="49"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="50" id="01U-4s-kkW"/>
@@ -431,7 +431,7 @@
                                             <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="BWF-4U-INg">
                                                 <rect key="frame" x="0.0" y="55" width="50" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="Edit"/>
+                                                <state key="normal" title="Add"/>
                                                 <connections>
                                                     <segue destination="y29-yR-YbL" kind="showDetail" identifier="showCollectionPoints" id="j4m-Dy-GbK"/>
                                                 </connections>
@@ -1216,8 +1216,8 @@
         <image name="map.fill" catalog="system" width="128" height="113"/>
         <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
-        <image name="pencil.circle" catalog="system" width="128" height="121"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="plus.circle" catalog="system" width="128" height="121"/>
         <image name="table.badge.more.fill" catalog="system" width="128" height="88"/>
     </resources>
 </document>
