@@ -12,9 +12,9 @@ class BaseRoute {
     //MARK: Properties
     var id: Int
     var name: String
-    var customer: String
+    var customer: Int
     
-    init?(id: Int, name : String, customer: String) {
+    init?(id: Int, name : String, customer: Int) {
         // Initialize stored properties.
         self.id = id
         self.name = name
