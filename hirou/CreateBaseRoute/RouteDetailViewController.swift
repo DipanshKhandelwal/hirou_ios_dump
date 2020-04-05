@@ -73,8 +73,42 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
     }
     
+    func deleteRouteCall(){
+        if detailItem != nil {
+            let id = UserDefaults.standard.string(forKey: "selectedRoute")!
+            AF.request("http://127.0.0.1:8000/api/base_route/"+String(id)+"/", method: .delete)
+                .responseString {
+                    response in
+                    switch response.result {
+                    case .success(let value):
+                        print("value", value)
+                        _ = self.navigationController?.popViewController(animated: true)
+                        //                        self.customers = []
+                        
+                    case .failure(let error):
+                        print(error)
+                        //                completion(nil)
+                    }
+            }
+        }
+    }
+    
     @IBAction func saveRoute(_ sender: Any) {
         saveRouteCall()
+    }
+    
+    @IBAction func deleteRoute(_ sender: Any) {
+        let deleteAlert = UIAlertController(title: "Delete Route ?", message: "Are you sure you want to delete the base route ?", preferredStyle: .alert)
+        
+        deleteAlert.addAction(UIAlertAction(title: "Yes. Delete", style: .default, handler: { (action: UIAlertAction!) in
+            self.deleteRouteCall()
+        }))
+        
+        deleteAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            print("Delte cancelled by the user.")
+        }))
+        
+        self.present(deleteAlert, animated: true, completion: nil)
     }
     
     var detailItem: Any? {
