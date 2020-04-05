@@ -33,7 +33,17 @@ class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
     }
     
     @IBAction func navigatePressed(_ sender: UIButton) {
-        startNavigation()
+        let navigateAlert = UIAlertController(title: "Navigate ?", message: "Start navigation on this base route ?", preferredStyle: .alert)
+        
+        navigateAlert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { (action: UIAlertAction!) in
+            self.startNavigation()
+        }))
+        
+        navigateAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            print("Delte cancelled by the user.")
+        }))
+        
+        self.present(navigateAlert, animated: true, completion: nil)
     }
     
     func startNavigation() {
@@ -152,13 +162,10 @@ class RouteCollectionPointViewController: UIViewController, MGLMapViewDelegate {
             
             for annotation in annotations {
                 let coordinate = annotation.coordinate
-                
                 northEastLatitude = max(northEastLatitude, coordinate.latitude)
                 northEastLongitude = max(northEastLongitude, coordinate.longitude)
                 southWestLatitude = min(southWestLatitude, coordinate.latitude)
                 southWestLongitude = min(southWestLongitude, coordinate.longitude)
-                
-                
             }
             let verticalMarginInPixels = 250.0
             let horizontalMarginInPixels = 250.0
