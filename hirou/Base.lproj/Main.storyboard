@@ -708,6 +708,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO"/>
+                    <connections>
+                        <outlet property="addRouteButton" destination="d5W-nL-8gr" id="8xr-fg-EdH"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZt-OE-6hY" sceneMemberID="firstResponder"/>
             </objects>
@@ -722,7 +725,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="Rhr-uh-FKY">
-                                <rect key="frame" x="77" y="100" width="614" height="339.5"/>
+                                <rect key="frame" x="77" y="100" width="614" height="641.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Base Route" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RhU-ze-smE">
                                         <rect key="frame" x="0.0" y="0.0" width="614" height="33.5"/>
@@ -770,11 +773,56 @@
                                             <constraint firstItem="jIv-rB-1Vk" firstAttribute="centerX" secondItem="D5P-3u-BFb" secondAttribute="centerX" id="pp4-zV-UKQ"/>
                                         </constraints>
                                     </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="RJD-M6-FS7">
+                                        <rect key="frame" x="0.0" y="309.5" width="614" height="122"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Garbage Types" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gll-Yc-fPw">
+                                                <rect key="frame" x="0.0" y="0.0" width="116.5" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rIT-2r-5RS">
+                                                <rect key="frame" x="0.0" y="44" width="44" height="34"/>
+                                                <state key="normal" title="Select"/>
+                                                <connections>
+                                                    <segue destination="7jd-IK-BGJ" kind="popoverPresentation" popoverAnchorView="rIT-2r-5RS" id="alH-1H-boA">
+                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                    </segue>
+                                                </connections>
+                                            </button>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z97-xT-6Qx">
+                                                <rect key="frame" x="0.0" y="88" width="614" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Z97-xT-6Qx" firstAttribute="centerX" secondItem="RJD-M6-FS7" secondAttribute="centerX" id="GaK-yQ-YcQ"/>
+                                            <constraint firstItem="Z97-xT-6Qx" firstAttribute="width" secondItem="RJD-M6-FS7" secondAttribute="width" id="fTm-pl-q5z"/>
+                                        </constraints>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O5p-ZB-2NZ">
+                                        <rect key="frame" x="0.0" y="471.5" width="614" height="30"/>
+                                        <state key="normal" title="Save"/>
+                                        <connections>
+                                            <action selector="saveRoute:" destination="8Lu-KB-8Xt" eventType="touchUpInside" id="OWV-1E-u3c"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKb-tu-Gn3">
-                                        <rect key="frame" x="0.0" y="309.5" width="614" height="30"/>
+                                        <rect key="frame" x="0.0" y="541.5" width="614" height="30"/>
                                         <state key="normal" title="Next"/>
                                         <connections>
                                             <segue destination="K5w-d3-16T" kind="show" identifier="showRouteCollectionPoints" id="FTt-Ye-9wy"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkN-om-3kA">
+                                        <rect key="frame" x="0.0" y="611.5" width="614" height="30"/>
+                                        <state key="normal" title="Delete">
+                                            <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deleteRoute:" destination="8Lu-KB-8Xt" eventType="touchUpInside" id="XCK-TZ-ToC"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -787,7 +835,7 @@
                                 </constraints>
                             </stackView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JGC-Ok-sii">
-                                <rect key="frame" x="211.5" y="539.5" width="345" height="216"/>
+                                <rect key="frame" x="211.5" y="751.5" width="345" height="216"/>
                             </pickerView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -795,7 +843,7 @@
                             <constraint firstItem="Rhr-uh-FKY" firstAttribute="centerX" secondItem="VCO-sH-ZXi" secondAttribute="centerX" id="GTR-xa-9I4"/>
                             <constraint firstItem="JGC-Ok-sii" firstAttribute="centerX" secondItem="VCO-sH-ZXi" secondAttribute="centerX" id="WE8-cL-xNV"/>
                             <constraint firstItem="JGC-Ok-sii" firstAttribute="width" secondItem="VCO-sH-ZXi" secondAttribute="width" multiplier="0.449438" id="iPK-W4-Npz"/>
-                            <constraint firstItem="JGC-Ok-sii" firstAttribute="top" secondItem="Rhr-uh-FKY" secondAttribute="bottom" constant="100" id="j85-ya-y5V"/>
+                            <constraint firstItem="JGC-Ok-sii" firstAttribute="top" secondItem="Rhr-uh-FKY" secondAttribute="bottom" constant="10" id="j85-ya-y5V"/>
                             <constraint firstItem="Rhr-uh-FKY" firstAttribute="top" secondItem="VCO-sH-ZXi" secondAttribute="top" constant="100" id="nJF-KL-GoH"/>
                             <constraint firstItem="Rhr-uh-FKY" firstAttribute="width" secondItem="VCO-sH-ZXi" secondAttribute="width" multiplier="0.8" id="tz2-7x-r37"/>
                         </constraints>
@@ -806,12 +854,51 @@
                     <connections>
                         <outlet property="customerPicker" destination="JGC-Ok-sii" id="w9R-hn-fgL"/>
                         <outlet property="customerTextField" destination="jIv-rB-1Vk" id="Pem-ZU-kPd"/>
+                        <outlet property="deleteButton" destination="pkN-om-3kA" id="dB5-hl-KqG"/>
                         <outlet property="routeNameTextField" destination="K9h-Ak-fJC" id="1BL-om-2GM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JMV-3R-aHg" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-160" y="983"/>
+        </scene>
+        <!--Select Garbage Types-->
+        <scene sceneID="1Uf-vD-13D">
+            <objects>
+                <tableViewController title="Select Garbage Types" id="7jd-IK-BGJ" customClass="GarbageTypesTableViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="eRn-Ky-ktt">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="493"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="garbageListCell" textLabel="2gt-qs-X1n" style="IBUITableViewCellStyleDefault" id="858-mt-WJy">
+                                <rect key="frame" x="0.0" y="28" width="320" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="858-mt-WJy" id="Ech-tR-y9N">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2gt-qs-X1n">
+                                            <rect key="frame" x="16" y="0.0" width="288" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="7jd-IK-BGJ" id="2rG-2c-9XL"/>
+                            <outlet property="delegate" destination="7jd-IK-BGJ" id="sBC-5G-eoo"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Select Garbage Types" id="ele-LN-W7F"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ehw-hE-3w6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-160" y="1711"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="ied-2J-2uk">
@@ -919,57 +1006,83 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="w0I-BJ-ijY">
-                                <rect key="frame" x="69" y="100" width="630" height="741"/>
+                                <rect key="frame" x="69" y="50" width="630" height="874"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="55" translatesAutoresizingMaskIntoConstraints="NO" id="hIP-i8-tK4">
-                                        <rect key="frame" x="20" y="20" width="412.5" height="421"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="hIP-i8-tK4">
+                                        <rect key="frame" x="20" y="20" width="269.5" height="482"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7ZX-Nx-puM">
-                                                <rect key="frame" x="0.0" y="0.0" width="322" height="145"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="210.5" height="68.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collection Point Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7x-s7-Aki" userLabel="Collection Point Name">
-                                                        <rect key="frame" x="0.0" y="0.0" width="322" height="41"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="210.5" height="26.5"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Collection Point Name" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gti-ze-RES" userLabel="Collection Point Name">
-                                                        <rect key="frame" x="0.0" y="49" width="198" height="96"/>
-                                                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Collection Point Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gti-ze-RES" userLabel="Collection Point Name">
+                                                        <rect key="frame" x="0.0" y="34.5" width="197.5" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rqK-ju-rEU">
-                                                <rect key="frame" x="0.0" y="200" width="355.5" height="83"/>
+                                                <rect key="frame" x="0.0" y="98.5" width="232.5" height="68.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collection Point Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFv-Hk-lzG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="355.5" height="41"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="232.5" height="26.5"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Collection Point Address" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ben-zN-DzV" userLabel="Collection Point Address">
-                                                        <rect key="frame" x="0.0" y="49" width="216" height="34"/>
-                                                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Collection Point Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ben-zN-DzV" userLabel="Collection Point Address">
+                                                        <rect key="frame" x="0.0" y="34.5" width="215.5" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6fG-1d-c88">
-                                                <rect key="frame" x="0.0" y="338" width="412.5" height="83"/>
+                                                <rect key="frame" x="0.0" y="197" width="269.5" height="186.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collection Point Coordinates" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ukd-6B-Tyh">
-                                                        <rect key="frame" x="0.0" y="0.0" width="412.5" height="41"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="269.5" height="26.5"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Collection Point Coordinates" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qbd-Sn-A3C" userLabel="Collection Point Coordinates">
-                                                        <rect key="frame" x="0.0" y="49" width="246" height="34"/>
-                                                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Bs3-ZP-2Gx">
+                                                        <rect key="frame" x="0.0" y="34.5" width="269.5" height="152"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Latitude" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qbd-Sn-A3C" userLabel="Collection Point Latitude">
+                                                                <rect key="frame" x="0.0" y="59" width="131" height="34"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                            </textField>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Longitude" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lWZ-oN-d7T" userLabel="Collection Point Longitude">
+                                                                <rect key="frame" x="139" y="59" width="130.5" height="34"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                            </textField>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="Bs3-ZP-2Gx" firstAttribute="width" secondItem="ukd-6B-Tyh" secondAttribute="width" id="iVw-de-qrs"/>
+                                                </constraints>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FPH-Up-nJD">
+                                                <rect key="frame" x="0.0" y="413.5" width="250" height="68.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collection Point Sequence" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6KC-r3-cXS" userLabel="Collection Point Sequence">
+                                                        <rect key="frame" x="0.0" y="0.0" width="250" height="26.5"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0, 1, ..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1vP-VF-JZR" userLabel="Collection Point Address">
+                                                        <rect key="frame" x="0.0" y="34.5" width="77" height="34"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
@@ -978,13 +1091,26 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3dk-4r-eig" customClass="MGLMapView">
-                                        <rect key="frame" x="20" y="474" width="590" height="175"/>
+                                        <rect key="frame" x="20" y="535" width="590" height="175"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q5y-ID-0hj">
-                                        <rect key="frame" x="20" y="682" width="590" height="39"/>
+                                        <rect key="frame" x="20" y="743" width="590" height="39"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                         <state key="normal" title="Save"/>
+                                        <connections>
+                                            <action selector="savePressed:" destination="RU1-ST-XiR" eventType="touchUpInside" id="qic-Ss-Su1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7kb-dl-Rrg">
+                                        <rect key="frame" x="20" y="815" width="590" height="39"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                        <state key="normal" title="Delete">
+                                            <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deletePressed:" destination="RU1-ST-XiR" eventType="touchUpInside" id="exT-Wb-l9h"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -997,19 +1123,23 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="w0I-BJ-ijY" firstAttribute="leading" secondItem="tTN-5E-iL6" secondAttribute="leading" constant="69" id="AN6-b9-Ava"/>
-                            <constraint firstItem="w0I-BJ-ijY" firstAttribute="top" secondItem="tTN-5E-iL6" secondAttribute="top" constant="100" id="bQ1-0f-5WP"/>
-                            <constraint firstItem="tTN-5E-iL6" firstAttribute="bottom" secondItem="w0I-BJ-ijY" secondAttribute="bottom" constant="133" id="dAZ-gd-RTf"/>
+                            <constraint firstItem="7kb-dl-Rrg" firstAttribute="centerX" secondItem="tTN-5E-iL6" secondAttribute="centerX" id="3ZO-ek-ADr"/>
+                            <constraint firstItem="w0I-BJ-ijY" firstAttribute="top" secondItem="tTN-5E-iL6" secondAttribute="top" constant="50" id="bQ1-0f-5WP"/>
                             <constraint firstItem="w0I-BJ-ijY" firstAttribute="centerX" secondItem="tTN-5E-iL6" secondAttribute="centerX" id="dgv-Ue-WkU"/>
+                            <constraint firstItem="tTN-5E-iL6" firstAttribute="bottom" secondItem="w0I-BJ-ijY" secondAttribute="bottom" constant="50" id="msX-cw-TY9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tTN-5E-iL6"/>
                     </view>
                     <navigationItem key="navigationItem" title="Collection Point" id="Khz-21-Xs9"/>
                     <connections>
                         <outlet property="cpAddressLabel" destination="Ben-zN-DzV" id="KcZ-BM-gow"/>
-                        <outlet property="cpCoordinateslabel" destination="Qbd-Sn-A3C" id="o3v-Wy-fdv"/>
+                        <outlet property="cpCoordinatesLat" destination="Qbd-Sn-A3C" id="aYh-OD-aTd"/>
+                        <outlet property="cpCoordinatesLong" destination="lWZ-oN-d7T" id="zSw-tb-nTY"/>
                         <outlet property="cpMapView" destination="3dk-4r-eig" id="Cqw-XC-hSI"/>
                         <outlet property="cpNameLabel" destination="Gti-ze-RES" id="dDA-3C-MIH"/>
+                        <outlet property="cpSequence" destination="1vP-VF-JZR" id="9CW-Sm-dhS"/>
+                        <outlet property="deleteButton" destination="7kb-dl-Rrg" id="nQf-5v-D5F"/>
+                        <outlet property="saveButton" destination="q5y-ID-0hj" id="zAg-nV-E4s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dgD-v2-9pM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

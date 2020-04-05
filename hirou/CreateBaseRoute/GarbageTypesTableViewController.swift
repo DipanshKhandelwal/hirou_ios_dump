@@ -7,40 +7,75 @@
 //
 
 import UIKit
+import Alamofire
 
 class GarbageTypesTableViewController: UITableViewController {
 
+    var garbageList = [Garbage]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+//         self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+         self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        AF.request("http://127.0.0.1:8000/api/garbage/", method: .get).responseJSON { response in
+            
+            //to get status code
+            switch response.result {
+            case .success(let value):
+                self.garbageList = []
+                
+                for garbage in value as! [Any] {
+                    let id = ((garbage as AnyObject)["id"] as! Int)
+                    let name = ((garbage as AnyObject)["name"] as! String)
+                    let description = ((garbage as AnyObject)["description"] as! String)
+                    
+                    
+                    let garbageObj = Garbage(id: id, name: name, description: description)
+                    self.garbageList.append(garbageObj!)
+                }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+                //                completion(nil)
+            }
+            
+        }
+        
+        
+        super.viewWillAppear(animated)
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.garbageList.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "garbageListCell", for: indexPath)
+        let garbage = self.garbageList[indexPath.row]
+        cell.textLabel!.text = garbage.name
         return cell
     }
-    */
+    
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let cell = tableView.cellForRow(at: indexPath)
+//    }
 
     /*
     // Override to support conditional editing of the table view.
