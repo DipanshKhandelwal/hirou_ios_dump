@@ -20,6 +20,7 @@ class RouteMasterViewController: UITableViewController {
     
 //    var detailViewController: RouteDetailViewController? = nil
     var baseRoutes = [BaseRoute]()
+    @IBOutlet weak var addRouteButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,8 @@ class RouteMasterViewController: UITableViewController {
 //            let controllers = split.viewControllers
 //            detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? RouteDetailViewController
 //        }
+        self.navigationItem.rightBarButtonItems = [self.editButtonItem, self.addRouteButton]
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,7 +57,7 @@ class RouteMasterViewController: UITableViewController {
                         for baseRoute in value as! [Any] {
                             let id = ((baseRoute as AnyObject)["id"] as! Int)
                             let name = ((baseRoute as AnyObject)["name"] as! String)
-                            let customer = (((baseRoute as AnyObject)["customer"] as AnyObject)["name"] as! String)
+                            let customer = ((baseRoute as AnyObject)["id"] as! Int)
  
                             
                             let baseRouteObj = BaseRoute(id: id, name: name, customer: customer)
@@ -93,7 +96,7 @@ class RouteMasterViewController: UITableViewController {
         let route = baseRoutes[indexPath.row]
 //        cell.textLabel!.text = route.name
         cell.routeNameLabel?.text = route.name
-        cell.customerLabel?.text = route.customer
+        cell.customerLabel?.text = String(route.customer)
         cell.garbageTypeLabel?.text = "None for now"
         return cell
     }
