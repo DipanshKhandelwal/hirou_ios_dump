@@ -15,14 +15,60 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
     
     @IBOutlet weak var cpNameLabel: UITextField!
     @IBOutlet weak var cpAddressLabel: UITextField!
-    @IBOutlet weak var cpCoordinateslabel: UITextField!
+    @IBOutlet weak var cpCoordinatesLat: UITextField!
+    @IBOutlet weak var cpCoordinatesLong: UITextField!
+    @IBOutlet weak var cpSequence: UITextField!
     @IBOutlet var cpMapView: MGLMapView!
+    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var saveButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         cpMapView.delegate = self
         // Do any additional setup after loading the view.
         configureView()
+    }
+    
+    func saveCPCall() {
+        
+    }
+    
+    func deleteCPCall() {
+        if let detail = detailItem {
+            let id = (detail as! CollectionPoint).id
+            AF.request("http://127.0.0.1:8000/api/collection_point/"+String(id)+"/", method: .delete)
+                .responseString {
+                    response in
+                    switch response.result {
+                    case .success(let value):
+                        print("value", value)
+                        _ = self.navigationController?.popViewController(animated: true)
+                        //                        self.customers = []
+                        
+                    case .failure(let error):
+                        print(error)
+                        //                completion(nil)
+                    }
+            }
+        }
+    }
+    
+    @IBAction func deletePressed(_ sender: Any) {
+        let deleteAlert = UIAlertController(title: "Delete Collection Point ?", message: "Are you sure you want to delete the collection point ?", preferredStyle: .alert)
+        
+        deleteAlert.addAction(UIAlertAction(title: "Yes. Delete", style: .default, handler: { (action: UIAlertAction!) in
+            self.deleteCPCall()
+        }))
+        
+        deleteAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            print("Delte cancelled by the user.")
+        }))
+        
+        self.present(deleteAlert, animated: true, completion: nil)
+    }
+    
+    @IBAction func savePressed(_ sender: Any) {
+        saveCPCall()
     }
     
     var detailItem: Any? {
@@ -42,8 +88,16 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
                 label.text = (detail as! CollectionPoint).address
             }
             
-            if let label = self.cpCoordinateslabel {
-                label.text = String((detail as! CollectionPoint).id)
+            if let label = self.cpCoordinatesLat {
+                label.text = String((detail as! CollectionPoint).location.latitude)
+            }
+            
+            if let label = self.cpCoordinatesLong {
+                label.text = String((detail as! CollectionPoint).location.longitude)
+            }
+            
+            if let label = self.cpSequence {
+                label.text = String((detail as! CollectionPoint).sequence )
             }
             
             if let map = self.cpMapView {
@@ -61,11 +115,19 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
                 // Pop-up the callout view.
                 map.selectAnnotation(annotation, animated: true, completionHandler: nil)
             }
+            
+            if (detail as! CollectionPoint).id == -1 {
+                if let button = self.deleteButton {
+                    button.isHidden = true
+                }
+                
+                if let button = self.saveButton {
+                    button.setTitle("Add", for: .normal)
+                }
+            }
         }
     }
     
-    
-
     
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
         return true

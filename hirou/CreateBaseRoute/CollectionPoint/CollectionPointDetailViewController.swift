@@ -222,13 +222,12 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
             let lat = self.newAnnotation.coordinate.latitude
             let long = self.newAnnotation.coordinate.longitude
             let loc = Location(latitude: String(lat), longitude: String(long))
-            let cp = CollectionPoint(id: 0, name: "name", address: "address", route: 0, location: loc, sequence: 0, image: "")
+            let seq = self.collectionPoints.count
+            let cp = CollectionPoint(id: -1, name: "", address: "", route: 0, location: loc, sequence: seq, image: "")
             controller.detailItem = cp
         }
     }
 }
-
-
 
 
 //import UIKit
