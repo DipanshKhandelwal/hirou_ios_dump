@@ -13,6 +13,8 @@ class CollectionPointTableViewCell : UITableViewCell {
     @IBOutlet weak var collectionPointIndexLabel: UILabel!
     @IBOutlet weak var collectionPointNameLabel: UILabel!
     @IBOutlet weak var collectionPointAddressLabel: UILabel!
+    @IBOutlet weak var collectionPointIdLabel: UILabel!
+    @IBOutlet weak var collectionPointSequenceLabel: UILabel!
 }
 
 class CollectionPointMasterViewController: UITableViewController {
@@ -29,7 +31,7 @@ class CollectionPointMasterViewController: UITableViewController {
         //         Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        navigationItem.leftBarButtonItem = editButtonItem
+        //        navigationItem.leftBarButtonItem = editButtonItem
         
         //        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
         //        navigationItem.rightBarButtonItem = addButton
@@ -38,56 +40,41 @@ class CollectionPointMasterViewController: UITableViewController {
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? CollectionPointDetailViewController
         }
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
-        
+        fetchCollectionPoints()
+        super.viewWillAppear(animated)
+    }
+    
+    func fetchCollectionPoints(){
         let id = UserDefaults.standard.string(forKey: "selectedRoute")!
         let url = "http://127.0.0.1:8000/api/base_route/"+String(id)+"/"
-
         AF.request(url, method: .get).responseJSON { response in
-            //to get status code
             switch response.result {
             case .success(let value):
-                // print(String(data: value as! Data, encoding: .utf8)!)
-                // completion(try? SomeRequest(protobuf: value))
-                print("response", value)
-                // self.vehicles = value as! [Any]
-                self.collectionPoints = []
-                //                    self.annotations = []
+                var newCollectionPoints = [CollectionPoint]()
                 let cps = (value as AnyObject)["collection_point"]
-                
                 for collectionPoint in cps as! [Any] {
-                    //                    print("collectionPoint", collectionPoint)
-                    
-                    
                     let id = ((collectionPoint as AnyObject)["id"] as! Int)
                     let name = ((collectionPoint as AnyObject)["name"] as! String)
                     let address = ((collectionPoint as AnyObject)["address"] as! String)
                     let route = ((collectionPoint as AnyObject)["route"] as! Int)
-                    
                     let locationCoordinates = ((collectionPoint as AnyObject)["location"] as! String).split{$0 == ","}.map(String.init)
                     let location = Location( latitude: locationCoordinates[0], longitude : locationCoordinates[1] )
-                    
                     let sequence = ((collectionPoint as AnyObject)["sequence"] as! Int)
-                    // let image = ((collectionPoint as AnyObject)["image"] as! String?)
-                    
                     let collectionPointObj = CollectionPoint(id: id, name: name, address: address, route: route, location: location, sequence: sequence, image: "")
-                    
-                    self.collectionPoints.append(collectionPointObj!)
+                    newCollectionPoints.append(collectionPointObj!)
                 }
+                self.collectionPoints = []
+                self.collectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
-                //                    self.addPointsTopMap()
-                
             case .failure(let error):
                 print(error)
             }
         }
-        //        }
-        
-        super.viewWillAppear(animated)
     }
     
     // MARK: - Table view data source
@@ -104,10 +91,11 @@ class CollectionPointMasterViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "collectionPointCell", for: indexPath) as! CollectionPointTableViewCell
-        
         let collectionPoint = collectionPoints[indexPath.row]
         cell.collectionPointNameLabel!.text = collectionPoint.name
         cell.collectionPointAddressLabel!.text = collectionPoint.address
+        cell.collectionPointIdLabel!.text = String(collectionPoint.id)
+        cell.collectionPointSequenceLabel!.text = String(collectionPoint.sequence)
         cell.collectionPointIndexLabel!.text = String(indexPath.row)
         return cell
     }
@@ -133,16 +121,35 @@ class CollectionPointMasterViewController: UITableViewController {
     
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-        print("fromIndexPath", fromIndexPath)
-        print("to", to)
         let fromIndex = fromIndexPath[1]
         let toIndex = to[1]
         let cp: CollectionPoint = self.collectionPoints[fromIndex]
         self.collectionPoints[fromIndex] = self.collectionPoints[toIndex]
         self.collectionPoints[toIndex] = cp
-        
         DispatchQueue.main.async {
             self.tableView.reloadData()
+        }
+        updateList()
+        fetchCollectionPoints()
+    }
+    
+    func updateList(){
+        for (index, element) in self.collectionPoints.enumerated() {
+            let id = element.id
+            let parameters: [String: String] = [
+                "sequence": String(index)
+            ]
+            AF.request("http://127.0.0.1:8000/api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
+                .responseString {
+                    response in
+                    switch response.result {
+                    case .success(let value):
+                        _ = self.navigationController?.popViewController(animated: true)
+                        
+                    case .failure(let error):
+                        print(error)
+                    }
+            }
         }
     }
     
@@ -154,18 +161,18 @@ class CollectionPointMasterViewController: UITableViewController {
     
     // MARK: - Segues
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "showCollectionPointDetails" {
-//            if let indexPath = tableView.indexPathForSelectedRow {
-//
-//                //                let object = objects[indexPath.row] as! NSDate
-//                let collectionPoint = self.collectionPoints[indexPath.row]
-//                let controller = (segue.destination as! UINavigationController).topViewController as! CollectionPointDetailViewController
-//                //                controller.detailItem = object
-//                controller.detailItem = collectionPoint as Any
-//                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-//                controller.navigationItem.leftItemsSupplementBackButton = true
-//                detailViewController = controller
-//            }
-//        }
+        //        if segue.identifier == "showCollectionPointDetails" {
+        //            if let indexPath = tableView.indexPathForSelectedRow {
+        //
+        //                //                let object = objects[indexPath.row] as! NSDate
+        //                let collectionPoint = self.collectionPoints[indexPath.row]
+        //                let controller = (segue.destination as! UINavigationController).topViewController as! CollectionPointDetailViewController
+        //                //                controller.detailItem = object
+        //                controller.detailItem = collectionPoint as Any
+        //                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        //                controller.navigationItem.leftItemsSupplementBackButton = true
+        //                detailViewController = controller
+        //            }
+        //        }
     }
 }
