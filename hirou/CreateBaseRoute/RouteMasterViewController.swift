@@ -102,8 +102,16 @@ class RouteMasterViewController: UITableViewController {
 //        cell.textLabel!.text = route.name
         cell.routeNameLabel?.text = route.name
         cell.customerLabel?.text = String(route.customer)
-        cell.garbageTypeLabel?.text = "None for now"
+        cell.garbageTypeLabel?.text = setGarbageLabelValue(garbageList: route.garbageList)
         return cell
+    }
+    
+    func setGarbageLabelValue(garbageList: [Garbage]) -> String{
+        var stringGarbageList = ""
+        for garbage in garbageList {
+            stringGarbageList += garbage.name + ", "
+        }
+        return stringGarbageList
     }
     
     /*
