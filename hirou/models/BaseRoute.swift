@@ -13,11 +13,13 @@ class BaseRoute {
     var id: Int
     var name: String
     var customer: Int
+    var garbageList: [Garbage]
     
-    init?(id: Int, name : String, customer: Int) {
+    init?(id: Int, name : String, customer: Int, garbageList: [Garbage]) {
         // Initialize stored properties.
         self.id = id
         self.name = name
         self.customer = customer
+        self.garbageList = garbageList
     }
 }
