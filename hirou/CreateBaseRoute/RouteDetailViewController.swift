@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, GarbageTypesViewControllerDelegate {
     
     @IBOutlet weak var routeNameTextField: UITextField!
     @IBOutlet weak var customerTextField: UITextField!
@@ -18,7 +18,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var garbageListLabel: UILabel!
     var selectedCustomerId : Int! = 0
     var newRoute : BaseRoute!
-    
+    var selectedGarbages: [Garbage]!
     var customers = [Customer]()
     
     override func viewDidLoad() {
@@ -137,16 +137,8 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
                 label.text = String((detail as! BaseRoute).customer)
             }
             self.selectedCustomerId = (detail as! BaseRoute).customer
-            
-            if let label = self.garbageListLabel {
-                let garbageList = (detail as! BaseRoute).garbageList
-                var stringGarbageList = ""
-                for garbage in garbageList {
-                    stringGarbageList = stringGarbageList + ", " + garbage.name
-                }
-                label.text = stringGarbageList
-            }
-            
+            self.selectedGarbages = (detail as! BaseRoute).garbageList
+            setGarbageLabelValue()
             UserDefaults.standard.set((detail as! BaseRoute).id, forKey: "selectedRoute")
         } else {
             if let label = self.customerTextField {
@@ -156,6 +148,17 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             if let button = self.deleteButton {
                 button.isHidden = true
             }
+        }
+    }
+    
+    func setGarbageLabelValue() {
+        if let label = self.garbageListLabel {
+            let garbageList = self.selectedGarbages!
+            var stringGarbageList = ""
+            for garbage in garbageList {
+                stringGarbageList += garbage.name + ", "
+            }
+            label.text = stringGarbageList
         }
     }
     
@@ -180,10 +183,8 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
                                 label.text = customer.name
                             }
                         }
-                        
                     }
                 }
-                
                 self.customerPicker.reloadAllComponents()
                 
             case .failure(let error):
@@ -193,6 +194,11 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
         
         super.viewWillAppear(animated)
+    }
+    
+    func setSelectedGarbage(selectedGarbageList: [Garbage]) {
+        self.selectedGarbages = selectedGarbageList
+        setGarbageLabelValue()
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -252,6 +258,14 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
                 controller.detailItem = (detail as! BaseRoute)
             } else {
                 controller.detailItem = self.newRoute
+            }
+        }
+        
+        if segue.identifier == "selectGarbageTypes" {
+            let controller = (segue.destination as! GarbageTypesTableViewController)
+            if let detail = detailItem {
+                controller.detailItem = self.selectedGarbages
+                controller.delegate = self
             }
         }
         

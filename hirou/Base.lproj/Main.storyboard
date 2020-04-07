@@ -786,7 +786,7 @@
                                                 <rect key="frame" x="0.0" y="40" width="44" height="30"/>
                                                 <state key="normal" title="Select"/>
                                                 <connections>
-                                                    <segue destination="7jd-IK-BGJ" kind="popoverPresentation" popoverAnchorView="rIT-2r-5RS" id="alH-1H-boA">
+                                                    <segue destination="7jd-IK-BGJ" kind="popoverPresentation" identifier="selectGarbageTypes" popoverAnchorView="rIT-2r-5RS" id="alH-1H-boA">
                                                         <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                                     </segue>
                                                 </connections>

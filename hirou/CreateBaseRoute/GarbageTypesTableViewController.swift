@@ -9,9 +9,15 @@
 import UIKit
 import Alamofire
 
+protocol GarbageTypesViewControllerDelegate {
+    func setSelectedGarbage(selectedGarbageList: [Garbage])
+}
+
 class GarbageTypesTableViewController: UITableViewController {
+    var delegate: GarbageTypesViewControllerDelegate?
 
     var garbageList = [Garbage]()
+    var selectedGarbagelist = [Garbage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +60,17 @@ class GarbageTypesTableViewController: UITableViewController {
         super.viewWillAppear(animated)
     }
 
+    var detailItem: Any? {
+        didSet {
+            if let detail = detailItem {
+                self.selectedGarbagelist = detail as! [Garbage]
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -70,20 +87,35 @@ class GarbageTypesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "garbageListCell", for: indexPath)
         let garbage = self.garbageList[indexPath.row]
         cell.textLabel!.text = garbage.name
+        cell.accessoryType = UITableViewCell.AccessoryType.none
+        for selectedGarbage in self.selectedGarbagelist {
+            if selectedGarbage.id == garbage.id {
+                self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                cell.accessoryType = UITableViewCell.AccessoryType.checkmark
+                cell.isSelected = true
+            }
+        }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.accessoryType = UITableViewCell.AccessoryType.checkmark
+        self.selectedGarbagelist.append(self.garbageList[indexPath.row])
+        self.delegate?.setSelectedGarbage(selectedGarbageList: self.selectedGarbagelist)
     }
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.accessoryType = UITableViewCell.AccessoryType.none
+        for (index, value) in self.selectedGarbagelist.enumerated() {
+            if self.garbageList[indexPath.row].id == value.id {
+                self.selectedGarbagelist.remove(at: index)
+            }
+        }
+        self.delegate?.setSelectedGarbage(selectedGarbageList: self.selectedGarbagelist)
     }
     
-
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
