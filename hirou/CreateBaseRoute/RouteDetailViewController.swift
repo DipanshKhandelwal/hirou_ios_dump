@@ -34,11 +34,24 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     func saveRouteCall() {
         if (detailItem != nil) {
             let id = UserDefaults.standard.string(forKey: "selectedRoute")!
-            let parameters: [String: String] = [
+            var garbageTypes = [Int]()
+            for gb in self.selectedGarbages {
+                garbageTypes.append(gb.id)
+            }
+            
+            let url = "http://127.0.0.1:8000/api/base_route/"+String(id)+"/"
+            var request = URLRequest(url: try! url.asURL())
+            request.httpMethod = "PATCH"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let values = [
                 "name": String(self.routeNameTextField.text!),
-                "customer": String(self.selectedCustomerId)
-            ]
-            AF.request("http://127.0.0.1:8000/api/base_route/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
+                "customer": String(self.selectedCustomerId),
+                "garbage": garbageTypes
+                ] as [String : Any]
+            
+            request.httpBody = try! JSONSerialization.data(withJSONObject: values)
+            
+            AF.request(request)
                 .responseString {
                     response in
                     switch response.result {
@@ -101,7 +114,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             }
         }
     }
-    
+
     @IBAction func saveRoute(_ sender: Any) {
         saveRouteCall()
     }
