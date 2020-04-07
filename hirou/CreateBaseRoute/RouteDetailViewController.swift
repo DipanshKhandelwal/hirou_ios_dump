@@ -15,6 +15,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var customerTextField: UITextField!
     @IBOutlet weak var customerPicker: UIPickerView!
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var garbageListLabel: UILabel!
     var selectedCustomerId : Int! = 0
     var newRoute : BaseRoute!
     
@@ -62,7 +63,16 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
                         let id = ((value as AnyObject)["id"] as! Int)
                         let name = ((value as AnyObject)["name"] as! String)
                         let customer = ((value as AnyObject)["customer"] as! Int)
-                        let routeObj = BaseRoute(id: id, name: name, customer: customer)
+                        let garbageArray = (value as AnyObject)["garbage"]
+                        var garbageList = [Garbage]()
+                        for garbage in garbageArray as! [Any] {
+                            let id = ((garbage as AnyObject)["id"] as! Int)
+                            let name = ((garbage as AnyObject)["name"] as! String)
+                            let description = ((garbage as AnyObject)["description"] as! String)
+                            let garbageObj = Garbage(id: id, name: name, description: description)
+                            garbageList.append(garbageObj!)
+                        }
+                        let routeObj = BaseRoute(id: id, name: name, customer: customer, garbageList: garbageList)
                         self.newRoute = routeObj
                         
                     case .failure(let error):
@@ -127,6 +137,16 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
                 label.text = String((detail as! BaseRoute).customer)
             }
             self.selectedCustomerId = (detail as! BaseRoute).customer
+            
+            if let label = self.garbageListLabel {
+                let garbageList = (detail as! BaseRoute).garbageList
+                var stringGarbageList = ""
+                for garbage in garbageList {
+                    stringGarbageList = stringGarbageList + ", " + garbage.name
+                }
+                label.text = stringGarbageList
+            }
+            
             UserDefaults.standard.set((detail as! BaseRoute).id, forKey: "selectedRoute")
         } else {
             if let label = self.customerTextField {

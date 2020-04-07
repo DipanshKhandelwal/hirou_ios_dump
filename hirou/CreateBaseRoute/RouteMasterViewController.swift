@@ -53,16 +53,21 @@ class RouteMasterViewController: UITableViewController {
                     switch response.result {
                     case .success(let value):
                         self.baseRoutes = []
-                        
                         for baseRoute in value as! [Any] {
                             let id = ((baseRoute as AnyObject)["id"] as! Int)
                             let name = ((baseRoute as AnyObject)["name"] as! String)
                             let customer = ((baseRoute as AnyObject)["id"] as! Int)
- 
-                            
-                            let baseRouteObj = BaseRoute(id: id, name: name, customer: customer)
+                            let garbageArray = (baseRoute as AnyObject)["garbage"]
+                            var garbageList = [Garbage]()
+                            for garbage in garbageArray as! [Any] {
+                                let id = ((garbage as AnyObject)["id"] as! Int)
+                                let name = ((garbage as AnyObject)["name"] as! String)
+                                let description = ((garbage as AnyObject)["description"] as! String)
+                                let garbageObj = Garbage(id: id, name: name, description: description)
+                                garbageList.append(garbageObj!)
+                            }
+                            let baseRouteObj = BaseRoute(id: id, name: name, customer: customer, garbageList: garbageList)
                             self.baseRoutes.append(baseRouteObj!)
-        //                    self.tableView.reloadData()
                         }
                         DispatchQueue.main.async {
                             self.tableView.reloadData()

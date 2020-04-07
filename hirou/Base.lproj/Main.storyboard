@@ -725,7 +725,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="Rhr-uh-FKY">
-                                <rect key="frame" x="77" y="100" width="614" height="641.5"/>
+                                <rect key="frame" x="77" y="100" width="614" height="629.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Base Route" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RhU-ze-smE">
                                         <rect key="frame" x="0.0" y="0.0" width="614" height="33.5"/>
@@ -774,16 +774,16 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="RJD-M6-FS7">
-                                        <rect key="frame" x="0.0" y="309.5" width="614" height="122"/>
+                                        <rect key="frame" x="0.0" y="309.5" width="614" height="110"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Garbage Types" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gll-Yc-fPw">
-                                                <rect key="frame" x="0.0" y="0.0" width="116.5" height="34"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="116.5" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rIT-2r-5RS">
-                                                <rect key="frame" x="0.0" y="44" width="44" height="34"/>
+                                                <rect key="frame" x="0.0" y="40" width="44" height="30"/>
                                                 <state key="normal" title="Select"/>
                                                 <connections>
                                                     <segue destination="7jd-IK-BGJ" kind="popoverPresentation" popoverAnchorView="rIT-2r-5RS" id="alH-1H-boA">
@@ -791,33 +791,34 @@
                                                     </segue>
                                                 </connections>
                                             </button>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z97-xT-6Qx">
-                                                <rect key="frame" x="0.0" y="88" width="614" height="34"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Garbage List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Foy-a3-kot" userLabel="Garbage List">
+                                                <rect key="frame" x="0.0" y="80" width="614" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="Z97-xT-6Qx" firstAttribute="centerX" secondItem="RJD-M6-FS7" secondAttribute="centerX" id="GaK-yQ-YcQ"/>
-                                            <constraint firstItem="Z97-xT-6Qx" firstAttribute="width" secondItem="RJD-M6-FS7" secondAttribute="width" id="fTm-pl-q5z"/>
+                                            <constraint firstItem="Foy-a3-kot" firstAttribute="width" secondItem="RJD-M6-FS7" secondAttribute="width" id="FII-ia-4MC"/>
+                                            <constraint firstItem="Foy-a3-kot" firstAttribute="centerX" secondItem="RJD-M6-FS7" secondAttribute="centerX" id="i5R-nL-9Qm"/>
                                         </constraints>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O5p-ZB-2NZ">
-                                        <rect key="frame" x="0.0" y="471.5" width="614" height="30"/>
+                                        <rect key="frame" x="0.0" y="459.5" width="614" height="30"/>
                                         <state key="normal" title="Save"/>
                                         <connections>
                                             <action selector="saveRoute:" destination="8Lu-KB-8Xt" eventType="touchUpInside" id="OWV-1E-u3c"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKb-tu-Gn3">
-                                        <rect key="frame" x="0.0" y="541.5" width="614" height="30"/>
+                                        <rect key="frame" x="0.0" y="529.5" width="614" height="30"/>
                                         <state key="normal" title="Next"/>
                                         <connections>
                                             <segue destination="K5w-d3-16T" kind="show" identifier="showRouteCollectionPoints" id="FTt-Ye-9wy"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkN-om-3kA">
-                                        <rect key="frame" x="0.0" y="611.5" width="614" height="30"/>
+                                        <rect key="frame" x="0.0" y="599.5" width="614" height="30"/>
                                         <state key="normal" title="Delete">
                                             <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -835,7 +836,7 @@
                                 </constraints>
                             </stackView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JGC-Ok-sii">
-                                <rect key="frame" x="211.5" y="751.5" width="345" height="216"/>
+                                <rect key="frame" x="211.5" y="739.5" width="345" height="216"/>
                             </pickerView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -855,6 +856,7 @@
                         <outlet property="customerPicker" destination="JGC-Ok-sii" id="w9R-hn-fgL"/>
                         <outlet property="customerTextField" destination="jIv-rB-1Vk" id="Pem-ZU-kPd"/>
                         <outlet property="deleteButton" destination="pkN-om-3kA" id="dB5-hl-KqG"/>
+                        <outlet property="garbageListLabel" destination="Foy-a3-kot" id="tlR-vB-5Qf"/>
                         <outlet property="routeNameTextField" destination="K9h-Ak-fJC" id="1BL-om-2GM"/>
                     </connections>
                 </viewController>
