@@ -14,6 +14,7 @@
 		3133F2042424BE0F001C158C /* BaseRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3133F2032424BE0F001C158C /* BaseRoute.swift */; };
 		3138F1932421F5CC007C7434 /* CollectionPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3138F1922421F5CC007C7434 /* CollectionPoint.swift */; };
 		3138F1952421FD63007C7434 /* RouteCollectionPointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3138F1942421FD63007C7434 /* RouteCollectionPointViewController.swift */; };
+		3153653D243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3153653C243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift */; };
 		317E230223C6306C00F8F0C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230123C6306C00F8F0C1 /* AppDelegate.swift */; };
 		317E230423C6306C00F8F0C1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230323C6306C00F8F0C1 /* SceneDelegate.swift */; };
 		317E230623C6306C00F8F0C1 /* VehicleMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230523C6306C00F8F0C1 /* VehicleMasterViewController.swift */; };
@@ -60,6 +61,7 @@
 		3133F2032424BE0F001C158C /* BaseRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRoute.swift; sourceTree = "<group>"; };
 		3138F1922421F5CC007C7434 /* CollectionPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPoint.swift; sourceTree = "<group>"; };
 		3138F1942421FD63007C7434 /* RouteCollectionPointViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCollectionPointViewController.swift; sourceTree = "<group>"; };
+		3153653C243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointDraggableAnnotationView.swift; sourceTree = "<group>"; };
 		317E22FE23C6306C00F8F0C1 /* hirou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hirou.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		317E230123C6306C00F8F0C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		317E230323C6306C00F8F0C1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -135,6 +137,14 @@
 			path = CreateBaseRoute;
 			sourceTree = "<group>";
 		};
+		3153653B243F8BA0001ED8C4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3153653C243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		317E22F523C6306C00F8F0C1 = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +170,7 @@
 		317E230023C6306C00F8F0C1 /* hirou */ = {
 			isa = PBXGroup;
 			children = (
+				3153653B243F8BA0001ED8C4 /* Components */,
 				3199089C2427656900E028E1 /* Management */,
 				314A60CF241F7BF3005418EB /* CreateBaseRoute */,
 				31920C9D241CC6BC00A55403 /* models */,
@@ -415,6 +426,7 @@
 				317E230423C6306C00F8F0C1 /* SceneDelegate.swift in Sources */,
 				31920CA1241CD63600A55403 /* Customer.swift in Sources */,
 				3138F1952421FD63007C7434 /* RouteCollectionPointViewController.swift in Sources */,
+				3153653D243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift in Sources */,
 				31F57D1E243A618500903F38 /* Garbage.swift in Sources */,
 				31920C9F241CD5D900A55403 /* Location.swift in Sources */,
 				317E230623C6306C00F8F0C1 /* VehicleMasterViewController.swift in Sources */,
