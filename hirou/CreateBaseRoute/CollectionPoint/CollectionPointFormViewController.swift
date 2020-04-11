@@ -197,7 +197,7 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
         } else {
 //            return DraggableAnnotationView(reuseIdentifier: "draggablePoint", size: 20)
 //            return MGLAnnotationView(annotation: annotation, reuseIdentifier: "draggablePoint" )
-            self.annotationView = DraggableAnnotationView(annotation: annotation as! MGLPointAnnotation, reuseIdentifier: "draggablePoint", size: 20)
+            self.annotationView = CollectionPointDraggableAnnotationView(annotation: annotation as! MGLPointAnnotation, reuseIdentifier: "draggablePoint", size: 20)
             return self.annotationView
         }
     }
