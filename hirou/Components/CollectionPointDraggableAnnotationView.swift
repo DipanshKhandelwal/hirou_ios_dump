@@ -8,11 +8,14 @@
 
 import Foundation
 import Mapbox
+import Alamofire
 
 class CollectionPointDraggableAnnotationView: MGLAnnotationView {
-    init(annotation: MGLPointAnnotation, reuseIdentifier: String, size: CGFloat) {
+    var collectionPoint: CollectionPoint!
+    
+    init(annotation: CollectionPointPointAnnotation, reuseIdentifier: String, size: CGFloat, color: UIColor) {
         
-        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        super.init(annotation: annotation as MGLPointAnnotation, reuseIdentifier: reuseIdentifier)
         
         // `isDraggable` is a property of MGLAnnotationView, disabled by default.
         isDraggable = true
@@ -23,7 +26,10 @@ class CollectionPointDraggableAnnotationView: MGLAnnotationView {
         // Begin setting up the view.
         frame = CGRect(x: 0, y: 0, width: size, height: size)
         
-        backgroundColor = .red
+        backgroundColor = color
+        
+        self.collectionPoint = annotation.collectionPoint
+         
         
         // Use CALayer’s corner radius to turn this view into a circle.
         layer.cornerRadius = size / 2
@@ -52,9 +58,8 @@ class CollectionPointDraggableAnnotationView: MGLAnnotationView {
             startDragging()
         case .dragging:
 //            print(".", terminator: "")
-            print("")
+            print()
         case .ending, .canceling:
-//            print("Ending", annotation?.coordinate.latitude)
             endDragging()
         case .none:
             break
@@ -77,6 +82,44 @@ class CollectionPointDraggableAnnotationView: MGLAnnotationView {
         }
     }
     
+    func updateCollectionPoint() {
+        let id = self.collectionPoint.id
+//        let name = self.collectionPoint.name
+//
+        let lat = String(Double((annotation?.coordinate.latitude)!))
+        let long = String(Double((annotation?.coordinate.longitude)!))
+        
+//        print("id", id)
+//        print("name", name)
+//
+//        print("lat", lat)
+//        print("long", long)
+        
+        let parameters: [String: String] = [
+            "location": lat + "," + long,
+        ]
+
+        AF.request("http://127.0.0.1:8000/api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
+            .responseString {
+                response in
+                switch response.result {
+                case .success( _):
+                    print("done")
+
+                case .failure(let error):
+                    print(error)
+                }
+        }
+    }
+    
+//    func save() {
+//        let id = self.collectionPoint.id
+//        let name = self.collectionPoint.name
+//
+//        print("id", id)
+//        print("name", name)
+//    }
+    
     func endDragging() {
         transform = CGAffineTransform.identity.scaledBy(x: 1.5, y: 1.5)
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
@@ -89,5 +132,6 @@ class CollectionPointDraggableAnnotationView: MGLAnnotationView {
             let hapticFeedback = UIImpactFeedbackGenerator(style: .light)
             hapticFeedback.impactOccurred()
         }
+        updateCollectionPoint()
     }
 }

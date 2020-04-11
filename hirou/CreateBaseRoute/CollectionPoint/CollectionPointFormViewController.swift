@@ -185,19 +185,11 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
         return label
     }
     
-    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-        // This example is only concerned with point annotations.
-        guard annotation is MGLPointAnnotation else {
-            return nil
-        }
-//
-        // For better performance, always try to reuse existing annotations. To use multiple different annotation views, change the reuse identifier for each.
+    private func mapView(_ mapView: MGLMapView, viewFor annotation: CollectionPointPointAnnotation) -> MGLAnnotationView? {
         if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "draggablePoint") {
             return annotationView
         } else {
-//            return DraggableAnnotationView(reuseIdentifier: "draggablePoint", size: 20)
-//            return MGLAnnotationView(annotation: annotation, reuseIdentifier: "draggablePoint" )
-            self.annotationView = CollectionPointDraggableAnnotationView(annotation: annotation as! MGLPointAnnotation, reuseIdentifier: "draggablePoint", size: 20)
+            self.annotationView = CollectionPointDraggableAnnotationView(annotation: annotation, reuseIdentifier: "draggablePoint", size: 20, color: .red)
             return self.annotationView
         }
     }

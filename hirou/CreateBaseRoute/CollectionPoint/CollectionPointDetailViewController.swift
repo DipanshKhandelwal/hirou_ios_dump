@@ -20,9 +20,10 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     
     var id: String = ""
     @IBOutlet var mapView: MGLMapView!
-    var newAnnotation: MGLPointAnnotation = MGLPointAnnotation()
+    var newAnnotation: CollectionPointPointAnnotation!
+    var selectedCollectionPoint: CollectionPoint!
     var collectionPoints = [CollectionPoint]()
-    var annotations = [MGLPointAnnotation]()
+    var annotations = [CollectionPointPointAnnotation]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         configureView()
         
         self.id = UserDefaults.standard.string(forKey: "selectedRoute")!
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(handleNewPointTap(_:)))
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(handleNewPointTap(_:)))
         mapView?.addGestureRecognizer(gesture)
     }
     
@@ -70,13 +71,13 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     
     func addPointsTopMap() {
         for cp in self.collectionPoints {
-            let annotation = MGLPointAnnotation()
+            let annotation = CollectionPointPointAnnotation(collectionPoint: cp)
             let lat = Double(cp.location.latitude)!
             let long = Double(cp.location.longitude)!
             annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
             //            annotation.coordinate = CLLocationCoordinate2D(latitude: 35.03946, longitude: 135.72956)
             annotation.title = cp.name
-            annotation.subtitle = "\(Double(round(annotation.coordinate.latitude*1000)/1000)), \(Double(round(annotation.coordinate.longitude*1000)/1000))"
+            annotation.subtitle = "\(Double(annotation.coordinate.latitude)), \(Double(annotation.coordinate.longitude))"
             annotations.append(annotation)
         }
         
@@ -150,13 +151,21 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         let spot = gesture.location(in: mapView)
         guard let location = mapView?.convert(spot, toCoordinateFrom: mapView) else { return }
         
-        mapView.removeAnnotation(self.newAnnotation)
-        self.newAnnotation = MGLPointAnnotation()
+        if (self.newAnnotation != nil) {
+            mapView.removeAnnotation(self.newAnnotation)
+        }
+        
+        let lat = location.latitude
+        let long = location.longitude
+        let loc = Location(latitude: String(lat), longitude: String(long))
+        let seq = self.collectionPoints.count
+        
+        self.newAnnotation = CollectionPointPointAnnotation(collectionPoint: CollectionPoint(id: -1, name: "", address: "", route: Int(self.id) ?? -1, location: loc, sequence: seq, image: "")!)
         
         self.newAnnotation.coordinate = location
         //            annotation.coordinate = CLLocationCoordinate2D(latitude: 35.03946, longitude: 135.72956)
         self.newAnnotation.title = "New Collection Point"
-        self.newAnnotation.subtitle = "\(self.newAnnotation.coordinate.latitude), \(self.newAnnotation.coordinate.longitude)"
+//        self.newAnnotation.subtitle = "\(self.newAnnotation.coordinate.latitude), \(self.newAnnotation.coordinate.longitude)"
         mapView.addAnnotation(self.newAnnotation)
         mapView.selectAnnotation(self.newAnnotation, animated: true, completionHandler: nil)
     }
@@ -169,15 +178,29 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 60, height: 50))
         label.textAlignment = .right
         label.textColor = UIColor(red: 0.81, green: 0.71, blue: 0.23, alpha: 1)
-        label.text = "CP"
+        label.text = String((annotation as! CollectionPointPointAnnotation).collectionPoint.id)
         return label
     }
     
-    
     func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
-        let addPoint = UIButton(type: .contactAdd)
-        addPoint.addTarget(self, action: #selector(addPointSegue(sender:)), for: .touchDown)
-        return addPoint
+        if annotation.title == "New Collection Point" {
+            let addPoint = UIButton(type: .contactAdd)
+            addPoint.addTarget(self, action: #selector(addPointSegue(sender:)), for: .touchDown)
+            return addPoint
+        } else {
+            var currentIndex = 0
+            for cp in self.collectionPoints {
+                if cp.location.latitude == String(annotation.coordinate.latitude) {
+                    self.selectedCollectionPoint = self.collectionPoints[currentIndex];
+                    break
+                }
+                currentIndex += 1
+            }
+            
+            let editPoint = UIButton(type: .detailDisclosure)
+            editPoint.addTarget(self, action: #selector(editPointSegue(sender:)), for: .touchDown)
+            return editPoint
+        }
     }
     
     @objc func addPointSegue(sender: UIButton) {
@@ -186,17 +209,29 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         }
     }
     
-    //    func mapView(_ mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
-    //        // Hide the callout view.
-    //        mapView.deselectAnnotation(annotation, animated: false)
-    //        // Show an alert containing the annotation's details
-    //        //        let alert = UIAlertController(title: annotation.title!!, message: "A lovely (if touristy) place.", preferredStyle: .alert)
-    //        //        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-    //        //        self.present(alert, animated: true, completion: nil)
-    //    }
+    @objc func editPointSegue(sender: UIButton) {
+        DispatchQueue.main.async() {
+            self.performSegue(withIdentifier: "editCollectionPoint", sender: self)
+        }
+    }
     
-    
-    
+    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+        guard annotation is MGLPointAnnotation else {
+            return nil
+        }
+
+        var color: UIColor = .red
+        
+        if annotation.title == "New Collection Point" {
+            color = .blue
+        }
+        
+//        if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "draggablePoint") {
+//            return annotationView
+//        } else {
+            return CollectionPointDraggableAnnotationView(annotation: annotation as! CollectionPointPointAnnotation, reuseIdentifier: "draggablePoint", size: 20, color: color)
+//        }
+    }
     
     var detailItem: Any? {
         didSet {
@@ -212,8 +247,6 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         }
     }
     
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
@@ -225,6 +258,11 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
             let seq = self.collectionPoints.count
             let cp = CollectionPoint(id: -1, name: "", address: "", route: Int(self.id) ?? -1, location: loc, sequence: seq, image: "")
             controller.detailItem = cp
+        }
+        
+        if segue.identifier == "editCollectionPoint" {
+            let controller = (segue.destination as! CollectionPointFormViewController)
+            controller.detailItem = self.selectedCollectionPoint
         }
     }
 }
