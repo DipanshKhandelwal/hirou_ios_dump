@@ -10,6 +10,7 @@
 		31093F9D23CFA6B40025679A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31093F9C23CFA6B40025679A /* LoginViewController.swift */; };
 		312E9A2A242A39980073D165 /* CollectionPointMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312E9A29242A39980073D165 /* CollectionPointMasterViewController.swift */; };
 		312E9A2D242A39F10073D165 /* CollectionPointDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312E9A2C242A39F10073D165 /* CollectionPointDetailViewController.swift */; };
+		313172682445E5D800585B7F /* TaskTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313172672445E5D800585B7F /* TaskTableViewController.swift */; };
 		3133F2022424BD0A001C158C /* RouteMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3133F2012424BD0A001C158C /* RouteMasterViewController.swift */; };
 		3133F2042424BE0F001C158C /* BaseRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3133F2032424BE0F001C158C /* BaseRoute.swift */; };
 		3138F1932421F5CC007C7434 /* CollectionPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3138F1922421F5CC007C7434 /* CollectionPoint.swift */; };
@@ -31,6 +32,9 @@
 		31C24F1B2435E6BF000C3206 /* CollectionPointFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C24F1A2435E6BF000C3206 /* CollectionPointFormViewController.swift */; };
 		31DA88B623F3CF7B00713805 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA88B523F3CF7B00713805 /* Vehicle.swift */; };
 		31E209AA23D0F3550051B14B /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E209A923D0F3550051B14B /* TestViewController.swift */; };
+		31EBE46324477F640023305D /* TaskRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EBE46224477F640023305D /* TaskRoute.swift */; };
+		31EBE46524477FE40023305D /* TaskCollectionPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EBE46424477FE40023305D /* TaskCollectionPoint.swift */; };
+		31EBE46724477FED0023305D /* TaskCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EBE46624477FED0023305D /* TaskCollection.swift */; };
 		31F57D1C243A600A00903F38 /* GarbageTypesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F57D1B243A600A00903F38 /* GarbageTypesTableViewController.swift */; };
 		31F57D1E243A618500903F38 /* Garbage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F57D1D243A618500903F38 /* Garbage.swift */; };
 		58514F6DD549292BFD156FB8 /* Pods_hirou.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE9740D6C8CD4CA3B0744CD /* Pods_hirou.framework */; };
@@ -58,6 +62,7 @@
 		31093F9C23CFA6B40025679A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		312E9A29242A39980073D165 /* CollectionPointMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointMasterViewController.swift; sourceTree = "<group>"; };
 		312E9A2C242A39F10073D165 /* CollectionPointDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointDetailViewController.swift; sourceTree = "<group>"; };
+		313172672445E5D800585B7F /* TaskTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewController.swift; sourceTree = "<group>"; };
 		3133F2012424BD0A001C158C /* RouteMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMasterViewController.swift; sourceTree = "<group>"; };
 		3133F2032424BE0F001C158C /* BaseRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRoute.swift; sourceTree = "<group>"; };
 		3138F1922421F5CC007C7434 /* CollectionPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPoint.swift; sourceTree = "<group>"; };
@@ -85,6 +90,9 @@
 		31C24F1A2435E6BF000C3206 /* CollectionPointFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointFormViewController.swift; sourceTree = "<group>"; };
 		31DA88B523F3CF7B00713805 /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
 		31E209A923D0F3550051B14B /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		31EBE46224477F640023305D /* TaskRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRoute.swift; sourceTree = "<group>"; };
+		31EBE46424477FE40023305D /* TaskCollectionPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionPoint.swift; sourceTree = "<group>"; };
+		31EBE46624477FED0023305D /* TaskCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollection.swift; sourceTree = "<group>"; };
 		31F57D1B243A600A00903F38 /* GarbageTypesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarbageTypesTableViewController.swift; sourceTree = "<group>"; };
 		31F57D1D243A618500903F38 /* Garbage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Garbage.swift; sourceTree = "<group>"; };
 		9AE9740D6C8CD4CA3B0744CD /* Pods_hirou.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_hirou.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -218,6 +226,9 @@
 				3138F1922421F5CC007C7434 /* CollectionPoint.swift */,
 				3133F2032424BE0F001C158C /* BaseRoute.swift */,
 				31F57D1D243A618500903F38 /* Garbage.swift */,
+				31EBE46224477F640023305D /* TaskRoute.swift */,
+				31EBE46424477FE40023305D /* TaskCollectionPoint.swift */,
+				31EBE46624477FED0023305D /* TaskCollection.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -225,6 +236,7 @@
 		3199089C2427656900E028E1 /* Management */ = {
 			isa = PBXGroup;
 			children = (
+				313172672445E5D800585B7F /* TaskTableViewController.swift */,
 			);
 			path = Management;
 			sourceTree = "<group>";
@@ -429,17 +441,21 @@
 				317E230423C6306C00F8F0C1 /* SceneDelegate.swift in Sources */,
 				31920CA1241CD63600A55403 /* Customer.swift in Sources */,
 				3138F1952421FD63007C7434 /* RouteCollectionPointViewController.swift in Sources */,
+				31EBE46724477FED0023305D /* TaskCollection.swift in Sources */,
 				3153653D243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift in Sources */,
 				31F57D1E243A618500903F38 /* Garbage.swift in Sources */,
 				31920C9F241CD5D900A55403 /* Location.swift in Sources */,
 				317E230623C6306C00F8F0C1 /* VehicleMasterViewController.swift in Sources */,
 				31093F9D23CFA6B40025679A /* LoginViewController.swift in Sources */,
+				31EBE46324477F640023305D /* TaskRoute.swift in Sources */,
 				3133F2022424BD0A001C158C /* RouteMasterViewController.swift in Sources */,
 				31E209AA23D0F3550051B14B /* TestViewController.swift in Sources */,
 				3133F2042424BE0F001C158C /* BaseRoute.swift in Sources */,
+				313172682445E5D800585B7F /* TaskTableViewController.swift in Sources */,
 				312E9A2A242A39980073D165 /* CollectionPointMasterViewController.swift in Sources */,
 				319035112442731A0020E152 /* CollectionPointPointAnnotation.swift in Sources */,
 				317E230823C6306C00F8F0C1 /* VehicleDetailViewController.swift in Sources */,
+				31EBE46524477FE40023305D /* TaskCollectionPoint.swift in Sources */,
 				312E9A2D242A39F10073D165 /* CollectionPointDetailViewController.swift in Sources */,
 				31F57D1C243A600A00903F38 /* GarbageTypesTableViewController.swift in Sources */,
 			);

@@ -13,7 +13,6 @@ class RouteTableViewCell : UITableViewCell {
     @IBOutlet weak var routeNameLabel: UILabel!
     @IBOutlet weak var customerLabel: UILabel!
     @IBOutlet weak var garbageTypeLabel: UILabel!
-    
 }
 
 class RouteMasterViewController: UITableViewController {
