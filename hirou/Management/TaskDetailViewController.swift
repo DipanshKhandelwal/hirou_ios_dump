@@ -9,11 +9,24 @@
 import UIKit
 
 class TaskDetailViewController: UIViewController {
-
+    @IBOutlet weak var customerLabel: UILabel!
+    @IBOutlet weak var vehicleLabel: UILabel!
+    @IBOutlet weak var garbageLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    var detailItem: Any? {
+        didSet {
+            // Update the view.
+            if let detail = detailItem {
+                let taskRoute = detail as! TaskRoute
+                print("taskRoute.name", taskRoute.name)
+            }
+        }
     }
     
 
