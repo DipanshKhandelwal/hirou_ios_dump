@@ -14,14 +14,12 @@ class TaskRoute {
     var name: String
     var customer: Int
     var date: String
-    var garbageList: [Garbage]
     
-    init?(id: Int, name : String, customer: Int, date: String, garbageList: [Garbage]) {
+    init?(id: Int, name : String, customer: Int, date: String) {
         // Initialize stored properties.
         self.id = id
         self.name = name
         self.customer = customer
         self.date = date
-        self.garbageList = garbageList
     }
 }
