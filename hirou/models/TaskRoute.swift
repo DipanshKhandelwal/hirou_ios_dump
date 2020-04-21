@@ -12,10 +12,10 @@ class TaskRoute {
     //MARK: Properties
     var id: Int
     var name: String
-    var customer: Int
+    var customer: Customer
     var date: String
     
-    init?(id: Int, name : String, customer: Int, date: String) {
+    init?(id: Int, name : String, customer: Customer, date: String) {
         // Initialize stored properties.
         self.id = id
         self.name = name
