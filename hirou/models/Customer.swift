@@ -26,7 +26,7 @@ class Customer {
         self.description = description
     }
     
-    static func getCustomerFromAnyObject(obj : AnyObject) -> Customer {
+    static func getCustomerFromResponse(obj : AnyObject) -> Customer {
         let customerName = obj["name"] as! String
         let customerId = obj["id"] as! Int
         let customerDes = obj["description"] as! String
