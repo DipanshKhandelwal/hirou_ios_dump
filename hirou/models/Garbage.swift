@@ -20,4 +20,13 @@ class Garbage {
         self.name = name
         self.description = description
     }
+    
+    static func getGarbageFromResponse(obj : AnyObject) -> Garbage {
+        let id = obj["id"] as! Int
+        let name = obj["name"] as! String
+        let description = obj["description"] as! String
+        let garbageObj = Garbage(id: id, name: name, description: description)
+        return garbageObj!
+    }
+    
 }
