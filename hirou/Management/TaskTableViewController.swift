@@ -41,24 +41,9 @@ class TaskTableViewController: UITableViewController {
                 print("value", value)
                 self.taskRoutes = []
                 for taskRoute in value as! [Any] {
-                    let id = ((taskRoute as AnyObject)["id"] as! Int)
-                    let name = ((taskRoute as AnyObject)["name"] as! String)
-                    
-                    let customerResponse = ((taskRoute as AnyObject)["customer"] as AnyObject)
-                    let customer = Customer.getCustomerFromAnyObject(obj: customerResponse)
-                    
-                    let date = ((taskRoute as AnyObject)["date"] as! String)
-//                    let garbageArray = (baseRoute as AnyObject)["garbage"]
-//                    var garbageList = [Garbage]()
-//                    for garbage in garbageArray as! [Any] {
-//                        let id = ((garbage as AnyObject)["id"] as! Int)
-//                        let name = ((garbage as AnyObject)["name"] as! String)
-//                        let description = ((garbage as AnyObject)["description"] as! String)
-//                        let garbageObj = Garbage(id: id, name: name, description: description)
-//                        garbageList.append(garbageObj!)
-//                    }
-                    let taskRouteObj = TaskRoute(id: id, name: name, customer: customer, date: date)
-                    self.taskRoutes.append(taskRouteObj!)
+                    let taskRouteResponse = taskRoute as AnyObject
+                    let taskRouteObj = TaskRoute.getTaskRouteFromResponse(obj: taskRouteResponse)
+                    self.taskRoutes.append(taskRouteObj)
                 }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
