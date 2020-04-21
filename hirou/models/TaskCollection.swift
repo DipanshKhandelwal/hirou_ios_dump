@@ -16,9 +16,8 @@ class TaskCollection {
     var amount: Int
     var garbage: Garbage
     var available: Bool
-    var taskCollectionPoint: Int
     
-    init?(id: Int, timestamp: String, complete: Bool, amount: Int, garbage: Garbage, available: Bool, taskCollectionPoint: Int) {
+    init?(id: Int, timestamp: String, complete: Bool, amount: Int, garbage: Garbage, available: Bool) {
         // Initialize stored properties.
         self.id = id
         self.timestamp = timestamp
@@ -26,6 +25,20 @@ class TaskCollection {
         self.amount = amount
         self.garbage = garbage
         self.available = available
-        self.taskCollectionPoint = taskCollectionPoint
+    }
+    
+    static func getTaskCollectionFromResponse(obj : AnyObject) -> TaskCollection {
+        let id = obj["id"] as! Int
+        let timestamp = obj["timestamp"] as! String
+        let complete = obj["complete"] as! Bool
+        let amount = obj["amount"] as! Int
+        
+        let garbageResponse = obj["garbage"] as AnyObject
+        let garbage = Garbage.getGarbageFromResponse(obj: garbageResponse)
+        
+        let available = obj["available"] as! Bool
+        
+        let taskCollectionObj = TaskCollection(id: id, timestamp: timestamp, complete: complete, amount: amount, garbage: garbage, available: available)
+        return taskCollectionObj!
     }
 }
