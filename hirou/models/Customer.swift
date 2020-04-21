@@ -25,4 +25,13 @@ class Customer {
         self.id = id
         self.description = description
     }
+    
+    static func getCustomerFromAnyObject(obj : AnyObject) -> Customer {
+        let customerName = obj["name"] as! String
+        let customerId = obj["id"] as! Int
+        let customerDes = obj["description"] as! String
+        
+        let customerObj = Customer(name: customerName, description: customerDes, id: customerId)
+        return customerObj!
+    }
 }
