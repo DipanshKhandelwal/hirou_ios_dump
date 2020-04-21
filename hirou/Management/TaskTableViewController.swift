@@ -43,7 +43,10 @@ class TaskTableViewController: UITableViewController {
                 for taskRoute in value as! [Any] {
                     let id = ((taskRoute as AnyObject)["id"] as! Int)
                     let name = ((taskRoute as AnyObject)["name"] as! String)
-                    let customer = ((taskRoute as AnyObject)["customer"] as! Int)
+                    
+                    let customerResponse = ((taskRoute as AnyObject)["customer"] as AnyObject)
+                    let customer = Customer.getCustomerFromAnyObject(obj: customerResponse)
+                    
                     let date = ((taskRoute as AnyObject)["date"] as! String)
 //                    let garbageArray = (baseRoute as AnyObject)["garbage"]
 //                    var garbageList = [Garbage]()
@@ -86,7 +89,7 @@ class TaskTableViewController: UITableViewController {
         
         let taskRoute = self.taskRoutes[indexPath.row]
         cell.routeName?.text = taskRoute.name
-        cell.routeCustomer?.text = String(taskRoute.customer)
+        cell.routeCustomer?.text = taskRoute.customer.name
 //        cell.garbageTypeLabel?.text = setGarbageLabelValue(garbageList: route.garbageList)
         return cell
         

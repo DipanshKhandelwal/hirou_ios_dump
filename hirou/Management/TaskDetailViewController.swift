@@ -17,6 +17,7 @@ class TaskDetailViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        configureView()
     }
     
     var detailItem: Any? {
@@ -25,6 +26,25 @@ class TaskDetailViewController: UIViewController {
             if let detail = detailItem {
                 let taskRoute = detail as! TaskRoute
                 print("taskRoute.name", taskRoute.name)
+                configureView()
+            }
+        }
+    }
+    
+    func configureView() {
+        if let detail = detailItem {
+            let task = detail as! TaskRoute
+            
+            if let label = self.customerLabel {
+                label.text = task.customer.name
+            }
+            
+            if let label = self.vehicleLabel {
+                label.text = "Vehicle"
+            }
+            
+            if let label = self.garbageLabel {
+                label.text = "Garbage"
             }
         }
     }
