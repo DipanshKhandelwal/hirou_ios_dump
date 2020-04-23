@@ -22,4 +22,12 @@ class BaseRoute {
         self.customer = customer
         self.garbageList = garbageList
     }
+    
+    func getGarbagesNameList() -> String {
+        var stringGarbageList = ""
+        for garbage in self.garbageList {
+            stringGarbageList += garbage.name + ", "
+        }
+        return stringGarbageList
+    }
 }
