@@ -75,9 +75,10 @@ class TaskTableViewController: UITableViewController {
         let taskRoute = self.taskRoutes[indexPath.row]
         cell.routeName?.text = taskRoute.name
         cell.routeCustomer?.text = taskRoute.customer.name
-//        cell.garbageTypeLabel?.text = setGarbageLabelValue(garbageList: route.garbageList)
+
+        cell.routeGarbageList?.text = taskRoute.getGarbagesNameList()
+
         return cell
-        
     }
 
     /*

@@ -45,4 +45,35 @@ class TaskRoute {
         let taskRouteObj = TaskRoute(id: id, name: name, customer: customer, date: date, taskCollectionPoints: taskCollectionPoints)
         return taskRouteObj!
     }
+    
+    func getGarbagesNameList() -> String{
+        var garbageSet : Set<String> = []
+        var stringGarbageList = "Empty"
+        for tcp in self.taskCollectionPoints {
+            for tc in tcp.taskCollections {
+                garbageSet.insert(tc.garbage.name)
+            }
+        }
+        if(garbageSet.count > 0) {
+            stringGarbageList = ""
+        }
+        for garbage in garbageSet {
+            stringGarbageList += garbage + ", "
+        }
+        return stringGarbageList
+    }
+    
+    func getCompleteStatus() -> Bool{
+        var complete = true
+        for tcp in self.taskCollectionPoints {
+            for tc in tcp.taskCollections {
+                if(tc.complete == false) {
+                    complete = false
+                    return complete
+                }
+            }
+        }
+        return complete
+    }
+
 }
