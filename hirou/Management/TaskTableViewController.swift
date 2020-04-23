@@ -77,6 +77,16 @@ class TaskTableViewController: UITableViewController {
         cell.routeCustomer?.text = taskRoute.customer.name
 
         cell.routeGarbageList?.text = taskRoute.getGarbagesNameList()
+        
+        let routeStatus = taskRoute.getCompleteStatus()
+        
+        if(routeStatus) {
+            cell.routeStatus?.text = "Complete"
+            cell.routeStatus.textColor = .green
+        } else {
+            cell.routeStatus?.text = "Incomplete"
+            cell.routeStatus.textColor = .red
+        }
 
         return cell
     }
