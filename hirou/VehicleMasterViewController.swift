@@ -10,19 +10,16 @@ import UIKit
 import Alamofire
 
 class VehicleMasterViewController: UITableViewController {
-    
+
     var detailViewController: VehicleDetailViewController? = nil
     var objects = [Any]()
     var vehicles = [Vehicle]()
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         navigationItem.leftBarButtonItem = editButtonItem
-        
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
-        navigationItem.rightBarButtonItem = addButton
+
         if let split = splitViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? VehicleDetailViewController
@@ -38,65 +35,27 @@ class VehicleMasterViewController: UITableViewController {
             //to get status code
             switch response.result {
             case .success(let value):
-//                print(String(data: value as! Data, encoding: .utf8)!)
-//                completion(try? SomeRequest(protobuf: value))
                 print("response", value)
-//                self.vehicles = value as! [Any]
                 self.vehicles = []
-                
                 for vehicle in value as! [Any] {
-                    print("vehicle", vehicle)
-                    let registrationNumber = ((vehicle as AnyObject)["registration_number"] as! String)
-                    let model = ((vehicle as AnyObject)["model"] as! String)
-//                    let latitude = ((vehicle as AnyObject)["location"] as! String)
-//                    let longitude = ((vehicle as AnyObject)["location"] as! String)
-                    let locationCoordinates = ((vehicle as AnyObject)["location"] as! String).split{$0 == ","}.map(String.init)
-                    let location = Location( latitude: locationCoordinates[0], longitude : locationCoordinates[1] )
-//                    let users = (vehicle as AnyObject)["users"] as! [String]
-                    let users: [String] = []
-                    let vehicleObject = Vehicle( registrationNumber: registrationNumber, model: model, location: location, users: users)
-                    self.vehicles.append(vehicleObject!)
-//                    self.tableView.reloadData()
+                    let vehicleObject = Vehicle.getVehicleFromResponse(obj: (vehicle as AnyObject))
+                    self.vehicles.append(vehicleObject)
                 }
                 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
-//                print("vehicles",self.vehicles)
-//                self.tableView.reloadData()
             case .failure(let error):
                 print(error)
-//                completion(nil)
             }
             
         }
-        
-        //            { response in
-        //            print("response", response)
-        //            vehicles = response.result
-        //        }
         super.viewWillAppear(animated)
-        
     }
-    
-    @objc
-    func insertNewObject(_ sender: Any) {
-        //        objects.insert(NSDate(), at: 0)
-        //        let indexPath = IndexPath(row: 0, section: 0)
-        //        tableView.insertRows(at: [indexPath], with: .automatic)
-    }
-//
-//    @objc
-//    func insertVehicle(vehicle: Any) {
-//        vehicles.insert(vehicle, at: 0)
-//        let indexPath = IndexPath(row: 0, section: 0)
-//        tableView.insertRows(at: [indexPath], with: .automatic)
-//    }
-//
     
     
     // MARK: - Segues
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
