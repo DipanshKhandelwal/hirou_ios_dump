@@ -31,6 +31,7 @@
 		31920CA1241CD63600A55403 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31920CA0241CD63600A55403 /* Customer.swift */; };
 		31C24F1B2435E6BF000C3206 /* CollectionPointFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C24F1A2435E6BF000C3206 /* CollectionPointFormViewController.swift */; };
 		31C5473F2448C7FE00CE0F6C /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C5473E2448C7FE00CE0F6C /* TaskDetailViewController.swift */; };
+		31CF0A42245A0B8500E0F5DC /* CalenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF0A41245A0B8500E0F5DC /* CalenderViewController.swift */; };
 		31DA88B623F3CF7B00713805 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA88B523F3CF7B00713805 /* Vehicle.swift */; };
 		31E209AA23D0F3550051B14B /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E209A923D0F3550051B14B /* TestViewController.swift */; };
 		31EBE46324477F640023305D /* TaskRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EBE46224477F640023305D /* TaskRoute.swift */; };
@@ -90,6 +91,7 @@
 		31920CA0241CD63600A55403 /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		31C24F1A2435E6BF000C3206 /* CollectionPointFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointFormViewController.swift; sourceTree = "<group>"; };
 		31C5473E2448C7FE00CE0F6C /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
+		31CF0A41245A0B8500E0F5DC /* CalenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderViewController.swift; sourceTree = "<group>"; };
 		31DA88B523F3CF7B00713805 /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
 		31E209A923D0F3550051B14B /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		31EBE46224477F640023305D /* TaskRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRoute.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 			children = (
 				313172672445E5D800585B7F /* TaskTableViewController.swift */,
 				31C5473E2448C7FE00CE0F6C /* TaskDetailViewController.swift */,
+				31CF0A41245A0B8500E0F5DC /* CalenderViewController.swift */,
 			);
 			path = Management;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 				317E230623C6306C00F8F0C1 /* VehicleMasterViewController.swift in Sources */,
 				31093F9D23CFA6B40025679A /* LoginViewController.swift in Sources */,
 				31EBE46324477F640023305D /* TaskRoute.swift in Sources */,
+				31CF0A42245A0B8500E0F5DC /* CalenderViewController.swift in Sources */,
 				3133F2022424BD0A001C158C /* RouteMasterViewController.swift in Sources */,
 				31E209AA23D0F3550051B14B /* TestViewController.swift in Sources */,
 				3133F2042424BE0F001C158C /* BaseRoute.swift in Sources */,

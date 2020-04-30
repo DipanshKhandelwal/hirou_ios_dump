@@ -35,7 +35,7 @@ class VehicleDetailViewController: UIViewController {
             if let label = coordinatesLabel {
                 let location = (detail as! Vehicle).location
 //                label.text = location?.latitude ?? "" + " - " + location?.longitude ?? ""
-                label.text = location?.latitude ?? ""
+//                label.text = location?.latitude ?? ""
             }
         }
     }
