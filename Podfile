@@ -9,4 +9,7 @@ target 'hirou' do
   
 #  REST
   pod 'Alamofire', '~> 5.0.0-rc.3'
+  
+# Calendar
+  pod 'JTAppleCalendar', '~> 7.1'
 end
