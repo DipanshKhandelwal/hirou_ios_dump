@@ -84,6 +84,30 @@ class CalenderViewController: UIViewController {
         calendarView.reloadData()
     }
     
+    func configureCell(view: JTAppleCell?, cellState: CellState) {
+        guard let cell = view as? DateCell  else { return }
+        cell.dateLabel.text = cellState.text
+        handleCellTextColor(cell: cell, cellState: cellState)
+    }
+    
+    func handleCellTextColor(cell: DateCell, cellState: CellState) {
+        if cellState.dateBelongsTo == .thisMonth {
+            cell.dateLabel.textColor = UIColor.black
+//            cell.isHidden = false
+        } else {
+            cell.dateLabel.textColor = UIColor.gray
+//            cell.isHidden = true
+        }
+    }
+
+    func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
+        configureCell(view: cell, cellState: cellState)
+    }
+
+    func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
+        configureCell(view: cell, cellState: cellState)
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         let visibleDates = calendarView.visibleDates()
         calendarView.viewWillTransition(to: .zero, with: coordinator, anchorDate: visibleDates.monthDates.first?.date)
