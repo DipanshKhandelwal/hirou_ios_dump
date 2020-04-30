@@ -88,6 +88,7 @@ class CalenderViewController: UIViewController {
         guard let cell = view as? DateCell  else { return }
         cell.dateLabel.text = cellState.text
         handleCellTextColor(cell: cell, cellState: cellState)
+        handleCellEvents(cell: cell, cellState: cellState)
         handleCellSelected(cell: cell, cellState: cellState)
     }
     
@@ -107,6 +108,15 @@ class CalenderViewController: UIViewController {
             cell.selectedView.isHidden = false
         } else {
             cell.selectedView.isHidden = true
+        }
+    }
+    
+    func handleCellEvents(cell: DateCell, cellState: CellState) {
+        let dateString = formatter.string(from: cellState.date)
+        if calendarDataSource[dateString] == nil {
+            cell.dotView.isHidden = true
+        } else {
+            cell.dotView.isHidden = false
         }
     }
     
@@ -132,6 +142,9 @@ class CalenderViewController: UIViewController {
         return header
     }
 
+    func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
+        return MonthSize(defaultSize: 50)
+    }
     
     
     /*
