@@ -10,6 +10,12 @@ import UIKit
 import JTAppleCalendar
 
 
+class DateCell : JTAppleCell {
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var selectedView: UIView!
+    @IBOutlet var dotView: UIView!
+}
+
 extension CalenderViewController: JTAppleCalendarViewDataSource {
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
 //        let formatter = DateFormatter()
