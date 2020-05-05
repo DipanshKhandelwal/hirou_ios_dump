@@ -310,10 +310,10 @@
             </objects>
             <point key="canvasLocation" x="-803.125" y="-330.46875"/>
         </scene>
-        <!--Calender View Controller-->
+        <!--Calendar View Controller-->
         <scene sceneID="5FT-HI-F6I">
             <objects>
-                <viewController id="nUk-wK-GeO" customClass="CalenderViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="nUk-wK-GeO" customClass="CalendarViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mVG-QU-RKV">
                         <rect key="frame" x="0.0" y="0.0" width="712" height="984"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

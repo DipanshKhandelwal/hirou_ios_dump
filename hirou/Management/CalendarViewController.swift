@@ -24,7 +24,7 @@ class CalendarTableCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
 }
 
-extension CalenderViewController: JTAppleCalendarViewDataSource {
+extension CalendarViewController: JTAppleCalendarViewDataSource {
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
         //        let formatter = DateFormatter()
         //        formatter.dateFormat = "yyyy MM dd"
@@ -38,7 +38,7 @@ extension CalenderViewController: JTAppleCalendarViewDataSource {
     }
 }
 
-extension CalenderViewController: JTAppleCalendarViewDelegate {
+extension CalendarViewController: JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
         let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "dateCell", for: indexPath) as! DateCell
         self.calendar(calendar, willDisplay: cell, forItemAt: date, cellState: cellState, indexPath: indexPath)
@@ -54,7 +54,7 @@ extension CalenderViewController: JTAppleCalendarViewDelegate {
     }
 }
 
-class CalenderViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class CalendarViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     
     var calendarDataSource: [String:String] = [:]
