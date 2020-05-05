@@ -177,9 +177,6 @@
                                                 <rect key="frame" x="30" y="160" width="90" height="42"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <state key="normal" title="Settings"/>
-                                                <connections>
-                                                    <segue destination="nUk-wK-GeO" kind="show" id="py4-vO-pQ9"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -266,7 +263,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <state key="normal" title="Task Routes"/>
                                                 <connections>
-                                                    <segue destination="g2Y-xc-AWx" kind="show" id="6nx-zd-tCv"/>
+                                                    <segue destination="nUk-wK-GeO" kind="show" id="kqz-qk-oL2"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -349,7 +346,7 @@
                                                                 <constraint firstAttribute="width" constant="50" id="hkP-w5-8f7"/>
                                                             </constraints>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sX9-Pf-3ll">
+                                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sX9-Pf-3ll">
                                                             <rect key="frame" x="43" y="54" width="42" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
@@ -434,6 +431,7 @@
                                                 </tableViewCellContentView>
                                                 <connections>
                                                     <outlet property="title" destination="NTa-De-oIA" id="TDJ-gC-j4D"/>
+                                                    <segue destination="g2Y-xc-AWx" kind="show" id="9U2-MO-9gK"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -459,11 +457,12 @@
                     <navigationItem key="navigationItem" id="SHc-g6-uLA"/>
                     <connections>
                         <outlet property="calendarView" destination="IaI-qM-iJY" id="rYl-W7-NkF"/>
+                        <outlet property="taskRouteTable" destination="axV-0p-k6i" id="pLR-Vr-JRg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bkY-OW-GwM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1515" y="-1051"/>
+            <point key="canvasLocation" x="-14" y="-1525"/>
         </scene>
         <!--Task Route List-->
         <scene sceneID="0uf-dm-ub8">
@@ -574,7 +573,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Trn-Uu-Dv2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-14" y="-1524"/>
+            <point key="canvasLocation" x="758" y="-1525"/>
         </scene>
         <!--Task Detail View Controller-->
         <scene sceneID="Bn2-lX-uit">
@@ -671,7 +670,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cKD-EN-n4x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="758" y="-1524"/>
+            <point key="canvasLocation" x="1469" y="-1525"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Uvl-SX-0fM">
@@ -709,7 +708,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dgA-Hx-6nQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1532.8125" y="-1524.609375"/>
+            <point key="canvasLocation" x="2191" y="-1525"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="Bjx-BB-hDh">
@@ -738,7 +737,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ahG-sG-Paa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2317" y="-1536"/>
+            <point key="canvasLocation" x="2888" y="-1525"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
@@ -1466,7 +1465,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gtG-6Z-rgW" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2863" y="720"/>
+            <point key="canvasLocation" x="2889" y="720"/>
         </scene>
         <!--Collection Point-->
         <scene sceneID="3wQ-Jy-Vrl">

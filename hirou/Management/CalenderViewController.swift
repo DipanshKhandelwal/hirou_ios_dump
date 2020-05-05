@@ -8,6 +8,7 @@
 
 import UIKit
 import JTAppleCalendar
+import Alamofire
 
 class DateHeader: JTAppleCollectionReusableView  {
     @IBOutlet var monthTitle: UILabel!
@@ -25,11 +26,11 @@ class CalendarTableCell: UITableViewCell {
 
 extension CalenderViewController: JTAppleCalendarViewDataSource {
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "yyyy MM dd"
-//        let startDate = formatter.date(from: "2018 01 01")!
-//        let endDate = Date()
-//        return ConfigurationParameters(startDate: startDate, endDate: endDate, generateInDates: .forAllMonths, generateOutDates: .tillEndOfGrid)
+        //        let formatter = DateFormatter()
+        //        formatter.dateFormat = "yyyy MM dd"
+        //        let startDate = formatter.date(from: "2018 01 01")!
+        //        let endDate = Date()
+        //        return ConfigurationParameters(startDate: startDate, endDate: endDate, generateInDates: .forAllMonths, generateOutDates: .tillEndOfGrid)
         
         let startDate = formatter.date(from: "01-jan-2018")!
         let endDate = Date()
@@ -53,29 +54,7 @@ extension CalenderViewController: JTAppleCalendarViewDelegate {
     }
 }
 
-
 class CalenderViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "calendarTableCell", for: indexPath) as! CalendarTableCell
-        cell.title!.text = "Task" + String(indexPath.row)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection
-                                section: Int) -> String? {
-       return "Tasks for 20 Jan 2020"
-    }
-    
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     
     var calendarDataSource: [String:String] = [:]
@@ -84,6 +63,8 @@ class CalenderViewController: UIViewController, UITableViewDataSource, UITableVi
         formatter.dateFormat = "dd-MMM-yyyy"
         return formatter
     }
+    var taskRoutes: [TaskRoute] = []
+    @IBOutlet weak var taskRouteTable: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,6 +80,7 @@ class CalenderViewController: UIViewController, UITableViewDataSource, UITableVi
     func populateDataSource() {
         // You can get the data from a server.
         // Then convert that data into a form that can be used by the calendar.
+        fetchTaskRoutes()
         calendarDataSource = [
             "07-Jan-2018": "SomeData",
             "15-Jan-2018": "SomeMoreData",
@@ -108,6 +90,31 @@ class CalenderViewController: UIViewController, UITableViewDataSource, UITableVi
         // update the calendar
         calendarView.reloadData()
     }
+    
+    func fetchTaskRoutes() {
+        AF.request("http://127.0.0.1:8000/api/task_route/", method: .get).responseJSON { response in
+            //to get status code
+            switch response.result {
+            case .success(let value):
+                print("value", value)
+                self.taskRoutes = []
+                for taskRoute in value as! [Any] {
+                    let taskRouteResponse = taskRoute as AnyObject
+                    let taskRouteObj = TaskRoute.getTaskRouteFromResponse(obj: taskRouteResponse)
+                    self.taskRoutes.append(taskRouteObj)
+                }
+                DispatchQueue.main.async {
+                    self.taskRouteTable.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+                //                completion(nil)
+            }
+        }
+    }
+    
+    
+    // Calendar
     
     func configureCell(view: JTAppleCell?, cellState: CellState) {
         guard let cell = view as? DateCell  else { return }
@@ -120,13 +127,13 @@ class CalenderViewController: UIViewController, UITableViewDataSource, UITableVi
     func handleCellTextColor(cell: DateCell, cellState: CellState) {
         if cellState.dateBelongsTo == .thisMonth {
             cell.dateLabel.textColor = UIColor.black
-//            cell.isHidden = false
+            //            cell.isHidden = false
         } else {
             cell.dateLabel.textColor = UIColor.gray
-//            cell.isHidden = true
+            //            cell.isHidden = true
         }
     }
-
+    
     func handleCellSelected(cell: DateCell, cellState: CellState) {
         if cellState.isSelected {
             cell.selectedView.layer.cornerRadius =  13
@@ -148,7 +155,7 @@ class CalenderViewController: UIViewController, UITableViewDataSource, UITableVi
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         configureCell(view: cell, cellState: cellState)
     }
-
+    
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         configureCell(view: cell, cellState: cellState)
     }
@@ -166,9 +173,33 @@ class CalenderViewController: UIViewController, UITableViewDataSource, UITableVi
         header.monthTitle.text = formatter.string(from: range.start)
         return header
     }
-
+    
     func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
         return MonthSize(defaultSize: 50)
+    }
+    
+    
+    // Table
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.taskRoutes.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "calendarTableCell", for: indexPath) as! CalendarTableCell
+        
+        cell.title!.text = self.taskRoutes[indexPath.row].name
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection
+        section: Int) -> String? {
+        return "Tasks for 20 Jan 2020"
     }
     
     
