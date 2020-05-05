@@ -13,7 +13,7 @@ class TaskRoute {
     var id: Int
     var name: String
     var customer: Customer
-    var date: String
+    var date: Date
     var taskCollectionPoints: [TaskCollectionPoint]
     
     init?(id: Int, name : String, customer: Customer, date: String, taskCollectionPoints: [TaskCollectionPoint]) {
@@ -21,7 +21,7 @@ class TaskRoute {
         self.id = id
         self.name = name
         self.customer = customer
-        self.date = date
+        self.date = TaskRoute.getDateFromString(dateStr: date)
         self.taskCollectionPoints = taskCollectionPoints
     }
     
@@ -44,6 +44,12 @@ class TaskRoute {
 
         let taskRouteObj = TaskRoute(id: id, name: name, customer: customer, date: date, taskCollectionPoints: taskCollectionPoints)
         return taskRouteObj!
+    }
+    
+    static func getDateFromString(dateStr: String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-mm-dd"
+        return dateFormatter.date(from: dateStr)!
     }
     
     func getGarbagesNameList() -> String{
