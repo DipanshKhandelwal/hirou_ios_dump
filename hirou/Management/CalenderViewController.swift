@@ -19,6 +19,10 @@ class DateCell : JTAppleCell {
     @IBOutlet var dotView: UIView!
 }
 
+class CalendarTableCell: UITableViewCell {
+    @IBOutlet weak var title: UILabel!
+}
+
 extension CalenderViewController: JTAppleCalendarViewDataSource {
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
 //        let formatter = DateFormatter()
@@ -50,7 +54,28 @@ extension CalenderViewController: JTAppleCalendarViewDelegate {
 }
 
 
-class CalenderViewController: UIViewController {
+class CalenderViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 20
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "calendarTableCell", for: indexPath) as! CalendarTableCell
+        cell.title!.text = "Task" + String(indexPath.row)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection
+                                section: Int) -> String? {
+       return "Tasks for 20 Jan 2020"
+    }
+    
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     
     var calendarDataSource: [String:String] = [:]
