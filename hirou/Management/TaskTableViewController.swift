@@ -28,7 +28,7 @@ class TaskTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-                self.navigationItem.rightBarButtonItems = [self.editButtonItem, self.addRouteButton]
+        self.navigationItem.rightBarButtonItems = [self.editButtonItem, self.addRouteButton]
     }
 
     override func viewWillAppear(_ animated: Bool) {

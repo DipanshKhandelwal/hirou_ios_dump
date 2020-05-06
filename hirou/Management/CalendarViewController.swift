@@ -32,7 +32,7 @@ extension CalendarViewController: JTAppleCalendarViewDataSource {
         //        let endDate = Date()
         //        return ConfigurationParameters(startDate: startDate, endDate: endDate, generateInDates: .forAllMonths, generateOutDates: .tillEndOfGrid)
         
-        let startDate = formatter.date(from: "01-jan-2018")!
+        let startDate = formatter.date(from: "01-jan-2020")!
         let endDate = Date()
         return ConfigurationParameters(startDate: startDate, endDate: endDate)
     }
@@ -73,36 +73,41 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         calendarView.scrollingMode   = .stopAtEachCalendarFrame
         calendarView.showsHorizontalScrollIndicator = false
         populateDataSource()
-        
         // Do any additional setup after loading the view.
     }
     
     func populateDataSource() {
-        // You can get the data from a server.
-        // Then convert that data into a form that can be used by the calendar.
-        fetchTaskRoutes()
-        calendarDataSource = [
-            "07-Jan-2018": "SomeData",
-            "15-Jan-2018": "SomeMoreData",
-            "15-Feb-2018": "MoreData",
-            "21-Feb-2018": "onlyData",
-        ]
-        // update the calendar
-        calendarView.reloadData()
+        fetchTaskRoutesAndUpdatetasks()
     }
     
-    func fetchTaskRoutes() {
+    func getCalendarData (taskRoutes: [TaskRoute]) {
+        var calendarTasks: Set<Date> = []
+        var calendarDS: [String: String] = [:]
+        for tr in taskRoutes {
+            calendarTasks.insert(tr.date)
+        }
+        for task in calendarTasks {
+            let dateString = formatter.string(from: task)
+            calendarDS[dateString] = "Task"
+        }
+        calendarDataSource = calendarDS
+        DispatchQueue.main.async {
+            self.calendarView.reloadData()
+        }
+    }
+    
+    func fetchTaskRoutesAndUpdatetasks() {
         AF.request("http://127.0.0.1:8000/api/task_route/", method: .get).responseJSON { response in
             //to get status code
             switch response.result {
             case .success(let value):
-                print("value", value)
                 self.taskRoutes = []
                 for taskRoute in value as! [Any] {
                     let taskRouteResponse = taskRoute as AnyObject
                     let taskRouteObj = TaskRoute.getTaskRouteFromResponse(obj: taskRouteResponse)
                     self.taskRoutes.append(taskRouteObj)
                 }
+                self.getCalendarData(taskRoutes: self.taskRoutes)
                 DispatchQueue.main.async {
                     self.taskRouteTable.reloadData()
                 }
@@ -182,7 +187,6 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     // Table
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
@@ -197,11 +201,9 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection
-        section: Int) -> String? {
-        return "Tasks for 20 Jan 2020"
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Tasks"
     }
-    
     
     /*
      // MARK: - Navigation
