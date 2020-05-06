@@ -38,7 +38,6 @@ class TaskTableViewController: UITableViewController {
             //to get status code
             switch response.result {
             case .success(let value):
-                print("value", value)
                 self.taskRoutes = []
                 for taskRoute in value as! [Any] {
                     let taskRouteResponse = taskRoute as AnyObject
