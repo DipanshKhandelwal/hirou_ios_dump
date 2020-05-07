@@ -12,7 +12,6 @@ import Alamofire
 class TaskCollectionPointCell: UITableViewCell {
     @IBOutlet weak var sequence: UILabel!
     @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var completionTime: UILabel!
 }
 
 class TaskCollectionPointTableViewController: UITableViewController {
