@@ -40,6 +40,7 @@
 		31EBE46724477FED0023305D /* TaskCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EBE46624477FED0023305D /* TaskCollection.swift */; };
 		31F57D1C243A600A00903F38 /* GarbageTypesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F57D1B243A600A00903F38 /* GarbageTypesTableViewController.swift */; };
 		31F57D1E243A618500903F38 /* Garbage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F57D1D243A618500903F38 /* Garbage.swift */; };
+		31FB0DB32463BF3500856B4C /* TaskCollectionPointTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FB0DB22463BF3500856B4C /* TaskCollectionPointTableViewController.swift */; };
 		58514F6DD549292BFD156FB8 /* Pods_hirou.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE9740D6C8CD4CA3B0744CD /* Pods_hirou.framework */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +102,7 @@
 		31EBE46624477FED0023305D /* TaskCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollection.swift; sourceTree = "<group>"; };
 		31F57D1B243A600A00903F38 /* GarbageTypesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarbageTypesTableViewController.swift; sourceTree = "<group>"; };
 		31F57D1D243A618500903F38 /* Garbage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Garbage.swift; sourceTree = "<group>"; };
+		31FB0DB22463BF3500856B4C /* TaskCollectionPointTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionPointTableViewController.swift; sourceTree = "<group>"; };
 		9AE9740D6C8CD4CA3B0744CD /* Pods_hirou.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_hirou.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C39C6D95DFF4BD26552FF608 /* Pods-hirou.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hirou.debug.xcconfig"; path = "Target Support Files/Pods-hirou/Pods-hirou.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -131,12 +133,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		312E7ABF2462A78700A73363 /* Collections */ = {
+		312E7ABF2462A78700A73363 /* TaskCollection */ = {
 			isa = PBXGroup;
 			children = (
 				312E7AC02462A7AD00A73363 /* CollectionsTableViewController.swift */,
 			);
-			path = Collections;
+			path = TaskCollection;
 			sourceTree = "<group>";
 		};
 		312E9A2B242A39A70073D165 /* CollectionPoint */ = {
@@ -250,12 +252,21 @@
 		3199089C2427656900E028E1 /* Management */ = {
 			isa = PBXGroup;
 			children = (
-				312E7ABF2462A78700A73363 /* Collections */,
+				31FB0DB12463BEEB00856B4C /* TaskCollectionPoint */,
+				312E7ABF2462A78700A73363 /* TaskCollection */,
 				313172672445E5D800585B7F /* TaskTableViewController.swift */,
 				31C5473E2448C7FE00CE0F6C /* TaskDetailViewController.swift */,
 				31CF0A41245A0B8500E0F5DC /* CalendarViewController.swift */,
 			);
 			path = Management;
+			sourceTree = "<group>";
+		};
+		31FB0DB12463BEEB00856B4C /* TaskCollectionPoint */ = {
+			isa = PBXGroup;
+			children = (
+				31FB0DB22463BF3500856B4C /* TaskCollectionPointTableViewController.swift */,
+			);
+			path = TaskCollectionPoint;
 			sourceTree = "<group>";
 		};
 		5E7FE8B695FD7659A6ADE524 /* Frameworks */ = {
@@ -455,6 +466,7 @@
 				31DA88B623F3CF7B00713805 /* Vehicle.swift in Sources */,
 				3138F1932421F5CC007C7434 /* CollectionPoint.swift in Sources */,
 				317E230223C6306C00F8F0C1 /* AppDelegate.swift in Sources */,
+				31FB0DB32463BF3500856B4C /* TaskCollectionPointTableViewController.swift in Sources */,
 				317E230423C6306C00F8F0C1 /* SceneDelegate.swift in Sources */,
 				31920CA1241CD63600A55403 /* Customer.swift in Sources */,
 				3138F1952421FD63007C7434 /* RouteCollectionPointViewController.swift in Sources */,
