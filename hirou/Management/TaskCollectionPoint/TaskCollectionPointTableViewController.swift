@@ -12,7 +12,6 @@ class TaskCollectionPointCell: UITableViewCell {
     @IBOutlet weak var sequence: UILabel!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var completionTime: UILabel!
-    @IBOutlet weak var completionSwitch: UISwitch!
 }
 
 class TaskCollectionPointTableViewController: UITableViewController {
