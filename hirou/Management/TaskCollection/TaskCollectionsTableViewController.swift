@@ -1,5 +1,5 @@
 //
-//  CollectionsTableViewController.swift
+//  TaskCollectionsTableViewController.swift
 //  hirou
 //
 //  Created by Dipansh Khandelwal on 06/05/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CollectionsTableViewController: UITableViewController {
+class TaskCollectionsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
