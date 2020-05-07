@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class TaskCollectionPointCell: UITableViewCell {
     @IBOutlet weak var sequence: UILabel!
@@ -27,6 +28,37 @@ class TaskCollectionPointTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
+        fetchTaskCollectionPoints()
+    }
+    
+    func fetchTaskCollectionPoints(){
+        let id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
+        let url = "http://127.0.0.1:8000/api/task_route/"+String(id)+"/"
+        AF.request(url, method: .get).responseJSON { response in
+            switch response.result {
+                case .success(let value):
+                    print("value", value)
+                    var newTaskCollectionPoints = [TaskCollectionPoint]()
+                    
+                    let cps = (value as AnyObject)["task_collection_point"]
+                    for collectionPoint in cps as! [Any] {
+                        let taskCollectionPointObj = TaskCollectionPoint.getTaskCollectionPointFromResponse(obj: collectionPoint as AnyObject)
+                        newTaskCollectionPoints.append(taskCollectionPointObj)
+                    }
+                    self.taskCollectionPoints = []
+                    self.taskCollectionPoints = newTaskCollectionPoints.sorted() { $0.sequence < $1.sequence }
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+        }
+    }
+    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -36,12 +68,14 @@ class TaskCollectionPointTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return self.taskCollectionPoints.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCollectionPointCell", for: indexPath) as! TaskCollectionPointCell
         cell.sequence!.text = String(indexPath.row)
+        cell.name!.text = self.taskCollectionPoints[indexPath.row].name
+        
         return cell
     }
     
