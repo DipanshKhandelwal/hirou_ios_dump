@@ -70,6 +70,8 @@ class TaskDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
         if let detail = detailItem {
             let task = detail as! TaskRoute
             
+            UserDefaults.standard.set(task.id, forKey: "selectedTaskRoute")
+            
             if let label = self.customerLabel {
                 label.text = task.customer.name
             }
