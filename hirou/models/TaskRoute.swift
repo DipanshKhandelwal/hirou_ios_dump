@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TaskRoute {
+class TaskRoute: Encodable, Decodable {
     //MARK: Properties
     var id: Int
     var name: String
@@ -41,7 +41,7 @@ class TaskRoute {
             let taskCollectionPoint = TaskCollectionPoint.getTaskCollectionPointFromResponse(obj: taskCollectionPointResponse)
             taskCollectionPoints.append(taskCollectionPoint)
         }
-
+        
         let taskRouteObj = TaskRoute(id: id, name: name, customer: customer, date: date, taskCollectionPoints: taskCollectionPoints)
         return taskRouteObj!
     }
@@ -81,5 +81,5 @@ class TaskRoute {
         }
         return complete
     }
-
+    
 }
