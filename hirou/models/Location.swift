@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Location {
-    var latitude = "";
-    var longitude = "";
+struct Location : Encodable, Decodable{
+    var latitude: String = "";
+    var longitude: String = "";
 }
