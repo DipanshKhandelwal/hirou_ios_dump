@@ -65,6 +65,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
         } else {
             let parameters: [String: String] = [
                 "name": String(self.routeNameTextField.text!),
+                
             ]
             AF.request("http://127.0.0.1:8000/api/base_route/", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
                 .responseJSON {
@@ -72,21 +73,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     switch response.result {
                     case .success(let value):
                         print("value", value)
-                        self.newRoute = nil
-                        let id = ((value as AnyObject)["id"] as! Int)
-                        let name = ((value as AnyObject)["name"] as! String)
-                        let customer = ((value as AnyObject)["customer"] as! Int)
-                        let garbageArray = (value as AnyObject)["garbage"]
-                        var garbageList = [Garbage]()
-                        for garbage in garbageArray as! [Any] {
-                            let id = ((garbage as AnyObject)["id"] as! Int)
-                            let name = ((garbage as AnyObject)["name"] as! String)
-                            let description = ((garbage as AnyObject)["description"] as! String)
-                            let garbageObj = Garbage(id: id, name: name, description: description)
-                            garbageList.append(garbageObj!)
-                        }
-                        let routeObj = BaseRoute(id: id, name: name, customer: customer, garbageList: garbageList)
-                        self.newRoute = routeObj
+                        self.newRoute = BaseRoute.getBaseRouteFromResponse(obj: value as AnyObject)
                         
                     case .failure(let error):
                         print(error)
@@ -94,7 +81,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             }
         }
     }
-    
+        
     func deleteRouteCall(){
         if detailItem != nil {
             let id = UserDefaults.standard.string(forKey: "selectedRoute")!
@@ -114,7 +101,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             }
         }
     }
-
+    
     @IBAction func saveRoute(_ sender: Any) {
         saveRouteCall()
     }
@@ -276,7 +263,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
         
         if segue.identifier == "selectGarbageTypes" {
             let controller = (segue.destination as! GarbageTypesTableViewController)
-            if let detail = detailItem {
+            if detailItem != nil {
                 controller.detailItem = self.selectedGarbages
                 controller.delegate = self
             }
