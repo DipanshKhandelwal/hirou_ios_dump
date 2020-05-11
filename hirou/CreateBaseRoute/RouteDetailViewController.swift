@@ -132,7 +132,6 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             if let label = self.routeNameTextField {
                 label.text = (detail as! BaseRoute).name
             }
-            
             if let label = self.customerTextField {
                 label.text = String((detail as! BaseRoute).customer)
             }

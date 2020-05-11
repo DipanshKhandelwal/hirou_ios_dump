@@ -17,7 +17,7 @@ class RouteTableViewCell : UITableViewCell {
 
 class RouteMasterViewController: UITableViewController {
     
-//    var detailViewController: RouteDetailViewController? = nil
+    //    var detailViewController: RouteDetailViewController? = nil
     var baseRoutes = [BaseRoute]()
     @IBOutlet weak var addRouteButton: UIBarButtonItem!
     
@@ -27,58 +27,35 @@ class RouteMasterViewController: UITableViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
-//         Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-//         self.navigationItem.rightBarButtonItem = self.editButtonItem
+        //         Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        //         self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-//        navigationItem.leftBarButtonItem = editButtonItem
-//
-//        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
-//        navigationItem.rightBarButtonItem = addButton
-//        if let split = splitViewController {
-//            let controllers = split.viewControllers
-//            detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? RouteDetailViewController
-//        }
+        //        navigationItem.leftBarButtonItem = editButtonItem
+        //
+        //        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
+        //        navigationItem.rightBarButtonItem = addButton
+        //        if let split = splitViewController {
+        //            let controllers = split.viewControllers
+        //            detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? RouteDetailViewController
+        //        }
         self.navigationItem.rightBarButtonItems = [self.editButtonItem, self.addRouteButton]
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
-        
-        
-        AF.request("http://127.0.0.1:8000/api/base_route/", method: .get).responseJSON { response in
-                    
-                    //to get status code
-                    switch response.result {
-                    case .success(let value):
-                        self.baseRoutes = []
-                        for baseRoute in value as! [Any] {
-                            let id = ((baseRoute as AnyObject)["id"] as! Int)
-                            let name = ((baseRoute as AnyObject)["name"] as! String)
-                            let customer = ((baseRoute as AnyObject)["id"] as! Int)
-                            let garbageArray = (baseRoute as AnyObject)["garbage"]
-                            var garbageList = [Garbage]()
-                            for garbage in garbageArray as! [Any] {
-                                let id = ((garbage as AnyObject)["id"] as! Int)
-                                let name = ((garbage as AnyObject)["name"] as! String)
-                                let description = ((garbage as AnyObject)["description"] as! String)
-                                let garbageObj = Garbage(id: id, name: name, description: description)
-                                garbageList.append(garbageObj!)
-                            }
-                            let baseRouteObj = BaseRoute(id: id, name: name, customer: customer, garbageList: garbageList)
-                            self.baseRoutes.append(baseRouteObj!)
-                        }
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                        }
-                    case .failure(let error):
-                        print(error)
-        //                completion(nil)
-                    }
-                    
+        //        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
+        AF.request("http://127.0.0.1:8000/api/base_route/", method: .get).response { response in
+            switch response.result {
+            case .success(let value):
+                let decoder = JSONDecoder()
+                self.baseRoutes = try! decoder.decode([BaseRoute].self, from: value!)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
                 }
-        
-        
+            case .failure(let error):
+                print(error)
+            }
+        }
         super.viewWillAppear(animated)
     }
     
@@ -98,7 +75,7 @@ class RouteMasterViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! RouteTableViewCell
         
         let route = baseRoutes[indexPath.row]
-//        cell.textLabel!.text = route.name
+        //        cell.textLabel!.text = route.name
         cell.routeNameLabel?.text = route.name
         cell.customerLabel?.text = String(route.customer)
         cell.garbageTypeLabel?.text =  route.getGarbagesNameList()
