@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TaskCollection {
+class TaskCollection : Encodable, Decodable{
     //MARK: Properties
     var id: Int
     var timestamp: String
