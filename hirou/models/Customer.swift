@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Customer {
+class Customer : Encodable, Decodable{
     //MARK: Properties
     var id: Int
     var name: String
