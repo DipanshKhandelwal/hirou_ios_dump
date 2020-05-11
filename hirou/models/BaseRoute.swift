@@ -33,12 +33,12 @@ struct BaseRoute : Encodable, Decodable{
     
     init(from decoder: Decoder) throws{
         let container = try decoder.container(keyedBy: CodingKeys.self)
-            id = try container.decode(Int.self, forKey: .id)
-            name = try container.decode(String.self, forKey: .name)
-            garbageList = try container.decode([Garbage].self, forKey: .garbageList)
-            customer = (try container.decodeIfPresent(Int.self, forKey: .customer)) ?? -1
+        id = try container.decode(Int.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        garbageList = try container.decode([Garbage].self, forKey: .garbageList)
+        customer = (try container.decodeIfPresent(Int.self, forKey: .customer)) ?? -1
     }
-
+    
     func getGarbagesNameList() -> String {
         var stringGarbageList = ""
         for garbage in self.garbageList {

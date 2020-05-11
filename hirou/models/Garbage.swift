@@ -20,13 +20,13 @@ struct Garbage : Encodable, Decodable{
         self.name = name
         self.description = description
     }
-
+    
     enum CodingKeys : String, CodingKey {
         case id
         case name
         case description
     }
-
+    
     static func getGarbageFromResponse(obj : AnyObject) -> Garbage {
         let id = obj["id"] as! Int
         let name = obj["name"] as! String
