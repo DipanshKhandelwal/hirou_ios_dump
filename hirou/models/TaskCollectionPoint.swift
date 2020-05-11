@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TaskCollectionPoint {
+class TaskCollectionPoint : Encodable, Decodable{
     //MARK: Properties
     var id: Int
     var name: String
@@ -17,7 +17,7 @@ class TaskCollectionPoint {
     var sequence: Int
     var image: String
     var taskCollections: [TaskCollection]
-
+    
     init?(id: Int, name : String, address: String, location: Location, sequence: Int, image: String, taskCollections: [TaskCollection]) {
         // Initialize stored properties.
         self.id = id
@@ -36,7 +36,7 @@ class TaskCollectionPoint {
         
         let locationCoordinates = (obj["location"] as! String).split{$0 == ","}.map(String.init)
         let location = Location( latitude: locationCoordinates[0], longitude : locationCoordinates[1] )
-
+        
         let sequence = obj["sequence"] as! Int
         
         let image = ""
@@ -48,7 +48,7 @@ class TaskCollectionPoint {
             let taskCollection = TaskCollection.getTaskCollectionFromResponse(obj: taskCollectionResponse)
             taskCollections.append(taskCollection)
         }
-
+        
         let taskCollectionPointObj = TaskCollectionPoint(id: id, name: name, address: address, location: location, sequence: sequence, image: image, taskCollections: taskCollections);
         return taskCollectionPointObj!
     }
