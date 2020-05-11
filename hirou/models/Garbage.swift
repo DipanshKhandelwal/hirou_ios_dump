@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Garbage {
+struct Garbage : Encodable, Decodable{
     //MARK: Properties
     var id: Int
     var name: String
@@ -20,7 +20,13 @@ class Garbage {
         self.name = name
         self.description = description
     }
-    
+
+    enum CodingKeys : String, CodingKey {
+        case id
+        case name
+        case description
+    }
+
     static func getGarbageFromResponse(obj : AnyObject) -> Garbage {
         let id = obj["id"] as! Int
         let name = obj["name"] as! String
