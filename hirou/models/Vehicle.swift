@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Vehicle {
+class Vehicle: Encodable, Decodable {
     //MARK: Properties
     var id: Int
     var registrationNumber: String
@@ -27,7 +27,7 @@ class Vehicle {
         self.model = model
         self.location = location
     }
-
+    
     static func getVehicleFromResponse(obj : AnyObject) -> Vehicle {
         let id = obj["id"] as! Int
         let registrationNumber = obj["registration_number"] as! String
