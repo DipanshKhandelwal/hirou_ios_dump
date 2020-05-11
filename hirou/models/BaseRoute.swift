@@ -8,7 +8,8 @@
 
 import Foundation
 
-class BaseRoute {
+struct BaseRoute : Encodable, Decodable{
+    
     //MARK: Properties
     var id: Int
     var name: String
@@ -23,6 +24,21 @@ class BaseRoute {
         self.garbageList = garbageList
     }
     
+    enum CodingKeys : String, CodingKey {
+        case id
+        case name
+        case customer
+        case garbageList = "garbage"
+    }
+    
+    init(from decoder: Decoder) throws{
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+            id = try container.decode(Int.self, forKey: .id)
+            name = try container.decode(String.self, forKey: .name)
+            garbageList = try container.decode([Garbage].self, forKey: .garbageList)
+            customer = (try container.decodeIfPresent(Int.self, forKey: .customer)) ?? -1
+    }
+
     func getGarbagesNameList() -> String {
         var stringGarbageList = ""
         for garbage in self.garbageList {
