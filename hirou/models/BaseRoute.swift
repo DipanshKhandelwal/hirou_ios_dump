@@ -30,4 +30,24 @@ class BaseRoute {
         }
         return stringGarbageList
     }
+    
+    static func getBaseRouteFromResponse(obj: AnyObject) -> BaseRoute {
+        let id = obj["id"] as! Int
+        let name = obj["name"] as! String
+        let customer: Int;
+        if  obj["customer"] is NSNull {
+            customer = -1
+        }
+        else {
+            customer = obj["customer"] as! Int
+        }
+        let garbageArray = obj["garbage"]
+        var garbageList = [Garbage]()
+        for garbage in garbageArray as! [Any] {
+            let garbageObj = Garbage.getGarbageFromResponse(obj: garbage as AnyObject)
+            garbageList.append(garbageObj)
+        }
+        let routeObj = BaseRoute(id: id, name: name, customer: customer, garbageList: garbageList)
+        return routeObj!
+    }
 }
