@@ -15,13 +15,15 @@ struct BaseRoute : Encodable, Decodable{
     var name: String
     var customer: Int
     var garbageList: [Garbage]
+    var collectionPoints: [CollectionPoint]
     
-    init?(id: Int, name : String, customer: Int, garbageList: [Garbage]) {
+    init?(id: Int, name : String, customer: Int, garbageList: [Garbage], collectionPoints: [CollectionPoint]) {
         // Initialize stored properties.
         self.id = id
         self.name = name
         self.customer = customer
         self.garbageList = garbageList
+        self.collectionPoints = collectionPoints
     }
     
     enum CodingKeys : String, CodingKey {
@@ -29,6 +31,7 @@ struct BaseRoute : Encodable, Decodable{
         case name
         case customer
         case garbageList = "garbage"
+        case collectionPoints = "collection_point"
     }
     
     init(from decoder: Decoder) throws{
@@ -36,6 +39,7 @@ struct BaseRoute : Encodable, Decodable{
         id = try container.decode(Int.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
         garbageList = try container.decode([Garbage].self, forKey: .garbageList)
+        collectionPoints = try container.decode([CollectionPoint].self, forKey: .collectionPoints)
         customer = (try container.decodeIfPresent(Int.self, forKey: .customer)) ?? -1
     }
     
@@ -45,25 +49,5 @@ struct BaseRoute : Encodable, Decodable{
             stringGarbageList += garbage.name + ", "
         }
         return stringGarbageList
-    }
-    
-    static func getBaseRouteFromResponse(obj: AnyObject) -> BaseRoute {
-        let id = obj["id"] as! Int
-        let name = obj["name"] as! String
-        let customer: Int;
-        if  obj["customer"] is NSNull {
-            customer = -1
-        }
-        else {
-            customer = obj["customer"] as! Int
-        }
-        let garbageArray = obj["garbage"]
-        var garbageList = [Garbage]()
-        for garbage in garbageArray as! [Any] {
-            let garbageObj = Garbage.getGarbageFromResponse(obj: garbage as AnyObject)
-            garbageList.append(garbageObj)
-        }
-        let routeObj = BaseRoute(id: id, name: name, customer: customer, garbageList: garbageList)
-        return routeObj!
     }
 }
