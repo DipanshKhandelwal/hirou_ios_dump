@@ -54,7 +54,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
                     let address = ((collectionPoint as AnyObject)["address"] as! String)
                     let route = ((collectionPoint as AnyObject)["route"] as! Int)
                     let locationCoordinates = ((collectionPoint as AnyObject)["location"] as! String).split{$0 == ","}.map(String.init)
-                    let location = Location( latitude: locationCoordinates[0], longitude : locationCoordinates[1] )
+                    let location = Location( latitude: locationCoordinates[0], longitude : locationCoordinates[1] )!
                     let sequence = ((collectionPoint as AnyObject)["sequence"] as! Int)
                     let collectionPointObj = CollectionPoint(id: id, name: name, address: address, route: route, location: location, sequence: sequence, image: "")
                     self.collectionPoints.append(collectionPointObj!)
@@ -77,7 +77,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
             annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
             //            annotation.coordinate = CLLocationCoordinate2D(latitude: 35.03946, longitude: 135.72956)
             annotation.title = cp.name
-            annotation.subtitle = "\(Double(annotation.coordinate.latitude)), \(Double(annotation.coordinate.longitude))"
+//            annotation.subtitle = "\(Double(annotation.coordinate.latitude)), \(Double(annotation.coordinate.longitude))"
             annotations.append(annotation)
         }
         
@@ -157,7 +157,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         
         let lat = location.latitude
         let long = location.longitude
-        let loc = Location(latitude: String(lat), longitude: String(long))
+        let loc = Location(latitude: String(lat), longitude: String(long))!
         let seq = self.collectionPoints.count
         
         self.newAnnotation = CollectionPointPointAnnotation(collectionPoint: CollectionPoint(id: -1, name: "", address: "", route: Int(self.id) ?? -1, location: loc, sequence: seq, image: "")!)
@@ -254,7 +254,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
             let controller = (segue.destination as! CollectionPointFormViewController)
             let lat = self.newAnnotation.coordinate.latitude
             let long = self.newAnnotation.coordinate.longitude
-            let loc = Location(latitude: String(lat), longitude: String(long))
+            let loc = Location(latitude: String(lat), longitude: String(long))!
             let seq = self.collectionPoints.count
             let cp = CollectionPoint(id: -1, name: "", address: "", route: Int(self.id) ?? -1, location: loc, sequence: seq, image: "")
             controller.detailItem = cp

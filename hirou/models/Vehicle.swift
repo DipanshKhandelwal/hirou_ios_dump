@@ -34,7 +34,7 @@ class Vehicle: Encodable, Decodable {
         let model = obj["model"] as! String
         
         let locationCoordinates = (obj["location"] as! String).split{$0 == ","}.map(String.init)
-        let location = Location( latitude: locationCoordinates[0], longitude : locationCoordinates[1] )
+        let location = Location( latitude: locationCoordinates[0], longitude : locationCoordinates[1] )!
         let vehicleObj = Vehicle(id: id, registrationNumber: registrationNumber, model: model, location: location)
         return vehicleObj!
     }

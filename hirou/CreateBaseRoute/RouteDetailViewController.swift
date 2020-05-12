@@ -79,7 +79,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             }
         }
     }
-    
+
     func deleteRouteCall(){
         if detailItem != nil {
             let id = UserDefaults.standard.string(forKey: "selectedRoute")!

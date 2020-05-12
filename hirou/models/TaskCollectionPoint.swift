@@ -35,7 +35,7 @@ class TaskCollectionPoint : Encodable, Decodable{
         let address = obj["address"] as! String
         
         let locationCoordinates = (obj["location"] as! String).split{$0 == ","}.map(String.init)
-        let location = Location( latitude: locationCoordinates[0], longitude : locationCoordinates[1] )
+        let location = Location( latitude: locationCoordinates[0], longitude : locationCoordinates[1] )!
         
         let sequence = obj["sequence"] as! Int
         
