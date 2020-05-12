@@ -15,7 +15,6 @@
 		3133F2022424BD0A001C158C /* RouteMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3133F2012424BD0A001C158C /* RouteMasterViewController.swift */; };
 		3133F2042424BE0F001C158C /* BaseRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3133F2032424BE0F001C158C /* BaseRoute.swift */; };
 		3138F1932421F5CC007C7434 /* CollectionPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3138F1922421F5CC007C7434 /* CollectionPoint.swift */; };
-		3138F1952421FD63007C7434 /* RouteCollectionPointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3138F1942421FD63007C7434 /* RouteCollectionPointViewController.swift */; };
 		3153653D243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3153653C243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift */; };
 		317E230223C6306C00F8F0C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230123C6306C00F8F0C1 /* AppDelegate.swift */; };
 		317E230423C6306C00F8F0C1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230323C6306C00F8F0C1 /* SceneDelegate.swift */; };
@@ -71,7 +70,6 @@
 		3133F2012424BD0A001C158C /* RouteMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMasterViewController.swift; sourceTree = "<group>"; };
 		3133F2032424BE0F001C158C /* BaseRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRoute.swift; sourceTree = "<group>"; };
 		3138F1922421F5CC007C7434 /* CollectionPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPoint.swift; sourceTree = "<group>"; };
-		3138F1942421FD63007C7434 /* RouteCollectionPointViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCollectionPointViewController.swift; sourceTree = "<group>"; };
 		3153653C243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointDraggableAnnotationView.swift; sourceTree = "<group>"; };
 		317E22FE23C6306C00F8F0C1 /* hirou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hirou.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		317E230123C6306C00F8F0C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -157,7 +155,6 @@
 				312E9A2B242A39A70073D165 /* CollectionPoint */,
 				3133F2012424BD0A001C158C /* RouteMasterViewController.swift */,
 				31920C9B241C074A00A55403 /* RouteDetailViewController.swift */,
-				3138F1942421FD63007C7434 /* RouteCollectionPointViewController.swift */,
 				31F57D1B243A600A00903F38 /* GarbageTypesTableViewController.swift */,
 			);
 			path = CreateBaseRoute;
@@ -239,8 +236,8 @@
 				31DA88B523F3CF7B00713805 /* Vehicle.swift */,
 				31920C9E241CD5D900A55403 /* Location.swift */,
 				31920CA0241CD63600A55403 /* Customer.swift */,
-				3138F1922421F5CC007C7434 /* CollectionPoint.swift */,
 				3133F2032424BE0F001C158C /* BaseRoute.swift */,
+				3138F1922421F5CC007C7434 /* CollectionPoint.swift */,
 				31F57D1D243A618500903F38 /* Garbage.swift */,
 				31EBE46224477F640023305D /* TaskRoute.swift */,
 				31EBE46424477FE40023305D /* TaskCollectionPoint.swift */,
@@ -469,7 +466,6 @@
 				31FB0DB32463BF3500856B4C /* TaskCollectionPointTableViewController.swift in Sources */,
 				317E230423C6306C00F8F0C1 /* SceneDelegate.swift in Sources */,
 				31920CA1241CD63600A55403 /* Customer.swift in Sources */,
-				3138F1952421FD63007C7434 /* RouteCollectionPointViewController.swift in Sources */,
 				31EBE46724477FED0023305D /* TaskCollection.swift in Sources */,
 				3153653D243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift in Sources */,
 				31F57D1E243A618500903F38 /* Garbage.swift in Sources */,
