@@ -65,23 +65,21 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
         } else {
             let parameters: [String: String] = [
                 "name": String(self.routeNameTextField.text!),
-                
             ]
             AF.request("http://127.0.0.1:8000/api/base_route/", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
-                .responseJSON {
+                .response {
                     response in
                     switch response.result {
                     case .success(let value):
-                        print("value", value)
-                        self.newRoute = BaseRoute.getBaseRouteFromResponse(obj: value as AnyObject)
-                        
+                        let decoder = JSONDecoder()
+                        self.newRoute = try! decoder.decode(BaseRoute.self, from: value!)
                     case .failure(let error):
                         print(error)
                     }
             }
         }
     }
-        
+    
     func deleteRouteCall(){
         if detailItem != nil {
             let id = UserDefaults.standard.string(forKey: "selectedRoute")!
@@ -250,15 +248,6 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "showRouteCollectionPoints" {
-            saveRouteCall()
-            let controller = (segue.destination as! RouteCollectionPointViewController)
-            if let detail = detailItem {
-                controller.detailItem = (detail as! BaseRoute)
-            } else {
-                controller.detailItem = self.newRoute
-            }
-        }
         
         if segue.identifier == "selectGarbageTypes" {
             let controller = (segue.destination as! GarbageTypesTableViewController)
