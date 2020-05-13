@@ -9,10 +9,10 @@
 import UIKit
 import Alamofire
 
-class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, GarbageTypesViewControllerDelegate {
+class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, GarbageTypesViewControllerDelegate {
     
     @IBOutlet weak var routeNameTextField: UITextField!
-    @IBOutlet weak var customerTextField: UITextField!
+    @IBOutlet weak var customerLabel: UILabel!
     @IBOutlet weak var customerPicker: UIPickerView!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var garbageListLabel: UILabel!
@@ -24,11 +24,18 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     override func viewDidLoad() {
         super.viewDidLoad()
         self.customerPicker.delegate = self
-        self.customerTextField.delegate = self
         self.customerPicker.dataSource = self
-        
         self.customerPicker.isHidden = true
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(customerLabelPressed))
+        customerLabel.addGestureRecognizer(tap)
+        
         configureView()
+    }
+    
+    @objc
+    func customerLabelPressed(sender: UITapGestureRecognizer) {
+        customerPicker.isHidden = !customerPicker.isHidden
     }
     
     func saveRouteCall() {
@@ -130,7 +137,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             if let label = self.routeNameTextField {
                 label.text = (detail as! BaseRoute).name
             }
-            if let label = self.customerTextField {
+            if let label = self.customerLabel {
                 label.text = String((detail as! BaseRoute).customer)
             }
             self.selectedCustomerId = (detail as! BaseRoute).customer
@@ -138,7 +145,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             setGarbageLabelValue()
             UserDefaults.standard.set((detail as! BaseRoute).id, forKey: "selectedRoute")
         } else {
-            if let label = self.customerTextField {
+            if let label = self.customerLabel {
                 label.text = ""
             }
             
@@ -176,7 +183,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     let id = UserDefaults.standard.string(forKey: "selectedRoute")!
                     for customer in self.customers {
                         if id == String(customer.id) {
-                            if let label = self.customerTextField {
+                            if let label = self.customerLabel {
                                 label.text = customer.name
                             }
                         }
@@ -217,31 +224,12 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if(self.customers.count >= row) {
-            self.customerTextField.text = self.customers[row].name
+            self.customerLabel.text = self.customers[row].name
             self.selectedCustomerId = self.customers[row].id
         }
         self.customerPicker.isHidden = true
-        self.customerTextField.resignFirstResponder()
     }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        self.customerPicker.isHidden = false
-        return true
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.customerPicker.isHidden = false
-    }
-    
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-        self.customerPicker.isHidden = false
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.customerPicker.isHidden = false
-        return true
-    }
-    
+
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
