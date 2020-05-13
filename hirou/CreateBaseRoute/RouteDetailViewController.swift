@@ -239,12 +239,8 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
         
         if segue.identifier == "selectGarbageTypes" {
             let controller = (segue.destination as! GarbageTypesTableViewController)
-            if detailItem != nil {
-                controller.detailItem = self.selectedGarbages
-                controller.delegate = self
-            }
+            controller.delegate = self
+            controller.detailItem = self.selectedGarbages
         }
-        
     }
-    
 }
