@@ -11,12 +11,11 @@ import Alamofire
 import Mapbox
 
 class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
-
     
     @IBOutlet weak var cpNameLabel: UITextField!
     @IBOutlet weak var cpAddressLabel: UITextField!
-    @IBOutlet weak var cpCoordinatesLat: UITextField!
-    @IBOutlet weak var cpCoordinatesLong: UITextField!
+//    @IBOutlet weak var cpCoordinatesLat: UITextField!
+//    @IBOutlet weak var cpCoordinatesLong: UITextField!
     @IBOutlet weak var cpSequence: UITextField!
     @IBOutlet var cpMapView: MGLMapView!
     @IBOutlet weak var deleteButton: UIButton!
@@ -37,7 +36,7 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
             let id = String((detailItem as! CollectionPoint).id)
             let parameters: [String: String] = [
                 "name": String(self.cpNameLabel.text!),
-                "location": self.cpCoordinatesLat.text! + "," + self.cpCoordinatesLong.text! ,
+//                "location": self.cpCoordinatesLat.text! + "," + self.cpCoordinatesLong.text! ,
                 "address": self.cpAddressLabel.text ?? "nil",
                 "sequence": self.cpSequence.text ?? "0"
             ]
@@ -57,7 +56,7 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
             let routeId = (detailItem as! CollectionPoint).route
             let parameters: [String: String] = [
                 "name": String(self.cpNameLabel.text!),
-                "location": self.cpCoordinatesLat.text! + "," + self.cpCoordinatesLong.text! ,
+//                "location": self.cpCoordinatesLat.text! + "," + self.cpCoordinatesLong.text! ,
                 "address": self.cpAddressLabel.text ?? "nil",
                 "route": String(routeId),
                 "sequence": self.cpSequence.text ?? "0"
@@ -132,13 +131,13 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
                 label.text = (detail as! CollectionPoint).address
             }
             
-            if let label = self.cpCoordinatesLat {
-                label.text = String((detail as! CollectionPoint).location.latitude)
-            }
+//            if let label = self.cpCoordinatesLat {
+//                label.text = String((detail as! CollectionPoint).location.latitude)
+//            }
             
-            if let label = self.cpCoordinatesLong {
-                label.text = String((detail as! CollectionPoint).location.longitude)
-            }
+//            if let label = self.cpCoordinatesLong {
+//                label.text = String((detail as! CollectionPoint).location.longitude)
+//            }
             
             if let label = self.cpSequence {
                 label.text = String((detail as! CollectionPoint).sequence )
