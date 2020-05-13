@@ -21,31 +21,15 @@ class GarbageTypesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-//         self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-         self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        AF.request("http://127.0.0.1:8000/api/garbage/", method: .get).responseJSON { response in
+        AF.request("http://127.0.0.1:8000/api/garbage/", method: .get).response { response in
             
             //to get status code
             switch response.result {
             case .success(let value):
-                self.garbageList = []
-                
-                for garbage in value as! [Any] {
-                    let id = ((garbage as AnyObject)["id"] as! Int)
-                    let name = ((garbage as AnyObject)["name"] as! String)
-                    let description = ((garbage as AnyObject)["description"] as! String)
-                    
-                    
-                    let garbageObj = Garbage(id: id, name: name, description: description)
-                    self.garbageList.append(garbageObj!)
-                }
+                self.garbageList = try! JSONDecoder().decode([Garbage].self, from: value!)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -53,10 +37,7 @@ class GarbageTypesTableViewController: UITableViewController {
                 print(error)
                 //                completion(nil)
             }
-            
         }
-        
-        
         super.viewWillAppear(animated)
     }
 
