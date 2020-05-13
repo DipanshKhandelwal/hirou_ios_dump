@@ -163,9 +163,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         self.newAnnotation = CollectionPointPointAnnotation(collectionPoint: CollectionPoint(id: -1, name: "", address: "", route: Int(self.id) ?? -1, location: loc, sequence: seq, image: "")!)
         
         self.newAnnotation.coordinate = location
-        //            annotation.coordinate = CLLocationCoordinate2D(latitude: 35.03946, longitude: 135.72956)
         self.newAnnotation.title = "New Collection Point"
-//        self.newAnnotation.subtitle = "\(self.newAnnotation.coordinate.latitude), \(self.newAnnotation.coordinate.longitude)"
         mapView.addAnnotation(self.newAnnotation)
         mapView.selectAnnotation(self.newAnnotation, animated: true, completionHandler: nil)
     }
