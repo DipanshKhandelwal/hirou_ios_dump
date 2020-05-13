@@ -146,7 +146,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             UserDefaults.standard.set((detail as! BaseRoute).id, forKey: "selectedRoute")
         } else {
             if let label = self.customerLabel {
-                label.text = ""
+                label.text = "None"
             }
             
             if let button = self.deleteButton {
@@ -167,17 +167,10 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        AF.request("http://127.0.0.1:8000/api/customer/", method: .get).responseJSON { response in
+        AF.request("http://127.0.0.1:8000/api/customer/", method: .get).response { response in
             switch response.result {
             case .success(let value):
-                self.customers = []
-                for customer in value as! [Any] {
-                    let name = ((customer as AnyObject)["name"] as! String)
-                    let description = ((customer as AnyObject)["description"] as! String)
-                    let id = ((customer as AnyObject)["id"] as! Int)
-                    let customerObj = Customer( name: name, description: description, id: id)
-                    self.customers.append(customerObj!)
-                }
+                self.customers = try! JSONDecoder().decode([Customer].self, from: value!)
                 
                 if (self.detailItem != nil) {
                     let id = UserDefaults.standard.string(forKey: "selectedRoute")!
@@ -194,9 +187,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             case .failure(let error):
                 print(error)
             }
-            
         }
-        
         super.viewWillAppear(animated)
     }
     
