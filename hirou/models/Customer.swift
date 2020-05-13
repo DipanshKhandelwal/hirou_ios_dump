@@ -19,11 +19,16 @@ class Customer : Encodable, Decodable{
         if name.isEmpty  {
             return nil
         }
-        
         // Initialize stored properties.
         self.name = name
         self.id = id
         self.description = description
+    }
+
+    enum CodingKeys : String, CodingKey {
+        case id
+        case name
+        case description
     }
     
     static func getCustomerFromResponse(obj : AnyObject) -> Customer {
