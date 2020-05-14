@@ -13,8 +13,6 @@ class CollectionPointTableViewCell : UITableViewCell {
     @IBOutlet weak var collectionPointIndexLabel: UILabel!
     @IBOutlet weak var collectionPointNameLabel: UILabel!
     @IBOutlet weak var collectionPointAddressLabel: UILabel!
-    @IBOutlet weak var collectionPointIdLabel: UILabel!
-    @IBOutlet weak var collectionPointSequenceLabel: UILabel!
 }
 
 class CollectionPointMasterViewController: UITableViewController {
@@ -82,8 +80,6 @@ class CollectionPointMasterViewController: UITableViewController {
         let collectionPoint = collectionPoints[indexPath.row]
         cell.collectionPointNameLabel!.text = collectionPoint.name
         cell.collectionPointAddressLabel!.text = collectionPoint.address
-        cell.collectionPointIdLabel!.text = String(collectionPoint.id)
-        cell.collectionPointSequenceLabel!.text = String(collectionPoint.sequence)
         cell.collectionPointIndexLabel!.text = String(indexPath.row)
         return cell
     }
@@ -131,7 +127,7 @@ class CollectionPointMasterViewController: UITableViewController {
                 .responseString {
                     response in
                     switch response.result {
-                    case .success(let _):
+                    case .success( _):
                         _ = self.navigationController?.popViewController(animated: true)
                         
                     case .failure(let error):

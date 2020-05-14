@@ -1462,55 +1462,21 @@
                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Id" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XKS-If-GQd" userLabel="Collection Point Id">
-                                            <rect key="frame" x="301" y="8" width="11" height="14.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seq" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jZU-3i-0dr" userLabel="Collection Point Sequence">
-                                            <rect key="frame" x="290" y="47" width="22" height="15"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Id" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gY9-2c-tt4" userLabel="Id">
-                                            <rect key="frame" x="274.5" y="3.5" width="14.5" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Seq" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9KF-X2-Wt7" userLabel="Seq">
-                                            <rect key="frame" x="252" y="44" width="30" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="jZU-3i-0dr" secondAttribute="bottom" constant="8" id="7cl-LJ-jux"/>
-                                        <constraint firstItem="9KF-X2-Wt7" firstAttribute="firstBaseline" secondItem="jZU-3i-0dr" secondAttribute="firstBaseline" id="J3L-Sb-l0d"/>
                                         <constraint firstItem="rcp-Fd-uef" firstAttribute="leading" secondItem="1DY-6b-Y9I" secondAttribute="leading" constant="15.999999999999829" id="MWG-BY-X68"/>
-                                        <constraint firstItem="XKS-If-GQd" firstAttribute="top" secondItem="1DY-6b-Y9I" secondAttribute="top" constant="8" id="MxJ-WZ-b65"/>
                                         <constraint firstItem="rcp-Fd-uef" firstAttribute="centerY" secondItem="1DY-6b-Y9I" secondAttribute="centerY" id="Na9-CT-gWx"/>
-                                        <constraint firstItem="XKS-If-GQd" firstAttribute="leading" secondItem="gY9-2c-tt4" secondAttribute="trailing" constant="12" id="PXu-gd-ebz"/>
                                         <constraint firstItem="szn-tL-5Fp" firstAttribute="top" secondItem="1DY-6b-Y9I" secondAttribute="top" constant="12" id="Pw6-F6-YzU"/>
                                         <constraint firstItem="szn-tL-5Fp" firstAttribute="leading" secondItem="rcp-Fd-uef" secondAttribute="trailing" constant="16" id="S3Q-b4-zFH"/>
-                                        <constraint firstAttribute="trailing" secondItem="jZU-3i-0dr" secondAttribute="trailing" constant="8" id="XTk-LE-umX"/>
                                         <constraint firstItem="NoP-Ta-uoU" firstAttribute="top" secondItem="szn-tL-5Fp" secondAttribute="bottom" constant="8" id="fmc-Vv-IDl" userLabel="Collection Point Address.top = Collection Point Name.bottom + 8"/>
-                                        <constraint firstAttribute="trailing" secondItem="XKS-If-GQd" secondAttribute="trailing" constant="8" id="gsa-r7-5Lv"/>
-                                        <constraint firstItem="jZU-3i-0dr" firstAttribute="leading" secondItem="9KF-X2-Wt7" secondAttribute="trailing" constant="10" id="m9C-l6-4HM"/>
-                                        <constraint firstItem="gY9-2c-tt4" firstAttribute="firstBaseline" secondItem="XKS-If-GQd" secondAttribute="firstBaseline" id="pJs-xP-ISO"/>
                                         <constraint firstItem="NoP-Ta-uoU" firstAttribute="leading" secondItem="rcp-Fd-uef" secondAttribute="trailing" constant="15.999999999999829" id="rs6-XP-Eqa"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
                                     <outlet property="collectionPointAddressLabel" destination="NoP-Ta-uoU" id="cc6-1I-JR7"/>
-                                    <outlet property="collectionPointIdLabel" destination="XKS-If-GQd" id="kE6-Kw-IdG"/>
                                     <outlet property="collectionPointIndexLabel" destination="rcp-Fd-uef" id="1QH-Go-Nkk"/>
                                     <outlet property="collectionPointNameLabel" destination="szn-tL-5Fp" id="hH1-HJ-6RZ"/>
-                                    <outlet property="collectionPointSequenceLabel" destination="jZU-3i-0dr" id="eCx-Tu-zeR"/>
                                     <segue destination="lU6-MM-cQm" kind="showDetail" identifier="showCollectionPointDetails" id="nz5-wI-aUO"/>
                                 </connections>
                             </tableViewCell>
