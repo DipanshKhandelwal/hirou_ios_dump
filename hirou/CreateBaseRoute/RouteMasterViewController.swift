@@ -55,7 +55,7 @@ class RouteMasterViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! RouteTableViewCell
         let route = baseRoutes[indexPath.row]
         cell.routeNameLabel?.text = route.name
-        cell.customerLabel?.text = route.getCustomerName()
+        cell.customerLabel?.text = route.customer?.name ?? "n/a"
         cell.garbageTypeLabel?.text =  route.getGarbagesNameList()
         return cell
     }

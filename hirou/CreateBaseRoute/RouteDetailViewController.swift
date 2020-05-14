@@ -16,9 +16,10 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var customerPicker: UIPickerView!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var garbageListLabel: UILabel!
-    var selectedCustomerId : Int! = 0
+    
+    var selectedCustomerId : Int?
     var newRoute : BaseRoute!
-    var selectedGarbages: [Garbage]!
+    var selectedGarbages: [Garbage]! = []
     var customers = [Customer]()
     
     override func viewDidLoad() {
@@ -29,7 +30,6 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(customerLabelPressed))
         customerLabel.addGestureRecognizer(tap)
-        
         configureView()
     }
     
@@ -39,23 +39,23 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     
     func saveRouteCall() {
+        var garbageTypes = [Int]()
+        for gb in self.selectedGarbages {
+            garbageTypes.append(gb.id)
+        }
+        
+        let values = [
+            "name": String(self.routeNameTextField.text!),
+            "customer": self.selectedCustomerId,
+            "garbage": garbageTypes
+            ] as [String : Any?]
+        
         if (detailItem != nil) {
             let id = UserDefaults.standard.string(forKey: "selectedRoute")!
-            var garbageTypes = [Int]()
-            for gb in self.selectedGarbages {
-                garbageTypes.append(gb.id)
-            }
-            
             let url = "http://127.0.0.1:8000/api/base_route/"+String(id)+"/"
             var request = URLRequest(url: try! url.asURL())
             request.httpMethod = "PATCH"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            let values = [
-                "name": String(self.routeNameTextField.text!),
-                "customer": String(self.selectedCustomerId),
-                "garbage": garbageTypes
-                ] as [String : Any]
-            
             request.httpBody = try! JSONSerialization.data(withJSONObject: values)
             
             AF.request(request)
@@ -70,23 +70,26 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     }
             }
         } else {
-            let parameters: [String: String] = [
-                "name": String(self.routeNameTextField.text!),
-            ]
-            AF.request("http://127.0.0.1:8000/api/base_route/", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
+            let url = "http://127.0.0.1:8000/api/base_route/"
+            var request = URLRequest(url: try! url.asURL())
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = try! JSONSerialization.data(withJSONObject: values)
+            
+            AF.request(request)
                 .response {
                     response in
                     switch response.result {
                     case .success(let value):
-                        let decoder = JSONDecoder()
-                        self.newRoute = try! decoder.decode(BaseRoute.self, from: value!)
+                        self.newRoute = try! JSONDecoder().decode(BaseRoute.self, from: value!)
+                        
                     case .failure(let error):
                         print(error)
                     }
             }
         }
     }
-
+    
     func deleteRouteCall(){
         if detailItem != nil {
             let id = UserDefaults.standard.string(forKey: "selectedRoute")!
@@ -127,7 +130,6 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     var detailItem: Any? {
         didSet {
-            // Update the view.
             configureView()
         }
     }
@@ -138,15 +140,23 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
                 label.text = (detail as! BaseRoute).name
             }
             if let label = self.customerLabel {
-                label.text = String((detail as! BaseRoute).customer)
+                label.text = (detail as! BaseRoute).customer?.name ?? "n/a"
             }
-            self.selectedCustomerId = (detail as! BaseRoute).customer
+            self.selectedCustomerId = (detail as! BaseRoute).customer?.id
             self.selectedGarbages = (detail as! BaseRoute).garbageList
             setGarbageLabelValue()
             UserDefaults.standard.set((detail as! BaseRoute).id, forKey: "selectedRoute")
         } else {
+            if let label = self.routeNameTextField {
+                label.text = ""
+            }
+            
             if let label = self.customerLabel {
-                label.text = "None"
+                label.text = "n/a"
+            }
+            
+            if let label = self.garbageListLabel {
+                label.text = ""
             }
             
             if let button = self.deleteButton {
@@ -171,17 +181,6 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             switch response.result {
             case .success(let value):
                 self.customers = try! JSONDecoder().decode([Customer].self, from: value!)
-                
-                if (self.detailItem != nil) {
-                    let id = UserDefaults.standard.string(forKey: "selectedRoute")!
-                    for customer in self.customers {
-                        if id == String(customer.id) {
-                            if let label = self.customerLabel {
-                                label.text = customer.name
-                            }
-                        }
-                    }
-                }
                 self.customerPicker.reloadAllComponents()
                 
             case .failure(let error):
@@ -205,8 +204,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     
     
-    internal func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
-    {
+    internal func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if(self.customers.count >= row) {
             return self.customers[row].name
         }
@@ -220,14 +218,11 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
         self.customerPicker.isHidden = true
     }
-
+    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-        
         if segue.identifier == "selectGarbageTypes" {
             let controller = (segue.destination as! GarbageTypesTableViewController)
             controller.delegate = self
