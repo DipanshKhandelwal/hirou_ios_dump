@@ -111,7 +111,15 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     
     @IBAction func saveRoute(_ sender: Any) {
-        saveRouteCall()
+        if self.routeNameTextField.text!.count == 0 {
+            let nameAlert = UIAlertController(title: "Route name empty !!", message: "Please enter name of the route.", preferredStyle: .alert)
+            nameAlert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { (action: UIAlertAction!) in
+                print("Please enter a name")
+            }))
+            self.present(nameAlert, animated: true, completion: nil)
+        } else {
+            saveRouteCall()
+        }
     }
     
     @IBAction func deleteRoute(_ sender: Any) {
