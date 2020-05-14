@@ -13,11 +13,11 @@ struct BaseRoute : Encodable, Decodable{
     //MARK: Properties
     var id: Int
     var name: String
-    var customer: Int
+    var customer: Customer?
     var garbageList: [Garbage]
     var collectionPoints: [CollectionPoint]
     
-    init?(id: Int, name : String, customer: Int, garbageList: [Garbage], collectionPoints: [CollectionPoint]) {
+    init?(id: Int, name : String, customer: Customer?, garbageList: [Garbage], collectionPoints: [CollectionPoint]) {
         // Initialize stored properties.
         self.id = id
         self.name = name
@@ -40,9 +40,9 @@ struct BaseRoute : Encodable, Decodable{
         name = try container.decode(String.self, forKey: .name)
         garbageList = try container.decode([Garbage].self, forKey: .garbageList)
         collectionPoints = try container.decode([CollectionPoint].self, forKey: .collectionPoints)
-        customer = (try container.decodeIfPresent(Int.self, forKey: .customer)) ?? -1
+        customer = try container.decodeIfPresent(Customer.self, forKey: .customer)
     }
-    
+
     func getGarbagesNameList() -> String {
         var stringGarbageList = ""
         for garbage in self.garbageList {
