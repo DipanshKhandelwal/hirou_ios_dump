@@ -38,35 +38,24 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         let id = self.id
         let url = "http://127.0.0.1:8000/api/base_route/"+String(id)+"/"
-        AF.request(url, method: .get).responseJSON { response in
+        AF.request(url, method: .get).response { response in
             //to get status code
             switch response.result {
             case .success(let value):
-                self.collectionPoints = []
+                let route = try! JSONDecoder().decode(BaseRoute.self, from: value!)
+                let newCollectionPoints = route.collectionPoints
+                self.collectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
                 self.annotations = []
-                let cps = (value as AnyObject)["collection_point"]
-                
-                for collectionPoint in cps as! [Any] {
-                    let id = ((collectionPoint as AnyObject)["id"] as! Int)
-                    let name = ((collectionPoint as AnyObject)["name"] as! String)
-                    let address = ((collectionPoint as AnyObject)["address"] as! String)
-                    let route = ((collectionPoint as AnyObject)["route"] as! Int)
-                    let locationCoordinates = ((collectionPoint as AnyObject)["location"] as! String).split{$0 == ","}.map(String.init)
-                    let location = Location( latitude: locationCoordinates[0], longitude : locationCoordinates[1] )!
-                    let sequence = ((collectionPoint as AnyObject)["sequence"] as! Int)
-                    let collectionPointObj = CollectionPoint(id: id, name: name, address: address, route: route, location: location, sequence: sequence, image: "")
-                    self.collectionPoints.append(collectionPointObj!)
-                }
                 self.addPointsTopMap()
                 
             case .failure(let error):
                 print(error)
             }
         }
-        
-        super.viewWillAppear(animated)
     }
     
     func addPointsTopMap() {
