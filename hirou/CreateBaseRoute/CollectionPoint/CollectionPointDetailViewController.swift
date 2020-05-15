@@ -173,10 +173,10 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     }
     
     func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 60, height: 50))
-        label.textAlignment = .right
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        label.textAlignment = .center
         label.textColor = UIColor(red: 0.81, green: 0.71, blue: 0.23, alpha: 1)
-        label.text = String((annotation as! CollectionPointPointAnnotation).collectionPoint.id)
+        label.text = String((annotation as! CollectionPointPointAnnotation).collectionPoint.sequence)
         return label
     }
     
