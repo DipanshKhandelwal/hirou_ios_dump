@@ -111,7 +111,15 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
     }
     
     @IBAction func savePressed(_ sender: Any) {
-        saveCPCall()
+        if self.cpNameLabel.text!.count == 0 {
+            let nameAlert = UIAlertController(title: "Collection Point name empty !!", message: "Please enter name of the collection point.", preferredStyle: .alert)
+            nameAlert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { (action: UIAlertAction!) in
+                print("Please enter a name")
+            }))
+            self.present(nameAlert, animated: true, completion: nil)
+        } else {
+            saveCPCall()
+        }
     }
     
     var detailItem: Any? {
