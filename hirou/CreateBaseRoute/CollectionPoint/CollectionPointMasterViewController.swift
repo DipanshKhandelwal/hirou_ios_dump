@@ -80,7 +80,7 @@ class CollectionPointMasterViewController: UITableViewController {
         let collectionPoint = collectionPoints[indexPath.row]
         cell.collectionPointNameLabel!.text = collectionPoint.name
         cell.collectionPointAddressLabel!.text = collectionPoint.address
-        cell.collectionPointIndexLabel!.text = String(indexPath.row)
+        cell.collectionPointIndexLabel!.text = String(collectionPoint.sequence)
         return cell
     }
     
