@@ -84,16 +84,9 @@ class CollectionPointDraggableAnnotationView: MGLAnnotationView {
     
     func updateCollectionPoint() {
         let id = self.collectionPoint.id
-//        let name = self.collectionPoint.name
-//
+
         let lat = String(Double((annotation?.coordinate.latitude)!))
         let long = String(Double((annotation?.coordinate.longitude)!))
-        
-//        print("id", id)
-//        print("name", name)
-//
-//        print("lat", lat)
-//        print("long", long)
         
         let parameters: [String: String] = [
             "location": lat + "," + long,
@@ -111,15 +104,7 @@ class CollectionPointDraggableAnnotationView: MGLAnnotationView {
                 }
         }
     }
-    
-//    func save() {
-//        let id = self.collectionPoint.id
-//        let name = self.collectionPoint.name
-//
-//        print("id", id)
-//        print("name", name)
-//    }
-    
+
     func endDragging() {
         transform = CGAffineTransform.identity.scaledBy(x: 1.5, y: 1.5)
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {

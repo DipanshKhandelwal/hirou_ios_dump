@@ -155,27 +155,4 @@ class CollectionPointMasterViewController: UITableViewController {
             }
         }
     }
-    
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    
-    // MARK: - Segues
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //        if segue.identifier == "showCollectionPointDetails" {
-        //            if let indexPath = tableView.indexPathForSelectedRow {
-        //
-        //                //                let object = objects[indexPath.row] as! NSDate
-        //                let collectionPoint = self.collectionPoints[indexPath.row]
-        //                let controller = (segue.destination as! UINavigationController).topViewController as! CollectionPointDetailViewController
-        //                //                controller.detailItem = object
-        //                controller.detailItem = collectionPoint as Any
-        //                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-        //                controller.navigationItem.leftItemsSupplementBackButton = true
-        //                detailViewController = controller
-        //            }
-        //        }
-    }
 }
