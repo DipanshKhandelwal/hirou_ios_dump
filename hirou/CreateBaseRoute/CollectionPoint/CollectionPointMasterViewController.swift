@@ -107,7 +107,7 @@ class CollectionPointMasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         
         let updateAlert = UIAlertController(title: "Update sequence ?", message: "Are you sure you want to update the sequence ?", preferredStyle: .alert)
-
+        
         updateAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
             print("Update sequence cancelled by the user.")
         }))
@@ -116,16 +116,24 @@ class CollectionPointMasterViewController: UITableViewController {
             let fromIndex = fromIndexPath[1]
             let toIndex = to[1]
             let cp: CollectionPoint = self.collectionPoints[fromIndex]
-            self.collectionPoints[fromIndex] = self.collectionPoints[toIndex]
+            if(fromIndex < toIndex) {
+                (fromIndex...toIndex-1).forEach { index in
+                    self.collectionPoints[index] = self.collectionPoints[index+1]
+                }
+            }
+            else {
+                (toIndex+1...fromIndex).reversed().forEach { index in
+                    self.collectionPoints[index] = self.collectionPoints[index-1]
+                }
+            }
             self.collectionPoints[toIndex] = cp
             self.tableView.reloadData()
             self.updateList()
             self.fetchCollectionPoints()
         }))
-
         self.present(updateAlert, animated: true, completion: nil)
     }
-        
+    
     func updateList(){
         for (index, element) in self.collectionPoints.enumerated() {
             let id = element.id
