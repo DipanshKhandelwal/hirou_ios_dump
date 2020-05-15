@@ -105,6 +105,10 @@ class CollectionPointMasterViewController: UITableViewController {
     
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+        let fromIndex = fromIndexPath[1]
+        let toIndex = to[1]
+        
+        if fromIndex == toIndex { return }
         
         let updateAlert = UIAlertController(title: "Update sequence ?", message: "Are you sure you want to update the sequence ?", preferredStyle: .alert)
         
@@ -113,8 +117,6 @@ class CollectionPointMasterViewController: UITableViewController {
         }))
         
         updateAlert.addAction(UIAlertAction(title: "Yes. Update", style: .default, handler: { (action: UIAlertAction!) in
-            let fromIndex = fromIndexPath[1]
-            let toIndex = to[1]
             let cp: CollectionPoint = self.collectionPoints[fromIndex]
             if(fromIndex < toIndex) {
                 (fromIndex...toIndex-1).forEach { index in
