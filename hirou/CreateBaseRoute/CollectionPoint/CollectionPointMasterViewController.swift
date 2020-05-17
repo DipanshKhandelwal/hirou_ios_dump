@@ -114,6 +114,7 @@ class CollectionPointMasterViewController: UITableViewController {
         
         updateAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
             print("Update sequence cancelled by the user.")
+            self.tableView.reloadData()
         }))
         
         updateAlert.addAction(UIAlertAction(title: "Yes. Update", style: .default, handler: { (action: UIAlertAction!) in
