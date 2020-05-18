@@ -5,12 +5,6 @@
 //  Created by Dipansh Khandelwal on 24/03/20.
 //  Copyright © 2020 Dipansh Khandelwal. All rights reserved.
 //
-//
-//import UIKit
-//import Mapbox
-//import Alamofire
-
-//class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate {
 
 import UIKit
 import Mapbox
@@ -27,19 +21,23 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.delegate = self
-        configureView()
         
         self.id = UserDefaults.standard.string(forKey: "selectedRoute")!
+        self.addNewPointGesture()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.getPoints()
+    }
+    
+    func addNewPointGesture() {
         let gesture = UILongPressGestureRecognizer(target: self, action: #selector(handleNewPointTap(_:)))
         mapView?.addGestureRecognizer(gesture)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+    func getPoints() {
         let id = self.id
         let url = "http://127.0.0.1:8000/api/base_route/"+String(id)+"/"
         AF.request(url, method: .get).response { response in
@@ -49,7 +47,6 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
                 let route = try! JSONDecoder().decode(BaseRoute.self, from: value!)
                 let newCollectionPoints = route.collectionPoints
                 self.collectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
-                self.annotations = []
                 self.addPointsTopMap()
                 
             case .failure(let error):
@@ -59,14 +56,16 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     }
     
     func addPointsTopMap() {
+        self.mapView.removeAnnotations(self.annotations)
+        self.annotations = []
+        
         for cp in self.collectionPoints {
             let annotation = CollectionPointPointAnnotation(collectionPoint: cp)
             let lat = Double(cp.location.latitude)!
             let long = Double(cp.location.longitude)!
             annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-            //            annotation.coordinate = CLLocationCoordinate2D(latitude: 35.03946, longitude: 135.72956)
             annotation.title = cp.name
-//            annotation.subtitle = "\(Double(annotation.coordinate.latitude)), \(Double(annotation.coordinate.longitude))"
+            //            annotation.subtitle = "\(Double(annotation.coordinate.latitude)), \(Double(annotation.coordinate.longitude))"
             annotations.append(annotation)
         }
         
@@ -179,6 +178,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
             for cp in self.collectionPoints {
                 if cp.location.latitude == String(annotation.coordinate.latitude) {
                     self.selectedCollectionPoint = self.collectionPoints[currentIndex];
+                    print("selected", self.collectionPoints[currentIndex].name)
                     break
                 }
                 currentIndex += 1
@@ -191,47 +191,29 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     }
     
     @objc func addPointSegue(sender: UIButton) {
-        DispatchQueue.main.async() {
-            self.performSegue(withIdentifier: "addCollectionPoint", sender: self)
-        }
+        self.performSegue(withIdentifier: "addCollectionPoint", sender: self)
     }
     
     @objc func editPointSegue(sender: UIButton) {
-        DispatchQueue.main.async() {
-            self.performSegue(withIdentifier: "editCollectionPoint", sender: self)
-        }
+        self.performSegue(withIdentifier: "editCollectionPoint", sender: self)
     }
     
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
         guard annotation is MGLPointAnnotation else {
             return nil
         }
-
+        
         var color: UIColor = .red
         
         if annotation.title == "New Collection Point" {
             color = .blue
         }
         
-//        if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "draggablePoint") {
-//            return annotationView
-//        } else {
-            return CollectionPointDraggableAnnotationView(annotation: annotation as! CollectionPointPointAnnotation, reuseIdentifier: "draggablePoint", size: 20, color: color)
-//        }
-    }
-    
-    var detailItem: Any? {
-        didSet {
-            // Update the view.
-            configureView()
-        }
-    }
-    
-    func configureView() {
-        if let detail = detailItem {
-            let ss = (detail as! CollectionPoint).id
-            print("self.id", ss)
-        }
+        //        if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "draggablePoint") {
+        //            return annotationView
+        //        } else {
+        return CollectionPointDraggableAnnotationView(annotation: annotation as! CollectionPointPointAnnotation, reuseIdentifier: "draggablePoint", size: 20, color: color)
+        //        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
