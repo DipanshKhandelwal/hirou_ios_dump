@@ -21,7 +21,7 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     
-    var annotationView: MGLAnnotationView!
+    var annotationView: CollectionPointDraggableAnnotationView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,20 +139,12 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
                 label.text = (detail as! CollectionPoint).address
             }
             
-//            if let label = self.cpCoordinatesLat {
-//                label.text = String((detail as! CollectionPoint).location.latitude)
-//            }
-            
-//            if let label = self.cpCoordinatesLong {
-//                label.text = String((detail as! CollectionPoint).location.longitude)
-//            }
-            
             if let label = self.cpSequence {
                 label.text = String((detail as! CollectionPoint).sequence )
             }
             
             if let map = self.cpMapView {
-                let annotation = MGLPointAnnotation()
+                let annotation = CollectionPointPointAnnotation(collectionPoint: (detail as! CollectionPoint))
                 let lat = Double((detail as! CollectionPoint).location.latitude)!
                 let long = Double((detail as! CollectionPoint).location.longitude)!
                 annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
@@ -185,16 +177,11 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
         label.textAlignment = .right
         label.textColor = UIColor(red: 0.81, green: 0.71, blue: 0.23, alpha: 1)
         label.text = "CP"
-        
         return label
     }
     
-    private func mapView(_ mapView: MGLMapView, viewFor annotation: CollectionPointPointAnnotation) -> MGLAnnotationView? {
-        if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "draggablePoint") {
-            return annotationView
-        } else {
-            self.annotationView = CollectionPointDraggableAnnotationView(annotation: annotation, reuseIdentifier: "draggablePoint", size: 20, color: .red)
+    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+        self.annotationView = CollectionPointDraggableAnnotationView(annotation: annotation as! CollectionPointPointAnnotation, reuseIdentifier: "draggablePoint", size: 20, color: .red)
             return self.annotationView
-        }
     }
 }
