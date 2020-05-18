@@ -156,13 +156,10 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
                 let lat = Double((detail as! CollectionPoint).location.latitude)!
                 let long = Double((detail as! CollectionPoint).location.longitude)!
                 annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                //            annotation.coordinate = CLLocationCoordinate2D(latitude: 35.03946, longitude: 135.72956)
                 annotation.title = (detail as! CollectionPoint).name
-                annotation.subtitle = "\(annotation.coordinate.latitude), \(annotation.coordinate.longitude)"
                 map.addAnnotation(annotation)
                 // Center the map on the annotation.
                 map.setCenter(annotation.coordinate, zoomLevel: 14, animated: false)
-                
                 // Pop-up the callout view.
                 map.selectAnnotation(annotation, animated: true, completionHandler: nil)
             }
