@@ -57,6 +57,9 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     
     func addPointsTopMap() {
         self.mapView.removeAnnotations(self.annotations)
+        if self.newAnnotation != nil {
+            self.mapView.removeAnnotation(self.newAnnotation)
+        }
         self.annotations = []
         
         for cp in self.collectionPoints {
@@ -161,7 +164,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     }
     
     func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         label.textAlignment = .center
         label.textColor = UIColor(red: 0.81, green: 0.71, blue: 0.23, alpha: 1)
         label.text = String((annotation as! CollectionPointPointAnnotation).collectionPoint.sequence)
