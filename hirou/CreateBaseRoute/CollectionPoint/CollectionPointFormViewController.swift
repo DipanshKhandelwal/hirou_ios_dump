@@ -26,6 +26,8 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         cpMapView.delegate = self
+        
+        cpSequence?.isEnabled = false
         // Do any additional setup after loading the view.
         configureView()
     }
@@ -36,8 +38,8 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
             let id = String((detailItem as! CollectionPoint).id)
             let parameters: [String: String] = [
                 "name": String(self.cpNameLabel.text!),
-//                "location": self.cpCoordinatesLat.text! + "," + self.cpCoordinatesLong.text! ,
-                "address": self.cpAddressLabel.text ?? "nil",
+                "location": String(self.annotationView.annotation!.coordinate.latitude) + "," + String(self.annotationView.annotation!.coordinate.longitude),
+                "address": self.cpAddressLabel.text ?? "",
                 "sequence": self.cpSequence.text ?? "0"
             ]
             AF.request("http://127.0.0.1:8000/api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
@@ -56,8 +58,8 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
             let routeId = (detailItem as! CollectionPoint).route
             let parameters: [String: String] = [
                 "name": String(self.cpNameLabel.text!),
-//                "location": self.cpCoordinatesLat.text! + "," + self.cpCoordinatesLong.text! ,
-                "address": self.cpAddressLabel.text ?? "nil",
+                "location": String(self.annotationView.annotation!.coordinate.latitude) + "," + String(self.annotationView.annotation!.coordinate.longitude),
+                "address": self.cpAddressLabel.text ?? "",
                 "route": String(routeId),
                 "sequence": self.cpSequence.text ?? "0"
             ]
@@ -173,7 +175,7 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
     }
     
     func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 60, height: 50))
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         label.textAlignment = .right
         label.textColor = UIColor(red: 0.81, green: 0.71, blue: 0.23, alpha: 1)
         label.text = "CP"
