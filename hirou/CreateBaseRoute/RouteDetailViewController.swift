@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, GarbageTypesViewControllerDelegate {
+class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, GarbageTypesViewControllerDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var routeNameTextField: UITextField!
     @IBOutlet weak var customerLabel: UILabel!
@@ -28,6 +28,8 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
         self.customerPicker.dataSource = self
         self.customerPicker.isHidden = true
         
+        self.routeNameTextField.delegate = self
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(customerLabelPressed))
         customerLabel.addGestureRecognizer(tap)
         configureView()
@@ -35,6 +37,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     @objc
     func customerLabelPressed(sender: UITapGestureRecognizer) {
+        self.routeNameTextField.resignFirstResponder()
         customerPicker.isHidden = !customerPicker.isHidden
     }
     
@@ -203,6 +206,18 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
         setGarbageLabelValue()
     }
     
+    // text field
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.routeNameTextField.resignFirstResponder()
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.customerPicker.isHidden = true
+    }
+
+    // picker view
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -232,6 +247,9 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "selectGarbageTypes" {
+            self.routeNameTextField.resignFirstResponder()
+            customerPicker.isHidden = true
+            
             let controller = (segue.destination as! GarbageTypesTableViewController)
             controller.delegate = self
             controller.detailItem = self.selectedGarbages
