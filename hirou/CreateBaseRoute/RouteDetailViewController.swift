@@ -18,7 +18,6 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var garbageListLabel: UILabel!
     
     var selectedCustomerId : Int?
-    var newRoute : BaseRoute!
     var selectedGarbages: [Garbage]! = []
     var customers = [Customer]()
     
@@ -83,8 +82,8 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
                 .response {
                     response in
                     switch response.result {
-                    case .success(let value):
-                        self.newRoute = try! JSONDecoder().decode(BaseRoute.self, from: value!)
+                    case .success( _):
+                        _ = self.navigationController?.popViewController(animated: true)
                         
                     case .failure(let error):
                         print(error)
