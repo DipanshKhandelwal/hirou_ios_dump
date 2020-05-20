@@ -1161,10 +1161,6 @@
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEf-QH-yxT">
-                                            <rect key="frame" x="726" y="40" width="22" height="20"/>
-                                            <state key="normal" image="pencil" catalog="system"/>
-                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="97E-RG-EpC" firstAttribute="leading" secondItem="Vmk-Gw-ocY" secondAttribute="leading" constant="15" id="2mx-9y-kZ6" userLabel="Label.leading = leading + 15"/>
@@ -1175,11 +1171,8 @@
                                         <constraint firstItem="jIL-Qi-iCu" firstAttribute="leading" secondItem="Vmk-Gw-ocY" secondAttribute="leading" constant="16" id="Nn0-9t-b35" userLabel="Route Name.leading = leading + 15"/>
                                         <constraint firstItem="Ixe-Bq-xiP" firstAttribute="leading" secondItem="Vmk-Gw-ocY" secondAttribute="leading" constant="16" id="SQs-Gx-MY9" userLabel="Garbage Type Label.leading = leading + 15"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jIL-Qi-iCu" secondAttribute="trailing" constant="20" symbolic="YES" id="Y3Y-Yp-oNu"/>
-                                        <constraint firstItem="bEf-QH-yxT" firstAttribute="centerY" secondItem="Vmk-Gw-ocY" secondAttribute="centerY" id="YdY-q9-fa3"/>
-                                        <constraint firstItem="bEf-QH-yxT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Rdj-Ho-OgX" secondAttribute="trailing" constant="8" symbolic="YES" id="ZJF-wC-9kj"/>
                                         <constraint firstItem="Rdj-Ho-OgX" firstAttribute="centerY" secondItem="97E-RG-EpC" secondAttribute="centerY" id="od3-cO-DsZ"/>
                                         <constraint firstItem="Rdj-Ho-OgX" firstAttribute="leading" secondItem="97E-RG-EpC" secondAttribute="trailing" constant="1.5" id="ppX-zX-viN"/>
-                                        <constraint firstItem="bEf-QH-yxT" firstAttribute="trailing" secondItem="Vmk-Gw-ocY" secondAttribute="trailingMargin" id="xcH-Qq-afQ"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
