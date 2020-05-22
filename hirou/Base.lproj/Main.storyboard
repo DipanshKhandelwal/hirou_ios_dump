@@ -1086,22 +1086,6 @@
             </objects>
             <point key="canvasLocation" x="2234.375" y="35.7421875"/>
         </scene>
-        <!--Test View Controller-->
-        <scene sceneID="DqB-QE-aDm">
-            <objects>
-                <viewController id="4S2-GN-XcH" customClass="TestViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Xo4-su-k27">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="974"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="SoM-ZL-3Q8"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="B6e-y3-qeT"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="65X-io-pHZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2956.25" y="35.7421875"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="zc8-mP-V5P">
             <objects>

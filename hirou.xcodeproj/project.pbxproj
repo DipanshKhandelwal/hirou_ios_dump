@@ -33,7 +33,6 @@
 		31C5473F2448C7FE00CE0F6C /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C5473E2448C7FE00CE0F6C /* TaskDetailViewController.swift */; };
 		31CF0A42245A0B8500E0F5DC /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF0A41245A0B8500E0F5DC /* CalendarViewController.swift */; };
 		31DA88B623F3CF7B00713805 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA88B523F3CF7B00713805 /* Vehicle.swift */; };
-		31E209AA23D0F3550051B14B /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E209A923D0F3550051B14B /* TestViewController.swift */; };
 		31EBE46324477F640023305D /* TaskRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EBE46224477F640023305D /* TaskRoute.swift */; };
 		31EBE46524477FE40023305D /* TaskCollectionPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EBE46424477FE40023305D /* TaskCollectionPoint.swift */; };
 		31EBE46724477FED0023305D /* TaskCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EBE46624477FED0023305D /* TaskCollection.swift */; };
@@ -94,7 +93,6 @@
 		31C5473E2448C7FE00CE0F6C /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		31CF0A41245A0B8500E0F5DC /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		31DA88B523F3CF7B00713805 /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
-		31E209A923D0F3550051B14B /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		31EBE46224477F640023305D /* TaskRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRoute.swift; sourceTree = "<group>"; };
 		31EBE46424477FE40023305D /* TaskCollectionPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionPoint.swift; sourceTree = "<group>"; };
 		31EBE46624477FED0023305D /* TaskCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollection.swift; sourceTree = "<group>"; };
@@ -194,6 +192,7 @@
 		317E230023C6306C00F8F0C1 /* hirou */ = {
 			isa = PBXGroup;
 			children = (
+				31FD5A9B2477D97300377174 /* Vehicle */,
 				3153653B243F8BA0001ED8C4 /* Components */,
 				3199089C2427656900E028E1 /* Management */,
 				314A60CF241F7BF3005418EB /* CreateBaseRoute */,
@@ -205,9 +204,6 @@
 				317E230C23C6306D00F8F0C1 /* Assets.xcassets */,
 				317E230923C6306C00F8F0C1 /* Main.storyboard */,
 				31093F9C23CFA6B40025679A /* LoginViewController.swift */,
-				317E230523C6306C00F8F0C1 /* VehicleMasterViewController.swift */,
-				317E230723C6306C00F8F0C1 /* VehicleDetailViewController.swift */,
-				31E209A923D0F3550051B14B /* TestViewController.swift */,
 			);
 			path = hirou;
 			sourceTree = "<group>";
@@ -264,6 +260,15 @@
 				31FB0DB22463BF3500856B4C /* TaskCollectionPointTableViewController.swift */,
 			);
 			path = TaskCollectionPoint;
+			sourceTree = "<group>";
+		};
+		31FD5A9B2477D97300377174 /* Vehicle */ = {
+			isa = PBXGroup;
+			children = (
+				317E230523C6306C00F8F0C1 /* VehicleMasterViewController.swift */,
+				317E230723C6306C00F8F0C1 /* VehicleDetailViewController.swift */,
+			);
+			path = Vehicle;
 			sourceTree = "<group>";
 		};
 		5E7FE8B695FD7659A6ADE524 /* Frameworks */ = {
@@ -475,7 +480,6 @@
 				31EBE46324477F640023305D /* TaskRoute.swift in Sources */,
 				31CF0A42245A0B8500E0F5DC /* CalendarViewController.swift in Sources */,
 				3133F2022424BD0A001C158C /* RouteMasterViewController.swift in Sources */,
-				31E209AA23D0F3550051B14B /* TestViewController.swift in Sources */,
 				3133F2042424BE0F001C158C /* BaseRoute.swift in Sources */,
 				313172682445E5D800585B7F /* TaskTableViewController.swift in Sources */,
 				312E9A2A242A39980073D165 /* CollectionPointMasterViewController.swift in Sources */,
