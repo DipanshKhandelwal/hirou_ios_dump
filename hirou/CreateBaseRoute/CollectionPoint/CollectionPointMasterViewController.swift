@@ -156,4 +156,16 @@ class CollectionPointMasterViewController: UITableViewController {
             }
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "collectionPointsMapSegue" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                print(indexPath.row)
+                let controller = (segue.destination as! UINavigationController).topViewController as! CollectionPointDetailViewController
+                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+                controller.navigationItem.leftItemsSupplementBackButton = true
+                detailViewController = controller
+            }
+        }
+    }
 }
