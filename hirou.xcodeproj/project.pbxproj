@@ -18,8 +18,6 @@
 		3153653D243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3153653C243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift */; };
 		317E230223C6306C00F8F0C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230123C6306C00F8F0C1 /* AppDelegate.swift */; };
 		317E230423C6306C00F8F0C1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230323C6306C00F8F0C1 /* SceneDelegate.swift */; };
-		317E230623C6306C00F8F0C1 /* VehicleMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230523C6306C00F8F0C1 /* VehicleMasterViewController.swift */; };
-		317E230823C6306C00F8F0C1 /* VehicleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230723C6306C00F8F0C1 /* VehicleDetailViewController.swift */; };
 		317E230B23C6306C00F8F0C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 317E230923C6306C00F8F0C1 /* Main.storyboard */; };
 		317E230D23C6306D00F8F0C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 317E230C23C6306D00F8F0C1 /* Assets.xcassets */; };
 		317E231023C6306D00F8F0C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 317E230E23C6306D00F8F0C1 /* LaunchScreen.storyboard */; };
@@ -73,8 +71,6 @@
 		317E22FE23C6306C00F8F0C1 /* hirou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hirou.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		317E230123C6306C00F8F0C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		317E230323C6306C00F8F0C1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		317E230523C6306C00F8F0C1 /* VehicleMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleMasterViewController.swift; sourceTree = "<group>"; };
-		317E230723C6306C00F8F0C1 /* VehicleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailViewController.swift; sourceTree = "<group>"; };
 		317E230A23C6306C00F8F0C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		317E230C23C6306D00F8F0C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		317E230F23C6306D00F8F0C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -192,7 +188,6 @@
 		317E230023C6306C00F8F0C1 /* hirou */ = {
 			isa = PBXGroup;
 			children = (
-				31FD5A9B2477D97300377174 /* Vehicle */,
 				3153653B243F8BA0001ED8C4 /* Components */,
 				3199089C2427656900E028E1 /* Management */,
 				314A60CF241F7BF3005418EB /* CreateBaseRoute */,
@@ -260,15 +255,6 @@
 				31FB0DB22463BF3500856B4C /* TaskCollectionPointTableViewController.swift */,
 			);
 			path = TaskCollectionPoint;
-			sourceTree = "<group>";
-		};
-		31FD5A9B2477D97300377174 /* Vehicle */ = {
-			isa = PBXGroup;
-			children = (
-				317E230523C6306C00F8F0C1 /* VehicleMasterViewController.swift */,
-				317E230723C6306C00F8F0C1 /* VehicleDetailViewController.swift */,
-			);
-			path = Vehicle;
 			sourceTree = "<group>";
 		};
 		5E7FE8B695FD7659A6ADE524 /* Frameworks */ = {
@@ -475,7 +461,6 @@
 				3153653D243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift in Sources */,
 				31F57D1E243A618500903F38 /* Garbage.swift in Sources */,
 				31920C9F241CD5D900A55403 /* Location.swift in Sources */,
-				317E230623C6306C00F8F0C1 /* VehicleMasterViewController.swift in Sources */,
 				31093F9D23CFA6B40025679A /* LoginViewController.swift in Sources */,
 				31EBE46324477F640023305D /* TaskRoute.swift in Sources */,
 				31CF0A42245A0B8500E0F5DC /* CalendarViewController.swift in Sources */,
@@ -484,7 +469,6 @@
 				313172682445E5D800585B7F /* TaskTableViewController.swift in Sources */,
 				312E9A2A242A39980073D165 /* CollectionPointMasterViewController.swift in Sources */,
 				319035112442731A0020E152 /* CollectionPointPointAnnotation.swift in Sources */,
-				317E230823C6306C00F8F0C1 /* VehicleDetailViewController.swift in Sources */,
 				31C5473F2448C7FE00CE0F6C /* TaskDetailViewController.swift in Sources */,
 				31EBE46524477FE40023305D /* TaskCollectionPoint.swift in Sources */,
 				312E7AC12462A7AD00A73363 /* TaskCollectionsTableViewController.swift in Sources */,
