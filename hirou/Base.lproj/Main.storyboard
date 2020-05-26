@@ -532,12 +532,7 @@
                             <outlet property="delegate" destination="g2Y-xc-AWx" id="Bdu-6K-WLf"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Task Route List" id="cid-zR-ZGO">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="Uzp-ER-IuH"/>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="addRouteButton" destination="Uzp-ER-IuH" id="Krk-hr-AqB"/>
-                    </connections>
+                    <navigationItem key="navigationItem" title="Task Route List" id="cid-zR-ZGO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Trn-Uu-Dv2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
