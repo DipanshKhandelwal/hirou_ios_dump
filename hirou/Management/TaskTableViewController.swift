@@ -18,8 +18,18 @@ class TaskTableViewCell: UITableViewCell {
 
 class TaskTableViewController: UITableViewController {
     var taskRoutes = [TaskRoute]()
+    
+    var delegate: PageViewController!
 
-    var date: Date!
+//    var date: Date!
+    
+    var date: Date? {
+         didSet {
+             if let foundDate = date {
+                 print("datatataa", foundDate)
+             }
+         }
+     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +55,6 @@ class TaskTableViewController: UITableViewController {
                 print(error)
                 //                completion(nil)
             }
-            
         }
     }
     
@@ -66,7 +75,9 @@ class TaskTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskTableCell", for: indexPath) as! TaskTableViewCell
         
         let taskRoute = self.taskRoutes[indexPath.row]
-        cell.routeName?.text = taskRoute.name
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        cell.routeName?.text = taskRoute.name + "----" + dateFormatter.string(from: self.date ?? Date())
         cell.routeCustomer?.text = taskRoute.customer.name
 
         cell.routeGarbageList?.text = taskRoute.getGarbagesNameList()

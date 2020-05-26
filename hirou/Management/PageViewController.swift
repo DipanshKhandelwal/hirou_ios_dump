@@ -10,7 +10,14 @@ import UIKit
 
 extension PageViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        self.date = (self.viewControllers?.first as! TaskTableViewController).date
+        
+        let date = (self.viewControllers?.first as! TaskTableViewController).date!
+        self.date = date
+        let dateStr = self.dateFormatter.string(from: date)
+
+        DispatchQueue.main.async {
+            self.dateTitle.setTitle(dateStr, for: .normal)
+        }
     }
 }
 
@@ -20,79 +27,54 @@ extension PageViewController: UIPageViewControllerDataSource {
         guard let tableViewPage = storyboard?.instantiateViewController(withIdentifier: "TaskTableViewControllerId") as? TaskTableViewController else {
             return nil
         }
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy"
         
-        DispatchQueue.main.async {
-            self.dateTitle.setTitle(dateFormatter.string(from: date), for: .normal)
-        }
-        
+        self.dateTitle.setTitle(self.dateFormatter.string(from: self.date), for: .normal)
         tableViewPage.date = date
         return tableViewPage
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         let today = (viewController as! TaskTableViewController).date!
-        guard var yesterday = calendar.date(byAdding: .day, value: -1, to: today) else {
+        guard let tomorrow = Calendar.current.date(byAdding: .day, value: -1, to: today) else {
             return nil
         }
-        yesterday = calendar.startOfDay(for: yesterday)
-
-        return tableViewPage(for: yesterday)
+        return tableViewPage(for: tomorrow)
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         let today = (viewController as! TaskTableViewController).date!
-        guard var tomorrow = calendar.date(byAdding: .day, value: 1, to: today) else {
+        guard let yesterday = Calendar.current.date(byAdding: .day, value: 1, to: today) else {
             return nil
         }
-        tomorrow = calendar.startOfDay(for: tomorrow)
-
-        return tableViewPage(for: tomorrow)
+        return tableViewPage(for: yesterday)
     }
 }
 
 class PageViewController: UIPageViewController {
+    var date = Date()
+    let dateFormatter = DateFormatter()
 
-    var date: Date!
     var calendar = Calendar(identifier: .iso8601)
-    
     var dateTitle = UIButton(type: .system)
-    
-    func generateRandomDate(daysBack: Int)-> Date?{
-        let day = arc4random_uniform(UInt32(daysBack))+1
-        let hour = arc4random_uniform(23)
-        let minute = arc4random_uniform(59)
-        
-        let today = Date(timeIntervalSinceNow: 0)
-        let gregorian  = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)
-        var offsetComponents = DateComponents()
-        offsetComponents.day = -1 * Int(day - 1)
-        offsetComponents.hour = -1 * Int(hour)
-        offsetComponents.minute = -1 * Int(minute)
-        
-        let randomDate = gregorian?.date(byAdding: offsetComponents, to: today, options: .init(rawValue: 0) )
-        return randomDate
-    }
+    private var datePicker = UIDatePicker()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         dataSource = self
-        
-        let randomInt = Int.random(in: 0..<30)
-        date = generateRandomDate(daysBack: randomInt)
-        
-        // Do any additional setup after loading the view.
-        self.setViewControllers([tableViewPage(for: date)!], direction: .forward, animated: true, completion: nil)
+        delegate = self
+
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         
         dateTitle.titleLabel?.sizeToFit()
         dateTitle.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
         dateTitle.titleLabel?.font.withSize(15)
         dateTitle.addTarget(self, action: #selector(tapped), for: .touchUpInside)
         self.navigationItem.titleView = dateTitle;
+
+        self.setViewControllers([tableViewPage(for: date)!], direction: .forward, animated: true, completion: nil)
         
-        dateTitle.setTitle("Date", for: .normal)
+        datePicker.datePickerMode = .date
+        datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
     }
     
     @objc
@@ -100,13 +82,14 @@ class PageViewController: UIPageViewController {
         print(dateTitle.titleLabel?.text as Any)
     }
     
-    
-    
-    func getViewControllerAtIndex(index: Int) -> TaskTableViewController
-    {
-        // Create a new view controller and pass suitable data.
-        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "TaskTableViewControllerId") as! TaskTableViewController
-        return viewController
+    @objc
+    func dateChanged(datePicker: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        
+        print(dateFormatter.string(from: datePicker.date))
+        view.endEditing(true)
     }
 
     /*
