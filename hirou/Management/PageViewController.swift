@@ -14,7 +14,6 @@ extension PageViewController: UIPageViewControllerDelegate {
         let date = (self.viewControllers?.first as! TaskTableViewController).date!
         self.date = date
         let dateStr = self.dateFormatter.string(from: date)
-
         DispatchQueue.main.async {
             self.dateTitle.setTitle(dateStr, for: .normal)
         }
@@ -56,6 +55,8 @@ class PageViewController: UIPageViewController {
 
     var calendar = Calendar(identifier: .iso8601)
     var dateTitle = UIButton(type: .system)
+    
+    var toolBar = UIToolbar()
     private var datePicker = UIDatePicker()
     
     override func viewDidLoad() {
@@ -63,33 +64,47 @@ class PageViewController: UIPageViewController {
         dataSource = self
         delegate = self
 
-        dateFormatter.dateFormat = "MM/dd/yyyy"
+        dateFormatter.dateFormat = "MM / dd / yyyy"
         
         dateTitle.titleLabel?.sizeToFit()
         dateTitle.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
         dateTitle.titleLabel?.font.withSize(15)
-        dateTitle.addTarget(self, action: #selector(tapped), for: .touchUpInside)
+        dateTitle.addTarget(self, action: #selector(selectDate), for: .touchUpInside)
         self.navigationItem.titleView = dateTitle;
 
         self.setViewControllers([tableViewPage(for: date)!], direction: .forward, animated: true, completion: nil)
-        
+    }
+    
+    @objc
+    func selectDate() {
+        datePicker = UIDatePicker.init()
+        datePicker.backgroundColor = UIColor.white
+
+        datePicker.autoresizingMask = .flexibleWidth
         datePicker.datePickerMode = .date
+
         datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
+        datePicker.frame = CGRect(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 300)
+        self.view.addSubview(datePicker)
+
+        toolBar = UIToolbar(frame: CGRect(x: 0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 50))
+        toolBar.items = [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.onDoneButtonClick))]
+        toolBar.sizeToFit()
+        self.view.addSubview(toolBar)
     }
     
-    @objc
-    func tapped() {
-        print(dateTitle.titleLabel?.text as Any)
+    @objc func dateChanged(_ sender: UIDatePicker?) {
+        if let date = sender?.date {
+            self.date = date
+            let dateStr = dateFormatter.string(from: date)
+            self.dateTitle.setTitle(dateStr, for: .normal)
+            self.setViewControllers([tableViewPage(for: date)!], direction: .forward, animated: true, completion: nil)
+        }
     }
-    
-    @objc
-    func dateChanged(datePicker: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        
-        print(dateFormatter.string(from: datePicker.date))
-        view.endEditing(true)
+
+    @objc func onDoneButtonClick() {
+        toolBar.removeFromSuperview()
+        datePicker.removeFromSuperview()
     }
 
     /*
