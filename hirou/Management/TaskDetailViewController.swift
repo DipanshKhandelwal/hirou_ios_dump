@@ -164,20 +164,20 @@ class TaskDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
         self.vehiclePicker.isHidden = true
     }
-
+    
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-//        if segue.identifier == "selectGarbageTypes" {
-//            let controller = (segue.destination as! GarbageTypesTableViewController)
-//            if let detail = detailItem {
-//                controller.detailItem = self.selectedGarbages
-//                controller.delegate = self
-//            }
-//        }
+        //        if segue.identifier == "selectGarbageTypes" {
+        //            let controller = (segue.destination as! GarbageTypesTableViewController)
+        //            if let detail = detailItem {
+        //                controller.detailItem = self.selectedGarbages
+        //                controller.delegate = self
+        //            }
+        //        }
     }
-
+    
 }

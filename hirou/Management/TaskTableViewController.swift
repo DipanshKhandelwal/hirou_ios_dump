@@ -139,9 +139,6 @@ class TaskTableViewController: UITableViewController {
         if segue.identifier == "showTaskDetails" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let route = self.taskRoutes[indexPath.row]
-                
-                print("route sending", route.name)
-                
                 let controller = (segue.destination as! TaskDetailViewController)
                 controller.detailItem = route as Any
             }
