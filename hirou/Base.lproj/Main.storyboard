@@ -178,7 +178,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <state key="normal" title="Management Table"/>
                                                 <connections>
-                                                    <segue destination="OPr-v1-8Sb" kind="show" id="pA5-45-MYt"/>
+                                                    <segue destination="94k-Zy-Qih" kind="show" id="fYx-xW-Z0w"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -229,7 +229,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="RMp-Xg-itg">
-                                <rect key="frame" x="309" y="436" width="150" height="202"/>
+                                <rect key="frame" x="309" y="411" width="150" height="202"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="list.dash" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Ee8-y6-QSy">
                                         <rect key="frame" x="0.0" y="3" width="150" height="144"/>
@@ -242,9 +242,6 @@
                                         <rect key="frame" x="10" y="160" width="130" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <state key="normal" title="Task Routes"/>
-                                        <connections>
-                                            <segue destination="94k-Zy-Qih" kind="show" id="HL4-KW-FDO"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -260,15 +257,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kcr-nr-yoc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-14" y="-330"/>
+            <point key="canvasLocation" x="-14" y="-1034"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="oQq-rH-3jO">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="h6U-05-DBI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="94k-Zy-Qih" customClass="PageViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="iPC-to-yaw"/>
                 </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h6U-05-DBI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gdu-Rf-snX">
                     <rect key="frame" x="0.0" y="0.0" width="42" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -736,10 +733,10 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tPU-PN-E0K">
                                             <rect key="frame" x="627" y="117" width="74.5" height="59.5"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TXI-2n-QCd">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TXI-2n-QCd">
                                                     <rect key="frame" x="13" y="0.0" width="51" height="31"/>
                                                 </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Complete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auQ-0J-LS9">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Complete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auQ-0J-LS9">
                                                     <rect key="frame" x="0.0" y="39" width="74.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
