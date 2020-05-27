@@ -21,14 +21,15 @@ class TaskDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        configureView()
         
         vehiclePicker.delegate = self
         vehiclePicker.dataSource = self
         vehiclePicker.isHidden = true
-
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(vehicleLabelPressed))
         vehicleLabel.addGestureRecognizer(tap)
+        
+        configureView()
     }
     
     @objc
@@ -83,6 +84,20 @@ class TaskDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
             if let label = self.garbageLabel {
                 label.text = task.getGarbagesNameList()
             }
+        } else {
+            if let label = self.customerLabel {
+                label.text = "n/a"
+            }
+            
+            if let label = self.garbageLabel {
+                label.text = "n/a"
+            }
+            
+            if let button = self.deleteTaskButton {
+                button.isHidden = true
+            }
+        }
+    }
         }
     }
     
@@ -93,7 +108,7 @@ class TaskDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return self.vehiclesList.count
     }
-
+    
     internal func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
     {
         if(self.vehiclesList.count >= row) {
@@ -101,12 +116,12 @@ class TaskDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
         return ""
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if(self.vehiclesList.count >= row) {
             self.vehicleLabel.text = self.vehiclesList[row].registrationNumber
             print(self.vehiclesList[row].registrationNumber)
-//            self.selectedCustomerId = self.customers[row].id
+            //            self.selectedCustomerId = self.customers[row].id
         }
         self.vehiclePicker.isHidden = true
     }
