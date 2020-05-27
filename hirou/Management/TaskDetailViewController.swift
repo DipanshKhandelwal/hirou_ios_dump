@@ -15,6 +15,9 @@ class TaskDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var garbageLabel: UILabel!
     @IBOutlet weak var vehiclePicker: UIPickerView!
     
+    
+    @IBOutlet weak var deleteTaskButton: UIButton!
+    
     var vehiclesList = [Vehicle]()
     var selectedVehicle: Vehicle!
     
@@ -98,8 +101,44 @@ class TaskDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
             }
         }
     }
+    
+    // button pressed
+    
+    @IBAction func deleteTask(_ sender: Any) {
+        let deleteAlert = UIAlertController(title: "Delete Task ?", message: "Are you sure you want to delete the task ?", preferredStyle: .alert)
+        
+        deleteAlert.addAction(UIAlertAction(title: "Yes. Delete", style: .default, handler: { (action: UIAlertAction!) in
+            self.deleteTaskCall()
+        }))
+        
+        deleteAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            print("Delte cancelled by the user.")
+        }))
+        
+        self.present(deleteAlert, animated: true, completion: nil)
+    }
+    
+    func deleteTaskCall(){
+        if let detail = detailItem {
+            let id = (detail as! TaskRoute).id
+            AF.request("http://127.0.0.1:8000/api/task_route/"+String(id)+"/", method: .delete)
+                .responseString {
+                    response in
+                    switch response.result {
+                    case .success(let value):
+                        print("value", value)
+                        _ = self.navigationController?.popViewController(animated: true)
+                        //                        self.customers = []
+                        
+                    case .failure(let error):
+                        print(error)
+                        //                completion(nil)
+                    }
+            }
         }
     }
+    
+    // picker
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
