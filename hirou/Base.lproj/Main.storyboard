@@ -550,10 +550,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="XMM-YU-t0p">
-                                <rect key="frame" x="77" y="150" width="614" height="385"/>
+                                <rect key="frame" x="77" y="150" width="614" height="339"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="CeC-5g-bho">
-                                        <rect key="frame" x="0.0" y="0.0" width="614" height="87.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="CeC-5g-bho">
+                                        <rect key="frame" x="0.0" y="0.0" width="614" height="74.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YID-2e-M1y">
                                                 <rect key="frame" x="0.0" y="0.0" width="84.5" height="20.5"/>
@@ -562,7 +562,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dej-aj-nie">
-                                                <rect key="frame" x="0.0" y="53.5" width="614" height="34"/>
+                                                <rect key="frame" x="0.0" y="40.5" width="614" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -571,8 +571,8 @@
                                             <constraint firstItem="dej-aj-nie" firstAttribute="width" secondItem="CeC-5g-bho" secondAttribute="width" id="aco-Vm-XDS"/>
                                         </constraints>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="a8u-RP-mip">
-                                        <rect key="frame" x="0.0" y="137.5" width="614" height="87.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="a8u-RP-mip">
+                                        <rect key="frame" x="0.0" y="124.5" width="614" height="74.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Base Route" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mDK-rk-CzJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="87" height="20.5"/>
@@ -580,8 +580,8 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FWD-Er-9Fd">
-                                                <rect key="frame" x="0.0" y="53.5" width="614" height="34"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FWD-Er-9Fd" customClass="DisabledUITextField" customModule="hirou" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="40.5" width="614" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -590,22 +590,29 @@
                                             <constraint firstItem="FWD-Er-9Fd" firstAttribute="width" secondItem="a8u-RP-mip" secondAttribute="width" id="nL1-Gt-bo0"/>
                                         </constraints>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0PR-mC-Z2B">
-                                        <rect key="frame" x="0.0" y="275" width="614" height="30"/>
-                                        <state key="normal" title="Add Task"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dH5-R9-Dtf">
-                                        <rect key="frame" x="0.0" y="355" width="614" height="30"/>
-                                        <state key="normal" title="Cancel">
-                                            <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Txr-bN-V4H">
+                                        <rect key="frame" x="0.0" y="249" width="614" height="90"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0PR-mC-Z2B">
+                                                <rect key="frame" x="0.0" y="0.0" width="614" height="30"/>
+                                                <state key="normal" title="Add Task"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dH5-R9-Dtf">
+                                                <rect key="frame" x="0.0" y="60" width="614" height="30"/>
+                                                <state key="normal" title="Cancel">
+                                                    <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="cancelAddTask:" destination="x0Q-bg-kCI" eventType="touchUpInside" id="P0c-34-3AJ"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="a8u-RP-mip" firstAttribute="width" secondItem="XMM-YU-t0p" secondAttribute="width" id="1CE-hq-KDH"/>
-                                    <constraint firstItem="0PR-mC-Z2B" firstAttribute="centerX" secondItem="XMM-YU-t0p" secondAttribute="centerX" id="lZC-oW-WlB"/>
                                     <constraint firstItem="CeC-5g-bho" firstAttribute="width" secondItem="XMM-YU-t0p" secondAttribute="width" id="tlG-UL-dl9"/>
-                                    <constraint firstItem="dH5-R9-Dtf" firstAttribute="centerX" secondItem="XMM-YU-t0p" secondAttribute="centerX" id="xCy-iL-ryd"/>
+                                    <constraint firstItem="Txr-bN-V4H" firstAttribute="width" secondItem="XMM-YU-t0p" secondAttribute="width" id="w5h-oI-yMs"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -618,6 +625,10 @@
                         <viewLayoutGuide key="safeArea" id="ulU-6T-2NG"/>
                     </view>
                     <navigationItem key="navigationItem" id="8Ea-bT-3yJ"/>
+                    <connections>
+                        <outlet property="routeLabel" destination="FWD-Er-9Fd" id="elh-Nb-lga"/>
+                        <outlet property="taskName" destination="dej-aj-nie" id="pkr-fc-aKt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pGg-OV-FdM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

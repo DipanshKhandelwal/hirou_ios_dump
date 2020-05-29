@@ -27,11 +27,9 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         toolBar.barStyle = UIBarStyle.default
         toolBar.sizeToFit()
 
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.donePicker))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(self.cancelPicker))
 
-        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.setItems([cancelButton], animated: false)
         toolBar.isUserInteractionEnabled = true
 
         routeLabel.inputView = picker
