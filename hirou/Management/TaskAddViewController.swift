@@ -10,7 +10,7 @@ import UIKit
 
 class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     @IBOutlet weak var taskName: UITextField!
-    @IBOutlet weak var routeLabel: UITextField!
+    @IBOutlet weak var routeLabel: DisabledUITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
