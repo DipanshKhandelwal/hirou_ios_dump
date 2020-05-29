@@ -749,6 +749,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xUY-eU-34k" customClass="MGLMapView">
+                                <rect key="frame" x="0.0" y="56" width="768" height="948"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zqd-rs-5QR">
                                 <rect key="frame" x="361" y="497" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -759,6 +763,12 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="xUY-eU-34k" firstAttribute="centerY" secondItem="Ofh-z0-bC5" secondAttribute="centerY" id="AQr-sq-7aa"/>
+                            <constraint firstItem="xUY-eU-34k" firstAttribute="width" secondItem="Ofh-z0-bC5" secondAttribute="width" id="VkI-HK-dY7"/>
+                            <constraint firstItem="xUY-eU-34k" firstAttribute="height" secondItem="Ofh-z0-bC5" secondAttribute="height" id="kpN-7O-776"/>
+                            <constraint firstItem="xUY-eU-34k" firstAttribute="centerX" secondItem="Ofh-z0-bC5" secondAttribute="centerX" id="zy4-zq-Dne"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Ofh-z0-bC5"/>
                     </view>
                     <navigationItem key="navigationItem" id="znB-wd-fWY"/>
@@ -842,10 +852,10 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tPU-PN-E0K">
                                             <rect key="frame" x="627" y="117" width="74.5" height="59.5"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TXI-2n-QCd">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TXI-2n-QCd">
                                                     <rect key="frame" x="13" y="0.0" width="51" height="31"/>
                                                 </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Complete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auQ-0J-LS9">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Complete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auQ-0J-LS9">
                                                     <rect key="frame" x="0.0" y="39" width="74.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
