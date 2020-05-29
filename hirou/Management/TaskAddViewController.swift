@@ -27,9 +27,10 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         toolBar.barStyle = UIBarStyle.default
         toolBar.sizeToFit()
 
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(self.cancelPicker))
-
-        toolBar.setItems([cancelButton], animated: false)
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.pickerDone))
+        
+        toolBar.setItems([flexibleSpace, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
 
         routeLabel.inputView = picker
@@ -39,7 +40,7 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     @objc
-    func cancelPicker() {
+    func pickerDone() {
         routeLabel.resignFirstResponder()
     }
     
