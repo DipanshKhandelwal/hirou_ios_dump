@@ -97,17 +97,13 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func fetchTaskRoutesAndUpdatetasks() {
-        AF.request("http://127.0.0.1:8000/api/task_route/", method: .get).responseJSON { response in
+        AF.request("http://127.0.0.1:8000/api/task_route/", method: .get).response { response in
             //to get status code
             switch response.result {
             case .success(let value):
                 self.taskRoutes = []
-                for taskRoute in value as! [Any] {
-                    let taskRouteResponse = taskRoute as AnyObject
-                    let taskRouteObj = TaskRoute.getTaskRouteFromResponse(obj: taskRouteResponse)
-                    self.taskRoutes.append(taskRouteObj)
-                }
-                self.getCalendarData(taskRoutes: self.taskRoutes)
+                let decoder = JSONDecoder()
+                self.taskRoutes = try! decoder.decode([TaskRoute].self, from: value!)
                 DispatchQueue.main.async {
                     self.taskRouteTable.reloadData()
                 }
