@@ -36,25 +36,18 @@ class TaskCollectionPointTableViewController: UITableViewController {
     func fetchTaskCollectionPoints(){
         let id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
         let url = "http://127.0.0.1:8000/api/task_route/"+String(id)+"/"
-        AF.request(url, method: .get).responseJSON { response in
+        AF.request(url, method: .get).response { response in
             switch response.result {
-                case .success(let value):
-                    print("value", value)
-                    var newTaskCollectionPoints = [TaskCollectionPoint]()
-                    
-                    let cps = (value as AnyObject)["task_collection_point"]
-                    for collectionPoint in cps as! [Any] {
-                        let taskCollectionPointObj = TaskCollectionPoint.getTaskCollectionPointFromResponse(obj: collectionPoint as AnyObject)
-                        newTaskCollectionPoints.append(taskCollectionPointObj)
-                    }
-                    self.taskCollectionPoints = []
-                    self.taskCollectionPoints = newTaskCollectionPoints.sorted() { $0.sequence < $1.sequence }
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
-                case .failure(let error):
-                    print(error)
+            case .success(let value):
+                let route = try! JSONDecoder().decode(TaskRoute.self, from: value!)
+                let newCollectionPoints = route.taskCollectionPoints
+                self.taskCollectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
                 }
+            case .failure(let error):
+                print(error)
+            }
         }
     }
     
