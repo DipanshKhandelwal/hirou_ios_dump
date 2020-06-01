@@ -10,7 +10,12 @@ import UIKit
 import Mapbox
 import Alamofire
 
-class TaskNavigationViewController: UIViewController, MGLMapViewDelegate {
+import Mapbox
+import MapboxCoreNavigation
+import MapboxNavigation
+import MapboxDirections
+
+class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, NavigationViewControllerDelegate {
 
     var id: String = ""
     @IBOutlet weak var mapView: MGLMapView!
@@ -30,7 +35,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         self.getPoints()
     }
-    
+
     func getPoints() {
         let id = self.id
         let url = "http://127.0.0.1:8000/api/task_route/"+String(id)+"/"
@@ -122,6 +127,29 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate {
             mapView.setVisibleCoordinateBounds(MGLCoordinateBoundsMake(CLLocationCoordinate2DMake(southWestLatitude, southWestLongitude), CLLocationCoordinate2DMake(northEastLatitude, northEastLongitude)), animated: true)
         }
     }
+    
+    @IBAction func navigateButtonPressed(_ sender: Any) {
+        let waypointOne = Waypoint(coordinate: CLLocationCoordinate2DMake(37.77766, -122.43199))
+        let waypointTwo = Waypoint(coordinate: CLLocationCoordinate2DMake(37.77609, -122.43292))
+        let waypointThree = Waypoint(coordinate: CLLocationCoordinate2DMake(37.77536, -122.43494))
+
+        let options = NavigationRouteOptions(waypoints: [waypointOne, waypointTwo, waypointThree])
+
+        Directions.shared.calculate(options) { (waypoints, routes, error) in
+            guard let route = routes?.first, error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+
+            let navigationService = MapboxNavigationService(route: route, simulating: .always)
+            let navigationOptions = NavigationOptions(navigationService: navigationService)
+            let navigationViewController = NavigationViewController(for: route, options: navigationOptions)
+            navigationViewController.delegate = self
+
+            self.present(navigationViewController, animated: true, completion: nil)
+        }
+    }
+
     /*
     // MARK: - Navigation
 
