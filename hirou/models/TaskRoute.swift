@@ -43,7 +43,7 @@ class TaskRoute: Encodable, Decodable {
         customer = try container.decodeIfPresent(Customer.self, forKey: .customer)
         garbageList = try container.decode([Garbage].self, forKey: .garbageList)
         taskCollectionPoints = try container.decode([TaskCollectionPoint].self, forKey: .taskCollectionPoints)
-        let dateStr = try container.decode(String.self, forKey: .taskCollectionPoints)
+        let dateStr = try container.decode(String.self, forKey: .date)
         date = TaskRoute.getDateFromString(dateStr: dateStr)
     }
     
