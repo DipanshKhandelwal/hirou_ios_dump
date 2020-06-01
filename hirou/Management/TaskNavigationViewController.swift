@@ -129,11 +129,11 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     }
     
     @IBAction func navigateButtonPressed(_ sender: Any) {
-        let waypointOne = Waypoint(coordinate: CLLocationCoordinate2DMake(37.77766, -122.43199))
-        let waypointTwo = Waypoint(coordinate: CLLocationCoordinate2DMake(37.77609, -122.43292))
-        let waypointThree = Waypoint(coordinate: CLLocationCoordinate2DMake(37.77536, -122.43494))
-
-        let options = NavigationRouteOptions(waypoints: [waypointOne, waypointTwo, waypointThree])
+        var waypoints = [Waypoint]()
+        for x in self.annotations {
+            waypoints.append(Waypoint(coordinate: x.coordinate))
+        }
+        let options = NavigationRouteOptions(waypoints: waypoints)
 
         Directions.shared.calculate(options) { (waypoints, routes, error) in
             guard let route = routes?.first, error == nil else {
