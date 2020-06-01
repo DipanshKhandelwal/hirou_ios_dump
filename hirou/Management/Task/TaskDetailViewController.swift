@@ -77,7 +77,7 @@ class TaskDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
             UserDefaults.standard.set(task.id, forKey: "selectedTaskRoute")
             
             if let label = self.customerLabel {
-                label.text = task.customer.name
+                label.text = task.customer?.name ?? "n/a"
             }
             
             if let label = self.vehicleLabel {
