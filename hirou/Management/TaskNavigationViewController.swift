@@ -132,6 +132,9 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         var waypoints = [Waypoint]()
         for x in self.annotations {
             waypoints.append(Waypoint(coordinate: x.coordinate))
+            if(waypoints.count >= 3) {
+                break;
+            }
         }
         let options = NavigationRouteOptions(waypoints: waypoints)
 
