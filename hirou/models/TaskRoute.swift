@@ -12,38 +12,39 @@ class TaskRoute: Encodable, Decodable {
     //MARK: Properties
     var id: Int
     var name: String
-    var customer: Customer
+    var customer: Customer?
     var date: Date
+    var garbageList: [Garbage]
     var taskCollectionPoints: [TaskCollectionPoint]
     
-    init?(id: Int, name : String, customer: Customer, date: String, taskCollectionPoints: [TaskCollectionPoint]) {
+    init?(id: Int, name : String, customer: Customer?, garbageList: [Garbage], date: Date, taskCollectionPoints: [TaskCollectionPoint]) {
         // Initialize stored properties.
         self.id = id
         self.name = name
         self.customer = customer
-        self.date = TaskRoute.getDateFromString(dateStr: date)
+        self.garbageList = garbageList
+        self.date = date
         self.taskCollectionPoints = taskCollectionPoints
     }
     
-    static func getTaskRouteFromResponse(obj: AnyObject) -> TaskRoute{
-        let id = obj["id"] as! Int
-        let name = obj["name"] as! String
-        
-        let customerResponse = obj["customer"] as AnyObject
-        let customer = Customer.getCustomerFromResponse(obj: customerResponse)
-        
-        let date = obj["date"] as! String
-        
-        var taskCollectionPoints = [TaskCollectionPoint]()
-        let taskCollectionPointsResponse = obj["task_collection_point"] as AnyObject
-        for tc in taskCollectionPointsResponse as! [Any] {
-            let taskCollectionPointResponse = (tc as AnyObject)
-            let taskCollectionPoint = TaskCollectionPoint.getTaskCollectionPointFromResponse(obj: taskCollectionPointResponse)
-            taskCollectionPoints.append(taskCollectionPoint)
-        }
-        
-        let taskRouteObj = TaskRoute(id: id, name: name, customer: customer, date: date, taskCollectionPoints: taskCollectionPoints)
-        return taskRouteObj!
+    enum CodingKeys : String, CodingKey {
+        case id
+        case name
+        case customer
+        case date
+        case garbageList = "garbage"
+        case taskCollectionPoints = "task_collection_point"
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        customer = try container.decodeIfPresent(Customer.self, forKey: .customer)
+        garbageList = try container.decode([Garbage].self, forKey: .garbageList)
+        taskCollectionPoints = try container.decode([TaskCollectionPoint].self, forKey: .taskCollectionPoints)
+        let dateStr = try container.decode(String.self, forKey: .taskCollectionPoints)
+        date = TaskRoute.getDateFromString(dateStr: dateStr)
     }
     
     static func getDateFromString(dateStr: String) -> Date {
