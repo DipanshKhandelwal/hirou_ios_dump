@@ -14,42 +14,43 @@ class TaskCollectionPoint : Encodable, Decodable{
     var name: String
     var address: String
     var location: Location
+    var taskRoute: Int
     var sequence: Int
     var image: String
     var taskCollections: [TaskCollection]
     
-    init?(id: Int, name : String, address: String, location: Location, sequence: Int, image: String, taskCollections: [TaskCollection]) {
+    init?(id: Int, name : String, address: String, location: Location, sequence: Int, taskRoute: Int, image: String, taskCollections: [TaskCollection]) {
         // Initialize stored properties.
         self.id = id
         self.name = name
         self.address = address
+        self.taskRoute = taskRoute
         self.location = location
         self.sequence = sequence
         self.image = image
         self.taskCollections = taskCollections
     }
     
-    static func getTaskCollectionPointFromResponse(obj : AnyObject) -> TaskCollectionPoint {
-        let name = obj["name"] as! String
-        let id = obj["id"] as! Int
-        let address = obj["address"] as! String
-        
-        let locationCoordinates = (obj["location"] as! String).split{$0 == ","}.map(String.init)
-        let location = Location( latitude: locationCoordinates[0], longitude : locationCoordinates[1] )!
-        
-        let sequence = obj["sequence"] as! Int
-        
-        let image = ""
-        
-        var taskCollections = [TaskCollection]()
-        let taskCollectionsResponse = obj["task_collection"] as AnyObject
-        for tc in taskCollectionsResponse as! [Any] {
-            let taskCollectionResponse = (tc as AnyObject)
-            let taskCollection = TaskCollection.getTaskCollectionFromResponse(obj: taskCollectionResponse)
-            taskCollections.append(taskCollection)
-        }
-        
-        let taskCollectionPointObj = TaskCollectionPoint(id: id, name: name, address: address, location: location, sequence: sequence, image: image, taskCollections: taskCollections);
-        return taskCollectionPointObj!
+    enum CodingKeys : String, CodingKey {
+        case id
+        case name
+        case address
+        case taskRoute = "route"
+        case location
+        case sequence
+        case image
+        case taskCollections = "task_collection"
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        taskRoute = try container.decode(Int.self, forKey: .taskRoute)
+        address = try container.decode(String.self, forKey: .address)
+        sequence = try container.decode(Int.self, forKey: .sequence)
+        location = try container.decode(Location.self, forKey: .location)
+        taskCollections = try container.decode([TaskCollection].self, forKey: .taskCollections)
+        image = (try container.decodeIfPresent(String.self, forKey: .image)) ?? ""
     }
 }
