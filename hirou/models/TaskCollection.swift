@@ -27,6 +27,15 @@ class TaskCollection : Encodable, Decodable{
         self.available = available
     }
     
+    enum CodingKeys : String, CodingKey {
+        case id
+        case timestamp
+        case complete
+        case amount
+        case garbage
+        case available
+    }
+    
     static func getTaskCollectionFromResponse(obj : AnyObject) -> TaskCollection {
         let id = obj["id"] as! Int
         let timestamp = obj["timestamp"] as! String
