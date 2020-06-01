@@ -73,6 +73,7 @@
 		3138F1922421F5CC007C7434 /* CollectionPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPoint.swift; sourceTree = "<group>"; };
 		3153653C243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointDraggableAnnotationView.swift; sourceTree = "<group>"; };
 		31548739247B8CDB00A16100 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		317325D52484C2EA00799BD5 /* TaskNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNavigationViewController.swift; sourceTree = "<group>"; };
 		317E22FE23C6306C00F8F0C1 /* hirou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hirou.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		317E230123C6306C00F8F0C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		317E230323C6306C00F8F0C1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -143,9 +144,9 @@
 		312E9A2B242A39A70073D165 /* CollectionPoint */ = {
 			isa = PBXGroup;
 			children = (
+				31C24F1A2435E6BF000C3206 /* CollectionPointFormViewController.swift */,
 				312E9A29242A39980073D165 /* CollectionPointMasterViewController.swift */,
 				312E9A2C242A39F10073D165 /* CollectionPointDetailViewController.swift */,
-				31C24F1A2435E6BF000C3206 /* CollectionPointFormViewController.swift */,
 			);
 			path = CollectionPoint;
 			sourceTree = "<group>";
@@ -169,6 +170,16 @@
 				31C9AE032481097B00161374 /* DisabledUITextField.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		317325D42484C2AF00799BD5 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				31C9AE012480FB4D00161374 /* TaskAddViewController.swift */,
+				31C5473E2448C7FE00CE0F6C /* TaskDetailViewController.swift */,
+				313172672445E5D800585B7F /* TaskTableViewController.swift */,
+			);
+			path = Task;
 			sourceTree = "<group>";
 		};
 		317E22F523C6306C00F8F0C1 = {
@@ -248,13 +259,12 @@
 		3199089C2427656900E028E1 /* Management */ = {
 			isa = PBXGroup;
 			children = (
+				317325D42484C2AF00799BD5 /* Task */,
 				31FB0DB12463BEEB00856B4C /* TaskCollectionPoint */,
 				312E7ABF2462A78700A73363 /* TaskCollection */,
-				313172672445E5D800585B7F /* TaskTableViewController.swift */,
-				31C5473E2448C7FE00CE0F6C /* TaskDetailViewController.swift */,
 				31CF0A41245A0B8500E0F5DC /* CalendarViewController.swift */,
 				31548739247B8CDB00A16100 /* PageViewController.swift */,
-				31C9AE012480FB4D00161374 /* TaskAddViewController.swift */,
+				317325D52484C2EA00799BD5 /* TaskNavigationViewController.swift */,
 			);
 			path = Management;
 			sourceTree = "<group>";
@@ -471,6 +481,7 @@
 				31C9AE022480FB4D00161374 /* TaskAddViewController.swift in Sources */,
 				3153653D243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift in Sources */,
 				31F57D1E243A618500903F38 /* Garbage.swift in Sources */,
+				317325D62484C2EA00799BD5 /* TaskNavigationViewController.swift in Sources */,
 				31920C9F241CD5D900A55403 /* Location.swift in Sources */,
 				31093F9D23CFA6B40025679A /* LoginViewController.swift in Sources */,
 				31EBE46324477F640023305D /* TaskRoute.swift in Sources */,
