@@ -128,7 +128,6 @@ class TaskDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
                     case .success(let value):
                         print("value", value)
                         _ = self.navigationController?.popViewController(animated: true)
-                        //                        self.customers = []
                         
                     case .failure(let error):
                         print(error)
