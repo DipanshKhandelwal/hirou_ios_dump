@@ -17,6 +17,7 @@
 		3138F1932421F5CC007C7434 /* CollectionPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3138F1922421F5CC007C7434 /* CollectionPoint.swift */; };
 		3153653D243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3153653C243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift */; };
 		3154873A247B8CDB00A16100 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31548739247B8CDB00A16100 /* PageViewController.swift */; };
+		317325D62484C2EA00799BD5 /* TaskNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317325D52484C2EA00799BD5 /* TaskNavigationViewController.swift */; };
 		317E230223C6306C00F8F0C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230123C6306C00F8F0C1 /* AppDelegate.swift */; };
 		317E230423C6306C00F8F0C1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230323C6306C00F8F0C1 /* SceneDelegate.swift */; };
 		317E230B23C6306C00F8F0C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 317E230923C6306C00F8F0C1 /* Main.storyboard */; };
