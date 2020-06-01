@@ -38,16 +38,12 @@ class TaskTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        AF.request("http://127.0.0.1:8000/api/task_route/", method: .get).responseJSON { response in
+        AF.request("http://127.0.0.1:8000/api/task_route/", method: .get).response { response in
             //to get status code
             switch response.result {
             case .success(let value):
-                self.taskRoutes = []
-                for taskRoute in value as! [Any] {
-                    let taskRouteResponse = taskRoute as AnyObject
-                    let taskRouteObj = TaskRoute.getTaskRouteFromResponse(obj: taskRouteResponse)
-                    self.taskRoutes.append(taskRouteObj)
-                }
+                let decoder = JSONDecoder()
+                self.taskRoutes = try! decoder.decode([TaskRoute].self, from: value!)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -78,7 +74,7 @@ class TaskTableViewController: UITableViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         cell.routeName?.text = taskRoute.name + "----" + dateFormatter.string(from: self.date ?? Date())
-        cell.routeCustomer?.text = taskRoute.customer.name
+        cell.routeCustomer?.text = taskRoute.customer?.name ?? "n/a"
 
         cell.routeGarbageList?.text = taskRoute.getGarbagesNameList()
         
