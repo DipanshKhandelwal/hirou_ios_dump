@@ -778,6 +778,9 @@
                         <viewLayoutGuide key="safeArea" id="Ofh-z0-bC5"/>
                     </view>
                     <navigationItem key="navigationItem" id="znB-wd-fWY"/>
+                    <connections>
+                        <outlet property="mapView" destination="xUY-eU-34k" id="M5Y-zz-Z78"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r1C-yo-djF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

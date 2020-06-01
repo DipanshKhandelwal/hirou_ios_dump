@@ -13,7 +13,7 @@ import Alamofire
 class TaskNavigationViewController: UIViewController, MGLMapViewDelegate {
 
     var id: String = ""
-    @IBOutlet var mapView: MGLMapView!
+    @IBOutlet weak var mapView: MGLMapView!
     var selectedTaskCollectionPoint: TaskCollectionPoint!
     var taskCollectionPoints = [TaskCollectionPoint]()
     var annotations = [MGLPointAnnotation]()
