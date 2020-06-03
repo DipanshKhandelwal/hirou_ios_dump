@@ -66,6 +66,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     switch response.result {
                     case .success(let value):
                         print("value", value)
+                        _ = self.navigationController?.popViewController(animated: true)
                         
                     case .failure(let error):
                         print(error)
