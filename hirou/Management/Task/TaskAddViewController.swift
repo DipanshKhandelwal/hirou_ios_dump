@@ -16,14 +16,47 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     var baseRoutes = [BaseRoute]()
     var customerPicker = UIPickerView()
     var selectedBaseRoute: BaseRoute?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCustomerPicker()
     }
-
+    
     @IBAction func cancelAddTask(_ sender: Any) {
         _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func addNewTask(_ sender: Any) {
+        if selectedBaseRoute == nil {
+            let deleteAlert = UIAlertController(title: "Please select a base route !!", message: "", preferredStyle: .alert)
+            
+            deleteAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
+            
+            self.present(deleteAlert, animated: true, completion: nil)
+            return
+        } else {
+            addNewTask()
+        }
+    }
+    
+    func addNewTask () {
+        let routeId = selectedBaseRoute?.id
+        let parameters: [String: String] = [
+            "name": String(self.taskName.text!),
+            "id": String(routeId!)
+        ]
+        AF.request("http://127.0.0.1:8000/api/task_route/", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
+            .responseJSON {
+                response in
+                switch response.result {
+                case .success(let value):
+                    print("value", value)
+                    _ = self.navigationController?.popViewController(animated: true)
+
+                case .failure(let error):
+                    print(error)
+                }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,26 +74,26 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
         super.viewWillAppear(animated)
     }
-
+    
     
     // picker
     
     func setupCustomerPicker() {
         customerPicker.backgroundColor = UIColor.white
-
+        
         customerPicker.delegate = self
         customerPicker.dataSource = self
-
+        
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.sizeToFit()
-
+        
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.pickerDone))
         
         toolBar.setItems([flexibleSpace, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
-
+        
         routeLabel.inputView = customerPicker
         routeLabel.inputAccessoryView = toolBar
     }
@@ -89,13 +122,13 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
