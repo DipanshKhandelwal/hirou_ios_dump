@@ -906,6 +906,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="collectionSwitch" destination="TXI-2n-QCd" id="svu-oQ-yXw"/>
                                     <outlet property="garbageLabel" destination="uyH-jH-nL6" id="zGP-DF-UCG"/>
                                 </connections>
                             </tableViewCell>

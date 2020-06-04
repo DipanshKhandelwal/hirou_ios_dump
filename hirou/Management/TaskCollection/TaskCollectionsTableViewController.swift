@@ -10,6 +10,7 @@ import UIKit
 
 class TaskCollectionsCell : UITableViewCell {
     @IBOutlet weak var garbageLabel: UILabel!
+    @IBOutlet weak var collectionSwitch: UISwitch!
 }
 
 class TaskCollectionsTableViewController: UITableViewController {
@@ -56,10 +57,18 @@ class TaskCollectionsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "collectionCell", for: indexPath) as! TaskCollectionsCell
-        cell.garbageLabel!.text = "some"
+        cell.garbageLabel!.text = self.taskCollections[indexPath.row].garbage.name
+        cell.collectionSwitch.tag = indexPath.row
+        cell.collectionSwitch!.addTarget(self, action: #selector(switchToggle(_:)), for: .valueChanged)
         return cell
     }
     
+    @objc
+    func switchToggle(_ sender: UISwitch) {
+        let taskCollection = self.taskCollections[sender.tag]
+        print("task", taskCollection.id)
+    }
+
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
