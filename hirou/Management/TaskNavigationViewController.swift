@@ -183,6 +183,11 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "editTaskCollectionPoint" {
+            let controller = (segue.destination as! TaskCollectionsTableViewController)
+            controller.detailItem = self.selectedTaskCollectionPoint
+        }
     }
 
 }
