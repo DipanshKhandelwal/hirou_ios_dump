@@ -36,18 +36,13 @@ class TaskCollection : Encodable, Decodable{
         case available
     }
     
-    static func getTaskCollectionFromResponse(obj : AnyObject) -> TaskCollection {
-        let id = obj["id"] as! Int
-        let timestamp = obj["timestamp"] as! String
-        let complete = obj["complete"] as! Bool
-        let amount = obj["amount"] as! Int
-        
-        let garbageResponse = obj["garbage"] as AnyObject
-        let garbage = Garbage.getGarbageFromResponse(obj: garbageResponse)
-        
-        let available = obj["available"] as! Bool
-        
-        let taskCollectionObj = TaskCollection(id: id, timestamp: timestamp, complete: complete, amount: amount, garbage: garbage, available: available)
-        return taskCollectionObj!
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        timestamp = (try container.decodeIfPresent(String.self, forKey: .timestamp))
+        complete = try container.decode(Bool.self, forKey: .complete)
+        amount = try container.decode(Int.self, forKey: .amount)
+        garbage = try container.decode(Garbage.self, forKey: .garbage)
+        available = try container.decode(Bool.self, forKey: .available)
     }
 }
