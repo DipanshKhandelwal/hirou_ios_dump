@@ -11,7 +11,7 @@ import Foundation
 class TaskCollection : Encodable, Decodable{
     //MARK: Properties
     var id: Int
-    var timestamp: String
+    var timestamp: String?
     var complete: Bool
     var amount: Int
     var garbage: Garbage
