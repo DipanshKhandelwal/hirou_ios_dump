@@ -8,39 +8,58 @@
 
 import UIKit
 
-class TaskCollectionsTableViewController: UITableViewController {
+class TaskCollectionsCell : UITableViewCell {
+    @IBOutlet weak var garbageLabel: UILabel!
+}
 
+class TaskCollectionsTableViewController: UITableViewController {
+    var taskCollections = [TaskCollection]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.title = "Collections"
-
+        //        self.title = "Collections"
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-//         self.navigationItem.rightBarButtonItem = self.editButtonItem
+        //         self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    
+    var detailItem: Any? {
+        didSet {
+            // Update the view.
+            configureView()
+        }
+    }
+    
+    func configureView() {
+        if let detail = detailItem {
+            self.taskCollections = (detail as! TaskCollectionPoint).taskCollections
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return self.taskCollections.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "collectionCell", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "collectionCell", for: indexPath) as! TaskCollectionsCell
+        cell.garbageLabel!.text = "some"
         return cell
     }
-
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
