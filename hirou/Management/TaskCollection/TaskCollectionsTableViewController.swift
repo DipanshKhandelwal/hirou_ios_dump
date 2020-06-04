@@ -36,7 +36,9 @@ class TaskCollectionsTableViewController: UITableViewController {
     
     func configureView() {
         if let detail = detailItem {
-            self.taskCollections = (detail as! TaskCollectionPoint).taskCollections
+            let collectionPoint = (detail as! TaskCollectionPoint)
+            self.taskCollections = collectionPoint.taskCollections
+            self.title = collectionPoint.name
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
