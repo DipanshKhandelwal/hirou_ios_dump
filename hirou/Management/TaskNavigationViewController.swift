@@ -16,7 +16,7 @@ import MapboxNavigation
 import MapboxDirections
 
 class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, NavigationViewControllerDelegate {
-
+    
     var id: String = ""
     @IBOutlet weak var mapView: MGLMapView!
     var selectedTaskCollectionPoint: TaskCollectionPoint!
@@ -35,7 +35,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     override func viewDidAppear(_ animated: Bool) {
         self.getPoints()
     }
-
+    
     func getPoints() {
         let id = self.id
         let url = "http://127.0.0.1:8000/api/task_route/"+String(id)+"/"
@@ -72,7 +72,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         
         self.handleAutomaticZoom()
     }
-
+    
     func handleAutomaticZoom() {
         let annotations = self.annotations
         
@@ -137,30 +137,52 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             }
         }
         let options = NavigationRouteOptions(waypoints: waypoints)
-
+        
         Directions.shared.calculate(options) { (waypoints, routes, error) in
             guard let route = routes?.first, error == nil else {
                 print(error!.localizedDescription)
                 return
             }
-
+            
             let navigationService = MapboxNavigationService(route: route, simulating: .always)
             let navigationOptions = NavigationOptions(navigationService: navigationService)
             let navigationViewController = NavigationViewController(for: route, options: navigationOptions)
             navigationViewController.delegate = self
-
+            
             self.present(navigationViewController, animated: true, completion: nil)
         }
     }
-
-    /*
+    
+    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        return true
+    }
+    
+    func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
+        var currentIndex = 0
+        for cp in self.taskCollectionPoints {
+            if cp.location.latitude == String(annotation.coordinate.latitude) {
+                self.selectedTaskCollectionPoint = self.taskCollectionPoints[currentIndex];
+                print("selected", self.taskCollectionPoints[currentIndex].name)
+                break
+            }
+            currentIndex += 1
+        }
+        let editPoint = UIButton(type: .detailDisclosure)
+        editPoint.addTarget(self, action: #selector(editPointSegue(sender:)), for: .touchDown)
+        return editPoint
+    }
+    
+    @objc func editPointSegue(sender: UIButton) {
+        self.performSegue(withIdentifier: "editTaskCollectionPoint", sender: self)
+    }
+    
+    
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    */
 
 }
