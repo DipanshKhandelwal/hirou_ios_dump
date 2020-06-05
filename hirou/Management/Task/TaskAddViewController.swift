@@ -38,7 +38,12 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     func configureView()  {
-        
+        if let label = self.dateLabel {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd MMM yyyy"
+            print("date", dateFormatter.string(from: self.date))
+            label.text = dateFormatter.string(from: self.date)
+        }
     }
     
     @IBAction func cancelAddTask(_ sender: Any) {
