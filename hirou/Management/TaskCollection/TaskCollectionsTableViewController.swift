@@ -59,8 +59,14 @@ class TaskCollectionsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "collectionCell", for: indexPath) as! TaskCollectionsCell
-        cell.garbageLabel!.text = self.taskCollections[indexPath.row].garbage.name
-        cell.collectionSwitch.tag = indexPath.row
+        
+        let row = indexPath.row
+        let taskCollection = self.taskCollections[indexPath.row]
+        
+        cell.garbageLabel!.text = taskCollection.garbage.name
+        
+        cell.collectionSwitch.isOn = taskCollection.complete
+        cell.collectionSwitch.tag = row
         cell.collectionSwitch!.addTarget(self, action: #selector(switchToggle(_:)), for: .valueChanged)
         return cell
     }
@@ -68,8 +74,8 @@ class TaskCollectionsTableViewController: UITableViewController {
     @objc
     func switchToggle(_ sender: UISwitch) {
         let taskCollection = self.taskCollections[sender.tag]
-        print("task", taskCollection.id)
     }
+
 
     /*
     // Override to support conditional editing of the table view.
