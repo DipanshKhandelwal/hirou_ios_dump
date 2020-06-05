@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class TaskCollectionsCell : UITableViewCell {
     @IBOutlet weak var garbageLabel: UILabel!
@@ -74,7 +75,32 @@ class TaskCollectionsTableViewController: UITableViewController {
     @objc
     func switchToggle(_ sender: UISwitch) {
         let taskCollection = self.taskCollections[sender.tag]
+        setTaskCollectionComplete(taskId: taskCollection.id, switchState: sender.isOn)
     }
+    
+    func setTaskCollectionComplete(taskId: Int, switchState: Bool) {
+        let url = "http://127.0.0.1:8000/api/task_collection/"+String(taskId)+"/"
+        
+        let values = [ "complete": switchState ] as [String : Any?]
+                
+        var request = URLRequest(url: try! url.asURL())
+        request.httpMethod = "PATCH"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try! JSONSerialization.data(withJSONObject: values)
+
+        AF.request(request)
+            .responseString {
+                response in
+                switch response.result {
+                case .success(let value):
+                    print("value", value)
+
+                case .failure(let error):
+                    print(error)
+                }
+        }
+    }
+    
 
 
     /*
