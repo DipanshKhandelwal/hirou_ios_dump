@@ -65,9 +65,14 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     func addNewTask () {
         let routeId = selectedBaseRoute?.id
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        
         let parameters: [String: String] = [
             "name": String(self.taskName.text!),
-            "id": String(routeId!)
+            "id": String(routeId!),
+            "date": dateFormatter.string(from: self.date)
         ]
         AF.request("http://127.0.0.1:8000/api/task_route/", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
             .responseJSON {
