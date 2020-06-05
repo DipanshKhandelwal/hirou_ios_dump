@@ -12,6 +12,7 @@ import Alamofire
 class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     @IBOutlet weak var taskName: UITextField!
     @IBOutlet weak var routeLabel: DisabledUITextField!
+    @IBOutlet weak var dateLabel: UILabel!
     
     var baseRoutes = [BaseRoute]()
     var customerPicker = UIPickerView()
