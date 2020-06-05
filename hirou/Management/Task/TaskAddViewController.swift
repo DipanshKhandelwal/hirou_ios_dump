@@ -17,10 +17,28 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     var baseRoutes = [BaseRoute]()
     var customerPicker = UIPickerView()
     var selectedBaseRoute: BaseRoute?
+    var date = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCustomerPicker()
+        configureView()
+    }
+    
+    var detailItem: Any? {
+        didSet {
+            // Update the view.
+            if let detail = detailItem {
+                let date = detail as! Date
+                self.date = date
+                print("date", date)
+                configureView()
+            }
+        }
+    }
+    
+    func configureView()  {
+        
     }
     
     @IBAction func cancelAddTask(_ sender: Any) {
