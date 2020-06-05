@@ -144,7 +144,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
                 return
             }
             
-            let navigationService = MapboxNavigationService(route: route, simulating: .always)
+            let navigationService = MapboxNavigationService(route: route, simulating: .never)
             let navigationOptions = NavigationOptions(navigationService: navigationService)
             let navigationViewController = NavigationViewController(for: route, options: navigationOptions)
             navigationViewController.delegate = self
