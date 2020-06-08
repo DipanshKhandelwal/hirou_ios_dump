@@ -12,6 +12,7 @@ import Alamofire
 class TaskCollectionPointCell: UITableViewCell {
     @IBOutlet weak var sequence: UILabel!
     @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var garbageStack: UIStackView!
 }
 
 class TaskCollectionPointTableViewController: UITableViewController {
@@ -68,6 +69,23 @@ class TaskCollectionPointTableViewController: UITableViewController {
         cell.sequence!.text = String(indexPath.row)
         cell.name!.text = self.taskCollectionPoints[indexPath.row].name
         
+        cell.garbageStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        cell.garbageStack.spacing = 10
+        cell.garbageStack.axis = .horizontal
+        cell.garbageStack.distribution = .equalCentering
+
+        for taskCollection in self.taskCollectionPoints[indexPath.row].taskCollections {
+            let garbageView = UILabel()
+            garbageView.textColor = .black
+            garbageView.font = garbageView.font.withSize(10)
+            garbageView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+            garbageView.layer.backgroundColor = taskCollection.complete ? UIColor.systemGray5.cgColor : UIColor.white.cgColor
+            garbageView.layer.borderWidth = 2
+            garbageView.layer.borderColor = UIColor.systemBlue.cgColor
+            garbageView.layer.cornerRadius = 10
+            garbageView.text =  " " + taskCollection.garbage.name + " "
+            cell.garbageStack.addArrangedSubview(garbageView)
+        }
         return cell
     }
     
