@@ -75,10 +75,10 @@ class TaskCollectionsTableViewController: UITableViewController {
     @objc
     func switchToggle(_ sender: UISwitch) {
         let taskCollection = self.taskCollections[sender.tag]
-        setTaskCollectionComplete(taskId: taskCollection.id, switchState: sender.isOn)
+        setTaskCollectionComplete(taskId: taskCollection.id, switchState: sender.isOn, position: sender.tag)
     }
     
-    func setTaskCollectionComplete(taskId: Int, switchState: Bool) {
+    func setTaskCollectionComplete(taskId: Int, switchState: Bool, position: Int) {
         let url = Environment.SERVER_URL + "api/task_collection/"+String(taskId)+"/"
         
         let values = [ "complete": switchState ] as [String : Any?]
@@ -87,13 +87,17 @@ class TaskCollectionsTableViewController: UITableViewController {
         request.httpMethod = "PATCH"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! JSONSerialization.data(withJSONObject: values)
-
+        
         AF.request(request)
-            .responseString {
+            .response {
                 response in
                 switch response.result {
                 case .success(let value):
-                    print("value", value)
+                    let taskCollection = try! JSONDecoder().decode(TaskCollection.self, from: value!)
+                    self.taskCollections[position] = taskCollection
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
 
                 case .failure(let error):
                     print(error)
