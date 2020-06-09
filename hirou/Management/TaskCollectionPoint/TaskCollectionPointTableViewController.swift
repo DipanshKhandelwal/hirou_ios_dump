@@ -36,7 +36,7 @@ class TaskCollectionPointTableViewController: UITableViewController {
     
     func fetchTaskCollectionPoints(){
         let id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
-        let url = "http://127.0.0.1:8000/api/task_route/"+String(id)+"/"
+        let url = Environment.SERVER_URL + "api/task_route/"+String(id)+"/"
         AF.request(url, method: .get).response { response in
             switch response.result {
             case .success(let value):

@@ -47,7 +47,7 @@ class CollectionPointMasterViewController: UITableViewController {
     
     func fetchCollectionPoints(){
         let id = UserDefaults.standard.string(forKey: "selectedRoute")!
-        let url = "http://127.0.0.1:8000/api/base_route/"+String(id)+"/"
+        let url = Environment.SERVER_URL + "api/base_route/"+String(id)+"/"
         AF.request(url, method: .get).response { response in
             switch response.result {
             case .success(let value):
@@ -143,7 +143,7 @@ class CollectionPointMasterViewController: UITableViewController {
             let parameters: [String: String] = [
                 "sequence": String(index)
             ]
-            AF.request("http://127.0.0.1:8000/api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
+            AF.request(Environment.SERVER_URL + "api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
                 .responseString {
                     response in
                     switch response.result {

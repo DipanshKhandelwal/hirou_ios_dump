@@ -29,6 +29,7 @@
 		31920C9C241C074A00A55403 /* RouteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31920C9B241C074A00A55403 /* RouteDetailViewController.swift */; };
 		31920C9F241CD5D900A55403 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31920C9E241CD5D900A55403 /* Location.swift */; };
 		31920CA1241CD63600A55403 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31920CA0241CD63600A55403 /* Customer.swift */; };
+		31B09589248F75FC00D560B0 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B09588248F75FC00D560B0 /* Environment.swift */; };
 		31C24F1B2435E6BF000C3206 /* CollectionPointFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C24F1A2435E6BF000C3206 /* CollectionPointFormViewController.swift */; };
 		31C5473F2448C7FE00CE0F6C /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C5473E2448C7FE00CE0F6C /* TaskDetailViewController.swift */; };
 		31C9AE022480FB4D00161374 /* TaskAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C9AE012480FB4D00161374 /* TaskAddViewController.swift */; };
@@ -91,6 +92,7 @@
 		31920C9B241C074A00A55403 /* RouteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailViewController.swift; sourceTree = "<group>"; };
 		31920C9E241CD5D900A55403 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		31920CA0241CD63600A55403 /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		31B09588248F75FC00D560B0 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		31C24F1A2435E6BF000C3206 /* CollectionPointFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointFormViewController.swift; sourceTree = "<group>"; };
 		31C5473E2448C7FE00CE0F6C /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		31C9AE012480FB4D00161374 /* TaskAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskAddViewController.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				317E230C23C6306D00F8F0C1 /* Assets.xcassets */,
 				317E230923C6306C00F8F0C1 /* Main.storyboard */,
 				31093F9C23CFA6B40025679A /* LoginViewController.swift */,
+				31B09588248F75FC00D560B0 /* Environment.swift */,
 			);
 			path = hirou;
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 				31C9AE042481097B00161374 /* DisabledUITextField.swift in Sources */,
 				31CF0A42245A0B8500E0F5DC /* CalendarViewController.swift in Sources */,
 				3133F2022424BD0A001C158C /* RouteMasterViewController.swift in Sources */,
+				31B09589248F75FC00D560B0 /* Environment.swift in Sources */,
 				3133F2042424BE0F001C158C /* BaseRoute.swift in Sources */,
 				313172682445E5D800585B7F /* TaskTableViewController.swift in Sources */,
 				312E9A2A242A39980073D165 /* CollectionPointMasterViewController.swift in Sources */,

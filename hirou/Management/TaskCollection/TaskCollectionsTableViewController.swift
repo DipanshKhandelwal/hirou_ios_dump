@@ -79,7 +79,7 @@ class TaskCollectionsTableViewController: UITableViewController {
     }
     
     func setTaskCollectionComplete(taskId: Int, switchState: Bool) {
-        let url = "http://127.0.0.1:8000/api/task_collection/"+String(taskId)+"/"
+        let url = Environment.SERVER_URL + "api/task_collection/"+String(taskId)+"/"
         
         let values = [ "complete": switchState ] as [String : Any?]
                 

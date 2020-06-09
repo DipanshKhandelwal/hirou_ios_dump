@@ -24,7 +24,7 @@ class GarbageTypesTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        AF.request("http://127.0.0.1:8000/api/garbage/", method: .get).response { response in
+        AF.request(Environment.SERVER_URL + "api/garbage/", method: .get).response { response in
             //to get status code
             switch response.result {
             case .success(let value):

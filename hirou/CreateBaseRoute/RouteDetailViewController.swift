@@ -54,7 +54,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
         
         if (detailItem != nil) {
             let id = UserDefaults.standard.string(forKey: "selectedRoute")!
-            let url = "http://127.0.0.1:8000/api/base_route/"+String(id)+"/"
+            let url = Environment.SERVER_URL + "api/base_route/"+String(id)+"/"
             var request = URLRequest(url: try! url.asURL())
             request.httpMethod = "PATCH"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -73,7 +73,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     }
             }
         } else {
-            let url = "http://127.0.0.1:8000/api/base_route/"
+            let url = Environment.SERVER_URL + "api/base_route/"
             var request = URLRequest(url: try! url.asURL())
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -96,7 +96,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     func deleteRouteCall(){
         if detailItem != nil {
             let id = UserDefaults.standard.string(forKey: "selectedRoute")!
-            AF.request("http://127.0.0.1:8000/api/base_route/"+String(id)+"/", method: .delete)
+            AF.request(Environment.SERVER_URL + "api/base_route/"+String(id)+"/", method: .delete)
                 .responseString {
                     response in
                     switch response.result {
@@ -188,7 +188,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        AF.request("http://127.0.0.1:8000/api/customer/", method: .get).response { response in
+        AF.request(Environment.SERVER_URL + "api/customer/", method: .get).response { response in
             switch response.result {
             case .success(let value):
                 self.customers = try! JSONDecoder().decode([Customer].self, from: value!)

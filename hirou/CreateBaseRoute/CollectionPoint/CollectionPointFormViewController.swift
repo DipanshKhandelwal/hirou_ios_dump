@@ -42,7 +42,7 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
                 "address": self.cpAddressLabel.text ?? "",
                 "sequence": self.cpSequence.text ?? "0"
             ]
-            AF.request("http://127.0.0.1:8000/api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
+            AF.request(Environment.SERVER_URL + "api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
                 .responseString {
                     response in
                     switch response.result {
@@ -63,7 +63,7 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
                 "route": String(routeId),
                 "sequence": self.cpSequence.text ?? "0"
             ]
-            AF.request("http://127.0.0.1:8000/api/collection_point/", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
+            AF.request(Environment.SERVER_URL + "api/collection_point/", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
                 .responseJSON {
                     response in
                     switch response.result {
@@ -81,7 +81,7 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
     func deleteCPCall() {
         if let detail = detailItem {
             let id = (detail as! CollectionPoint).id
-            AF.request("http://127.0.0.1:8000/api/collection_point/"+String(id)+"/", method: .delete)
+            AF.request(Environment.SERVER_URL + "api/collection_point/"+String(id)+"/", method: .delete)
                 .responseString {
                     response in
                     switch response.result {

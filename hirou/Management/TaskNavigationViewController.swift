@@ -43,7 +43,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     
     func getPoints() {
         let id = self.id
-        let url = "http://127.0.0.1:8000/api/task_route/"+String(id)+"/"
+        let url = Environment.SERVER_URL + "api/task_route/"+String(id)+"/"
         AF.request(url, method: .get).response { response in
             //to get status code
             switch response.result {

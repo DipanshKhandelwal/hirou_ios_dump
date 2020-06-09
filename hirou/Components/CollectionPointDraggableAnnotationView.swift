@@ -92,7 +92,7 @@ class CollectionPointDraggableAnnotationView: MGLAnnotationView {
             "location": lat + "," + long,
         ]
 
-        AF.request("http://127.0.0.1:8000/api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
+        AF.request(Environment.SERVER_URL + "api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
             .responseString {
                 response in
                 switch response.result {

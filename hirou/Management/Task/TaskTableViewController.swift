@@ -38,7 +38,7 @@ class TaskTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        AF.request("http://127.0.0.1:8000/api/task_route/", method: .get).response { response in
+        AF.request(Environment.SERVER_URL + "api/task_route/", method: .get).response { response in
             //to get status code
             switch response.result {
             case .success(let value):

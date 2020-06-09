@@ -28,7 +28,7 @@ class RouteMasterViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         //        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
-        AF.request("http://127.0.0.1:8000/api/base_route/", method: .get).response { response in
+        AF.request(Environment.SERVER_URL + "api/base_route/", method: .get).response { response in
             switch response.result {
             case .success(let value):
                 let decoder = JSONDecoder()

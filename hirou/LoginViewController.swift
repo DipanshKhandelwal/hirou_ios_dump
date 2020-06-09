@@ -50,7 +50,7 @@ class LoginViewController: UIViewController {
     @IBAction func loginButtonClicked(_ sender: Any) {
         //        print(username.text!)
         //        print(password.text!)
-        //        AF.request("http://127.0.0.1:8000/rest-auth/login/", method: .post)
+        //        AF.request(Environment.SERVER_URL + "rest-auth/login/", method: .post)
         
         
         let user = username.text!
@@ -58,7 +58,7 @@ class LoginViewController: UIViewController {
         
         let parameters = ["username": user, "password": pass]
         
-        AF.request("http://127.0.0.1:8000/rest-auth/login/", method: .post, parameters: parameters).responseJSON { response in
+        AF.request(Environment.SERVER_URL + "rest-auth/login/", method: .post, parameters: parameters).responseJSON { response in
             
             switch response.result {
             case .failure(let error):
