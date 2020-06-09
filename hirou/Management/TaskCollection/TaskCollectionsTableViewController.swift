@@ -12,6 +12,7 @@ import Alamofire
 class TaskCollectionsCell : UITableViewCell {
     @IBOutlet weak var garbageLabel: UILabel!
     @IBOutlet weak var collectionSwitch: UISwitch!
+    @IBOutlet weak var pickupTimeLabel: UILabel!
 }
 
 class TaskCollectionsTableViewController: UITableViewController {
@@ -65,6 +66,7 @@ class TaskCollectionsTableViewController: UITableViewController {
         let taskCollection = self.taskCollections[indexPath.row]
         
         cell.garbageLabel!.text = taskCollection.garbage.name
+        cell.pickupTimeLabel!.text = taskCollection.timestamp ?? "none"
         
         cell.collectionSwitch.isOn = taskCollection.complete
         cell.collectionSwitch.tag = row
