@@ -28,6 +28,11 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.delegate = self
         
+        
+        mapView.showsUserLocation = true
+        mapView.userTrackingMode = .followWithHeading
+        mapView.showsUserHeadingIndicator = true
+        
         self.id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
         // Do any additional setup after loading the view.
     }
