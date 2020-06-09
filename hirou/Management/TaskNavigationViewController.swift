@@ -80,10 +80,10 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     
     func handleAutomaticZoom() {
         let annotations = self.annotations
+        let firstCoordinate = (mapView.userLocation?.coordinate)!
         
         if annotations.count > 0 {
-            
-            let firstCoordinate = annotations[0].coordinate
+//            let firstCoordinate = annotations[0].coordinate
             
             //Find the southwest and northeast point
             var northEastLatitude = firstCoordinate.latitude
@@ -98,8 +98,6 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
                 northEastLongitude = max(northEastLongitude, coordinate.longitude)
                 southWestLatitude = min(southWestLatitude, coordinate.latitude)
                 southWestLongitude = min(southWestLongitude, coordinate.longitude)
-                
-                
             }
             let verticalMarginInPixels = 250.0
             let horizontalMarginInPixels = 250.0
