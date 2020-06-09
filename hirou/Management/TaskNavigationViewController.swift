@@ -131,16 +131,12 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         }
     }
     
-    @IBAction func navigateButtonPressed(_ sender: Any) {
+    func navigate(coordinate: CLLocationCoordinate2D) {
         var waypoints = [Waypoint]()
-        for x in self.annotations {
-            waypoints.append(Waypoint(coordinate: x.coordinate))
-            if(waypoints.count >= 3) {
-                break;
-            }
-        }
-        let options = NavigationRouteOptions(waypoints: waypoints)
+        waypoints.append(Waypoint(coordinate: (mapView.userLocation?.coordinate)!))
+        waypoints.append(Waypoint(coordinate: coordinate))
         
+        let options = NavigationRouteOptions(waypoints: waypoints)
         Directions.shared.calculate(options) { (waypoints, routes, error) in
             guard let route = routes?.first, error == nil else {
                 print(error!.localizedDescription)
@@ -194,6 +190,12 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         
         return button
     }
+    
+    @objc
+    func navigateToPoint (sender: UIButton) {
+        navigate(coordinate: self.annotations[sender.tag].coordinate)
+    }
+    
     @objc func editPointSegue(sender: UIButton) {
         self.performSegue(withIdentifier: "editTaskCollectionPoint", sender: self)
     }
