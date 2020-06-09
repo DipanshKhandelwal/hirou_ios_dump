@@ -160,7 +160,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         return true
     }
     
-    func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
+    func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
         var currentIndex = 0
         for cp in self.taskCollectionPoints {
             if cp.location.latitude == String(annotation.coordinate.latitude) {
@@ -175,6 +175,25 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         return editPoint
     }
     
+    func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
+        let image = UIImage(systemName: "location")
+        let button   = UIButton(type: UIButton.ButtonType.custom)
+        button.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        button.setBackgroundImage(image, for: .normal)
+        button.addTarget(self, action: #selector(navigateToPoint(sender:)), for: .touchDown)
+        
+        var currentIndex = 0
+        for cp in self.taskCollectionPoints {
+            if cp.location.latitude == String(annotation.coordinate.latitude) {
+                self.selectedTaskCollectionPoint = self.taskCollectionPoints[currentIndex];
+                button.tag = currentIndex
+                break
+            }
+            currentIndex += 1
+        }
+        
+        return button
+    }
     @objc func editPointSegue(sender: UIButton) {
         self.performSegue(withIdentifier: "editTaskCollectionPoint", sender: self)
     }
