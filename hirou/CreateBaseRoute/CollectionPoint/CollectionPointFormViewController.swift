@@ -28,8 +28,19 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
         cpMapView.delegate = self
         
         cpSequence?.isEnabled = false
+        
         // Do any additional setup after loading the view.
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(tapGesture)
+        
         configureView()
+    }
+    
+    @objc
+    func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        self.cpNameLabel.resignFirstResponder()
+        self.cpAddressLabel.resignFirstResponder()
     }
     
     func saveCPCall() {
