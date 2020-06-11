@@ -31,7 +31,17 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(customerLabelPressed))
         customerLabel.addGestureRecognizer(tap)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(tapGesture)
+        
         configureView()
+    }
+    
+    @objc
+    func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        self.routeNameTextField.resignFirstResponder()
+        customerPicker.isHidden = true
     }
     
     @objc
