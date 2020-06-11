@@ -23,6 +23,15 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         super.viewDidLoad()
         setupCustomerPicker()
         configureView()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc
+    func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        self.taskName.resignFirstResponder()
+        routeLabel.resignFirstResponder()
     }
     
     var detailItem: Any? {
