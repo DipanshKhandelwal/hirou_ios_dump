@@ -32,7 +32,15 @@ class TaskDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
         let tap = UITapGestureRecognizer(target: self, action: #selector(vehicleLabelPressed))
         vehicleLabel.addGestureRecognizer(tap)
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(tapGesture)
+        
         configureView()
+    }
+    
+    @objc
+    func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        vehiclePicker.isHidden = true
     }
     
     @objc
