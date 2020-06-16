@@ -19,6 +19,22 @@ class TaskCollectionPointCollectionCell : UICollectionViewCell {
     @IBOutlet weak var title: UILabel!
     var position: Int?
 }
+
+extension TaskNavigationViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 256, height: 128)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "taskCollectionPointCollectionCell", for: indexPath) as! TaskCollectionPointCollectionCell
+        cell.title?.text = "hello" + String(indexPath.row)
+        cell.position = indexPath.row
+        return cell
+    }
+    
+}
+
 class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, NavigationViewControllerDelegate {
     var id: String = ""
     @IBOutlet weak var mapView: MGLMapView!
@@ -58,6 +74,8 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
                 let newCollectionPoints = route.taskCollectionPoints
                 self.taskCollectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
                 self.addPointsTopMap()
+                
+                self.collectionView.reloadData()
                 
             case .failure(let error):
                 print(error)
