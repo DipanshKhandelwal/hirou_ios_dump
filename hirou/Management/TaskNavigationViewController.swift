@@ -15,6 +15,10 @@ import MapboxCoreNavigation
 import MapboxNavigation
 import MapboxDirections
 
+class TaskCollectionPointCollectionCell : UICollectionViewCell {
+    @IBOutlet weak var title: UILabel!
+    var position: Int?
+}
 class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, NavigationViewControllerDelegate {
     var id: String = ""
     @IBOutlet weak var mapView: MGLMapView!
