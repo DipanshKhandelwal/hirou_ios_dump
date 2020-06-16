@@ -73,7 +73,7 @@ class TaskTableViewController: UITableViewController {
         let taskRoute = self.taskRoutes[indexPath.row]
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
-        cell.routeName?.text = taskRoute.name + "----" + dateFormatter.string(from: self.date ?? Date())
+        cell.routeName?.text = taskRoute.name + " -> " + dateFormatter.string(from: taskRoute.date)
         cell.routeCustomer?.text = taskRoute.customer?.name ?? "n/a"
 
         cell.routeGarbageList?.text = taskRoute.getGarbagesNameList()
