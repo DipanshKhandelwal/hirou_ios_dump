@@ -156,16 +156,32 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         return true
     }
     
-    func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
+    func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
         var currentIndex = 0
         for cp in self.taskCollectionPoints {
             if cp.location.latitude == String(annotation.coordinate.latitude) {
                 self.selectedTaskCollectionPoint = self.taskCollectionPoints[currentIndex];
-                print("selected", self.taskCollectionPoints[currentIndex].name)
+                
+                collectionView.selectItem(at: IndexPath(row: currentIndex, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+                
                 break
             }
             currentIndex += 1
         }
+    }
+    
+    func mapView(_ mapView: MGLMapView, didDeselect annotation: MGLAnnotation) {
+        var currentIndex = 0
+        for cp in self.taskCollectionPoints {
+            if cp.location.latitude == String(annotation.coordinate.latitude) {
+                self.selectedTaskCollectionPoint = self.taskCollectionPoints[currentIndex];
+                break
+            }
+            currentIndex += 1
+        }
+    }
+    
+    func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
         let editPoint = UIButton(type: .detailDisclosure)
         editPoint.addTarget(self, action: #selector(editPointSegue(sender:)), for: .touchDown)
         return editPoint
@@ -187,7 +203,6 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             }
             currentIndex += 1
         }
-        
         return button
     }
     
