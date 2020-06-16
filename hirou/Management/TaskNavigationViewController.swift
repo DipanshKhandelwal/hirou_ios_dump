@@ -33,6 +33,15 @@ extension TaskNavigationViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "taskCollectionPointCollectionCell", for: indexPath) as! TaskCollectionPointCollectionCell
         cell.title?.text = "hello" + String(indexPath.row)
+        cell.layer.cornerRadius = 20
+        cell.layer.shadowRadius = 20
+
+        let blueView = UIView(frame: .infinite)
+        blueView.layer.borderWidth = 3
+        blueView.layer.borderColor = UIColor.gray.cgColor
+        blueView.layer.cornerRadius = 20
+        
+        cell.selectedBackgroundView = blueView
         cell.position = indexPath.row
         return cell
     }
