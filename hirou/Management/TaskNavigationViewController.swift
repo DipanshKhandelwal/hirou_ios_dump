@@ -18,6 +18,7 @@ import MapboxDirections
 class TaskCollectionPointCollectionCell : UICollectionViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var sequence: UILabel!
+    @IBOutlet weak var garbageStack: UIStackView!
     var position: Int?
 }
 
@@ -35,9 +36,27 @@ extension TaskNavigationViewController: UICollectionViewDelegate, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "taskCollectionPointCollectionCell", for: indexPath) as! TaskCollectionPointCollectionCell
         
         let tcp = self.taskCollectionPoints[indexPath.row]
-        
         cell.title?.text = tcp.name
         cell.sequence?.text = String(tcp.sequence)
+
+        cell.garbageStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        cell.garbageStack.spacing = 10
+        cell.garbageStack.axis = .horizontal
+        cell.garbageStack.distribution = .equalCentering
+
+        for taskCollection in tcp.taskCollections {
+            let garbageView = UILabel()
+            garbageView.textColor = .black
+            garbageView.font = garbageView.font.withSize(10)
+            garbageView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+            garbageView.layer.backgroundColor = taskCollection.complete ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
+            garbageView.layer.borderWidth = 2
+            garbageView.layer.borderColor = UIColor.systemBlue.cgColor
+            garbageView.layer.cornerRadius = 10
+            garbageView.text =  " " + taskCollection.garbage.name + " "
+            cell.garbageStack.addArrangedSubview(garbageView)
+        }
+        
         cell.layer.cornerRadius = 20
         cell.layer.shadowRadius = 20
 
@@ -56,6 +75,13 @@ extension TaskNavigationViewController: UICollectionViewDelegate, UICollectionVi
         mapView.setCenter(self.annotations[indexPath.row].coordinate, animated: true)
         mapView.setZoomLevel(22, animated: true)
         mapView.selectAnnotation(self.annotations[indexPath.row], animated: true, completionHandler: nil)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let x = collectionView.contentOffset.x
+        let w = collectionView.bounds.size.width
+        let currentPage = Int(ceil(x/w))
+        print("Current Page: \(currentPage)")
     }
     
 }
