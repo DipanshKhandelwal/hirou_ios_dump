@@ -26,6 +26,10 @@ extension TaskNavigationViewController: UICollectionViewDelegate, UICollectionVi
         return CGSize(width: 256, height: 128)
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.taskCollectionPoints.count
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "taskCollectionPointCollectionCell", for: indexPath) as! TaskCollectionPointCollectionCell
         cell.title?.text = "hello" + String(indexPath.row)
