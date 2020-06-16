@@ -795,8 +795,20 @@
                                             <rect key="frame" x="0.0" y="0.0" width="256" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S No" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NcU-qI-h7F">
+                                                    <rect key="frame" x="12" y="12" width="38" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oRr-Kk-4ud">
+                                                    <rect key="frame" x="12" y="90" width="232" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="F0r-xF-jVm"/>
+                                                    </constraints>
+                                                </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVL-xJ-glT">
-                                                    <rect key="frame" x="107" y="53.5" width="42" height="21"/>
+                                                    <rect key="frame" x="107" y="33.5" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -804,11 +816,18 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="NVL-xJ-glT" firstAttribute="centerX" secondItem="mqe-of-L5u" secondAttribute="centerX" id="bYz-DQ-ctn"/>
-                                                <constraint firstItem="NVL-xJ-glT" firstAttribute="centerY" secondItem="mqe-of-L5u" secondAttribute="centerY" id="voj-Uy-Eca"/>
+                                                <constraint firstAttribute="trailing" secondItem="oRr-Kk-4ud" secondAttribute="trailing" constant="12" id="bjv-gr-f0V"/>
+                                                <constraint firstItem="NcU-qI-h7F" firstAttribute="leading" secondItem="mqe-of-L5u" secondAttribute="leading" constant="12" id="gCI-NR-RG9"/>
+                                                <constraint firstItem="NcU-qI-h7F" firstAttribute="top" secondItem="mqe-of-L5u" secondAttribute="top" constant="12" id="gCr-gL-7hN"/>
+                                                <constraint firstItem="oRr-Kk-4ud" firstAttribute="leading" secondItem="mqe-of-L5u" secondAttribute="leading" constant="12" id="htf-6R-dCG"/>
+                                                <constraint firstItem="NVL-xJ-glT" firstAttribute="centerY" secondItem="mqe-of-L5u" secondAttribute="centerY" constant="-20" id="voj-Uy-Eca"/>
+                                                <constraint firstAttribute="bottom" secondItem="oRr-Kk-4ud" secondAttribute="bottom" constant="8" id="zau-zK-NYk"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <connections>
+                                            <outlet property="garbageStack" destination="oRr-Kk-4ud" id="YG1-Mo-tQJ"/>
+                                            <outlet property="sequence" destination="NcU-qI-h7F" id="zJa-qz-Xhx"/>
                                             <outlet property="title" destination="NVL-xJ-glT" id="8LU-2j-bf2"/>
                                         </connections>
                                     </collectionViewCell>

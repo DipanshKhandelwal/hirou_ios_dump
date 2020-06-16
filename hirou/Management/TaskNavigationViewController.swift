@@ -17,6 +17,7 @@ import MapboxDirections
 
 class TaskCollectionPointCollectionCell : UICollectionViewCell {
     @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var sequence: UILabel!
     var position: Int?
 }
 
@@ -32,7 +33,11 @@ extension TaskNavigationViewController: UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "taskCollectionPointCollectionCell", for: indexPath) as! TaskCollectionPointCollectionCell
-        cell.title?.text = self.taskCollectionPoints[indexPath.row].name
+        
+        let tcp = self.taskCollectionPoints[indexPath.row]
+        
+        cell.title?.text = tcp.name
+        cell.sequence?.text = String(tcp.sequence)
         cell.layer.cornerRadius = 20
         cell.layer.shadowRadius = 20
 
