@@ -16,9 +16,10 @@ import MapboxNavigation
 import MapboxDirections
 
 class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, NavigationViewControllerDelegate {
-    
     var id: String = ""
     @IBOutlet weak var mapView: MGLMapView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     var selectedTaskCollectionPoint: TaskCollectionPoint!
     var taskCollectionPoints = [TaskCollectionPoint]()
     var annotations = [MGLPointAnnotation]()
@@ -27,11 +28,12 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         super.viewDidLoad()
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.delegate = self
-        
-        
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .followWithHeading
         mapView.showsUserHeadingIndicator = true
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         self.id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
         // Do any additional setup after loading the view.
