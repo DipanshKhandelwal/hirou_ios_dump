@@ -46,6 +46,13 @@ extension TaskNavigationViewController: UICollectionViewDelegate, UICollectionVi
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(self.taskCollectionPoints[indexPath.row].name)
+        mapView.setCenter(self.annotations[indexPath.row].coordinate, animated: true)
+        mapView.setZoomLevel(22, animated: true)
+        mapView.selectAnnotation(self.annotations[indexPath.row], animated: true, completionHandler: nil)
+    }
+    
 }
 
 class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, NavigationViewControllerDelegate {
