@@ -9,87 +9,36 @@
 import UIKit
 import Mapbox
 import Alamofire
+import FSPagerView
 
 import Mapbox
 import MapboxCoreNavigation
 import MapboxNavigation
 import MapboxDirections
 
-class TaskCollectionPointCollectionCell : UICollectionViewCell {
-    @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var sequence: UILabel!
-    @IBOutlet weak var garbageStack: UIStackView!
-    var position: Int?
-}
-
-extension TaskNavigationViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 256, height: 128)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSource {
+    func numberOfItems(in pagerView: FSPagerView) -> Int {
         return self.taskCollectionPoints.count
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "taskCollectionPointCollectionCell", for: indexPath) as! TaskCollectionPointCollectionCell
-        
-        let tcp = self.taskCollectionPoints[indexPath.row]
-        cell.title?.text = tcp.name
-        cell.sequence?.text = String(tcp.sequence)
 
-        cell.garbageStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        cell.garbageStack.spacing = 10
-        cell.garbageStack.axis = .horizontal
-        cell.garbageStack.distribution = .equalCentering
-
-        for taskCollection in tcp.taskCollections {
-            let garbageView = UILabel()
-            garbageView.textColor = .black
-            garbageView.font = garbageView.font.withSize(10)
-            garbageView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-            garbageView.layer.backgroundColor = taskCollection.complete ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
-            garbageView.layer.borderWidth = 2
-            garbageView.layer.borderColor = UIColor.systemBlue.cgColor
-            garbageView.layer.cornerRadius = 10
-            garbageView.text =  " " + taskCollection.garbage.name + " "
-            cell.garbageStack.addArrangedSubview(garbageView)
-        }
+    func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
+        let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "taskCollectionPointPagerCell", at: index) as! TaskCollectionPointPagerCell
         
-        cell.layer.cornerRadius = 20
-        cell.layer.shadowRadius = 20
-
-        let blueView = UIView(frame: .infinite)
-        blueView.layer.borderWidth = 3
-        blueView.layer.borderColor = UIColor.gray.cgColor
-        blueView.layer.cornerRadius = 20
-        
-        cell.selectedBackgroundView = blueView
-        cell.position = indexPath.row
+        cell.label?.text = self.taskCollectionPoints[index].name
+        cell.backgroundColor = UIColor.lightGray
+        cell.layer.cornerRadius = 15
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(self.taskCollectionPoints[indexPath.row].name)
-        mapView.setCenter(self.annotations[indexPath.row].coordinate, animated: true)
-        mapView.setZoomLevel(22, animated: true)
-        mapView.selectAnnotation(self.annotations[indexPath.row], animated: true, completionHandler: nil)
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let x = collectionView.contentOffset.x
-        let w = collectionView.bounds.size.width
-        let currentPage = Int(ceil(x/w))
-        print("Current Page: \(currentPage)")
-    }
-    
 }
 
 class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, NavigationViewControllerDelegate {
     var id: String = ""
     @IBOutlet weak var mapView: MGLMapView!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView: FSPagerView! {
+        didSet {
+            self.collectionView.register(UINib(nibName: "TaskCollectionPointPagerCell", bundle: Bundle.main), forCellWithReuseIdentifier: "taskCollectionPointPagerCell")
+        }
+    }
     
     var selectedTaskCollectionPoint: TaskCollectionPoint!
     var taskCollectionPoints = [TaskCollectionPoint]()
@@ -105,6 +54,11 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.transformer = FSPagerViewTransformer(type: .linear)
+        
+        let transform = CGAffineTransform(scaleX: 0.8, y: 0.9)
+        collectionView.itemSize = collectionView.frame.size.applying(transform)
+        collectionView.decelerationDistance = FSPagerView.automaticDistance
         
         self.id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
         // Do any additional setup after loading the view.
@@ -236,8 +190,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         for cp in self.taskCollectionPoints {
             if cp.location.latitude == String(annotation.coordinate.latitude) {
                 self.selectedTaskCollectionPoint = self.taskCollectionPoints[currentIndex];
-                
-                collectionView.selectItem(at: IndexPath(row: currentIndex, section: 0), animated: true, scrollPosition: .centeredHorizontally)
+                collectionView.selectItem(at: currentIndex, animated: true)
                 
                 break
             }
