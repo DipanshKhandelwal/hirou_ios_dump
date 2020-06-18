@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.0.0-rc.3)
+  - FSPagerView (0.8.3)
   - JTAppleCalendar (7.1.8)
   - Mapbox-iOS-SDK (5.5.0)
   - MapboxCoreNavigation (0.38.2):
@@ -23,6 +24,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-rc.3)
+  - FSPagerView
   - JTAppleCalendar (~> 7.1)
   - Mapbox-iOS-SDK (~> 5.5)
   - MapboxNavigation (~> 0.38.2)
@@ -30,6 +32,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - FSPagerView
     - JTAppleCalendar
     - Mapbox-iOS-SDK
     - MapboxCoreNavigation
@@ -44,10 +47,11 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
+  FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   JTAppleCalendar: b7fb40852f5f319fe55c8ec3861f1de0edc99cc8
   Mapbox-iOS-SDK: 7fa66a27e586acb14c7f32ec5a487343e3994451
   MapboxCoreNavigation: c94d4f82ffcb7899192a1a89079b702752c5870f
-  MapboxDirections.swift: 1c6df988c24b753888ebd9976d7c98632501a413
+  MapboxDirections.swift: 6be6f756176b2c16f308093cc4724fa82ce33b12
   MapboxMobileEvents: f6c21b2e59066c5c7093585de7c15adae3b63da0
   MapboxNavigation: f65d6f818107333474fc0de4ecd9afb58269c39f
   MapboxNavigationNative: 11dc22140f4698d3f26989f2b6379dc81ef0d4c1
@@ -56,6 +60,6 @@ SPEC CHECKSUMS:
   Solar: 2dc6e7cc39186cb0c8228fa08df76fb50c7d8f24
   Turf: c6bdf62d6a70c647874f295dd1cf4eefc0c3e9e6
 
-PODFILE CHECKSUM: fbba7184dea381ace318524e40e8b2010c9e7e60
+PODFILE CHECKSUM: b4bd4196055bf3e0767653fe0f1feb5c0f542cca
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3

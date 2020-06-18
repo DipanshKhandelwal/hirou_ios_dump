@@ -12,4 +12,7 @@ target 'hirou' do
   
 # Calendar
   pod 'JTAppleCalendar', '~> 7.1'
+  
+# Pager
+  pod 'FSPagerView'
 end
