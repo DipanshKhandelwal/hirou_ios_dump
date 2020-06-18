@@ -29,6 +29,16 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
         cell.layer.cornerRadius = 15
         return cell
     }
+    
+    func pagerViewWillEndDragging(_ pagerView: FSPagerView, targetIndex: Int) {
+        mapView.setCenter(self.annotations[targetIndex].coordinate, zoomLevel: 18, direction: -1, animated: true)
+        mapView.selectAnnotation(self.annotations[targetIndex], animated: false, completionHandler: nil)
+    }
+
+    func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
+        mapView.setCenter(self.annotations[index].coordinate, zoomLevel: 18, direction: -1, animated: true)
+        mapView.selectAnnotation(self.annotations[index], animated: false, completionHandler: nil)
+    }
 }
 
 class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, NavigationViewControllerDelegate {
