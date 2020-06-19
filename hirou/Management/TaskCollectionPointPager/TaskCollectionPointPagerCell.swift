@@ -10,7 +10,9 @@ import UIKit
 import FSPagerView
 
 class TaskCollectionPointPagerCell: FSPagerViewCell {
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var sequence: UILabel!
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var garbageStack: UIStackView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
