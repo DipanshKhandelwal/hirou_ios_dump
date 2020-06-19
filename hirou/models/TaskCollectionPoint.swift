@@ -13,17 +13,19 @@ class TaskCollectionPoint : Encodable, Decodable{
     var id: Int
     var name: String
     var address: String
+    var memo: String
     var location: Location
     var taskRoute: Int
     var sequence: Int
     var image: String
     var taskCollections: [TaskCollection]
     
-    init?(id: Int, name : String, address: String, location: Location, sequence: Int, taskRoute: Int, image: String, taskCollections: [TaskCollection]) {
+    init?(id: Int, name : String, address: String, memo: String, location: Location, sequence: Int, taskRoute: Int, image: String, taskCollections: [TaskCollection]) {
         // Initialize stored properties.
         self.id = id
         self.name = name
         self.address = address
+        self.memo = memo
         self.taskRoute = taskRoute
         self.location = location
         self.sequence = sequence
@@ -35,6 +37,7 @@ class TaskCollectionPoint : Encodable, Decodable{
         case id
         case name
         case address
+        case memo
         case taskRoute = "route"
         case location
         case sequence
@@ -48,6 +51,7 @@ class TaskCollectionPoint : Encodable, Decodable{
         name = try container.decode(String.self, forKey: .name)
         taskRoute = try container.decode(Int.self, forKey: .taskRoute)
         address = try container.decode(String.self, forKey: .address)
+        memo = try container.decode(String.self, forKey: .memo)
         sequence = try container.decode(Int.self, forKey: .sequence)
         location = try container.decode(Location.self, forKey: .location)
         taskCollections = try container.decode([TaskCollection].self, forKey: .taskCollections)
