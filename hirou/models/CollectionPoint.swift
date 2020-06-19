@@ -13,16 +13,18 @@ struct CollectionPoint: Encodable, Decodable {
     var id: Int
     var name: String
     var address: String
+    var memo: String
     var route: Int
     var location: Location
     var sequence: Int
     var image: String?
     
-    init?(id: Int, name : String, address: String, route: Int, location: Location, sequence: Int, image: String) {
+    init?(id: Int, name : String, address: String, memo: String, route: Int, location: Location, sequence: Int, image: String) {
         // Initialize stored properties.
         self.id = id
         self.name = name
         self.address = address
+        self.memo = memo
         self.route = route
         self.location = location
         self.sequence = sequence
@@ -33,6 +35,7 @@ struct CollectionPoint: Encodable, Decodable {
         case id
         case name
         case address
+        case memo
         case route
         case sequence
         case image
@@ -44,6 +47,7 @@ struct CollectionPoint: Encodable, Decodable {
         id = try container.decode(Int.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
         address = try container.decode(String.self, forKey: .address)
+        memo = try container.decode(String.self, forKey: .memo)
         route = try container.decode(Int.self, forKey: .route)
         sequence = try container.decode(Int.self, forKey: .sequence)
         location = try container.decode(Location.self, forKey: .location)
