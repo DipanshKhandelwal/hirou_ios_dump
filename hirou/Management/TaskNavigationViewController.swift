@@ -24,9 +24,42 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "taskCollectionPointPagerCell", at: index) as! TaskCollectionPointPagerCell
         
-        cell.label?.text = self.taskCollectionPoints[index].name
-        cell.backgroundColor = UIColor.lightGray
+        let tcp = self.taskCollectionPoints[index]
+        cell.sequence?.text = String(tcp.sequence)
+        cell.name?.text = tcp.name
+        
+        cell.sequence?.shadowOffset = CGSize(size: 0)
+        cell.name?.shadowOffset = CGSize(size: 0)
+        
+        cell.garbageStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        cell.garbageStack.spacing = 10
+        cell.garbageStack.axis = .horizontal
+        cell.garbageStack.distribution = .equalCentering
+        
+        for taskCollection in tcp.taskCollections {
+            let garbageView = UILabel()
+            garbageView.textColor = .black
+            garbageView.font = garbageView.font.withSize(10)
+            garbageView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+            garbageView.layer.backgroundColor = taskCollection.complete ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
+            garbageView.layer.borderWidth = 2
+            garbageView.layer.borderColor = UIColor.systemBlue.cgColor
+            garbageView.layer.cornerRadius = 10
+            garbageView.text =  " " + taskCollection.garbage.name + " "
+            cell.garbageStack.addArrangedSubview(garbageView)
+        }
+        
         cell.layer.cornerRadius = 15
+        cell.layer.shadowRadius = 15
+        cell.backgroundColor = UIColor.white
+        
+        let blueView = UIView(frame: .infinite)
+        blueView.layer.borderWidth = 3
+        blueView.layer.borderColor = UIColor.gray.cgColor
+        blueView.layer.cornerRadius = 15
+
+        cell.selectedBackgroundView = blueView
+        
         return cell
     }
     
