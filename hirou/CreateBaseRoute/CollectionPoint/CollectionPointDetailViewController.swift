@@ -151,7 +151,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         let loc = Location(latitude: String(lat), longitude: String(long))!
         let seq = self.collectionPoints.count
         
-        self.newAnnotation = CollectionPointPointAnnotation(collectionPoint: CollectionPoint(id: -1, name: "", address: "", route: Int(self.id) ?? -1, location: loc, sequence: seq, image: "")!)
+        self.newAnnotation = CollectionPointPointAnnotation(collectionPoint: CollectionPoint(id: -1, name: "", address: "", memo: "", route: Int(self.id) ?? -1, location: loc, sequence: seq, image: "")!)
         
         self.newAnnotation.coordinate = location
         self.newAnnotation.title = "New Collection Point"
@@ -228,7 +228,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
             let long = self.newAnnotation.coordinate.longitude
             let loc = Location(latitude: String(lat), longitude: String(long))!
             let seq = self.collectionPoints.count
-            let cp = CollectionPoint(id: -1, name: "", address: "", route: Int(self.id) ?? -1, location: loc, sequence: seq, image: "")
+            let cp = CollectionPoint(id: -1, name: "", address: "", memo: "", route: Int(self.id) ?? -1, location: loc, sequence: seq, image: "")
             controller.detailItem = cp
         }
         
