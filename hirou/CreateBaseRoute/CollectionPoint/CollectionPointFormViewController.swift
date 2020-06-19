@@ -144,16 +144,17 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
     
     func configureView() {
         if let detail = detailItem {
+            let collectionPoint = detail as! CollectionPoint
             if let label = self.cpNameLabel {
-                label.text = (detail as! CollectionPoint).name
+                label.text = collectionPoint.name
             }
             
             if let label = self.cpAddressLabel {
-                label.text = (detail as! CollectionPoint).address
+                label.text = collectionPoint.address
             }
             
             if let label = self.cpSequence {
-                label.text = String((detail as! CollectionPoint).sequence )
+                label.text = String(collectionPoint.sequence )
             }
             
             if let map = self.cpMapView {
