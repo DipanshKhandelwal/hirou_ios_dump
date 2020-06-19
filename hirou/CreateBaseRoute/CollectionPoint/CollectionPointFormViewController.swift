@@ -8,16 +8,12 @@
 
 import UIKit
 import Alamofire
-import Mapbox
 
-class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
+class CollectionPointFormViewController: UIViewController {
     
     @IBOutlet weak var cpNameLabel: UITextField!
     @IBOutlet weak var cpAddressLabel: UITextField!
-//    @IBOutlet weak var cpCoordinatesLat: UITextField!
-//    @IBOutlet weak var cpCoordinatesLong: UITextField!
     @IBOutlet weak var cpSequence: UITextField!
-    @IBOutlet var cpMapView: MGLMapView!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     
@@ -25,7 +21,6 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        cpMapView.delegate = self
         
         cpSequence?.isEnabled = false
         
@@ -156,21 +151,8 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
             if let label = self.cpSequence {
                 label.text = String(collectionPoint.sequence )
             }
-            
-            if let map = self.cpMapView {
-                let annotation = CollectionPointPointAnnotation(collectionPoint: (detail as! CollectionPoint))
-                let lat = Double((detail as! CollectionPoint).location.latitude)!
-                let long = Double((detail as! CollectionPoint).location.longitude)!
-                annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                annotation.title = (detail as! CollectionPoint).name
-                map.addAnnotation(annotation)
-                // Center the map on the annotation.
-                map.setCenter(annotation.coordinate, zoomLevel: 14, animated: false)
-                // Pop-up the callout view.
-                map.selectAnnotation(annotation, animated: true, completionHandler: nil)
-            }
-            
-            if (detail as! CollectionPoint).id == -1 {
+
+            if collectionPoint.id == -1 {
                 if let button = self.deleteButton {
                     button.isHidden = true
                 }
@@ -180,22 +162,5 @@ class CollectionPointFormViewController: UIViewController, MGLMapViewDelegate {
                 }
             }
         }
-    }
-    
-    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-        return true
-    }
-    
-    func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-        label.textAlignment = .right
-        label.textColor = UIColor(red: 0.81, green: 0.71, blue: 0.23, alpha: 1)
-        label.text = "CP"
-        return label
-    }
-    
-    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-        self.annotationView = CollectionPointDraggableAnnotationView(annotation: annotation as! CollectionPointPointAnnotation, reuseIdentifier: "draggablePoint", size: 20, color: .red)
-            return self.annotationView
     }
 }

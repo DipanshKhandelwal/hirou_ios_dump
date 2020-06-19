@@ -882,10 +882,10 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tPU-PN-E0K">
                                             <rect key="frame" x="627" y="117" width="74.5" height="59.5"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TXI-2n-QCd">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TXI-2n-QCd">
                                                     <rect key="frame" x="13" y="0.0" width="51" height="31"/>
                                                 </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Complete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auQ-0J-LS9">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Complete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auQ-0J-LS9">
                                                     <rect key="frame" x="0.0" y="39" width="74.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -1420,71 +1420,68 @@
                         <rect key="frame" x="0.0" y="0.0" width="712" height="928"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="w0I-BJ-ijY">
-                                <rect key="frame" x="41" y="50" width="630" height="828"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="hIP-i8-tK4">
+                                <rect key="frame" x="231" y="70" width="250" height="403.5"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="hIP-i8-tK4">
-                                        <rect key="frame" x="20" y="20" width="250" height="265.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FPH-Up-nJD">
+                                        <rect key="frame" x="0.0" y="0.0" width="250" height="68.5"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FPH-Up-nJD">
-                                                <rect key="frame" x="0.0" y="0.0" width="250" height="68.5"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collection Point Sequence" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6KC-r3-cXS" userLabel="Collection Point Sequence">
-                                                        <rect key="frame" x="0.0" y="0.0" width="250" height="26.5"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0, 1, ..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1vP-VF-JZR" userLabel="Collection Point Address">
-                                                        <rect key="frame" x="0.0" y="34.5" width="77" height="34"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="1vP-VF-JZR" firstAttribute="width" secondItem="FPH-Up-nJD" secondAttribute="width" multiplier="0.308" id="Dk7-gO-jAy"/>
-                                                </constraints>
-                                            </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7ZX-Nx-puM">
-                                                <rect key="frame" x="0.0" y="98.5" width="210.5" height="68.5"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collection Point Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7x-s7-Aki" userLabel="Collection Point Name">
-                                                        <rect key="frame" x="0.0" y="0.0" width="210.5" height="26.5"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Collection Point Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gti-ze-RES" userLabel="Collection Point Name">
-                                                        <rect key="frame" x="0.0" y="34.5" width="197.5" height="34"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
-                                                </subviews>
-                                            </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rqK-ju-rEU">
-                                                <rect key="frame" x="0.0" y="197" width="232.5" height="68.5"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collection Point Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFv-Hk-lzG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="232.5" height="26.5"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Collection Point Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ben-zN-DzV" userLabel="Collection Point Address">
-                                                        <rect key="frame" x="0.0" y="34.5" width="215.5" height="34"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
-                                                </subviews>
-                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collection Point Sequence" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6KC-r3-cXS" userLabel="Collection Point Sequence">
+                                                <rect key="frame" x="0.0" y="0.0" width="250" height="26.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0, 1, ..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1vP-VF-JZR" userLabel="Collection Point Address">
+                                                <rect key="frame" x="0.0" y="34.5" width="250" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="1vP-VF-JZR" firstAttribute="width" secondItem="FPH-Up-nJD" secondAttribute="width" id="Dk7-gO-jAy"/>
+                                        </constraints>
                                     </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3dk-4r-eig" customClass="MGLMapView">
-                                        <rect key="frame" x="20" y="318.5" width="590" height="345.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7ZX-Nx-puM">
+                                        <rect key="frame" x="0.0" y="98.5" width="250" height="68.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collection Point Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7x-s7-Aki" userLabel="Collection Point Name">
+                                                <rect key="frame" x="0.0" y="0.0" width="210.5" height="26.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Collection Point Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gti-ze-RES" userLabel="Collection Point Name">
+                                                <rect key="frame" x="0.0" y="34.5" width="250" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Gti-ze-RES" firstAttribute="width" secondItem="7ZX-Nx-puM" secondAttribute="width" id="nFr-Ul-b7P"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rqK-ju-rEU">
+                                        <rect key="frame" x="0.0" y="197" width="250" height="68.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collection Point Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFv-Hk-lzG">
+                                                <rect key="frame" x="0.0" y="0.0" width="232.5" height="26.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Collection Point Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ben-zN-DzV" userLabel="Collection Point Address">
+                                                <rect key="frame" x="0.0" y="34.5" width="250" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Ben-zN-DzV" firstAttribute="width" secondItem="rqK-ju-rEU" secondAttribute="width" id="euY-lk-hbb"/>
+                                        </constraints>
+                                    </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q5y-ID-0hj">
-                                        <rect key="frame" x="20" y="697" width="590" height="39"/>
+                                        <rect key="frame" x="0.0" y="295.5" width="250" height="39"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                         <state key="normal" title="Save"/>
                                         <connections>
@@ -1492,7 +1489,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7kb-dl-Rrg">
-                                        <rect key="frame" x="20" y="769" width="590" height="39"/>
+                                        <rect key="frame" x="0.0" y="364.5" width="250" height="39"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                         <state key="normal" title="Delete">
                                             <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1503,26 +1500,24 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="3dk-4r-eig" firstAttribute="centerX" secondItem="w0I-BJ-ijY" secondAttribute="centerX" id="CrK-MS-rUn"/>
-                                    <constraint firstItem="q5y-ID-0hj" firstAttribute="centerX" secondItem="w0I-BJ-ijY" secondAttribute="centerX" id="fJF-wn-qud"/>
-                                    <constraint firstItem="3dk-4r-eig" firstAttribute="width" secondItem="w0I-BJ-ijY" secondAttribute="width" multiplier="0.936508" id="pxo-Md-h7P"/>
+                                    <constraint firstItem="7ZX-Nx-puM" firstAttribute="width" secondItem="hIP-i8-tK4" secondAttribute="width" id="2n4-Hj-YRz"/>
+                                    <constraint firstItem="rqK-ju-rEU" firstAttribute="width" secondItem="hIP-i8-tK4" secondAttribute="width" id="9LZ-67-jWj"/>
+                                    <constraint firstItem="q5y-ID-0hj" firstAttribute="centerX" secondItem="hIP-i8-tK4" secondAttribute="centerX" id="CTr-AP-PUZ"/>
+                                    <constraint firstItem="7kb-dl-Rrg" firstAttribute="centerX" secondItem="hIP-i8-tK4" secondAttribute="centerX" id="e7D-O8-Gl0"/>
+                                    <constraint firstItem="FPH-Up-nJD" firstAttribute="width" secondItem="hIP-i8-tK4" secondAttribute="width" id="sNX-fZ-0iC"/>
                                 </constraints>
-                                <edgeInsets key="layoutMargins" top="20" left="20" bottom="20" right="20"/>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="7kb-dl-Rrg" firstAttribute="centerX" secondItem="tTN-5E-iL6" secondAttribute="centerX" id="3ZO-ek-ADr"/>
-                            <constraint firstItem="w0I-BJ-ijY" firstAttribute="top" secondItem="tTN-5E-iL6" secondAttribute="top" constant="50" id="bQ1-0f-5WP"/>
-                            <constraint firstItem="w0I-BJ-ijY" firstAttribute="centerX" secondItem="tTN-5E-iL6" secondAttribute="centerX" id="dgv-Ue-WkU"/>
-                            <constraint firstItem="tTN-5E-iL6" firstAttribute="bottom" secondItem="w0I-BJ-ijY" secondAttribute="bottom" constant="50" id="msX-cw-TY9"/>
+                            <constraint firstItem="hIP-i8-tK4" firstAttribute="centerX" secondItem="tTN-5E-iL6" secondAttribute="centerX" id="1vR-90-rjL"/>
+                            <constraint firstItem="hIP-i8-tK4" firstAttribute="top" secondItem="tTN-5E-iL6" secondAttribute="top" constant="70" id="CsR-LL-W6v"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tTN-5E-iL6"/>
                     </view>
                     <navigationItem key="navigationItem" title="Collection Point" id="Khz-21-Xs9"/>
                     <connections>
                         <outlet property="cpAddressLabel" destination="Ben-zN-DzV" id="KcZ-BM-gow"/>
-                        <outlet property="cpMapView" destination="3dk-4r-eig" id="Cqw-XC-hSI"/>
                         <outlet property="cpNameLabel" destination="Gti-ze-RES" id="dDA-3C-MIH"/>
                         <outlet property="cpSequence" destination="1vP-VF-JZR" id="9CW-Sm-dhS"/>
                         <outlet property="deleteButton" destination="7kb-dl-Rrg" id="nQf-5v-D5F"/>
