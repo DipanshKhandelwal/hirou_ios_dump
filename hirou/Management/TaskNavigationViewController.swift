@@ -27,6 +27,7 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
         let tcp = self.taskCollectionPoints[index]
         cell.sequence?.text = String(tcp.sequence)
         cell.name?.text = tcp.name
+        cell.memo?.text = tcp.memo
         
         cell.sequence?.shadowOffset = CGSize(size: 0)
         cell.name?.shadowOffset = CGSize(size: 0)

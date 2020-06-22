@@ -14,6 +14,7 @@ class CollectionPointFormViewController: UIViewController {
     @IBOutlet weak var cpNameLabel: UITextField!
     @IBOutlet weak var cpAddressLabel: UITextField!
     @IBOutlet weak var cpSequence: UITextField!
+    @IBOutlet weak var cpMemo: UITextField!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     
@@ -36,6 +37,7 @@ class CollectionPointFormViewController: UIViewController {
     func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         self.cpNameLabel.resignFirstResponder()
         self.cpAddressLabel.resignFirstResponder()
+        self.cpMemo.resignFirstResponder()
     }
     
     func saveCPCall() {
@@ -44,8 +46,8 @@ class CollectionPointFormViewController: UIViewController {
             let id = String((detailItem as! CollectionPoint).id)
             let parameters: [String: String] = [
                 "name": String(self.cpNameLabel.text!),
-                "location": String(self.annotationView.annotation!.coordinate.latitude) + "," + String(self.annotationView.annotation!.coordinate.longitude),
                 "address": self.cpAddressLabel.text ?? "",
+                "memo": self.cpMemo.text ?? "",
                 "sequence": self.cpSequence.text ?? "0"
             ]
             AF.request(Environment.SERVER_URL + "api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
@@ -66,6 +68,7 @@ class CollectionPointFormViewController: UIViewController {
                 "name": String(self.cpNameLabel.text!),
                 "location": String(self.annotationView.annotation!.coordinate.latitude) + "," + String(self.annotationView.annotation!.coordinate.longitude),
                 "address": self.cpAddressLabel.text ?? "",
+                "memo": self.cpMemo.text ?? "",
                 "route": String(routeId),
                 "sequence": self.cpSequence.text ?? "0"
             ]
@@ -146,6 +149,10 @@ class CollectionPointFormViewController: UIViewController {
             
             if let label = self.cpAddressLabel {
                 label.text = collectionPoint.address
+            }
+            
+            if let label = self.cpMemo {
+                label.text = collectionPoint.memo
             }
             
             if let label = self.cpSequence {
