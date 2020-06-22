@@ -12,6 +12,7 @@ import Alamofire
 class TaskCollectionPointCell: UITableViewCell {
     @IBOutlet weak var sequence: UILabel!
     @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var memo: UILabel!
     @IBOutlet weak var garbageStack: UIStackView!
 }
 
@@ -68,6 +69,7 @@ class TaskCollectionPointTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCollectionPointCell", for: indexPath) as! TaskCollectionPointCell
         cell.sequence!.text = String(indexPath.row)
         cell.name!.text = self.taskCollectionPoints[indexPath.row].name
+        cell.memo!.text = self.taskCollectionPoints[indexPath.row].memo
         
         cell.garbageStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
         cell.garbageStack.spacing = 10
