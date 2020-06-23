@@ -17,6 +17,7 @@
 		3138F1932421F5CC007C7434 /* CollectionPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3138F1922421F5CC007C7434 /* CollectionPoint.swift */; };
 		3153653D243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3153653C243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift */; };
 		3154873A247B8CDB00A16100 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31548739247B8CDB00A16100 /* PageViewController.swift */; };
+		3159198524A0B7BB009D064B /* GarbageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3159198424A0B7BB009D064B /* GarbageButton.swift */; };
 		315B21B92499147100257D84 /* TaskCollectionPointPagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315B21B72499147100257D84 /* TaskCollectionPointPagerCell.swift */; };
 		315B21BA2499147100257D84 /* TaskCollectionPointPagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315B21B82499147100257D84 /* TaskCollectionPointPagerCell.xib */; };
 		317325D62484C2EA00799BD5 /* TaskNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317325D52484C2EA00799BD5 /* TaskNavigationViewController.swift */; };
@@ -76,6 +77,7 @@
 		3138F1922421F5CC007C7434 /* CollectionPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPoint.swift; sourceTree = "<group>"; };
 		3153653C243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointDraggableAnnotationView.swift; sourceTree = "<group>"; };
 		31548739247B8CDB00A16100 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		3159198424A0B7BB009D064B /* GarbageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarbageButton.swift; sourceTree = "<group>"; };
 		315B21B72499147100257D84 /* TaskCollectionPointPagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TaskCollectionPointPagerCell.swift; path = TaskCollectionPointPager/TaskCollectionPointPagerCell.swift; sourceTree = "<group>"; };
 		315B21B82499147100257D84 /* TaskCollectionPointPagerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TaskCollectionPointPagerCell.xib; path = TaskCollectionPointPager/TaskCollectionPointPagerCell.xib; sourceTree = "<group>"; };
 		317325D52484C2EA00799BD5 /* TaskNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNavigationViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				312E7AC02462A7AD00A73363 /* TaskCollectionsTableViewController.swift */,
+				3159198424A0B7BB009D064B /* GarbageButton.swift */,
 			);
 			path = TaskCollection;
 			sourceTree = "<group>";
@@ -498,6 +501,7 @@
 				31C9AE042481097B00161374 /* DisabledUITextField.swift in Sources */,
 				31CF0A42245A0B8500E0F5DC /* CalendarViewController.swift in Sources */,
 				3133F2022424BD0A001C158C /* RouteMasterViewController.swift in Sources */,
+				3159198524A0B7BB009D064B /* GarbageButton.swift in Sources */,
 				31B09589248F75FC00D560B0 /* Environment.swift in Sources */,
 				3133F2042424BE0F001C158C /* BaseRoute.swift in Sources */,
 				313172682445E5D800585B7F /* TaskTableViewController.swift in Sources */,

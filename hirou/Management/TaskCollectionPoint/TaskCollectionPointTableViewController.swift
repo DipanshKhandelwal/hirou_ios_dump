@@ -76,21 +76,55 @@ class TaskCollectionPointTableViewController: UITableViewController {
         cell.garbageStack.axis = .horizontal
         cell.garbageStack.distribution = .equalCentering
 
-        for taskCollection in self.taskCollectionPoints[indexPath.row].taskCollections {
-            let garbageView = UILabel()
-            garbageView.textColor = .black
-            garbageView.font = garbageView.font.withSize(10)
-            garbageView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-            garbageView.layer.backgroundColor = taskCollection.complete ? UIColor.systemGray5.cgColor : UIColor.white.cgColor
+        for num in 0...self.taskCollectionPoints[indexPath.row].taskCollections.count-1 {
+            let taskCollection = self.taskCollectionPoints[indexPath.row].taskCollections[num];
+            
+            let garbageView = GarbageButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0), taskCollectionPointPosition: indexPath.row, taskPosition: num)
+            garbageView.addTarget(self, action: #selector(TaskCollectionPointTableViewController.pressed(sender:)), for: .touchDown)
+            garbageView.layer.backgroundColor = taskCollection.complete ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
             garbageView.layer.borderWidth = 2
             garbageView.layer.borderColor = UIColor.systemBlue.cgColor
             garbageView.layer.cornerRadius = 10
-            garbageView.text =  " " + taskCollection.garbage.name + " "
+            garbageView.setTitle(" " + taskCollection.garbage.name + " ", for: .normal)
+            garbageView.titleLabel?.font = garbageView.titleLabel?.font.withSize(15)
+            garbageView.setTitleColor(.black, for: .normal)
             cell.garbageStack.addArrangedSubview(garbageView)
         }
         return cell
     }
-    
+
+    @objc
+    func pressed(sender: GarbageButton) {
+        let taskCollectionPoint = self.taskCollectionPoints[sender.taskCollectionPointPosition]
+        let taskCollection = taskCollectionPoint.taskCollections[sender.taskPosition]
+        
+        let url = Environment.SERVER_URL + "api/task_collection/"+String(taskCollection.id)+"/"
+        
+        let values = [ "complete": !taskCollection.complete ] as [String : Any?]
+                
+        var request = URLRequest(url: try! url.asURL())
+        request.httpMethod = "PATCH"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try! JSONSerialization.data(withJSONObject: values)
+        
+        AF.request(request)
+            .response {
+                response in
+                switch response.result {
+                case .success(let value):
+                    let taskCollectionNew = try! JSONDecoder().decode(TaskCollection.self, from: value!)
+                    self.taskCollectionPoints[sender.taskCollectionPointPosition].taskCollections[sender.taskPosition] = taskCollectionNew
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                    
+
+                case .failure(let error):
+                    print(error)
+                }
+        }
+    }
+
     /*
      // Override to support conditional editing of the table view.
      override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
