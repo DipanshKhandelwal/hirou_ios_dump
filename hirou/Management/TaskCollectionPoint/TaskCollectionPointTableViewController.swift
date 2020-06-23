@@ -67,17 +67,19 @@ class TaskCollectionPointTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCollectionPointCell", for: indexPath) as! TaskCollectionPointCell
-        cell.sequence!.text = String(indexPath.row)
-        cell.name!.text = self.taskCollectionPoints[indexPath.row].name
-        cell.memo!.text = self.taskCollectionPoints[indexPath.row].memo
+        
+        let tcp = self.taskCollectionPoints[indexPath.row]
+        cell.sequence!.text = String(tcp.sequence)
+        cell.name!.text = tcp.name
+        cell.memo!.text = tcp.memo
         
         cell.garbageStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
         cell.garbageStack.spacing = 10
         cell.garbageStack.axis = .horizontal
         cell.garbageStack.distribution = .equalCentering
 
-        for num in 0...self.taskCollectionPoints[indexPath.row].taskCollections.count-1 {
-            let taskCollection = self.taskCollectionPoints[indexPath.row].taskCollections[num];
+        for num in 0...tcp.taskCollections.count-1 {
+            let taskCollection = tcp.taskCollections[num];
             
             let garbageView = GarbageButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0), taskCollectionPointPosition: indexPath.row, taskPosition: num)
             garbageView.addTarget(self, action: #selector(TaskCollectionPointTableViewController.pressed(sender:)), for: .touchDown)
