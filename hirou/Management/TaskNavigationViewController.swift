@@ -29,27 +29,26 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
         cell.name?.text = tcp.name
         cell.memo?.text = tcp.memo
         
-        cell.sequence?.shadowOffset = CGSize(size: 0)
-        cell.name?.shadowOffset = CGSize(size: 0)
-        
         cell.garbageStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
         cell.garbageStack.spacing = 10
         cell.garbageStack.axis = .horizontal
         cell.garbageStack.distribution = .equalCentering
         
-        for taskCollection in tcp.taskCollections {
-            let garbageView = UILabel()
-            garbageView.textColor = .black
-            garbageView.font = garbageView.font.withSize(10)
-            garbageView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        for num in 0...tcp.taskCollections.count-1 {
+            let taskCollection = tcp.taskCollections[num];
+            
+            let garbageView = GarbageButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0), taskCollectionPointPosition: index, taskPosition: num)
+            garbageView.addTarget(self, action: #selector(TaskNavigationViewController.pressed(sender:)), for: .touchDown)
             garbageView.layer.backgroundColor = taskCollection.complete ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
             garbageView.layer.borderWidth = 2
             garbageView.layer.borderColor = UIColor.systemBlue.cgColor
             garbageView.layer.cornerRadius = 10
-            garbageView.text =  " " + taskCollection.garbage.name + " "
+            garbageView.setTitle(" " + taskCollection.garbage.name + " ", for: .normal)
+            garbageView.titleLabel?.font = garbageView.titleLabel?.font.withSize(10)
+            garbageView.setTitleColor(.black, for: .normal)
             cell.garbageStack.addArrangedSubview(garbageView)
         }
-        
+
         cell.layer.cornerRadius = 15
         cell.layer.shadowRadius = 15
         cell.backgroundColor = UIColor.white
@@ -62,6 +61,38 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
         cell.selectedBackgroundView = blueView
         
         return cell
+    }
+    
+    @objc
+    func pressed(sender: GarbageButton) {
+        let taskCollectionPoint = self.taskCollectionPoints[sender.taskCollectionPointPosition]
+        let taskCollection = taskCollectionPoint.taskCollections[sender.taskPosition]
+        
+        let url = Environment.SERVER_URL + "api/task_collection/"+String(taskCollection.id)+"/"
+        
+        let values = [ "complete": !taskCollection.complete ] as [String : Any?]
+                
+        var request = URLRequest(url: try! url.asURL())
+        request.httpMethod = "PATCH"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try! JSONSerialization.data(withJSONObject: values)
+        
+        AF.request(request)
+            .response {
+                response in
+                switch response.result {
+                case .success(let value):
+                    let taskCollectionNew = try! JSONDecoder().decode(TaskCollection.self, from: value!)
+                    self.taskCollectionPoints[sender.taskCollectionPointPosition].taskCollections[sender.taskPosition] = taskCollectionNew
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                    
+
+                case .failure(let error):
+                    print(error)
+                }
+        }
     }
     
     func pagerViewWillEndDragging(_ pagerView: FSPagerView, targetIndex: Int) {
