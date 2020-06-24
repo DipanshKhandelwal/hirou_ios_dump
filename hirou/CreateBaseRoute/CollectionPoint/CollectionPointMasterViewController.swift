@@ -160,13 +160,14 @@ class CollectionPointMasterViewController: UITableViewController {
                 self.tableView.reloadData()
             }
             self.updateList()
-            self.fetchCollectionPoints()
         }))
         self.present(updateAlert, animated: true, completion: nil)
     }
     
     func updateList(){
+        let group = DispatchGroup()
         for (index, element) in self.collectionPoints.enumerated() {
+            group.enter()
             let id = element.id
             let parameters: [String: String] = [
                 "sequence": String(index + 1)
@@ -176,12 +177,16 @@ class CollectionPointMasterViewController: UITableViewController {
                     response in
                     switch response.result {
                     case .success( _):
-                        _ = self.navigationController?.popViewController(animated: true)
+                        group.leave()
                         
                     case .failure(let error):
                         print(error)
                     }
             }
+        }
+        group.notify(queue: .main) {
+            // do something here when loop finished
+            self.fetchCollectionPoints(notify: true)
         }
     }
 }
