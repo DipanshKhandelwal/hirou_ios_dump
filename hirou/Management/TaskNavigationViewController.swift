@@ -96,13 +96,11 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
     }
     
     func pagerViewWillEndDragging(_ pagerView: FSPagerView, targetIndex: Int) {
-        mapView.setCenter(self.annotations[targetIndex].coordinate, zoomLevel: 18, direction: -1, animated: true)
-        mapView.selectAnnotation(self.annotations[targetIndex], animated: false, completionHandler: nil)
+        focusPoint(index: targetIndex)
     }
 
     func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
-        mapView.setCenter(self.annotations[index].coordinate, zoomLevel: 18, direction: -1, animated: true)
-        mapView.selectAnnotation(self.annotations[index], animated: false, completionHandler: nil)
+        focusPoint(index: index)
     }
 }
 
@@ -141,12 +139,15 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         // Do any additional setup after loading the view.
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .CollectionPointsVListUpdate, object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .CollectionPointsHListSelect, object: nil)
     }
     
     deinit {
         notificationCenter.removeObserver(self, name: .CollectionPointsVListUpdate, object: nil)
+        notificationCenter.removeObserver(self, name: .CollectionPointsHListSelect, object: nil)
     }
-    
+
     @objc
     func collectionPointUpdateFromVList(_ notification: Notification) {
         print("called")
@@ -162,6 +163,21 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
                 }
             }
         }
+    }
+    
+    @objc
+    func collectionPointSelectFromVList(_ notification: Notification) {
+        let tc = notification.object as! TaskCollectionPoint
+        for num in 0...self.taskCollectionPoints.count-1 {
+            if tc.id == self.taskCollectionPoints[num].id {
+                focusPoint(index: num)
+            }
+        }
+    }
+    
+    func focusPoint(index: Int) {
+        mapView.setCenter(self.annotations[index].coordinate, zoomLevel: 18, direction: -1, animated: true)
+        mapView.selectAnnotation(self.annotations[index], animated: false, completionHandler: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -295,7 +311,6 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             if cp.location.latitude == String(annotation.coordinate.latitude) {
                 self.selectedTaskCollectionPoint = self.taskCollectionPoints[currentIndex];
                 collectionView.selectItem(at: currentIndex, animated: true)
-                
                 break
             }
             currentIndex += 1

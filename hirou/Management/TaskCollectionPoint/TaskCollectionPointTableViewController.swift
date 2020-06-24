@@ -119,6 +119,10 @@ class TaskCollectionPointTableViewController: UITableViewController {
         }
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.notificationCenter.post(name: .CollectionPointsHListSelect, object: self.taskCollectionPoints[indexPath.row])
+    }
 
     @objc
     func pressed(sender: GarbageButton) {
