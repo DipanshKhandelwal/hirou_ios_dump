@@ -87,7 +87,7 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
                     }
-                    self.notificationCenter.post(name: .CollectionPointsHListUpdate, object: taskCollectionNew)
+                    self.notificationCenter.post(name: .TaskCollectionPointsHListUpdate, object: taskCollectionNew)
 
                 case .failure(let error):
                     print(error)
@@ -138,14 +138,14 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         self.id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
         // Do any additional setup after loading the view.
         
-        notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .CollectionPointsVListUpdate, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .TaskCollectionPointsVListUpdate, object: nil)
         
-        notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .CollectionPointsHListSelect, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .TaskCollectionPointsHListSelect, object: nil)
     }
     
     deinit {
-        notificationCenter.removeObserver(self, name: .CollectionPointsVListUpdate, object: nil)
-        notificationCenter.removeObserver(self, name: .CollectionPointsHListSelect, object: nil)
+        notificationCenter.removeObserver(self, name: .TaskCollectionPointsVListUpdate, object: nil)
+        notificationCenter.removeObserver(self, name: .TaskCollectionPointsHListSelect, object: nil)
     }
 
     @objc
@@ -311,7 +311,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             if cp.location.latitude == String(annotation.coordinate.latitude) {
                 self.selectedTaskCollectionPoint = self.taskCollectionPoints[currentIndex];
                 collectionView.selectItem(at: currentIndex, animated: true)
-                self.notificationCenter.post(name: .CollectionPointsMapSelect, object: self.taskCollectionPoints[currentIndex])
+                self.notificationCenter.post(name: .TaskCollectionPointsMapSelect, object: self.taskCollectionPoints[currentIndex])
                 break
             }
             currentIndex += 1

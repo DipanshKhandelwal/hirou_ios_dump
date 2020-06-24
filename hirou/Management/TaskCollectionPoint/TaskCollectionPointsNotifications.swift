@@ -9,19 +9,19 @@
 import Foundation
 
 extension Notification.Name {
-    static var CollectionPointsHListUpdate: Notification.Name {
-        return .init(rawValue: "CollectionPoints.Update.HList")
+    static var TaskCollectionPointsHListUpdate: Notification.Name {
+        return .init(rawValue: "TaskCollectionPoints.Update.HList")
     }
     
-    static var CollectionPointsVListUpdate: Notification.Name {
-        return .init(rawValue: "CollectionPoints.Update.VList")
+    static var TaskCollectionPointsVListUpdate: Notification.Name {
+        return .init(rawValue: "TaskCollectionPoints.Update.VList")
     }
     
-    static var CollectionPointsHListSelect: Notification.Name {
-        return .init(rawValue: "CollectionPoints.Select.VList")
+    static var TaskCollectionPointsHListSelect: Notification.Name {
+        return .init(rawValue: "TaskCollectionPoints.Select.VList")
     }
     
-    static var CollectionPointsMapSelect: Notification.Name {
-        return .init(rawValue: "CollectionPoints.Select.Map")
+    static var TaskCollectionPointsMapSelect: Notification.Name {
+        return .init(rawValue: "TaskCollectionPoints.Select.Map")
     }
 }

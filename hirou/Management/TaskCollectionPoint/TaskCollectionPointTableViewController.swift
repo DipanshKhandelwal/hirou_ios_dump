@@ -30,14 +30,14 @@ class TaskCollectionPointTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromHList(_:)), name: .CollectionPointsHListUpdate, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromHList(_:)), name: .TaskCollectionPointsHListUpdate, object: nil)
         
-        notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromMap(_:)), name: .CollectionPointsMapSelect, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromMap(_:)), name: .TaskCollectionPointsMapSelect, object: nil)
     }
     
     deinit {
-        notificationCenter.removeObserver(self, name: .CollectionPointsHListUpdate, object: nil)
-        notificationCenter.removeObserver(self, name: .CollectionPointsMapSelect, object: nil)
+        notificationCenter.removeObserver(self, name: .TaskCollectionPointsHListUpdate, object: nil)
+        notificationCenter.removeObserver(self, name: .TaskCollectionPointsMapSelect, object: nil)
     }
     
     @objc
@@ -134,7 +134,7 @@ class TaskCollectionPointTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.notificationCenter.post(name: .CollectionPointsHListSelect, object: self.taskCollectionPoints[indexPath.row])
+        self.notificationCenter.post(name: .TaskCollectionPointsHListSelect, object: self.taskCollectionPoints[indexPath.row])
     }
 
     @objc
@@ -161,7 +161,7 @@ class TaskCollectionPointTableViewController: UITableViewController {
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
-                    self.notificationCenter.post(name: .CollectionPointsVListUpdate, object: taskCollectionNew)
+                    self.notificationCenter.post(name: .TaskCollectionPointsVListUpdate, object: taskCollectionNew)
 
                 case .failure(let error):
                     print(error)
