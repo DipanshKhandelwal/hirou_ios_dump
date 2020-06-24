@@ -114,7 +114,9 @@ class CollectionPointMasterViewController: UITableViewController {
         
         updateAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
             print("Update sequence cancelled by the user.")
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }))
         
         updateAlert.addAction(UIAlertAction(title: "Yes. Update", style: .default, handler: { (action: UIAlertAction!) in
@@ -130,7 +132,9 @@ class CollectionPointMasterViewController: UITableViewController {
                 }
             }
             self.collectionPoints[toIndex] = cp
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
             self.updateList()
             self.fetchCollectionPoints()
         }))
@@ -141,7 +145,7 @@ class CollectionPointMasterViewController: UITableViewController {
         for (index, element) in self.collectionPoints.enumerated() {
             let id = element.id
             let parameters: [String: String] = [
-                "sequence": String(index)
+                "sequence": String(index + 1)
             ]
             AF.request(Environment.SERVER_URL + "api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
                 .responseString {
