@@ -33,6 +33,7 @@
 		31920C9C241C074A00A55403 /* RouteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31920C9B241C074A00A55403 /* RouteDetailViewController.swift */; };
 		31920C9F241CD5D900A55403 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31920C9E241CD5D900A55403 /* Location.swift */; };
 		31920CA1241CD63600A55403 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31920CA0241CD63600A55403 /* Customer.swift */; };
+		31A882A524A38A2500C3A692 /* CollectionPointsNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A882A424A38A2500C3A692 /* CollectionPointsNotifications.swift */; };
 		31B09589248F75FC00D560B0 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B09588248F75FC00D560B0 /* Environment.swift */; };
 		31C24F1B2435E6BF000C3206 /* CollectionPointFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C24F1A2435E6BF000C3206 /* CollectionPointFormViewController.swift */; };
 		31C5473F2448C7FE00CE0F6C /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C5473E2448C7FE00CE0F6C /* TaskDetailViewController.swift */; };
@@ -100,6 +101,7 @@
 		31920C9B241C074A00A55403 /* RouteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailViewController.swift; sourceTree = "<group>"; };
 		31920C9E241CD5D900A55403 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		31920CA0241CD63600A55403 /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		31A882A424A38A2500C3A692 /* CollectionPointsNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointsNotifications.swift; sourceTree = "<group>"; };
 		31B09588248F75FC00D560B0 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		31C24F1A2435E6BF000C3206 /* CollectionPointFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointFormViewController.swift; sourceTree = "<group>"; };
 		31C5473E2448C7FE00CE0F6C /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				31C24F1A2435E6BF000C3206 /* CollectionPointFormViewController.swift */,
 				312E9A29242A39980073D165 /* CollectionPointMasterViewController.swift */,
 				312E9A2C242A39F10073D165 /* CollectionPointDetailViewController.swift */,
+				31A882A424A38A2500C3A692 /* CollectionPointsNotifications.swift */,
 			);
 			path = CollectionPoint;
 			sourceTree = "<group>";
@@ -494,6 +497,7 @@
 				317E230423C6306C00F8F0C1 /* SceneDelegate.swift in Sources */,
 				31920CA1241CD63600A55403 /* Customer.swift in Sources */,
 				31EBE46724477FED0023305D /* TaskCollection.swift in Sources */,
+				31A882A524A38A2500C3A692 /* CollectionPointsNotifications.swift in Sources */,
 				31C9AE022480FB4D00161374 /* TaskAddViewController.swift in Sources */,
 				3153653D243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift in Sources */,
 				31F57D1E243A618500903F38 /* Garbage.swift in Sources */,
