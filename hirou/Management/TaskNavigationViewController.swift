@@ -119,6 +119,8 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     var taskCollectionPoints = [TaskCollectionPoint]()
     var annotations = [MGLPointAnnotation]()
     
+    private let notificationCenter = NotificationCenter.default
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -137,6 +139,29 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         
         self.id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
         // Do any additional setup after loading the view.
+        
+        notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .CollectionPointsVListUpdate, object: nil)
+    }
+    
+    deinit {
+        notificationCenter.removeObserver(self, name: .CollectionPointsVListUpdate, object: nil)
+    }
+    
+    @objc
+    func collectionPointUpdateFromVList(_ notification: Notification) {
+        print("called")
+        let tc = notification.object as! TaskCollection
+        for tcp in self.taskCollectionPoints {
+            for num in 0...tcp.taskCollections.count-1 {
+                if tcp.taskCollections[num].id == tc.id {
+                    tcp.taskCollections[num] = tc
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                    return
+                }
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -144,7 +144,7 @@ class TaskCollectionPointTableViewController: UITableViewController {
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
-                    
+                    self.notificationCenter.post(name: .CollectionPointsVListUpdate, object: taskCollectionNew)
 
                 case .failure(let error):
                     print(error)

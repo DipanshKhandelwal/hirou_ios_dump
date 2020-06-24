@@ -20,6 +20,7 @@
 		3159198524A0B7BB009D064B /* GarbageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3159198424A0B7BB009D064B /* GarbageButton.swift */; };
 		315B21B92499147100257D84 /* TaskCollectionPointPagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315B21B72499147100257D84 /* TaskCollectionPointPagerCell.swift */; };
 		315B21BA2499147100257D84 /* TaskCollectionPointPagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315B21B82499147100257D84 /* TaskCollectionPointPagerCell.xib */; };
+		31685D3F24A3738600073493 /* TaskCollectionPointsNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31685D3E24A3738600073493 /* TaskCollectionPointsNotifications.swift */; };
 		317325D62484C2EA00799BD5 /* TaskNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317325D52484C2EA00799BD5 /* TaskNavigationViewController.swift */; };
 		317E230223C6306C00F8F0C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230123C6306C00F8F0C1 /* AppDelegate.swift */; };
 		317E230423C6306C00F8F0C1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230323C6306C00F8F0C1 /* SceneDelegate.swift */; };
@@ -80,6 +81,7 @@
 		3159198424A0B7BB009D064B /* GarbageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarbageButton.swift; sourceTree = "<group>"; };
 		315B21B72499147100257D84 /* TaskCollectionPointPagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TaskCollectionPointPagerCell.swift; path = TaskCollectionPointPager/TaskCollectionPointPagerCell.swift; sourceTree = "<group>"; };
 		315B21B82499147100257D84 /* TaskCollectionPointPagerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TaskCollectionPointPagerCell.xib; path = TaskCollectionPointPager/TaskCollectionPointPagerCell.xib; sourceTree = "<group>"; };
+		31685D3E24A3738600073493 /* TaskCollectionPointsNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionPointsNotifications.swift; sourceTree = "<group>"; };
 		317325D52484C2EA00799BD5 /* TaskNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNavigationViewController.swift; sourceTree = "<group>"; };
 		317E22FE23C6306C00F8F0C1 /* hirou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hirou.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		317E230123C6306C00F8F0C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				31FB0DB22463BF3500856B4C /* TaskCollectionPointTableViewController.swift */,
+				31685D3E24A3738600073493 /* TaskCollectionPointsNotifications.swift */,
 			);
 			path = TaskCollectionPoint;
 			sourceTree = "<group>";
@@ -507,6 +510,7 @@
 				313172682445E5D800585B7F /* TaskTableViewController.swift in Sources */,
 				312E9A2A242A39980073D165 /* CollectionPointMasterViewController.swift in Sources */,
 				319035112442731A0020E152 /* CollectionPointPointAnnotation.swift in Sources */,
+				31685D3F24A3738600073493 /* TaskCollectionPointsNotifications.swift in Sources */,
 				31C5473F2448C7FE00CE0F6C /* TaskDetailViewController.swift in Sources */,
 				31EBE46524477FE40023305D /* TaskCollectionPoint.swift in Sources */,
 				312E7AC12462A7AD00A73363 /* TaskCollectionsTableViewController.swift in Sources */,
@@ -625,6 +629,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = "";
 			};
 			name = Debug;
 		};
@@ -678,6 +683,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = "";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
