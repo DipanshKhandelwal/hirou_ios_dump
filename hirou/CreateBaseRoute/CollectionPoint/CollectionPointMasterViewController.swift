@@ -65,7 +65,7 @@ class CollectionPointMasterViewController: UITableViewController {
         super.viewWillAppear(animated)
     }
     
-    func fetchCollectionPoints(){
+    func fetchCollectionPoints(notify: Bool = false){
         let id = UserDefaults.standard.string(forKey: "selectedRoute")!
         let url = Environment.SERVER_URL + "api/base_route/"+String(id)+"/"
         AF.request(url, method: .get).response { response in
@@ -74,6 +74,9 @@ class CollectionPointMasterViewController: UITableViewController {
                 let route = try! JSONDecoder().decode(BaseRoute.self, from: value!)
                 let newCollectionPoints = route.collectionPoints
                 self.collectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
+                if notify {
+                    self.notificationCenter.post(name: .CollectionPointsTableReorder, object: self.collectionPoints)
+                }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }

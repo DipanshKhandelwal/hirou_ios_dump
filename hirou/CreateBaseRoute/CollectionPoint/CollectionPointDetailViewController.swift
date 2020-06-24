@@ -30,11 +30,14 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         self.addNewPointGesture()
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .CollectionPointsTableSelect, object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(collectionPointReorderFromVList(_:)), name: .CollectionPointsTableReorder, object: nil)
 
     }
     
     deinit {
-         notificationCenter.removeObserver(self, name: .CollectionPointsTableSelect, object: nil)
+        notificationCenter.removeObserver(self, name: .CollectionPointsTableSelect, object: nil)
+        notificationCenter.removeObserver(self, name: .CollectionPointsTableReorder, object: nil)
      }
     
     @objc
@@ -45,6 +48,13 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
                 focusPoint(index: num)
             }
         }
+    }
+    
+    @objc
+    func collectionPointReorderFromVList(_ notification: Notification) {
+        let cps = notification.object as! [CollectionPoint]
+        self.collectionPoints = cps
+        self.addPointsTopMap()
     }
     
     func focusPoint(index: Int) {

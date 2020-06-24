@@ -12,8 +12,13 @@ extension Notification.Name {
     static var CollectionPointsTableSelect: Notification.Name {
         return .init(rawValue: "CollectionPoints.Select.Table")
     }
+    
+    static var CollectionPointsTableReorder: Notification.Name {
+        return .init(rawValue: "CollectionPoints.Reorder.Table")
+    }
 
     static var CollectionPointsMapSelect: Notification.Name {
         return .init(rawValue: "CollectionPoints.Select.Map")
     }
+    
 }
