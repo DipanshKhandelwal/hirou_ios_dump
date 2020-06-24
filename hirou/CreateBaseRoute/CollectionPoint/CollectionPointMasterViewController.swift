@@ -20,6 +20,8 @@ class CollectionPointMasterViewController: UITableViewController {
     var detailViewController: CollectionPointDetailViewController? = nil
     var collectionPoints = [CollectionPoint]()
     
+    private let notificationCenter = NotificationCenter.default
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,6 +39,24 @@ class CollectionPointMasterViewController: UITableViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? CollectionPointDetailViewController
         }
+        
+        notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromMap(_:)), name: .CollectionPointsMapSelect, object: nil)
+
+    }
+    
+    deinit {
+        notificationCenter.removeObserver(self, name: .CollectionPointsMapSelect, object: nil)
+    }
+    
+    @objc
+    func collectionPointUpdateFromMap(_ notification: Notification) {
+        let cp = notification.object as! CollectionPoint
+        for num in 0...self.collectionPoints.count-1 {
+            if self.collectionPoints[num].id == cp.id {
+                self.tableView.selectRow(at: IndexPath(row: num, section: 0), animated: true, scrollPosition: .middle)
+                return
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,7 +65,7 @@ class CollectionPointMasterViewController: UITableViewController {
         super.viewWillAppear(animated)
     }
     
-    func fetchCollectionPoints(){
+    func fetchCollectionPoints(notify: Bool = false){
         let id = UserDefaults.standard.string(forKey: "selectedRoute")!
         let url = Environment.SERVER_URL + "api/base_route/"+String(id)+"/"
         AF.request(url, method: .get).response { response in
@@ -54,6 +74,9 @@ class CollectionPointMasterViewController: UITableViewController {
                 let route = try! JSONDecoder().decode(BaseRoute.self, from: value!)
                 let newCollectionPoints = route.collectionPoints
                 self.collectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
+                if notify {
+                    self.notificationCenter.post(name: .CollectionPointsTableReorder, object: self.collectionPoints)
+                }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -88,6 +111,10 @@ class CollectionPointMasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.notificationCenter.post(name: .CollectionPointsTableSelect, object: self.collectionPoints[indexPath.row])
     }
     
     /*
@@ -136,13 +163,14 @@ class CollectionPointMasterViewController: UITableViewController {
                 self.tableView.reloadData()
             }
             self.updateList()
-            self.fetchCollectionPoints()
         }))
         self.present(updateAlert, animated: true, completion: nil)
     }
     
     func updateList(){
+        let group = DispatchGroup()
         for (index, element) in self.collectionPoints.enumerated() {
+            group.enter()
             let id = element.id
             let parameters: [String: String] = [
                 "sequence": String(index + 1)
@@ -152,24 +180,16 @@ class CollectionPointMasterViewController: UITableViewController {
                     response in
                     switch response.result {
                     case .success( _):
-                        _ = self.navigationController?.popViewController(animated: true)
+                        group.leave()
                         
                     case .failure(let error):
                         print(error)
                     }
             }
         }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "collectionPointsMapSegue" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                print(indexPath.row)
-                let controller = (segue.destination as! UINavigationController).topViewController as! CollectionPointDetailViewController
-                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-                controller.navigationItem.leftItemsSupplementBackButton = true
-                detailViewController = controller
-            }
+        group.notify(queue: .main) {
+            // do something here when loop finished
+            self.fetchCollectionPoints(notify: true)
         }
     }
 }

@@ -20,6 +20,7 @@
 		3159198524A0B7BB009D064B /* GarbageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3159198424A0B7BB009D064B /* GarbageButton.swift */; };
 		315B21B92499147100257D84 /* TaskCollectionPointPagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315B21B72499147100257D84 /* TaskCollectionPointPagerCell.swift */; };
 		315B21BA2499147100257D84 /* TaskCollectionPointPagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315B21B82499147100257D84 /* TaskCollectionPointPagerCell.xib */; };
+		31685D3F24A3738600073493 /* TaskCollectionPointsNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31685D3E24A3738600073493 /* TaskCollectionPointsNotifications.swift */; };
 		317325D62484C2EA00799BD5 /* TaskNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317325D52484C2EA00799BD5 /* TaskNavigationViewController.swift */; };
 		317E230223C6306C00F8F0C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230123C6306C00F8F0C1 /* AppDelegate.swift */; };
 		317E230423C6306C00F8F0C1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230323C6306C00F8F0C1 /* SceneDelegate.swift */; };
@@ -32,6 +33,7 @@
 		31920C9C241C074A00A55403 /* RouteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31920C9B241C074A00A55403 /* RouteDetailViewController.swift */; };
 		31920C9F241CD5D900A55403 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31920C9E241CD5D900A55403 /* Location.swift */; };
 		31920CA1241CD63600A55403 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31920CA0241CD63600A55403 /* Customer.swift */; };
+		31A882A524A38A2500C3A692 /* CollectionPointsNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A882A424A38A2500C3A692 /* CollectionPointsNotifications.swift */; };
 		31B09589248F75FC00D560B0 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B09588248F75FC00D560B0 /* Environment.swift */; };
 		31C24F1B2435E6BF000C3206 /* CollectionPointFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C24F1A2435E6BF000C3206 /* CollectionPointFormViewController.swift */; };
 		31C5473F2448C7FE00CE0F6C /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C5473E2448C7FE00CE0F6C /* TaskDetailViewController.swift */; };
@@ -80,6 +82,7 @@
 		3159198424A0B7BB009D064B /* GarbageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarbageButton.swift; sourceTree = "<group>"; };
 		315B21B72499147100257D84 /* TaskCollectionPointPagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TaskCollectionPointPagerCell.swift; path = TaskCollectionPointPager/TaskCollectionPointPagerCell.swift; sourceTree = "<group>"; };
 		315B21B82499147100257D84 /* TaskCollectionPointPagerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TaskCollectionPointPagerCell.xib; path = TaskCollectionPointPager/TaskCollectionPointPagerCell.xib; sourceTree = "<group>"; };
+		31685D3E24A3738600073493 /* TaskCollectionPointsNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionPointsNotifications.swift; sourceTree = "<group>"; };
 		317325D52484C2EA00799BD5 /* TaskNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNavigationViewController.swift; sourceTree = "<group>"; };
 		317E22FE23C6306C00F8F0C1 /* hirou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hirou.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		317E230123C6306C00F8F0C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +101,7 @@
 		31920C9B241C074A00A55403 /* RouteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailViewController.swift; sourceTree = "<group>"; };
 		31920C9E241CD5D900A55403 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		31920CA0241CD63600A55403 /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		31A882A424A38A2500C3A692 /* CollectionPointsNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointsNotifications.swift; sourceTree = "<group>"; };
 		31B09588248F75FC00D560B0 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		31C24F1A2435E6BF000C3206 /* CollectionPointFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointFormViewController.swift; sourceTree = "<group>"; };
 		31C5473E2448C7FE00CE0F6C /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +160,7 @@
 				31C24F1A2435E6BF000C3206 /* CollectionPointFormViewController.swift */,
 				312E9A29242A39980073D165 /* CollectionPointMasterViewController.swift */,
 				312E9A2C242A39F10073D165 /* CollectionPointDetailViewController.swift */,
+				31A882A424A38A2500C3A692 /* CollectionPointsNotifications.swift */,
 			);
 			path = CollectionPoint;
 			sourceTree = "<group>";
@@ -285,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				31FB0DB22463BF3500856B4C /* TaskCollectionPointTableViewController.swift */,
+				31685D3E24A3738600073493 /* TaskCollectionPointsNotifications.swift */,
 			);
 			path = TaskCollectionPoint;
 			sourceTree = "<group>";
@@ -491,6 +497,7 @@
 				317E230423C6306C00F8F0C1 /* SceneDelegate.swift in Sources */,
 				31920CA1241CD63600A55403 /* Customer.swift in Sources */,
 				31EBE46724477FED0023305D /* TaskCollection.swift in Sources */,
+				31A882A524A38A2500C3A692 /* CollectionPointsNotifications.swift in Sources */,
 				31C9AE022480FB4D00161374 /* TaskAddViewController.swift in Sources */,
 				3153653D243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift in Sources */,
 				31F57D1E243A618500903F38 /* Garbage.swift in Sources */,
@@ -507,6 +514,7 @@
 				313172682445E5D800585B7F /* TaskTableViewController.swift in Sources */,
 				312E9A2A242A39980073D165 /* CollectionPointMasterViewController.swift in Sources */,
 				319035112442731A0020E152 /* CollectionPointPointAnnotation.swift in Sources */,
+				31685D3F24A3738600073493 /* TaskCollectionPointsNotifications.swift in Sources */,
 				31C5473F2448C7FE00CE0F6C /* TaskDetailViewController.swift in Sources */,
 				31EBE46524477FE40023305D /* TaskCollectionPoint.swift in Sources */,
 				312E7AC12462A7AD00A73363 /* TaskCollectionsTableViewController.swift in Sources */,
@@ -625,6 +633,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = "";
 			};
 			name = Debug;
 		};
@@ -678,6 +687,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = "";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

@@ -87,7 +87,7 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
                     }
-                    
+                    self.notificationCenter.post(name: .TaskCollectionPointsHListUpdate, object: taskCollectionNew)
 
                 case .failure(let error):
                     print(error)
@@ -96,13 +96,11 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
     }
     
     func pagerViewWillEndDragging(_ pagerView: FSPagerView, targetIndex: Int) {
-        mapView.setCenter(self.annotations[targetIndex].coordinate, zoomLevel: 18, direction: -1, animated: true)
-        mapView.selectAnnotation(self.annotations[targetIndex], animated: false, completionHandler: nil)
+        focusPoint(index: targetIndex)
     }
 
     func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
-        mapView.setCenter(self.annotations[index].coordinate, zoomLevel: 18, direction: -1, animated: true)
-        mapView.selectAnnotation(self.annotations[index], animated: false, completionHandler: nil)
+        focusPoint(index: index)
     }
 }
 
@@ -118,6 +116,8 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     var selectedTaskCollectionPoint: TaskCollectionPoint!
     var taskCollectionPoints = [TaskCollectionPoint]()
     var annotations = [MGLPointAnnotation]()
+    
+    private let notificationCenter = NotificationCenter.default
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,6 +137,47 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         
         self.id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
         // Do any additional setup after loading the view.
+        
+        notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .TaskCollectionPointsVListUpdate, object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .TaskCollectionPointsHListSelect, object: nil)
+    }
+    
+    deinit {
+        notificationCenter.removeObserver(self, name: .TaskCollectionPointsVListUpdate, object: nil)
+        notificationCenter.removeObserver(self, name: .TaskCollectionPointsHListSelect, object: nil)
+    }
+
+    @objc
+    func collectionPointUpdateFromVList(_ notification: Notification) {
+        print("called")
+        let tc = notification.object as! TaskCollection
+        for tcp in self.taskCollectionPoints {
+            for num in 0...tcp.taskCollections.count-1 {
+                if tcp.taskCollections[num].id == tc.id {
+                    tcp.taskCollections[num] = tc
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                    return
+                }
+            }
+        }
+    }
+    
+    @objc
+    func collectionPointSelectFromVList(_ notification: Notification) {
+        let tc = notification.object as! TaskCollectionPoint
+        for num in 0...self.taskCollectionPoints.count-1 {
+            if tc.id == self.taskCollectionPoints[num].id {
+                focusPoint(index: num)
+            }
+        }
+    }
+    
+    func focusPoint(index: Int) {
+        mapView.setCenter(self.annotations[index].coordinate, zoomLevel: 18, direction: -1, animated: true)
+        mapView.selectAnnotation(self.annotations[index], animated: false, completionHandler: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -270,7 +311,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             if cp.location.latitude == String(annotation.coordinate.latitude) {
                 self.selectedTaskCollectionPoint = self.taskCollectionPoints[currentIndex];
                 collectionView.selectItem(at: currentIndex, animated: true)
-                
+                self.notificationCenter.post(name: .TaskCollectionPointsMapSelect, object: self.taskCollectionPoints[currentIndex])
                 break
             }
             currentIndex += 1

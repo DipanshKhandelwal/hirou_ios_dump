@@ -19,6 +19,8 @@ class TaskCollectionPointCell: UITableViewCell {
 class TaskCollectionPointTableViewController: UITableViewController {
     var taskCollectionPoints: [TaskCollectionPoint] = []
     
+    private let notificationCenter = NotificationCenter.default
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,6 +29,42 @@ class TaskCollectionPointTableViewController: UITableViewController {
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromHList(_:)), name: .TaskCollectionPointsHListUpdate, object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromMap(_:)), name: .TaskCollectionPointsMapSelect, object: nil)
+    }
+    
+    deinit {
+        notificationCenter.removeObserver(self, name: .TaskCollectionPointsHListUpdate, object: nil)
+        notificationCenter.removeObserver(self, name: .TaskCollectionPointsMapSelect, object: nil)
+    }
+    
+    @objc
+    func collectionPointUpdateFromHList(_ notification: Notification) {
+        print("called")
+        let tc = notification.object as! TaskCollection
+        for tcp in self.taskCollectionPoints {
+            for num in 0...tcp.taskCollections.count-1 {
+                if tcp.taskCollections[num].id == tc.id {
+                    tcp.taskCollections[num] = tc
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                    return
+                }
+            }
+        }
+    }
+    
+    @objc
+    func collectionPointSelectFromMap(_ notification: Notification) {
+        let tcp = notification.object as! TaskCollectionPoint
+        for num in 0...self.taskCollectionPoints.count-1 {
+            if self.taskCollectionPoints[num].id == tcp.id {
+                self.tableView.selectRow(at: IndexPath(row: num, section: 0), animated: true, scrollPosition: .middle)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,6 +132,10 @@ class TaskCollectionPointTableViewController: UITableViewController {
         }
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.notificationCenter.post(name: .TaskCollectionPointsHListSelect, object: self.taskCollectionPoints[indexPath.row])
+    }
 
     @objc
     func pressed(sender: GarbageButton) {
@@ -119,7 +161,7 @@ class TaskCollectionPointTableViewController: UITableViewController {
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
-                    
+                    self.notificationCenter.post(name: .TaskCollectionPointsVListUpdate, object: taskCollectionNew)
 
                 case .failure(let error):
                     print(error)

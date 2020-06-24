@@ -19,6 +19,8 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     var collectionPoints = [CollectionPoint]()
     var annotations = [CollectionPointPointAnnotation]()
     
+    private let notificationCenter = NotificationCenter.default
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -26,6 +28,38 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         
         self.id = UserDefaults.standard.string(forKey: "selectedRoute")!
         self.addNewPointGesture()
+        
+        notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .CollectionPointsTableSelect, object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(collectionPointReorderFromVList(_:)), name: .CollectionPointsTableReorder, object: nil)
+
+    }
+    
+    deinit {
+        notificationCenter.removeObserver(self, name: .CollectionPointsTableSelect, object: nil)
+        notificationCenter.removeObserver(self, name: .CollectionPointsTableReorder, object: nil)
+     }
+    
+    @objc
+    func collectionPointSelectFromVList(_ notification: Notification) {
+        let cp = notification.object as! CollectionPoint
+        for num in 0...self.collectionPoints.count-1 {
+            if cp.id == self.collectionPoints[num].id {
+                focusPoint(index: num)
+            }
+        }
+    }
+    
+    @objc
+    func collectionPointReorderFromVList(_ notification: Notification) {
+        let cps = notification.object as! [CollectionPoint]
+        self.collectionPoints = cps
+        self.addPointsTopMap()
+    }
+    
+    func focusPoint(index: Int) {
+        mapView.setCenter(self.annotations[index].coordinate, zoomLevel: 22, direction: -1, animated: true)
+        mapView.selectAnnotation(self.annotations[index], animated: false, completionHandler: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -161,6 +195,21 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
         return true
+    }
+    
+    func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
+        if annotation.title == "New Collection Point" {
+            return
+        }
+        var currentIndex = 0
+        for cp in self.collectionPoints {
+            if cp.location.latitude == String(annotation.coordinate.latitude) {
+                self.selectedCollectionPoint = self.collectionPoints[currentIndex];
+                self.notificationCenter.post(name: .CollectionPointsMapSelect, object: self.collectionPoints[currentIndex])
+                break
+            }
+            currentIndex += 1
+        }
     }
     
     func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
