@@ -87,7 +87,7 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
                     }
-                    
+                    self.notificationCenter.post(name: .CollectionPointsHListUpdate, object: taskCollectionNew)
 
                 case .failure(let error):
                     print(error)

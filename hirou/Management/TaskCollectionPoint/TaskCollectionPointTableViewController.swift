@@ -19,6 +19,8 @@ class TaskCollectionPointCell: UITableViewCell {
 class TaskCollectionPointTableViewController: UITableViewController {
     var taskCollectionPoints: [TaskCollectionPoint] = []
     
+    private let notificationCenter = NotificationCenter.default
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,6 +29,29 @@ class TaskCollectionPointTableViewController: UITableViewController {
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromHList(_:)), name: .CollectionPointsHListUpdate, object: nil)
+    }
+    
+    deinit {
+        notificationCenter.removeObserver(self, name: .CollectionPointsHListUpdate, object: nil)
+    }
+    
+    @objc
+    func collectionPointUpdateFromHList(_ notification: Notification) {
+        print("called")
+        let tc = notification.object as! TaskCollection
+        for tcp in self.taskCollectionPoints {
+            for num in 0...tcp.taskCollections.count-1 {
+                if tcp.taskCollections[num].id == tc.id {
+                    tcp.taskCollections[num] = tc
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                    return
+                }
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
