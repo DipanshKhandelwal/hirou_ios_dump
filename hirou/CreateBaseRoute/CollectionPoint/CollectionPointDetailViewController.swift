@@ -187,6 +187,21 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         return true
     }
     
+    func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
+        if annotation.title == "New Collection Point" {
+            return
+        }
+        var currentIndex = 0
+        for cp in self.collectionPoints {
+            if cp.location.latitude == String(annotation.coordinate.latitude) {
+                self.selectedCollectionPoint = self.collectionPoints[currentIndex];
+                self.notificationCenter.post(name: .CollectionPointsMapSelect, object: self.collectionPoints[currentIndex])
+                break
+            }
+            currentIndex += 1
+        }
+    }
+    
     func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         label.textAlignment = .center

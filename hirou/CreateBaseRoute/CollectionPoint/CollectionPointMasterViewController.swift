@@ -39,6 +39,24 @@ class CollectionPointMasterViewController: UITableViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? CollectionPointDetailViewController
         }
+        
+        notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromMap(_:)), name: .CollectionPointsMapSelect, object: nil)
+
+    }
+    
+    deinit {
+        notificationCenter.removeObserver(self, name: .CollectionPointsMapSelect, object: nil)
+    }
+    
+    @objc
+    func collectionPointUpdateFromMap(_ notification: Notification) {
+        let cp = notification.object as! CollectionPoint
+        for num in 0...self.collectionPoints.count-1 {
+            if self.collectionPoints[num].id == cp.id {
+                self.tableView.selectRow(at: IndexPath(row: num, section: 0), animated: true, scrollPosition: .middle)
+                return
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
