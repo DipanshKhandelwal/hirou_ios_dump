@@ -311,6 +311,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             if cp.location.latitude == String(annotation.coordinate.latitude) {
                 self.selectedTaskCollectionPoint = self.taskCollectionPoints[currentIndex];
                 collectionView.selectItem(at: currentIndex, animated: true)
+                self.notificationCenter.post(name: .CollectionPointsMapSelect, object: self.taskCollectionPoints[currentIndex])
                 break
             }
             currentIndex += 1

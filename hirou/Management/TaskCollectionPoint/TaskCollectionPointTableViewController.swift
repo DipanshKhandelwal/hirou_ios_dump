@@ -31,10 +31,13 @@ class TaskCollectionPointTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromHList(_:)), name: .CollectionPointsHListUpdate, object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromMap(_:)), name: .CollectionPointsMapSelect, object: nil)
     }
     
     deinit {
         notificationCenter.removeObserver(self, name: .CollectionPointsHListUpdate, object: nil)
+        notificationCenter.removeObserver(self, name: .CollectionPointsMapSelect, object: nil)
     }
     
     @objc
@@ -50,6 +53,16 @@ class TaskCollectionPointTableViewController: UITableViewController {
                     }
                     return
                 }
+            }
+        }
+    }
+    
+    @objc
+    func collectionPointSelectFromMap(_ notification: Notification) {
+        let tcp = notification.object as! TaskCollectionPoint
+        for num in 0...self.taskCollectionPoints.count-1 {
+            if self.taskCollectionPoints[num].id == tcp.id {
+                self.tableView.selectRow(at: IndexPath(row: num, section: 0), animated: true, scrollPosition: .middle)
             }
         }
     }
