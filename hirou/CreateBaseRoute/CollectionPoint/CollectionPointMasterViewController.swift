@@ -20,6 +20,8 @@ class CollectionPointMasterViewController: UITableViewController {
     var detailViewController: CollectionPointDetailViewController? = nil
     var collectionPoints = [CollectionPoint]()
     
+    private let notificationCenter = NotificationCenter.default
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -88,6 +90,10 @@ class CollectionPointMasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.notificationCenter.post(name: .CollectionPointsTableSelect, object: self.collectionPoints[indexPath.row])
     }
     
     /*
