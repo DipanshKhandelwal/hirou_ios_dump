@@ -241,18 +241,22 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         waypoints.append(Waypoint(coordinate: coordinate))
         
         let options = NavigationRouteOptions(waypoints: waypoints)
-        Directions.shared.calculate(options) { (waypoints, routes, error) in
-            guard let route = routes?.first, error == nil else {
-                print(error!.localizedDescription)
-                return
+        Directions.shared.calculate(options) { [weak self] (session, result) in
+            switch result {
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .success(let response):
+                guard let route = response.routes?.first, let strongSelf = self else {
+                    return
+                }
+                
+                let navigationService = MapboxNavigationService(route: route, routeOptions: options, simulating: .never)
+                let navigationOptions = NavigationOptions(navigationService: navigationService)
+                let navigationViewController = NavigationViewController(for: route, routeOptions: options, navigationOptions: navigationOptions)
+                navigationViewController.modalPresentationStyle = .fullScreen
+                
+                strongSelf.present(navigationViewController, animated: true, completion: nil)
             }
-            
-            let navigationService = MapboxNavigationService(route: route, simulating: .never)
-            let navigationOptions = NavigationOptions(navigationService: navigationService)
-            let navigationViewController = NavigationViewController(for: route, options: navigationOptions)
-            navigationViewController.delegate = self
-            
-            self.present(navigationViewController, animated: true, completion: nil)
         }
     }
     

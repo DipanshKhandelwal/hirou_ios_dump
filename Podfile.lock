@@ -2,22 +2,27 @@ PODS:
   - Alamofire (5.0.0-rc.3)
   - FSPagerView (0.8.3)
   - JTAppleCalendar (7.1.8)
-  - Mapbox-iOS-SDK (5.5.0)
-  - MapboxCoreNavigation (0.38.2):
-    - MapboxDirections.swift (~> 0.30.0)
-    - MapboxMobileEvents (~> 0.9.5)
+  - Mapbox-iOS-SDK (5.9.0):
+    - MapboxMobileEvents (= 0.10.2)
+  - MapboxAccounts (2.2.0)
+  - MapboxCoreNavigation (0.40.0):
+    - MapboxAccounts (~> 2.2.0)
+    - MapboxDirections (~> 0.31.0)
+    - MapboxMobileEvents (~> 0.10.2)
     - MapboxNavigationNative (~> 6.2.1)
     - Turf (~> 0.3.0)
-  - MapboxDirections.swift (0.30.0):
+  - MapboxDirections (0.31.0):
     - Polyline (~> 4.2)
-  - MapboxMobileEvents (0.9.5)
-  - MapboxNavigation (0.38.2):
-    - Mapbox-iOS-SDK (~> 5.5.0)
-    - MapboxCoreNavigation (= 0.38.2)
-    - MapboxSpeech (~> 0.1.0)
+    - Turf (~> 0.3)
+  - MapboxMobileEvents (0.10.2)
+  - MapboxNavigation (0.40.0):
+    - Mapbox-iOS-SDK (~> 5.6)
+    - MapboxCoreNavigation (= 0.40.0)
+    - MapboxMobileEvents (~> 0.10.2)
+    - MapboxSpeech (~> 0.3.0)
     - Solar (~> 2.1)
   - MapboxNavigationNative (6.2.1)
-  - MapboxSpeech (0.1.1)
+  - MapboxSpeech (0.3.0)
   - Polyline (4.2.1)
   - Solar (2.1.0)
   - Turf (0.3.0)
@@ -26,8 +31,8 @@ DEPENDENCIES:
   - Alamofire (~> 5.0.0-rc.3)
   - FSPagerView
   - JTAppleCalendar (~> 7.1)
-  - Mapbox-iOS-SDK (~> 5.5)
-  - MapboxNavigation (~> 0.38.2)
+  - Mapbox-iOS-SDK (~> 5.9)
+  - MapboxNavigation (~> 0.40.0)
 
 SPEC REPOS:
   trunk:
@@ -35,8 +40,9 @@ SPEC REPOS:
     - FSPagerView
     - JTAppleCalendar
     - Mapbox-iOS-SDK
+    - MapboxAccounts
     - MapboxCoreNavigation
-    - MapboxDirections.swift
+    - MapboxDirections
     - MapboxMobileEvents
     - MapboxNavigation
     - MapboxNavigationNative
@@ -49,17 +55,18 @@ SPEC CHECKSUMS:
   Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   JTAppleCalendar: b7fb40852f5f319fe55c8ec3861f1de0edc99cc8
-  Mapbox-iOS-SDK: 7fa66a27e586acb14c7f32ec5a487343e3994451
-  MapboxCoreNavigation: c94d4f82ffcb7899192a1a89079b702752c5870f
-  MapboxDirections.swift: 6be6f756176b2c16f308093cc4724fa82ce33b12
-  MapboxMobileEvents: f6c21b2e59066c5c7093585de7c15adae3b63da0
-  MapboxNavigation: f65d6f818107333474fc0de4ecd9afb58269c39f
+  Mapbox-iOS-SDK: a5915700ec84bc1a7f8b3e746d474789e35b7956
+  MapboxAccounts: f9716ba2cc66013e44ef93e0e16cfa1049f3aeec
+  MapboxCoreNavigation: 2856c46bd064bb11c406ba00191d579cda424efa
+  MapboxDirections: 0b97aa320d7cddbe72d6513becc07dd747935240
+  MapboxMobileEvents: 2bc0ca2eedb627b73cf403258dce2b2fa98074a6
+  MapboxNavigation: 42bae50b0381dce317c85884ba0de38fc68a4814
   MapboxNavigationNative: 11dc22140f4698d3f26989f2b6379dc81ef0d4c1
-  MapboxSpeech: 59b3984d3f433a443d24acf53097f918c5cc70f9
+  MapboxSpeech: 403415e932e084cf290b9d55c49ab7ea210b9595
   Polyline: 0e9890790292741c8186201a536b6bb6a78d02dd
   Solar: 2dc6e7cc39186cb0c8228fa08df76fb50c7d8f24
   Turf: c6bdf62d6a70c647874f295dd1cf4eefc0c3e9e6
 
-PODFILE CHECKSUM: b4bd4196055bf3e0767653fe0f1feb5c0f542cca
+PODFILE CHECKSUM: e153573b3584d607574b3c0584fb8b6a2fb778d3
 
 COCOAPODS: 1.9.3
