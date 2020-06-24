@@ -20,4 +20,8 @@ extension Notification.Name {
     static var CollectionPointsHListSelect: Notification.Name {
         return .init(rawValue: "CollectionPoints.Select.VList")
     }
+    
+    static var CollectionPointsMapSelect: Notification.Name {
+        return .init(rawValue: "CollectionPoints.Select.Map")
+    }
 }
