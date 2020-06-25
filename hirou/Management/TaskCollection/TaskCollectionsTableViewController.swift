@@ -18,6 +18,8 @@ class TaskCollectionsCell : UITableViewCell {
 class TaskCollectionsTableViewController: UITableViewController {
     var taskCollections = [TaskCollection]()
     
+    private let notificationCenter = NotificationCenter.default
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //        self.title = "Collections"
@@ -27,6 +29,25 @@ class TaskCollectionsTableViewController: UITableViewController {
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         //         self.navigationItem.rightBarButtonItem = self.editButtonItem
+        notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .TaskCollectionPointsVListUpdate, object: nil)
+    }
+    
+    deinit {
+        notificationCenter.removeObserver(self, name: .TaskCollectionPointsVListUpdate, object: nil)
+    }
+    
+    @objc
+    func collectionPointUpdateFromVList(_ notification: Notification) {
+        let tc = notification.object as! TaskCollection
+        for num in 0...self.taskCollections.count-1 {
+            if self.taskCollections[num].id == tc.id {
+                self.taskCollections[num] = tc
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                return
+            }
+        }
     }
     
     var detailItem: Any? {
