@@ -18,27 +18,26 @@ class TaskTableViewCell: UITableViewCell {
 
 class TaskTableViewController: UITableViewController {
     var taskRoutes = [TaskRoute]()
-    
     var delegate: PageViewController!
-
-//    var date: Date!
     
     var date: Date? {
          didSet {
              if let foundDate = date {
-                 print("datatataa", foundDate)
+                 fetchTasks(dateToFetch: foundDate)
              }
          }
      }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        fetchTasks(dateToFetch: self.date ?? Date())
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        AF.request(Environment.SERVER_URL + "api/task_route/", method: .get).response { response in
+    
+    func fetchTasks(dateToFetch: Date) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateStr = dateFormatter.string(from: dateToFetch)
+        let parameters: Parameters = [ "date": dateStr ]
+        AF.request(Environment.SERVER_URL + "api/task_route/", method: .get, parameters: parameters).response { response in
             //to get status code
             switch response.result {
             case .success(let value):
@@ -53,10 +52,8 @@ class TaskTableViewController: UITableViewController {
             }
         }
     }
-    
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -71,9 +68,7 @@ class TaskTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskTableCell", for: indexPath) as! TaskTableViewCell
         
         let taskRoute = self.taskRoutes[indexPath.row]
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        cell.routeName?.text = taskRoute.name + " -> " + dateFormatter.string(from: taskRoute.date)
+        cell.routeName?.text = taskRoute.name
         cell.routeCustomer?.text = taskRoute.customer?.name ?? "n/a"
 
         cell.routeGarbageList?.text = taskRoute.getGarbagesNameList()

@@ -91,6 +91,8 @@ class PageViewController: UIPageViewController {
         toolBar.items = [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.onDoneButtonClick))]
         toolBar.sizeToFit()
         self.view.addSubview(toolBar)
+        
+        datePicker.setDate(self.date, animated: false)
     }
     
     @objc func dateChanged(_ sender: UIDatePicker?) {
