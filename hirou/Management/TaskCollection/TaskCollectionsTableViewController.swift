@@ -100,6 +100,7 @@ class TaskCollectionsTableViewController: UITableViewController {
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
+                    self.notificationCenter.post(name: .TaskCollectionPointsHListUpdate, object: taskCollection)
 
                 case .failure(let error):
                     print(error)
