@@ -273,12 +273,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         // Pass the selected object to the new view controller.
         if segue.identifier == "addCollectionPoint" {
             let controller = (segue.destination as! CollectionPointFormViewController)
-            let lat = self.newAnnotation.coordinate.latitude
-            let long = self.newAnnotation.coordinate.longitude
-            let loc = Location(latitude: String(lat), longitude: String(long))!
-            let seq = self.collectionPoints.count
-            let cp = CollectionPoint(id: -1, name: "", address: "", memo: "", route: Int(self.id) ?? -1, location: loc, sequence: seq, image: "")
-            controller.detailItem = cp
+            controller.detailItem = self.newAnnotation.collectionPoint
         }
         
         if segue.identifier == "editCollectionPoint" {
