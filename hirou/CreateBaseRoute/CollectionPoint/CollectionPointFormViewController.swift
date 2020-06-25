@@ -18,7 +18,6 @@ class CollectionPointFormViewController: UIViewController {
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     
-    var annotationView: CollectionPointDraggableAnnotationView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +40,9 @@ class CollectionPointFormViewController: UIViewController {
     }
     
     func saveCPCall() {
-        let id = (detailItem as! CollectionPoint).id
+        let cp = (detailItem as! CollectionPoint)
+        
+        let id = cp.id
         if id != -1 {
             let id = String((detailItem as! CollectionPoint).id)
             let parameters: [String: String] = [
@@ -63,10 +64,12 @@ class CollectionPointFormViewController: UIViewController {
                     }
             }
         } else {
-            let routeId = (detailItem as! CollectionPoint).route
+            let routeId = cp.route
+            let location = cp.location.latitude + "," + cp.location.longitude
+
             let parameters: [String: String] = [
                 "name": String(self.cpNameLabel.text!),
-                "location": String(self.annotationView.annotation!.coordinate.latitude) + "," + String(self.annotationView.annotation!.coordinate.longitude),
+                "location": location,
                 "address": self.cpAddressLabel.text ?? "",
                 "memo": self.cpMemo.text ?? "",
                 "route": String(routeId),
