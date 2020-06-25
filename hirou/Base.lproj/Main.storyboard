@@ -1387,8 +1387,8 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collection Point Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NoP-Ta-uoU" userLabel="Collection Point Address">
-                                            <rect key="frame" x="36" y="41" width="139" height="15"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collection Point Memo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NoP-Ta-uoU">
+                                            <rect key="frame" x="36" y="41" width="127.5" height="15"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
@@ -1405,8 +1405,8 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
-                                    <outlet property="collectionPointAddressLabel" destination="NoP-Ta-uoU" id="cc6-1I-JR7"/>
                                     <outlet property="collectionPointIndexLabel" destination="rcp-Fd-uef" id="1QH-Go-Nkk"/>
+                                    <outlet property="collectionPointMemoLabel" destination="NoP-Ta-uoU" id="k0E-M5-9n8"/>
                                     <outlet property="collectionPointNameLabel" destination="szn-tL-5Fp" id="hH1-HJ-6RZ"/>
                                 </connections>
                             </tableViewCell>

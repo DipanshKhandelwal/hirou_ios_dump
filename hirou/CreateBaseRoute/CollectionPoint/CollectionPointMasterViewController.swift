@@ -12,7 +12,7 @@ import Alamofire
 class CollectionPointTableViewCell : UITableViewCell {
     @IBOutlet weak var collectionPointIndexLabel: UILabel!
     @IBOutlet weak var collectionPointNameLabel: UILabel!
-    @IBOutlet weak var collectionPointAddressLabel: UILabel!
+    @IBOutlet weak var collectionPointMemoLabel: UILabel!
 }
 
 class CollectionPointMasterViewController: UITableViewController {
@@ -102,7 +102,7 @@ class CollectionPointMasterViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "collectionPointCell", for: indexPath) as! CollectionPointTableViewCell
         let collectionPoint = collectionPoints[indexPath.row]
         cell.collectionPointNameLabel!.text = collectionPoint.name
-        cell.collectionPointAddressLabel!.text = collectionPoint.address
+        cell.collectionPointMemoLabel!.text = collectionPoint.memo
         cell.collectionPointIndexLabel!.text = String(collectionPoint.sequence)
         return cell
     }
