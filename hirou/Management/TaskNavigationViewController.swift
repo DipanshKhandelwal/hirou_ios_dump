@@ -135,12 +135,21 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         collectionView.itemSize = collectionView.frame.size.applying(transform)
         collectionView.decelerationDistance = FSPagerView.automaticDistance
         
+        let button1 = UIBarButtonItem(image: UIImage(systemName: "mappin.and.ellipse"), style: .plain, target: self, action: #selector(goToUserLocation))
+        navigationItem.setRightBarButtonItems([button1], animated: true)
+        
         self.id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
         // Do any additional setup after loading the view.
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .TaskCollectionPointsVListUpdate, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .TaskCollectionPointsHListSelect, object: nil)
+    }
+    
+    @objc
+    func goToUserLocation() {
+        let userCoordinate = (mapView.userLocation?.coordinate)!
+        mapView.setCenter(userCoordinate, zoomLevel: 18, animated: true)
     }
     
     deinit {
