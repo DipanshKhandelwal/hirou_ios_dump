@@ -136,7 +136,8 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         collectionView.decelerationDistance = FSPagerView.automaticDistance
         
         let button1 = UIBarButtonItem(image: UIImage(systemName: "mappin.and.ellipse"), style: .plain, target: self, action: #selector(goToUserLocation))
-        navigationItem.setRightBarButtonItems([button1], animated: true)
+        let button2 = UIBarButtonItem(image: UIImage(systemName: "selection.pin.in.out"), style: .plain, target: self, action: #selector(adjustMap))
+        navigationItem.setRightBarButtonItems([button1, button2], animated: true)
         
         self.id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
         // Do any additional setup after loading the view.
@@ -150,6 +151,11 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     func goToUserLocation() {
         let userCoordinate = (mapView.userLocation?.coordinate)!
         mapView.setCenter(userCoordinate, zoomLevel: 18, animated: true)
+    }
+    
+    @objc
+    func adjustMap() {
+        handleAutomaticZoom()
     }
     
     deinit {
