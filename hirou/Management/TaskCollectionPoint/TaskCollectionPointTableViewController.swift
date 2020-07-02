@@ -115,6 +115,18 @@ class TaskCollectionPointTableViewController: UITableViewController {
         cell.garbageStack.spacing = 10
         cell.garbageStack.axis = .horizontal
         cell.garbageStack.distribution = .equalCentering
+        
+        let toggleAllTasksButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        toggleAllTasksButton.tag = indexPath.row;
+        toggleAllTasksButton.addTarget(self, action: #selector(TaskNavigationViewController.toggleAllTasks(sender:)), for: .touchDown)
+        toggleAllTasksButton.layer.backgroundColor = tcp.getCompleteStatus() ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
+        toggleAllTasksButton.layer.borderWidth = 2
+        toggleAllTasksButton.layer.borderColor = UIColor.red.cgColor
+        toggleAllTasksButton.layer.cornerRadius = 10
+        toggleAllTasksButton.setTitle("*", for: .normal)
+        toggleAllTasksButton.titleLabel?.font = toggleAllTasksButton.titleLabel?.font.withSize(20)
+        toggleAllTasksButton.setTitleColor(.black, for: .normal)
+        cell.garbageStack.addArrangedSubview(toggleAllTasksButton)
 
         for num in 0...tcp.taskCollections.count-1 {
             let taskCollection = tcp.taskCollections[num];
@@ -135,6 +147,37 @@ class TaskCollectionPointTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.notificationCenter.post(name: .TaskCollectionPointsHListSelect, object: self.taskCollectionPoints[indexPath.row])
+    }
+    
+    @objc
+    func toggleAllTasks(sender: UIButton) {
+        let taskCollectionPoint = self.taskCollectionPoints[sender.tag]
+        let completed = taskCollectionPoint.getCompleteStatus()
+        for x in 0...taskCollectionPoint.taskCollections.count-1 {
+            let taskCollection = taskCollectionPoint.taskCollections[x]
+            let url = Environment.SERVER_URL + "api/task_collection/"+String(taskCollection.id)+"/"
+            let values = [ "complete": !completed ] as [String : Any?]
+            var request = URLRequest(url: try! url.asURL())
+            request.httpMethod = "PATCH"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = try! JSONSerialization.data(withJSONObject: values)
+            AF.request(request)
+                .response {
+                    response in
+                    switch response.result {
+                    case .success(let value):
+                        let taskCollectionNew = try! JSONDecoder().decode(TaskCollection.self, from: value!)
+                        self.taskCollectionPoints[sender.tag].taskCollections[x] = taskCollectionNew
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
+                        self.notificationCenter.post(name: .TaskCollectionPointsVListUpdate, object: taskCollectionNew)
+
+                    case .failure(let error):
+                        print(error)
+                    }
+            }
+        }
     }
 
     @objc
