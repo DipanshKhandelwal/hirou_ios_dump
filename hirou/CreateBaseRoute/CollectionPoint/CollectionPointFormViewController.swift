@@ -176,6 +176,15 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
             if let label = self.cpSequence {
                 label.text = String(collectionPoint.sequence )
             }
+            
+            if let image = self.imageView {
+                if collectionPoint.image != nil {
+                    let url = NSURL(string: collectionPoint.image!)! as URL
+                      if let imageData: NSData = NSData(contentsOf: url) {
+                          image.image = UIImage(data: imageData as Data)
+                      }
+                }
+            }
 
             if collectionPoint.id == -1 {
                 if let button = self.deleteButton {
