@@ -45,6 +45,27 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
         self.imageView.image = image
         let imgData = image!.jpegData(compressionQuality: 0.2)!
 //         let params = ["name": "rname"] //Optional for extra parameter
+        
+        let id = String((detailItem as! CollectionPoint).id)
+        AF.upload(multipartFormData: { multiPart in
+            multiPart.append(imgData, withName: "image", fileName: "/152/image.png", mimeType: "image/png")
+        },
+        to: Environment.SERVER_URL + "api/collection_point/"+String(id)+"/",
+        method: .patch
+        )
+        .uploadProgress( queue: .main, closure: {
+            progress in
+            print("Upload Progress: \(progress.fractionCompleted)")
+        }).responseJSON(completionHandler: { data in
+            print("upload finished: \(data)")
+        }).response { (response) in
+            switch response.result {
+            case .success(let result):
+                print("upload success result: \(result)")
+            case .failure(let err):
+                print("upload err: \(err)")
+            }
+        }
     }
 
     @objc
