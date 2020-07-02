@@ -9,8 +9,8 @@
 import UIKit
 import Alamofire
 
-class CollectionPointFormViewController: UIViewController {
-    
+class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
+
     @IBOutlet weak var cpNameLabel: UITextField!
     @IBOutlet weak var cpAddressLabel: UITextField!
     @IBOutlet weak var cpSequence: UITextField!
@@ -18,6 +18,9 @@ class CollectionPointFormViewController: UIViewController {
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     
+    
+    @IBOutlet weak var imageView: UIImageView!
+    var imagePicker: ImagePicker!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +32,21 @@ class CollectionPointFormViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
         
+        self.imagePicker = ImagePicker(presentationController: self, delegate: self)
+        
         configureView()
     }
     
+    @IBAction func showImagePicker(_ sender: UIButton) {
+        self.imagePicker.present(from: sender)
+    }
+    
+    func didSelect(image: UIImage?) {
+        self.imageView.image = image
+        let imgData = image!.jpegData(compressionQuality: 0.2)!
+//         let params = ["name": "rname"] //Optional for extra parameter
+    }
+
     @objc
     func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         self.cpNameLabel.resignFirstResponder()

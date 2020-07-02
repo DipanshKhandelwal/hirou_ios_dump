@@ -1449,9 +1449,11 @@
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C9L-qO-Bvl">
                                                         <rect key="frame" x="735" y="268" width="25" height="24"/>
+                                                        <connections>
+                                                            <action selector="showImagePicker:" destination="RU1-ST-XiR" eventType="touchUpInside" id="Ngb-rA-Knw"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="300" id="3Ws-CY-tQU"/>
                                                     <constraint firstItem="17n-aA-UIf" firstAttribute="height" secondItem="UsI-YE-wNl" secondAttribute="height" id="6KY-Y1-pZx"/>
@@ -1596,6 +1598,7 @@
                         <outlet property="cpNameLabel" destination="Gti-ze-RES" id="dDA-3C-MIH"/>
                         <outlet property="cpSequence" destination="1vP-VF-JZR" id="9CW-Sm-dhS"/>
                         <outlet property="deleteButton" destination="7kb-dl-Rrg" id="nQf-5v-D5F"/>
+                        <outlet property="imageView" destination="17n-aA-UIf" id="azT-Ji-g9S"/>
                         <outlet property="saveButton" destination="q5y-ID-0hj" id="zAg-nV-E4s"/>
                     </connections>
                 </viewController>

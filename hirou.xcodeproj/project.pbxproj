@@ -29,6 +29,7 @@
 		317E231023C6306D00F8F0C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 317E230E23C6306D00F8F0C1 /* LaunchScreen.storyboard */; };
 		317E231B23C6306D00F8F0C1 /* hirouTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E231A23C6306D00F8F0C1 /* hirouTests.swift */; };
 		317E232623C6306D00F8F0C1 /* hirouUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E232523C6306D00F8F0C1 /* hirouUITests.swift */; };
+		31803C2C24AC735D00B8D1C8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31803C2B24AC735D00B8D1C8 /* ImagePicker.swift */; };
 		319035112442731A0020E152 /* CollectionPointPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319035102442731A0020E152 /* CollectionPointPointAnnotation.swift */; };
 		31920C9C241C074A00A55403 /* RouteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31920C9B241C074A00A55403 /* RouteDetailViewController.swift */; };
 		31920C9F241CD5D900A55403 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31920C9E241CD5D900A55403 /* Location.swift */; };
@@ -97,6 +98,7 @@
 		317E232123C6306D00F8F0C1 /* hirouUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hirouUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		317E232523C6306D00F8F0C1 /* hirouUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hirouUITests.swift; sourceTree = "<group>"; };
 		317E232723C6306D00F8F0C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		31803C2B24AC735D00B8D1C8 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		319035102442731A0020E152 /* CollectionPointPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointPointAnnotation.swift; sourceTree = "<group>"; };
 		31920C9B241C074A00A55403 /* RouteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailViewController.swift; sourceTree = "<group>"; };
 		31920C9E241CD5D900A55403 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				3153653C243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift */,
 				319035102442731A0020E152 /* CollectionPointPointAnnotation.swift */,
 				31C9AE032481097B00161374 /* DisabledUITextField.swift */,
+				31803C2B24AC735D00B8D1C8 /* ImagePicker.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -505,6 +508,7 @@
 				31920C9F241CD5D900A55403 /* Location.swift in Sources */,
 				31093F9D23CFA6B40025679A /* LoginViewController.swift in Sources */,
 				31EBE46324477F640023305D /* TaskRoute.swift in Sources */,
+				31803C2C24AC735D00B8D1C8 /* ImagePicker.swift in Sources */,
 				31C9AE042481097B00161374 /* DisabledUITextField.swift in Sources */,
 				31CF0A42245A0B8500E0F5DC /* CalendarViewController.swift in Sources */,
 				3133F2022424BD0A001C158C /* RouteMasterViewController.swift in Sources */,
