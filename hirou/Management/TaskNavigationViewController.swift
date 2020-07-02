@@ -78,30 +78,24 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
     @objc
     func toggleAllTasks(sender: UIButton) {
         let taskCollectionPoint = self.taskCollectionPoints[sender.tag]
-        let completed = taskCollectionPoint.getCompleteStatus()
-        for x in 0...taskCollectionPoint.taskCollections.count-1 {
-            let taskCollection = taskCollectionPoint.taskCollections[x]
-            let url = Environment.SERVER_URL + "api/task_collection/"+String(taskCollection.id)+"/"
-            let values = [ "complete": !completed ] as [String : Any?]
-            var request = URLRequest(url: try! url.asURL())
-            request.httpMethod = "PATCH"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpBody = try! JSONSerialization.data(withJSONObject: values)
-            AF.request(request)
-                .response {
-                    response in
-                    switch response.result {
-                    case .success(let value):
-                        let taskCollectionNew = try! JSONDecoder().decode(TaskCollection.self, from: value!)
-                        self.taskCollectionPoints[sender.tag].taskCollections[x] = taskCollectionNew
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadData()
-                        }
-                        self.notificationCenter.post(name: .TaskCollectionPointsHListUpdate, object: taskCollectionNew)
-                    case .failure(let error):
-                        print(error)
+        let url = Environment.SERVER_URL + "api/task_collection_point/"+String(taskCollectionPoint.id)+"/bulk_complete/"
+        var request = URLRequest(url: try! url.asURL())
+        request.httpMethod = "PATCH"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        AF.request(request)
+            .response {
+                response in
+                switch response.result {
+                case .success(let value):
+                    let taskCollectionsNew = try! JSONDecoder().decode([TaskCollection].self, from: value!)
+                    self.taskCollectionPoints[sender.tag].taskCollections = taskCollectionsNew
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
                     }
-            }
+                    self.notificationCenter.post(name: .TaskCollectionPointsHListUpdate, object: taskCollectionsNew)
+                case .failure(let error):
+                    print(error)
+                }
         }
     }
     
