@@ -35,7 +35,7 @@
                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wSY-rB-UkW">
+                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wSY-rB-UkW">
                         <rect key="frame" x="18" y="127" width="760" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="xK6-TL-eK1"/>
@@ -45,9 +45,7 @@
             </view>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="wSY-rB-UkW" secondAttribute="trailing" constant="18" id="47b-ou-kuG"/>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="wSY-rB-UkW" secondAttribute="bottom" constant="18" id="CVp-3u-X1q"/>
-                <constraint firstItem="wSY-rB-UkW" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="DUN-fK-j6g"/>
                 <constraint firstItem="mUh-jG-ySE" firstAttribute="top" secondItem="ZTg-uK-7eu" secondAttribute="top" constant="18" id="DYH-G7-P57"/>
                 <constraint firstItem="TfX-cr-Ba4" firstAttribute="top" secondItem="mUh-jG-ySE" secondAttribute="bottom" constant="12" id="FV3-wp-JlN"/>
                 <constraint firstItem="4qZ-Hu-TY2" firstAttribute="leading" secondItem="mUh-jG-ySE" secondAttribute="trailing" constant="18" id="VvY-uk-PCq"/>

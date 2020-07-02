@@ -9,8 +9,8 @@
 import UIKit
 import Alamofire
 
-class CollectionPointFormViewController: UIViewController {
-    
+class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
+
     @IBOutlet weak var cpNameLabel: UITextField!
     @IBOutlet weak var cpAddressLabel: UITextField!
     @IBOutlet weak var cpSequence: UITextField!
@@ -18,6 +18,9 @@ class CollectionPointFormViewController: UIViewController {
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     
+    
+    @IBOutlet weak var imageView: UIImageView!
+    var imagePicker: ImagePicker!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +32,42 @@ class CollectionPointFormViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
         
+        self.imagePicker = ImagePicker(presentationController: self, delegate: self)
+        
         configureView()
     }
     
+    @IBAction func showImagePicker(_ sender: UIButton) {
+        self.imagePicker.present(from: sender)
+    }
+    
+    func didSelect(image: UIImage?) {
+        self.imageView.image = image
+        let imgData = image!.jpegData(compressionQuality: 0.2)!
+//         let params = ["name": "rname"] //Optional for extra parameter
+        
+        let id = String((detailItem as! CollectionPoint).id)
+        AF.upload(multipartFormData: { multiPart in
+            multiPart.append(imgData, withName: "image", fileName: "/152/image.png", mimeType: "image/png")
+        },
+        to: Environment.SERVER_URL + "api/collection_point/"+String(id)+"/",
+        method: .patch
+        )
+        .uploadProgress( queue: .main, closure: {
+            progress in
+            print("Upload Progress: \(progress.fractionCompleted)")
+        }).responseJSON(completionHandler: { data in
+            print("upload finished: \(data)")
+        }).response { (response) in
+            switch response.result {
+            case .success(let result):
+                print("upload success result: \(result)")
+            case .failure(let err):
+                print("upload err: \(err)")
+            }
+        }
+    }
+
     @objc
     func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         self.cpNameLabel.resignFirstResponder()
@@ -160,6 +196,15 @@ class CollectionPointFormViewController: UIViewController {
             
             if let label = self.cpSequence {
                 label.text = String(collectionPoint.sequence )
+            }
+            
+            if let image = self.imageView {
+                if collectionPoint.image != nil {
+                    let url = NSURL(string: collectionPoint.image!)! as URL
+                      if let imageData: NSData = NSData(contentsOf: url) {
+                          image.image = UIImage(data: imageData as Data)
+                      }
+                }
             }
 
             if collectionPoint.id == -1 {

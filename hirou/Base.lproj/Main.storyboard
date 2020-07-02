@@ -964,7 +964,7 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XWE-6k-WiL">
+                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XWE-6k-WiL">
                                             <rect key="frame" x="20" y="90" width="280" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="M4E-Jr-Xq3"/>
@@ -986,7 +986,6 @@
                                         <constraint firstAttribute="bottom" secondItem="XWE-6k-WiL" secondAttribute="bottom" constant="10" id="Qva-Zw-g4k"/>
                                         <constraint firstItem="Rg5-4y-vdh" firstAttribute="top" secondItem="1bG-mf-uTc" secondAttribute="top" constant="20" id="UAL-zl-myN"/>
                                         <constraint firstItem="zn8-2Y-eyd" firstAttribute="top" secondItem="5QD-eB-a1m" secondAttribute="bottom" constant="8" id="Xrj-o5-GEr"/>
-                                        <constraint firstAttribute="trailing" secondItem="XWE-6k-WiL" secondAttribute="trailing" constant="20" id="eYs-9f-Q2n"/>
                                         <constraint firstAttribute="trailing" secondItem="zn8-2Y-eyd" secondAttribute="trailing" constant="18" id="ehC-OO-jfE"/>
                                         <constraint firstItem="XWE-6k-WiL" firstAttribute="leading" secondItem="1bG-mf-uTc" secondAttribute="leading" constant="20" id="nhQ-xd-X4z"/>
                                     </constraints>
@@ -1450,9 +1449,11 @@
                                                     </imageView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C9L-qO-Bvl">
                                                         <rect key="frame" x="735" y="268" width="25" height="24"/>
+                                                        <connections>
+                                                            <action selector="showImagePicker:" destination="RU1-ST-XiR" eventType="touchUpInside" id="Ngb-rA-Knw"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="300" id="3Ws-CY-tQU"/>
                                                     <constraint firstItem="17n-aA-UIf" firstAttribute="height" secondItem="UsI-YE-wNl" secondAttribute="height" id="6KY-Y1-pZx"/>
@@ -1597,6 +1598,7 @@
                         <outlet property="cpNameLabel" destination="Gti-ze-RES" id="dDA-3C-MIH"/>
                         <outlet property="cpSequence" destination="1vP-VF-JZR" id="9CW-Sm-dhS"/>
                         <outlet property="deleteButton" destination="7kb-dl-Rrg" id="nQf-5v-D5F"/>
+                        <outlet property="imageView" destination="17n-aA-UIf" id="azT-Ji-g9S"/>
                         <outlet property="saveButton" destination="q5y-ID-0hj" id="zAg-nV-E4s"/>
                     </connections>
                 </viewController>
