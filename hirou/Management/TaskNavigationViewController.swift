@@ -123,7 +123,7 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
                     }
-                    self.notificationCenter.post(name: .TaskCollectionPointsHListUpdate, object: taskCollectionNew)
+                    self.notificationCenter.post(name: .TaskCollectionPointsHListUpdate, object: [taskCollectionNew])
 
                 case .failure(let error):
                     print(error)
@@ -201,16 +201,17 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
 
     @objc
     func collectionPointUpdateFromVList(_ notification: Notification) {
-        print("called")
-        let tc = notification.object as! TaskCollection
-        for tcp in self.taskCollectionPoints {
-            for num in 0...tcp.taskCollections.count-1 {
-                if tcp.taskCollections[num].id == tc.id {
-                    tcp.taskCollections[num] = tc
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
+        let tcs = notification.object as! [TaskCollection]
+        for tc in tcs {
+            for tcp in self.taskCollectionPoints {
+                for num in 0...tcp.taskCollections.count-1 {
+                    if tcp.taskCollections[num].id == tc.id {
+                        tcp.taskCollections[num] = tc
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
+                        break
                     }
-                    return
                 }
             }
         }
