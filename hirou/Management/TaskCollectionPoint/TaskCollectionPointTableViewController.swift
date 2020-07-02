@@ -125,7 +125,7 @@ class TaskCollectionPointTableViewController: UITableViewController {
             garbageView.layer.borderWidth = 2
             garbageView.layer.borderColor = UIColor.systemBlue.cgColor
             garbageView.layer.cornerRadius = 10
-            garbageView.setTitle(" " + taskCollection.garbage.name + " ", for: .normal)
+            garbageView.setTitle(String(taskCollection.garbage.name.prefix(1)), for: .normal)
             garbageView.titleLabel?.font = garbageView.titleLabel?.font.withSize(15)
             garbageView.setTitleColor(.black, for: .normal)
             cell.garbageStack.addArrangedSubview(garbageView)

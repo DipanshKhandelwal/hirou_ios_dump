@@ -32,7 +32,7 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
         cell.garbageStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
         cell.garbageStack.spacing = 10
         cell.garbageStack.axis = .horizontal
-        cell.garbageStack.distribution = .equalCentering
+        cell.garbageStack.distribution = .fillEqually
         
         for num in 0...tcp.taskCollections.count-1 {
             let taskCollection = tcp.taskCollections[num];
@@ -43,7 +43,7 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
             garbageView.layer.borderWidth = 2
             garbageView.layer.borderColor = UIColor.systemBlue.cgColor
             garbageView.layer.cornerRadius = 10
-            garbageView.setTitle(" " + taskCollection.garbage.name + " ", for: .normal)
+            garbageView.setTitle(String(taskCollection.garbage.name.prefix(1)), for: .normal)
             garbageView.titleLabel?.font = garbageView.titleLabel?.font.withSize(10)
             garbageView.setTitleColor(.black, for: .normal)
             cell.garbageStack.addArrangedSubview(garbageView)
