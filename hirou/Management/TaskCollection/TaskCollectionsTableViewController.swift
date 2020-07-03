@@ -38,14 +38,16 @@ class TaskCollectionsTableViewController: UITableViewController {
     
     @objc
     func collectionPointUpdateFromVList(_ notification: Notification) {
-        let tc = notification.object as! TaskCollection
-        for num in 0...self.taskCollections.count-1 {
-            if self.taskCollections[num].id == tc.id {
-                self.taskCollections[num] = tc
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
+        let tcs = notification.object as! [TaskCollection]
+        for tc in tcs {
+            for num in 0...self.taskCollections.count-1 {
+                if self.taskCollections[num].id == tc.id {
+                    self.taskCollections[num] = tc
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                    break
                 }
-                return
             }
         }
     }
@@ -121,14 +123,13 @@ class TaskCollectionsTableViewController: UITableViewController {
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
-                    self.notificationCenter.post(name: .TaskCollectionPointsHListUpdate, object: taskCollection)
+                    self.notificationCenter.post(name: .TaskCollectionPointsHListUpdate, object: [taskCollection])
 
                 case .failure(let error):
                     print(error)
                 }
         }
     }
-    
 
 
     /*

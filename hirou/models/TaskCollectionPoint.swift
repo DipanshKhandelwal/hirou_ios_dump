@@ -57,4 +57,15 @@ class TaskCollectionPoint : Encodable, Decodable{
         taskCollections = try container.decode([TaskCollection].self, forKey: .taskCollections)
         image = (try container.decodeIfPresent(String.self, forKey: .image)) ?? ""
     }
+    
+    func getCompleteStatus() -> Bool{
+        var complete = true
+        for tc in self.taskCollections {
+            if(tc.complete == false) {
+                complete = false
+                return complete
+            }
+        }
+        return complete
+    }
 }

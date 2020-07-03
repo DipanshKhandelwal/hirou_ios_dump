@@ -34,6 +34,18 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
         cell.garbageStack.axis = .horizontal
         cell.garbageStack.distribution = .fillEqually
         
+        let toggleAllTasksButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        toggleAllTasksButton.tag = index;
+        toggleAllTasksButton.addTarget(self, action: #selector(TaskNavigationViewController.toggleAllTasks(sender:)), for: .touchDown)
+        toggleAllTasksButton.layer.backgroundColor = tcp.getCompleteStatus() ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
+        toggleAllTasksButton.layer.borderWidth = 2
+        toggleAllTasksButton.layer.borderColor = UIColor.red.cgColor
+        toggleAllTasksButton.layer.cornerRadius = 10
+        toggleAllTasksButton.setTitle("*", for: .normal)
+        toggleAllTasksButton.titleLabel?.font = toggleAllTasksButton.titleLabel?.font.withSize(20)
+        toggleAllTasksButton.setTitleColor(.black, for: .normal)
+        cell.garbageStack.addArrangedSubview(toggleAllTasksButton)
+        
         for num in 0...tcp.taskCollections.count-1 {
             let taskCollection = tcp.taskCollections[num];
             
@@ -44,7 +56,7 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
             garbageView.layer.borderColor = UIColor.systemBlue.cgColor
             garbageView.layer.cornerRadius = 10
             garbageView.setTitle(String(taskCollection.garbage.name.prefix(1)), for: .normal)
-            garbageView.titleLabel?.font = garbageView.titleLabel?.font.withSize(10)
+            garbageView.titleLabel?.font = garbageView.titleLabel?.font.withSize(15)
             garbageView.setTitleColor(.black, for: .normal)
             cell.garbageStack.addArrangedSubview(garbageView)
         }
@@ -61,6 +73,30 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
         cell.selectedBackgroundView = blueView
         
         return cell
+    }
+    
+    @objc
+    func toggleAllTasks(sender: UIButton) {
+        let taskCollectionPoint = self.taskCollectionPoints[sender.tag]
+        let url = Environment.SERVER_URL + "api/task_collection_point/"+String(taskCollectionPoint.id)+"/bulk_complete/"
+        var request = URLRequest(url: try! url.asURL())
+        request.httpMethod = "PATCH"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        AF.request(request)
+            .response {
+                response in
+                switch response.result {
+                case .success(let value):
+                    let taskCollectionsNew = try! JSONDecoder().decode([TaskCollection].self, from: value!)
+                    self.taskCollectionPoints[sender.tag].taskCollections = taskCollectionsNew
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                    self.notificationCenter.post(name: .TaskCollectionPointsHListUpdate, object: taskCollectionsNew)
+                case .failure(let error):
+                    print(error)
+                }
+        }
     }
     
     @objc
@@ -87,7 +123,7 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
                     }
-                    self.notificationCenter.post(name: .TaskCollectionPointsHListUpdate, object: taskCollectionNew)
+                    self.notificationCenter.post(name: .TaskCollectionPointsHListUpdate, object: [taskCollectionNew])
 
                 case .failure(let error):
                     print(error)
@@ -165,16 +201,17 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
 
     @objc
     func collectionPointUpdateFromVList(_ notification: Notification) {
-        print("called")
-        let tc = notification.object as! TaskCollection
-        for tcp in self.taskCollectionPoints {
-            for num in 0...tcp.taskCollections.count-1 {
-                if tcp.taskCollections[num].id == tc.id {
-                    tcp.taskCollections[num] = tc
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
+        let tcs = notification.object as! [TaskCollection]
+        for tc in tcs {
+            for tcp in self.taskCollectionPoints {
+                for num in 0...tcp.taskCollections.count-1 {
+                    if tcp.taskCollections[num].id == tc.id {
+                        tcp.taskCollections[num] = tc
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
+                        break
                     }
-                    return
                 }
             }
         }
