@@ -16,17 +16,23 @@ class TaskCollectionsCell : UITableViewCell {
 }
 
 class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    @IBOutlet weak var tableView: UITableView!
     var taskCollections = [TaskCollection]()
-    @IBOutlet weak var collectionPointImage: UIImageView!
+    @IBOutlet weak var collectionPointImage: UIImageView! {
+        didSet {
+            collectionPointImage.image = UIImage(systemName: "hand.raised.fill")
+        }
+    }
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.dataSource = self
+            tableView.delegate = self
+        }
+    }
     
     private let notificationCenter = NotificationCenter.default
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.dataSource = self
-        tableView.delegate = self
         //        self.title = "Collections"
         
         // Uncomment the following line to preserve selection between presentations
@@ -75,7 +81,6 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
                 if let imageData: NSData = NSData(contentsOf: url) {
                     DispatchQueue.main.async {
                         self.collectionPointImage.image = UIImage(data: imageData as Data)
-                        
                     }
                 }
             }
@@ -83,9 +88,6 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
             DispatchQueue.main.async {
                 if (self.tableView != nil) {
                     self.tableView.reloadData()
-                }
-                if (self.collectionPointImage != nil) {
-                    self.collectionPointImage.image = UIImage(systemName: "hand.raised.fill")
                 }
             }
         }
