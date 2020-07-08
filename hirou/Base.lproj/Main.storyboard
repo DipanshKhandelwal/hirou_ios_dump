@@ -282,10 +282,10 @@
             </objects>
             <point key="canvasLocation" x="-749" y="-1034"/>
         </scene>
-        <!--Report Admin Table View Controller-->
+        <!--Report Admin-->
         <scene sceneID="hYw-S3-kL4">
             <objects>
-                <tableViewController id="JnD-g4-JZA" customClass="ReportAdminTableViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Report Admin" id="JnD-g4-JZA" customClass="ReportAdminTableViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bg5-Ov-Fj1">
                         <rect key="frame" x="0.0" y="0.0" width="712" height="984"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
