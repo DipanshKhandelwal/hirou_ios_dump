@@ -41,6 +41,12 @@
                             <constraint firstAttribute="height" constant="30" id="xK6-TL-eK1"/>
                         </constraints>
                     </stackView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Wke-eu-Ma6">
+                        <rect key="frame" x="596" y="46" width="250" height="127"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="250" id="nH7-4p-hRc"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -48,9 +54,13 @@
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="wSY-rB-UkW" secondAttribute="bottom" constant="18" id="CVp-3u-X1q"/>
                 <constraint firstItem="mUh-jG-ySE" firstAttribute="top" secondItem="ZTg-uK-7eu" secondAttribute="top" constant="18" id="DYH-G7-P57"/>
                 <constraint firstItem="TfX-cr-Ba4" firstAttribute="top" secondItem="mUh-jG-ySE" secondAttribute="bottom" constant="12" id="FV3-wp-JlN"/>
+                <constraint firstItem="Wke-eu-Ma6" firstAttribute="top" secondItem="ZTg-uK-7eu" secondAttribute="top" constant="2" id="Myb-XH-q3K"/>
+                <constraint firstItem="Wke-eu-Ma6" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" id="Nno-Yv-CYd"/>
                 <constraint firstItem="4qZ-Hu-TY2" firstAttribute="leading" secondItem="mUh-jG-ySE" secondAttribute="trailing" constant="18" id="VvY-uk-PCq"/>
                 <constraint firstItem="mUh-jG-ySE" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="18" id="cVS-85-zuH"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="Wke-eu-Ma6" secondAttribute="trailing" constant="-50" id="iln-RU-edu"/>
                 <constraint firstItem="wSY-rB-UkW" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="18" id="oB8-Zz-NfA"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="Wke-eu-Ma6" secondAttribute="bottom" constant="2" id="oPq-PX-gdM"/>
                 <constraint firstItem="TfX-cr-Ba4" firstAttribute="leading" secondItem="mUh-jG-ySE" secondAttribute="leading" id="u2y-DZ-iHa"/>
                 <constraint firstItem="4qZ-Hu-TY2" firstAttribute="firstBaseline" secondItem="mUh-jG-ySE" secondAttribute="firstBaseline" id="ukx-wz-gtW"/>
             </constraints>
@@ -58,6 +68,7 @@
             <size key="customSize" width="822" height="182"/>
             <connections>
                 <outlet property="garbageStack" destination="wSY-rB-UkW" id="q5e-JA-PZS"/>
+                <outlet property="image" destination="Wke-eu-Ma6" id="zcy-5l-pBG"/>
                 <outlet property="memo" destination="TfX-cr-Ba4" id="pBf-43-E5e"/>
                 <outlet property="name" destination="4qZ-Hu-TY2" id="fzD-lP-yMa"/>
                 <outlet property="sequence" destination="mUh-jG-ySE" id="zUT-0L-y1t"/>

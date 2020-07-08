@@ -200,7 +200,7 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
             
             if let image = self.imageView {
                 if collectionPoint.image != nil {
-                    image.image = UIImage(systemName: "hand.raised.fill")
+                    image.image = UIImage(systemName: "house")
                     DispatchQueue.global().async { [] in
                         let url = NSURL(string: collectionPoint.image!)! as URL
                         if let imageData: NSData = NSData(contentsOf: url) {

@@ -29,6 +29,16 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
         cell.name?.text = tcp.name
         cell.memo?.text = tcp.memo
         
+        cell.image?.image = UIImage(systemName: "house")
+        DispatchQueue.global().async { [] in
+            let url = NSURL(string: tcp.image)! as URL
+            if let imageData: NSData = NSData(contentsOf: url) {
+                DispatchQueue.main.async {
+                    cell.image?.image = UIImage(data: imageData as Data)
+                }
+            }
+        }
+        
         cell.garbageStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
         cell.garbageStack.spacing = 10
         cell.garbageStack.axis = .horizontal

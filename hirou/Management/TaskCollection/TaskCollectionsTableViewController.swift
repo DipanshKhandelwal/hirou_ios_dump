@@ -15,8 +15,20 @@ class TaskCollectionsCell : UITableViewCell {
     @IBOutlet weak var pickupTimeLabel: UILabel!
 }
 
-class TaskCollectionsTableViewController: UITableViewController {
+class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var taskCollections = [TaskCollection]()
+    @IBOutlet weak var collectionPointImage: UIImageView! {
+        didSet {
+            collectionPointImage.image = UIImage(systemName: "house")
+        }
+    }
+
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.dataSource = self
+            tableView.delegate = self
+        }
+    }
     
     private let notificationCenter = NotificationCenter.default
     
@@ -64,25 +76,37 @@ class TaskCollectionsTableViewController: UITableViewController {
             let collectionPoint = (detail as! TaskCollectionPoint)
             self.taskCollections = collectionPoint.taskCollections
             self.title = collectionPoint.name
+            
+            DispatchQueue.global().async { [] in
+                let url = NSURL(string: collectionPoint.image)! as URL
+                if let imageData: NSData = NSData(contentsOf: url) {
+                    DispatchQueue.main.async {
+                        self.collectionPointImage?.image = UIImage(data: imageData as Data)
+                    }
+                }
+            }
+            
             DispatchQueue.main.async {
-                self.tableView.reloadData()
+                if (self.tableView != nil) {
+                    self.tableView.reloadData()
+                }
             }
         }
     }
     
     // MARK: - Table view data source
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return self.taskCollections.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "collectionCell", for: indexPath) as! TaskCollectionsCell
         
         let row = indexPath.row
