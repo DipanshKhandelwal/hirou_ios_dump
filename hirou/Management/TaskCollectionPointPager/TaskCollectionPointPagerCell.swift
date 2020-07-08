@@ -14,6 +14,7 @@ class TaskCollectionPointPagerCell: FSPagerViewCell {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var memo: UILabel!
     @IBOutlet weak var garbageStack: UIStackView!
+    @IBOutlet weak var image: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
