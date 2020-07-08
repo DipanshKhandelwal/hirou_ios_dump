@@ -8,6 +8,10 @@
 
 import UIKit
 
+class InputAmountTableViewCell: UITableViewCell {
+    @IBOutlet weak var label: UILabel!
+}
+
 class InputAmountTableViewController: UITableViewController {
 
     override func viewDidLoad() {
