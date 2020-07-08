@@ -29,7 +29,7 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
         cell.name?.text = tcp.name
         cell.memo?.text = tcp.memo
         
-        cell.image?.image = UIImage(systemName: "hand.raised.fill")
+        cell.image?.image = UIImage(systemName: "house")
         DispatchQueue.global().async { [] in
             let url = NSURL(string: tcp.image)! as URL
             if let imageData: NSData = NSData(contentsOf: url) {

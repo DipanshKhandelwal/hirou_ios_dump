@@ -19,9 +19,10 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
     var taskCollections = [TaskCollection]()
     @IBOutlet weak var collectionPointImage: UIImageView! {
         didSet {
-            collectionPointImage.image = UIImage(systemName: "hand.raised.fill")
+            collectionPointImage.image = UIImage(systemName: "house")
         }
     }
+
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.dataSource = self
@@ -80,7 +81,7 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
                 let url = NSURL(string: collectionPoint.image)! as URL
                 if let imageData: NSData = NSData(contentsOf: url) {
                     DispatchQueue.main.async {
-                        self.collectionPointImage.image = UIImage(data: imageData as Data)
+                        self.collectionPointImage?.image = UIImage(data: imageData as Data)
                     }
                 }
             }
