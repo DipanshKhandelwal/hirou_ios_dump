@@ -282,6 +282,47 @@
             </objects>
             <point key="canvasLocation" x="-749" y="-1034"/>
         </scene>
+        <!--Input Amount Table View Controller-->
+        <scene sceneID="t1R-Jt-taD">
+            <objects>
+                <tableViewController id="1CD-Ry-sI3" customClass="InputAmountTableViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hZb-e9-T1R">
+                        <rect key="frame" x="0.0" y="0.0" width="712" height="984"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="inputAmountTableViewCell" id="44Z-2w-3I6" customClass="InputAmountTableViewCell" customModule="hirou" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="712" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="44Z-2w-3I6" id="6sA-XX-cuW">
+                                    <rect key="frame" x="0.0" y="0.0" width="712" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nlm-hj-5eh">
+                                            <rect key="frame" x="30" y="11" width="42" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="label" destination="Nlm-hj-5eh" id="enl-2o-yar"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="1CD-Ry-sI3" id="ec2-9r-PuZ"/>
+                            <outlet property="delegate" destination="1CD-Ry-sI3" id="63x-ba-h4S"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="G7b-S8-ETA"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7fo-dY-QyW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1468.75" y="-2428.125"/>
+        </scene>
         <!--Report Admin-->
         <scene sceneID="hYw-S3-kL4">
             <objects>
@@ -706,7 +747,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Uzh-k9-pv8">
-                                <rect key="frame" x="196" y="175" width="320" height="534"/>
+                                <rect key="frame" x="196" y="150" width="320" height="584"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="R9z-mI-SOP">
                                         <rect key="frame" x="83" y="0.0" width="154" height="36"/>
@@ -769,8 +810,17 @@
                                             <segue destination="FUM-jI-6CA" kind="presentation" id="48a-By-tMo"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gm-iH-8Wl">
+                                        <rect key="frame" x="113.5" y="454" width="93" height="30"/>
+                                        <state key="normal" title="Input Amount">
+                                            <color key="titleColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="1CD-Ry-sI3" kind="show" id="GEk-Ht-2B6"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TiS-X5-okS">
-                                        <rect key="frame" x="113" y="454" width="94" height="30"/>
+                                        <rect key="frame" x="113" y="504" width="94" height="30"/>
                                         <state key="normal" title="Report Admin">
                                             <color key="titleColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -779,7 +829,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UAN-oM-Yay">
-                                        <rect key="frame" x="137.5" y="504" width="45" height="30"/>
+                                        <rect key="frame" x="137.5" y="554" width="45" height="30"/>
                                         <state key="normal" title="Delete">
                                             <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
