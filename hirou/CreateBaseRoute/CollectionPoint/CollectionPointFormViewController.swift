@@ -48,7 +48,7 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
         
         let id = String((detailItem as! CollectionPoint).id)
         AF.upload(multipartFormData: { multiPart in
-            multiPart.append(imgData, withName: "image", fileName: "/152/image.png", mimeType: "image/png")
+            multiPart.append(imgData, withName: "image", fileName: String(id)+".png", mimeType: "image/png")
         },
         to: Environment.SERVER_URL + "api/collection_point/"+String(id)+"/",
         method: .patch
