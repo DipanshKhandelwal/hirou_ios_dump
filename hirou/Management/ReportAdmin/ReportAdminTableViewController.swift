@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ReportAdminTableViewCell: UITableViewCell {
     @IBOutlet weak var collectionPoint: UILabel!
@@ -60,11 +61,14 @@ class ReportAdminTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return self.taskReports.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reportAdminTableViewCell", for: indexPath) as! ReportAdminTableViewCell
+        let taskReport = self.taskReports[indexPath.row]
+        cell.collectionPoint?.text = String(taskReport.collectionPoint)
+        cell.reportType?.text = taskReport.reportType.name
         return cell
     }
 
