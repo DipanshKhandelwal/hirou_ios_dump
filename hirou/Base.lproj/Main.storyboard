@@ -282,16 +282,16 @@
             </objects>
             <point key="canvasLocation" x="-749" y="-1034"/>
         </scene>
-        <!--Input Amount Table View Controller-->
+        <!--Task Garbage Amount Table View Controller-->
         <scene sceneID="t1R-Jt-taD">
             <objects>
-                <tableViewController id="1CD-Ry-sI3" customClass="InputAmountTableViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="1CD-Ry-sI3" customClass="TaskGarbageAmountTableViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hZb-e9-T1R">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="inputAmountTableViewCell" rowHeight="80" id="44Z-2w-3I6" customClass="InputAmountTableViewCell" customModule="hirou" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskGarbageAmountTableViewCell" rowHeight="80" id="44Z-2w-3I6" customClass="TaskGarbageAmountTableViewCell" customModule="hirou" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="768" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="44Z-2w-3I6" id="6sA-XX-cuW">
@@ -361,7 +361,7 @@
         <!--Add Garbage Input-->
         <scene sceneID="CdQ-pa-6bs">
             <objects>
-                <viewController title="Add Garbage Input" id="RrN-sE-2iT" customClass="InputAmountFormViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Add Garbage Input" id="RrN-sE-2iT" customClass="TaskGarbageAmountFormViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RQO-jk-mAs">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

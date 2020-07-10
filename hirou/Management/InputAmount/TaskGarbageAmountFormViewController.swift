@@ -8,15 +8,14 @@
 
 import UIKit
 
-class InputAmountFormViewController: UIViewController {
+class TaskGarbageAmountFormViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "Add Garbage Input"
+        self.title = "Add Task Garbage Amount"
         // Do any additional setup after loading the view.
     }
-    
 
     /*
     // MARK: - Navigation

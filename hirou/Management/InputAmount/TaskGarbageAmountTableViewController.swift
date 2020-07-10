@@ -8,12 +8,12 @@
 
 import UIKit
 
-class InputAmountTableViewCell: UITableViewCell {
+class TaskGarbageAmountTableViewCell: UITableViewCell {
     @IBOutlet weak var garbageType: UILabel!
     @IBOutlet weak var amount: UILabel!
 }
 
-class InputAmountTableViewController: UITableViewController {
+class TaskGarbageAmountTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +23,7 @@ class InputAmountTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        self.title = "Input Amount"
+        self.title = "Task Garbage Amount"
     }
 
     // MARK: - Table view data source
@@ -39,7 +39,7 @@ class InputAmountTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "inputAmountTableViewCell", for: indexPath) as! InputAmountTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "taskGarbageAmountTableViewCell", for: indexPath) as! TaskGarbageAmountTableViewCell
         cell.garbageType?.text = "dipansh"
         cell.amount?.text = "dipansh"
         return cell
