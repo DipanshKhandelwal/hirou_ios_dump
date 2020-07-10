@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		31093F9D23CFA6B40025679A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31093F9C23CFA6B40025679A /* LoginViewController.swift */; };
+		311BA35624B8AC1700CE1BD9 /* InputAmountFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311BA35524B8AC1700CE1BD9 /* InputAmountFormViewController.swift */; };
 		312E7AC12462A7AD00A73363 /* TaskCollectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312E7AC02462A7AD00A73363 /* TaskCollectionsTableViewController.swift */; };
 		312E9A2A242A39980073D165 /* CollectionPointMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312E9A29242A39980073D165 /* CollectionPointMasterViewController.swift */; };
 		312E9A2D242A39F10073D165 /* CollectionPointDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312E9A2C242A39F10073D165 /* CollectionPointDetailViewController.swift */; };
@@ -73,6 +74,7 @@
 /* Begin PBXFileReference section */
 		09B53D18299FA1A1A9AA36ED /* Pods-hirou.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hirou.release.xcconfig"; path = "Target Support Files/Pods-hirou/Pods-hirou.release.xcconfig"; sourceTree = "<group>"; };
 		31093F9C23CFA6B40025679A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		311BA35524B8AC1700CE1BD9 /* InputAmountFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAmountFormViewController.swift; sourceTree = "<group>"; };
 		312E7AC02462A7AD00A73363 /* TaskCollectionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionsTableViewController.swift; sourceTree = "<group>"; };
 		312E9A29242A39980073D165 /* CollectionPointMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointMasterViewController.swift; sourceTree = "<group>"; };
 		312E9A2C242A39F10073D165 /* CollectionPointDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointDetailViewController.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				316D774D24B66DD60074549A /* InputAmountTableViewController.swift */,
+				311BA35524B8AC1700CE1BD9 /* InputAmountFormViewController.swift */,
 			);
 			path = InputAmount;
 			sourceTree = "<group>";
@@ -522,6 +525,7 @@
 				317E230423C6306C00F8F0C1 /* SceneDelegate.swift in Sources */,
 				31920CA1241CD63600A55403 /* Customer.swift in Sources */,
 				31EBE46724477FED0023305D /* TaskCollection.swift in Sources */,
+				311BA35624B8AC1700CE1BD9 /* InputAmountFormViewController.swift in Sources */,
 				31A882A524A38A2500C3A692 /* CollectionPointsNotifications.swift in Sources */,
 				31C9AE022480FB4D00161374 /* TaskAddViewController.swift in Sources */,
 				316D774B24B66A880074549A /* ReportAdminTableViewController.swift in Sources */,
