@@ -14,6 +14,7 @@ class ReportAdminTableViewCell: UITableViewCell {
 }
 
 class ReportAdminTableViewController: UITableViewController {
+    var taskReports = [TaskReport]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,30 @@ class ReportAdminTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         self.title = "Report Admin"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchTaskReports()
+    }
+
+    func fetchTaskReports(){
+        let id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
+        let url = Environment.SERVER_URL + "api/task_report/"
+        let parameters: Parameters = [ "task_route": id ]
+        AF.request(url, method: .get, parameters: parameters).response { response in
+            switch response.result {
+            case .success(let value):
+                let decoder = JSONDecoder()
+                self.taskReports = try! decoder.decode([TaskReport].self, from: value!)
+                print(self.taskReports.count)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
     // MARK: - Table view data source
