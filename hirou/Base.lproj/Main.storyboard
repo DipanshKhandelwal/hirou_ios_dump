@@ -415,6 +415,21 @@
             </objects>
             <point key="canvasLocation" x="1468.75" y="-1727.34375"/>
         </scene>
+        <!--Report Admin-->
+        <scene sceneID="h4Z-v0-MT7">
+            <objects>
+                <viewController title="Report Admin" id="DT6-ff-ZEJ" customClass="ReportAdminFormViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="f1n-Xt-chn">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Ab9-af-sby"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Z1-oI-jNz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2229" y="-1727"/>
+        </scene>
         <!--Calendar View Controller-->
         <scene sceneID="5FT-HI-F6I">
             <objects>
