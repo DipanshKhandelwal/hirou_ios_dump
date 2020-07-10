@@ -12,7 +12,6 @@ class ReportAdminFormViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Report Admin Form"
         // Do any additional setup after loading the view.
     }
     

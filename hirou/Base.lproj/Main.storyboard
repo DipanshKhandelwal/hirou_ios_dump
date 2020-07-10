@@ -368,7 +368,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="xPi-kc-Qj8"/>
                     </view>
-                    <navigationItem key="navigationItem" id="mfk-gg-xmU"/>
+                    <navigationItem key="navigationItem" title="Add Task Garbage Amount" id="mfk-gg-xmU"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W3n-zU-N3c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -409,7 +409,13 @@
                             <outlet property="delegate" destination="JnD-g4-JZA" id="eum-BR-vwv"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="2dY-9v-T1p"/>
+                    <navigationItem key="navigationItem" id="2dY-9v-T1p">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="7KT-39-ICZ">
+                            <connections>
+                                <segue destination="DT6-ff-ZEJ" kind="show" id="Mr6-j3-8Qs"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="787-Gy-MYK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -425,6 +431,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Ab9-af-sby"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Report Admin Form" id="qCL-RL-6fr"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Z1-oI-jNz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
