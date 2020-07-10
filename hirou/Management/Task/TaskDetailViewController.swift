@@ -164,7 +164,7 @@ class TaskDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if(self.vehiclesList.count >= row) {
+        if(self.vehiclesList.count > row) {
             self.vehicleLabel.text = self.vehiclesList[row].registrationNumber
             print(self.vehiclesList[row].registrationNumber)
             //            self.selectedCustomerId = self.customers[row].id
