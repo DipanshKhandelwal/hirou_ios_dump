@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import Alamofire
 
-class InputAmountTableViewCell: UITableViewCell {
-    @IBOutlet weak var label: UILabel!
+class TaskGarbageAmountTableViewCell: UITableViewCell {
+    @IBOutlet weak var garbageType: UILabel!
+    @IBOutlet weak var amount: UILabel!
 }
 
-class InputAmountTableViewController: UITableViewController {
+class TaskGarbageAmountTableViewController: UITableViewController {
+    var taskAmounts = [TaskAmount]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +25,31 @@ class InputAmountTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        self.title = "Input Amount"
+        self.title = "Task Garbage Amount"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchTaskGarbageAmounts()
+    }
+    
+    func fetchTaskGarbageAmounts(){
+        let id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
+        let url = Environment.SERVER_URL + "api/task_amount/"
+        let parameters: Parameters = [ "task_route": id ]
+        AF.request(url, method: .get, parameters: parameters).response { response in
+            switch response.result {
+            case .success(let value):
+                let decoder = JSONDecoder()
+                self.taskAmounts = try! decoder.decode([TaskAmount].self, from: value!)
+                print(self.taskAmounts.count)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
     // MARK: - Table view data source
@@ -34,12 +61,14 @@ class InputAmountTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return self.taskAmounts.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "inputAmountTableViewCell", for: indexPath) as! InputAmountTableViewCell
-        cell.label?.text = "dipansh"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "taskGarbageAmountTableViewCell", for: indexPath) as! TaskGarbageAmountTableViewCell
+        let taskAmount = self.taskAmounts[indexPath.row]
+        cell.garbageType?.text = taskAmount.garbage.name
+        cell.amount?.text = String(taskAmount.amount)
         return cell
     }
 
