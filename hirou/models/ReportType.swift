@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ReportType {
+struct ReportType : Encodable, Decodable{
     //MARK: Properties
     var id: Int
     var name: String
@@ -19,5 +19,11 @@ struct ReportType {
         self.id = id
         self.name = name
         self.description = description
+    }
+    
+    enum CodingKeys : String, CodingKey {
+        case id
+        case name
+        case description
     }
 }
