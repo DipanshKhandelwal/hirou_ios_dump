@@ -9,7 +9,8 @@
 import UIKit
 
 class ReportAdminTableViewCell: UITableViewCell {
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var collectionPoint: UILabel!
+    @IBOutlet weak var reportType: UILabel!
 }
 
 class ReportAdminTableViewController: UITableViewController {
@@ -39,7 +40,6 @@ class ReportAdminTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reportAdminTableViewCell", for: indexPath) as! ReportAdminTableViewCell
-        cell.label?.text = "dipansh"
         return cell
     }
 
