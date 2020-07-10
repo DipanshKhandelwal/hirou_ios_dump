@@ -61,13 +61,14 @@ class TaskGarbageAmountTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return self.taskAmounts.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskGarbageAmountTableViewCell", for: indexPath) as! TaskGarbageAmountTableViewCell
-        cell.garbageType?.text = "dipansh"
-        cell.amount?.text = "dipansh"
+        let taskAmount = self.taskAmounts[indexPath.row]
+        cell.garbageType?.text = taskAmount.garbage.name
+        cell.amount?.text = String(taskAmount.amount)
         return cell
     }
 
