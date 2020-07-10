@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import Alamofire
 
 class ReportAdminTableViewCell: UITableViewCell {
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var collectionPoint: UILabel!
+    @IBOutlet weak var reportType: UILabel!
 }
 
 class ReportAdminTableViewController: UITableViewController {
+    var taskReports = [TaskReport]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +27,30 @@ class ReportAdminTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         self.title = "Report Admin"
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchTaskReports()
+    }
+
+    func fetchTaskReports(){
+        let id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
+        let url = Environment.SERVER_URL + "api/task_report/"
+        let parameters: Parameters = [ "task_route": id ]
+        AF.request(url, method: .get, parameters: parameters).response { response in
+            switch response.result {
+            case .success(let value):
+                let decoder = JSONDecoder()
+                self.taskReports = try! decoder.decode([TaskReport].self, from: value!)
+                print(self.taskReports.count)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 
     // MARK: - Table view data source
 
@@ -34,12 +61,14 @@ class ReportAdminTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return self.taskReports.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reportAdminTableViewCell", for: indexPath) as! ReportAdminTableViewCell
-        cell.label?.text = "dipansh"
+        let taskReport = self.taskReports[indexPath.row]
+        cell.collectionPoint?.text = String(taskReport.collectionPoint)
+        cell.reportType?.text = taskReport.reportType.name
         return cell
     }
 

@@ -1,5 +1,5 @@
 //
-//  InputAmountFormViewController.swift
+//  ReportAdminFormViewController.swift
 //  hirou
 //
 //  Created by Dipansh Khandelwal on 10/07/20.
@@ -8,12 +8,13 @@
 
 import UIKit
 
-class TaskGarbageAmountFormViewController: UIViewController {
+class ReportAdminFormViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    
 
     /*
     // MARK: - Navigation
