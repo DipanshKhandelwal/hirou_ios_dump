@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class TaskGarbageAmountTableViewCell: UITableViewCell {
     @IBOutlet weak var garbageType: UILabel!
@@ -14,6 +15,7 @@ class TaskGarbageAmountTableViewCell: UITableViewCell {
 }
 
 class TaskGarbageAmountTableViewController: UITableViewController {
+    var taskAmounts = [TaskAmount]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +26,30 @@ class TaskGarbageAmountTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         self.title = "Task Garbage Amount"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchTaskGarbageAmounts()
+    }
+    
+    func fetchTaskGarbageAmounts(){
+        let id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
+        let url = Environment.SERVER_URL + "api/task_amount/"
+        let parameters: Parameters = [ "task_route": id ]
+        AF.request(url, method: .get, parameters: parameters).response { response in
+            switch response.result {
+            case .success(let value):
+                let decoder = JSONDecoder()
+                self.taskAmounts = try! decoder.decode([TaskAmount].self, from: value!)
+                print(self.taskAmounts.count)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
     // MARK: - Table view data source
