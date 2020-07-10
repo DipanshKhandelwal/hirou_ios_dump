@@ -11,6 +11,8 @@
 		311BA35624B8AC1700CE1BD9 /* TaskGarbageAmountFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311BA35524B8AC1700CE1BD9 /* TaskGarbageAmountFormViewController.swift */; };
 		311BA35824B8B08B00CE1BD9 /* TaskAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311BA35724B8B08B00CE1BD9 /* TaskAmount.swift */; };
 		311BA35A24B8BB5700CE1BD9 /* ReportAdminFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311BA35924B8BB5700CE1BD9 /* ReportAdminFormViewController.swift */; };
+		311BA35C24B8BF6900CE1BD9 /* TaskReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311BA35B24B8BF6900CE1BD9 /* TaskReport.swift */; };
+		311BA35E24B8BF8400CE1BD9 /* ReportType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311BA35D24B8BF8400CE1BD9 /* ReportType.swift */; };
 		312E7AC12462A7AD00A73363 /* TaskCollectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312E7AC02462A7AD00A73363 /* TaskCollectionsTableViewController.swift */; };
 		312E9A2A242A39980073D165 /* CollectionPointMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312E9A29242A39980073D165 /* CollectionPointMasterViewController.swift */; };
 		312E9A2D242A39F10073D165 /* CollectionPointDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312E9A2C242A39F10073D165 /* CollectionPointDetailViewController.swift */; };
@@ -79,6 +81,8 @@
 		311BA35524B8AC1700CE1BD9 /* TaskGarbageAmountFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskGarbageAmountFormViewController.swift; sourceTree = "<group>"; };
 		311BA35724B8B08B00CE1BD9 /* TaskAmount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskAmount.swift; sourceTree = "<group>"; };
 		311BA35924B8BB5700CE1BD9 /* ReportAdminFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportAdminFormViewController.swift; sourceTree = "<group>"; };
+		311BA35B24B8BF6900CE1BD9 /* TaskReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskReport.swift; sourceTree = "<group>"; };
+		311BA35D24B8BF8400CE1BD9 /* ReportType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportType.swift; sourceTree = "<group>"; };
 		312E7AC02462A7AD00A73363 /* TaskCollectionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionsTableViewController.swift; sourceTree = "<group>"; };
 		312E9A29242A39980073D165 /* CollectionPointMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointMasterViewController.swift; sourceTree = "<group>"; };
 		312E9A2C242A39F10073D165 /* CollectionPointDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointDetailViewController.swift; sourceTree = "<group>"; };
@@ -299,6 +303,8 @@
 				31EBE46424477FE40023305D /* TaskCollectionPoint.swift */,
 				31EBE46624477FED0023305D /* TaskCollection.swift */,
 				311BA35724B8B08B00CE1BD9 /* TaskAmount.swift */,
+				311BA35B24B8BF6900CE1BD9 /* TaskReport.swift */,
+				311BA35D24B8BF8400CE1BD9 /* ReportType.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -535,6 +541,7 @@
 				311BA35624B8AC1700CE1BD9 /* TaskGarbageAmountFormViewController.swift in Sources */,
 				31A882A524A38A2500C3A692 /* CollectionPointsNotifications.swift in Sources */,
 				31C9AE022480FB4D00161374 /* TaskAddViewController.swift in Sources */,
+				311BA35E24B8BF8400CE1BD9 /* ReportType.swift in Sources */,
 				316D774B24B66A880074549A /* ReportAdminTableViewController.swift in Sources */,
 				311BA35A24B8BB5700CE1BD9 /* ReportAdminFormViewController.swift in Sources */,
 				3153653D243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift in Sources */,
@@ -548,6 +555,7 @@
 				316D774E24B66DD60074549A /* TaskGarbageAmountTableViewController.swift in Sources */,
 				31CF0A42245A0B8500E0F5DC /* CalendarViewController.swift in Sources */,
 				3133F2022424BD0A001C158C /* RouteMasterViewController.swift in Sources */,
+				311BA35C24B8BF6900CE1BD9 /* TaskReport.swift in Sources */,
 				3159198524A0B7BB009D064B /* GarbageButton.swift in Sources */,
 				31B09589248F75FC00D560B0 /* Environment.swift in Sources */,
 				3133F2042424BE0F001C158C /* BaseRoute.swift in Sources */,

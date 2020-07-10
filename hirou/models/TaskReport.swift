@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TaskReport {
+struct TaskReport : Encodable, Decodable{
     var id: Int
     var route: Int
     var collectionPoint: Int
@@ -22,5 +22,13 @@ struct TaskReport {
         self.collectionPoint = collectionPoint
         self.reportType = reportType
         self.image = image
+    }
+    
+    enum CodingKeys : String, CodingKey {
+        case id
+        case route
+        case collectionPoint = "collection_point"
+        case reportType = "report_type"
+        case image
     }
 }
