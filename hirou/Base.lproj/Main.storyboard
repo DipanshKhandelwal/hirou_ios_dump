@@ -286,29 +286,58 @@
         <scene sceneID="t1R-Jt-taD">
             <objects>
                 <tableViewController id="1CD-Ry-sI3" customClass="InputAmountTableViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hZb-e9-T1R">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hZb-e9-T1R">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="inputAmountTableViewCell" id="44Z-2w-3I6" customClass="InputAmountTableViewCell" customModule="hirou" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="768" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="inputAmountTableViewCell" rowHeight="80" id="44Z-2w-3I6" customClass="InputAmountTableViewCell" customModule="hirou" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="768" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="44Z-2w-3I6" id="6sA-XX-cuW">
-                                    <rect key="frame" x="0.0" y="0.0" width="768" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="80"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nlm-hj-5eh">
-                                            <rect key="frame" x="30" y="11" width="42" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Garbage Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLZ-F5-jiF" userLabel="Garbage Type Heading">
+                                            <rect key="frame" x="16" y="16" width="85" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Garbage Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nlm-hj-5eh" userLabel="Garbage">
+                                            <rect key="frame" x="117" y="16" width="85" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S5a-ns-BPH" userLabel="Amount Heading">
+                                            <rect key="frame" x="16" y="48" width="47.5" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qxt-fK-ROx" userLabel="Amount">
+                                            <rect key="frame" x="79.5" y="48" width="33" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="S5a-ns-BPH" firstAttribute="leading" secondItem="gLZ-F5-jiF" secondAttribute="leading" id="5sa-5l-7J5"/>
+                                        <constraint firstItem="Nlm-hj-5eh" firstAttribute="centerY" secondItem="gLZ-F5-jiF" secondAttribute="centerY" id="6we-iU-xEJ"/>
+                                        <constraint firstItem="qxt-fK-ROx" firstAttribute="centerY" secondItem="S5a-ns-BPH" secondAttribute="centerY" id="BGb-lI-oWZ"/>
+                                        <constraint firstItem="Nlm-hj-5eh" firstAttribute="leading" secondItem="gLZ-F5-jiF" secondAttribute="trailing" constant="16" id="ZRE-sj-VI4"/>
+                                        <constraint firstItem="gLZ-F5-jiF" firstAttribute="leading" secondItem="6sA-XX-cuW" secondAttribute="leading" constant="16" id="g40-PS-Z3F"/>
+                                        <constraint firstItem="gLZ-F5-jiF" firstAttribute="top" secondItem="6sA-XX-cuW" secondAttribute="top" constant="16" id="k1E-fb-OqP"/>
+                                        <constraint firstItem="qxt-fK-ROx" firstAttribute="leading" secondItem="S5a-ns-BPH" secondAttribute="trailing" constant="16" id="qHz-ad-EDH"/>
+                                        <constraint firstItem="S5a-ns-BPH" firstAttribute="top" secondItem="gLZ-F5-jiF" secondAttribute="bottom" constant="16" id="yZr-QK-Hu4"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="label" destination="Nlm-hj-5eh" id="enl-2o-yar"/>
+                                    <outlet property="amount" destination="qxt-fK-ROx" id="5Hf-8Y-S33"/>
+                                    <outlet property="garbageType" destination="Nlm-hj-5eh" id="paj-9T-YGt"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

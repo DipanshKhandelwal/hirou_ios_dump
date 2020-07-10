@@ -9,7 +9,8 @@
 import UIKit
 
 class InputAmountTableViewCell: UITableViewCell {
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var garbageType: UILabel!
+    @IBOutlet weak var amount: UILabel!
 }
 
 class InputAmountTableViewController: UITableViewController {
@@ -34,12 +35,13 @@ class InputAmountTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return 5
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "inputAmountTableViewCell", for: indexPath) as! InputAmountTableViewCell
-        cell.label?.text = "dipansh"
+        cell.garbageType?.text = "dipansh"
+        cell.amount?.text = "dipansh"
         return cell
     }
 
