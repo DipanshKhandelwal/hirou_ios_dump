@@ -410,6 +410,9 @@
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="cancel:" destination="RrN-sE-2iT" eventType="touchUpInside" id="lfr-gn-K1u"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -588,6 +591,9 @@
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="cancel:" destination="DT6-ff-ZEJ" eventType="touchUpInside" id="YtL-Tn-LbO"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
