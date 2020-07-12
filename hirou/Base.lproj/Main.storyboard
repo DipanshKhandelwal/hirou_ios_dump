@@ -507,7 +507,85 @@
                     <view key="view" contentMode="scaleToFill" id="f1n-Xt-chn">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="vgR-xs-Wnr">
+                                <rect key="frame" x="77" y="100" width="614" height="537"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ift-LR-goe">
+                                        <rect key="frame" x="0.0" y="0.0" width="614" height="64.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collection Point" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czw-hv-eHi">
+                                                <rect key="frame" x="0.0" y="0.0" width="614" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vVK-yY-OAM" customClass="DisabledUITextField" customModule="hirou" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="30.5" width="614" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gpx-uX-47O">
+                                        <rect key="frame" x="0.0" y="94.5" width="614" height="64.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7lk-7a-VpI">
+                                                <rect key="frame" x="0.0" y="0.0" width="614" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="brb-KD-hfn" customClass="DisabledUITextField" customModule="hirou" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="30.5" width="614" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZNf-aF-F1v">
+                                        <rect key="frame" x="0.0" y="189" width="614" height="288"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="tzL-Dz-GAF">
+                                                <rect key="frame" x="0.0" y="0.0" width="614" height="22"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Evidence" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vs3-V1-3Im">
+                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="22"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4MF-AM-gOg">
+                                                        <rect key="frame" x="594" y="0.0" width="20" height="22"/>
+                                                        <state key="normal" image="pencil.circle" catalog="system"/>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="doc" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="UWw-Ju-2jY">
+                                                <rect key="frame" x="0.0" y="32" width="614" height="256"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="256" id="q2i-xw-JmL"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="UWw-Ju-2jY" firstAttribute="centerX" secondItem="ZNf-aF-F1v" secondAttribute="centerX" id="Ig7-Bn-NHE"/>
+                                            <constraint firstItem="UWw-Ju-2jY" firstAttribute="width" secondItem="ZNf-aF-F1v" secondAttribute="width" id="U6D-Mf-cwY"/>
+                                        </constraints>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXU-3d-n7Q">
+                                        <rect key="frame" x="0.0" y="507" width="614" height="30"/>
+                                        <state key="normal" title="Add"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="vgR-xs-Wnr" firstAttribute="top" secondItem="Ab9-af-sby" secondAttribute="top" constant="50" id="UjS-nH-4H8"/>
+                            <constraint firstItem="vgR-xs-Wnr" firstAttribute="centerX" secondItem="Ab9-af-sby" secondAttribute="centerX" id="aNp-tS-02t"/>
+                            <constraint firstItem="vgR-xs-Wnr" firstAttribute="width" secondItem="Ab9-af-sby" secondAttribute="width" multiplier="0.8" id="zUY-L0-JaX"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Ab9-af-sby"/>
                     </view>
                     <navigationItem key="navigationItem" title="Report Admin Form" id="qCL-RL-6fr"/>
@@ -2011,10 +2089,12 @@
     <resources>
         <image name="carplay_close" width="65" height="65"/>
         <image name="clock.fill" catalog="system" width="128" height="121"/>
+        <image name="doc" catalog="system" width="115" height="128"/>
         <image name="list.dash" catalog="system" width="128" height="85"/>
         <image name="map.fill" catalog="system" width="128" height="113"/>
         <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
+        <image name="pencil.circle" catalog="system" width="128" height="121"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="table.badge.more.fill" catalog="system" width="128" height="88"/>
     </resources>
