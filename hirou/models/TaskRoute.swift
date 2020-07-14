@@ -54,18 +54,9 @@ class TaskRoute: Encodable, Decodable {
     }
     
     func getGarbagesNameList() -> String{
-        var garbageSet : Set<String> = []
-        var stringGarbageList = "Empty"
-        for tcp in self.taskCollectionPoints {
-            for tc in tcp.taskCollections {
-                garbageSet.insert(tc.garbage.name)
-            }
-        }
-        if(garbageSet.count > 0) {
-            stringGarbageList = ""
-        }
-        for garbage in garbageSet {
-            stringGarbageList += garbage + ", "
+        var stringGarbageList = ""
+        for garbage in self.garbageList {
+            stringGarbageList += garbage.name + ", "
         }
         return stringGarbageList
     }
