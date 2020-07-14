@@ -15,6 +15,14 @@ class TaskGarbageAmountFormViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc
+    func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        self.amountLabel.resignFirstResponder();
+        self.garbageLabel.resignFirstResponder();
     }
 
     @IBAction func cancel(_ sender: Any) {
