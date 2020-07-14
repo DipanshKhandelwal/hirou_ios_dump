@@ -7,15 +7,24 @@
 //
 
 import UIKit
+import Alamofire
 
-class TaskGarbageAmountFormViewController: UIViewController {
-
+class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
     var garbages = [Garbage]()
+    var selectedGarbage: Garbage?
+    
+    var garbagePicker = UIPickerView()
+
     @IBOutlet weak var garbageLabel: DisabledUITextField!
     @IBOutlet weak var amountLabel: DisabledUITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupGarbagePicker()
         // Do any additional setup after loading the view.
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
     }
@@ -44,6 +53,31 @@ class TaskGarbageAmountFormViewController: UIViewController {
             }
         }
         super.viewWillAppear(animated)
+    }
+    
+    @objc
+    func pickerDone() {
+        garbageLabel.resignFirstResponder()
+    }
+    
+    func setupGarbagePicker() {
+        garbagePicker.backgroundColor = UIColor.white
+        
+        garbagePicker.delegate = self
+        garbagePicker.dataSource = self
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.sizeToFit()
+        
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.pickerDone))
+        
+        toolBar.setItems([flexibleSpace, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        garbageLabel.inputView = garbagePicker
+        garbageLabel.inputAccessoryView = toolBar
     }
     /*
     // MARK: - Navigation
