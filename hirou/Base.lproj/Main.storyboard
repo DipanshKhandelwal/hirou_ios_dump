@@ -349,7 +349,7 @@
                     <navigationItem key="navigationItem" id="G7b-S8-ETA">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="lkH-9z-WkM">
                             <connections>
-                                <segue destination="RrN-sE-2iT" kind="show" id="dkT-2W-XoR"/>
+                                <segue destination="RrN-sE-2iT" kind="show" identifier="inputTaskAmountFormSegue" id="dkT-2W-XoR"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1078,7 +1078,7 @@
                                                     <color key="titleColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="1CD-Ry-sI3" kind="show" id="GEk-Ht-2B6"/>
+                                                    <segue destination="1CD-Ry-sI3" kind="show" identifier="inputTaskAmountSegue" id="GEk-Ht-2B6"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TiS-X5-okS">

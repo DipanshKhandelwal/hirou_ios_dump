@@ -69,10 +69,7 @@ class TaskDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     var detailItem: Any? {
         didSet {
-            // Update the view.
-            if let detail = detailItem {
-                let taskRoute = detail as! TaskRoute
-                print("taskRoute.name", taskRoute.name)
+            if detailItem != nil {
                 configureView()
             }
         }
@@ -176,15 +173,11 @@ class TaskDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-        //        if segue.identifier == "selectGarbageTypes" {
-        //            let controller = (segue.destination as! GarbageTypesTableViewController)
-        //            if let detail = detailItem {
-        //                controller.detailItem = self.selectedGarbages
-        //                controller.delegate = self
-        //            }
-        //        }
+        if segue.identifier == "inputTaskAmountSegue" {
+            let controller = (segue.destination as! TaskGarbageAmountTableViewController)
+            if detailItem != nil {
+                controller.detailItem = self.detailItem
+            }
+        }
     }
-    
 }

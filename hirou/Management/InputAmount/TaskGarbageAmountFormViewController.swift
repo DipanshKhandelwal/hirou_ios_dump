@@ -15,6 +15,19 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
     var selectedGarbage: Garbage?
     
     var garbagePicker = UIPickerView()
+    
+    var detailItem: Any? {
+        didSet {
+            // Update the view.
+            if let detail = detailItem {
+                let task = detail as! TaskRoute
+                self.garbages = task.garbageList
+                DispatchQueue.main.async {
+                    self.garbagePicker.reloadAllComponents()
+                }
+            }
+        }
+    }
 
     @IBOutlet weak var garbageLabel: DisabledUITextField!
     @IBOutlet weak var amountLabel: DisabledUITextField!
@@ -80,22 +93,6 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
                     print(error)
                 }
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        AF.request(Environment.SERVER_URL + "api/garbage/", method: .get).response { response in
-            switch response.result {
-            case .success(let value):
-                let decoder = JSONDecoder()
-                self.garbages = try! decoder.decode([Garbage].self, from: value!)
-                DispatchQueue.main.async {
-                    self.garbagePicker.reloadAllComponents()
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-        super.viewWillAppear(animated)
     }
     
     @objc
