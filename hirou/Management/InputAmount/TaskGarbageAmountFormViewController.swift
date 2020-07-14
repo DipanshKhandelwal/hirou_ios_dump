@@ -39,6 +39,28 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
     @IBAction func cancel(_ sender: Any) {
         _ = self.navigationController?.popViewController(animated: true)
     }
+
+    @IBAction func addClicked(_ sender: Any) {
+        if selectedGarbage == nil {
+            let addAlert = UIAlertController(title: "Please select a garbage type !!", message: "", preferredStyle: .alert)
+            addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
+            self.present(addAlert, animated: true, completion: nil)
+            return
+        }
+        
+        if amountLabel.text?.count == 0 {
+            let addAlert = UIAlertController(title: "Please enter a garbage amount !!", message: "", preferredStyle: .alert)
+            addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
+            self.present(addAlert, animated: true, completion: nil)
+            return
+        }
+        
+        addGarbageAmount()
+    }
+    
+    func addGarbageAmount() {
+        print("addGarbageAmount")
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         AF.request(Environment.SERVER_URL + "api/garbage/", method: .get).response { response in
