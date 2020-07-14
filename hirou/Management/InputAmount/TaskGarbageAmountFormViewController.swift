@@ -59,7 +59,27 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
     }
     
     func addGarbageAmount() {
-        print("addGarbageAmount")
+        let garbageId = selectedGarbage?.id
+        let taskId = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
+
+        let parameters: [String: String] = [
+            "garbage": String(garbageId!),
+            "amount": self.amountLabel.text!,
+            "route": String(taskId)
+        ]
+    
+        AF.request(Environment.SERVER_URL + "api/task_amount/", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
+            .responseJSON {
+                response in
+                switch response.result {
+                case .success(let value):
+                    print("value", value)
+                    _ = self.navigationController?.popViewController(animated: true)
+
+                case .failure(let error):
+                    print(error)
+                }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
