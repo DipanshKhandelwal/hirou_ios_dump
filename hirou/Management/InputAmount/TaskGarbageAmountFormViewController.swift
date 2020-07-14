@@ -10,6 +10,7 @@ import UIKit
 
 class TaskGarbageAmountFormViewController: UIViewController {
 
+    var garbages = [Garbage]()
     @IBOutlet weak var garbageLabel: DisabledUITextField!
     @IBOutlet weak var amountLabel: DisabledUITextField!
     override func viewDidLoad() {
@@ -28,7 +29,22 @@ class TaskGarbageAmountFormViewController: UIViewController {
     @IBAction func cancel(_ sender: Any) {
         _ = self.navigationController?.popViewController(animated: true)
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        AF.request(Environment.SERVER_URL + "api/garbage/", method: .get).response { response in
+            switch response.result {
+            case .success(let value):
+                let decoder = JSONDecoder()
+                self.garbages = try! decoder.decode([Garbage].self, from: value!)
+                DispatchQueue.main.async {
+                    self.garbagePicker.reloadAllComponents()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+        super.viewWillAppear(animated)
+    }
     /*
     // MARK: - Navigation
 
