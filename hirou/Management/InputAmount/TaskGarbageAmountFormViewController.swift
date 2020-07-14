@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     var garbages = [Garbage]()
     var selectedGarbage: Garbage?
@@ -23,6 +23,7 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         super.viewDidLoad()
         
         setupGarbagePicker()
+        amountLabel.delegate = self
         // Do any additional setup after loading the view.
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
@@ -96,6 +97,22 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         let garbage = self.garbages[row]
         self.selectedGarbage = garbage
         self.garbageLabel.text = garbage.name
+    }
+    
+    // text field
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let aSet = NSCharacterSet(charactersIn:"0123456789").inverted
+        let compSepByCharInSet = string.components(separatedBy: aSet)
+        let numberFiltered = compSepByCharInSet.joined(separator: "")
+        
+        if string == numberFiltered {
+            let currentText = textField.text ?? ""
+            guard let stringRange = Range(range, in: currentText) else { return false }
+            _ = currentText.replacingCharacters(in: stringRange, with: string)
+            return true
+        } else {
+            return false
+        }
     }
 
     /*
