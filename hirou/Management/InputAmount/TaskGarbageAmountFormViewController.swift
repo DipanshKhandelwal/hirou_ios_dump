@@ -10,6 +10,8 @@ import UIKit
 
 class TaskGarbageAmountFormViewController: UIViewController {
 
+    @IBOutlet weak var garbageLabel: DisabledUITextField!
+    @IBOutlet weak var amountLabel: DisabledUITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
