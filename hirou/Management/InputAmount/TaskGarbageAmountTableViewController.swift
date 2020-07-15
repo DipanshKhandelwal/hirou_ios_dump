@@ -114,7 +114,7 @@ class TaskGarbageAmountTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "inputTaskAmountFormSegue" {
             let controller = (segue.destination as! TaskGarbageAmountFormViewController)
-            if let detail = detailItem {
+            if detailItem != nil {
                 controller.detailItem = self.detailItem
             }
         }
