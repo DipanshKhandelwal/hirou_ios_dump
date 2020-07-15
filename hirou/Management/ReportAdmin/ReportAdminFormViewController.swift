@@ -14,6 +14,12 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     
     var collectionPointPicker = UIPickerView() // tag = 1
     var reportTypePicker = UIPickerView() // tag = 2
+    
+    var collectionPoints = [CollectionPoint]()
+    var selectedCollectionPoint: CollectionPoint?
+    
+    var reportTypes = [ReportType]()
+    var selectedReportType: ReportType?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,6 +124,21 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         }
     }
     
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if(pickerView.tag == 1) {
+            // picker is collection point picker
+            let collectionPoint = self.collectionPoints[row]
+            self.selectedCollectionPoint = collectionPoint
+            self.collectionPointLabel.text = collectionPoint.name
+        }
+        else {
+            // picker is report type
+            let reportType = self.reportTypes[row]
+            self.selectedReportType = reportType
+            self.reportTypeLabel.text = reportType.name
+        }
+    }
+
     /*
     // MARK: - Navigation
 
