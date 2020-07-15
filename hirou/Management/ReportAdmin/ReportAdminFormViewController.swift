@@ -34,6 +34,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     
     override func viewDidAppear(_ animated: Bool) {
         fetchReportTypes();
+        fetchCollectionPoints();
         super.viewWillAppear(animated)
     }
     
@@ -44,6 +45,20 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
                 self.reportTypes = try! JSONDecoder().decode([ReportType].self, from: value!)
                 DispatchQueue.main.async {
                     self.reportTypePicker.reloadAllComponents()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func fetchCollectionPoints() {
+        AF.request(Environment.SERVER_URL + "api/collection_point/", method: .get).response { response in
+            switch response.result {
+            case .success(let value):
+                self.collectionPoints = try! JSONDecoder().decode([CollectionPoint].self, from: value!)
+                DispatchQueue.main.async {
+                    self.collectionPointPicker.reloadAllComponents()
                 }
             case .failure(let error):
                 print(error)
