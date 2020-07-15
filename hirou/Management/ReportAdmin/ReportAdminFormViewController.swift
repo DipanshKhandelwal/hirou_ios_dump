@@ -76,6 +76,22 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         _ = self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func handleAddClick(_ sender: Any) {
+        if selectedCollectionPoint == nil {
+            let addAlert = UIAlertController(title: "Please select a collection point !!", message: "", preferredStyle: .alert)
+            addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
+            self.present(addAlert, animated: true, completion: nil)
+            return
+        }
+        
+        if selectedReportType == nil {
+            let addAlert = UIAlertController(title: "Please select a report type !!", message: "", preferredStyle: .alert)
+            addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
+            self.present(addAlert, animated: true, completion: nil)
+            return
+        }
+    }
+    
     func setupPickers() {
         setupCollectionPointPicker()
         setupReportTypePicker();

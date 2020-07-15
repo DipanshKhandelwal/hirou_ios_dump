@@ -592,6 +592,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXU-3d-n7Q">
                                         <rect key="frame" x="0.0" y="507" width="614" height="30"/>
                                         <state key="normal" title="Add"/>
+                                        <connections>
+                                            <action selector="handleAddClick:" destination="DT6-ff-ZEJ" eventType="touchUpInside" id="FjQ-kg-oP1"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v7T-XY-NIs">
                                         <rect key="frame" x="0.0" y="567" width="614" height="30"/>
