@@ -12,8 +12,8 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     @IBOutlet weak var collectionPointLabel: DisabledUITextField!
     @IBOutlet weak var reportTypeLabel: DisabledUITextField!
     
-    var collectionPointPicker = UIPickerView()
-    var reportTypePicker = UIPickerView()
+    var collectionPointPicker = UIPickerView() // tag = 1
+    var reportTypePicker = UIPickerView() // tag = 2
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +42,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
 
     func setupCollectionPointPicker() {
         collectionPointPicker.backgroundColor = UIColor.white
+        collectionPointPicker.tag = 1
         
         collectionPointPicker.delegate = self
         collectionPointPicker.dataSource = self
@@ -62,6 +63,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     
     func setupReportTypePicker() {
         reportTypePicker.backgroundColor = UIColor.white
+        reportTypePicker.tag = 2
         
         reportTypePicker.delegate = self
         reportTypePicker.dataSource = self
