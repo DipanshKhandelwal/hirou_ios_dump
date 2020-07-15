@@ -91,7 +91,33 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     func reportTypePickerDone() {
         reportTypeLabel.resignFirstResponder();
     }
-
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if(pickerView.tag == 1) {
+            // picker is collection point picker
+            return self.collectionPoints.count
+        }
+        else {
+            // picker is report type
+            return self.reportTypes.count
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if(pickerView.tag == 1) {
+            // picker is collection point picker
+            return self.collectionPoints[row].name
+        }
+        else {
+            // picker is report type
+            return self.reportTypes[row].name
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
