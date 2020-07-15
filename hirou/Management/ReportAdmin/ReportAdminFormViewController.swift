@@ -9,13 +9,23 @@
 import UIKit
 
 class ReportAdminFormViewController: UIViewController {
-
+    @IBOutlet weak var collectionPointLabel: DisabledUITextField!
+    @IBOutlet weak var reportTypeLabel: DisabledUITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(tapGesture)
     }
     
-
+    @objc
+    func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        self.collectionPointLabel.resignFirstResponder();
+        self.reportTypeLabel.resignFirstResponder();
+    }
+    
     @IBAction func cancel(_ sender: Any) {
         _ = self.navigationController?.popViewController(animated: true)
     }
