@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     @IBOutlet weak var collectionPointLabel: DisabledUITextField!
@@ -29,6 +30,25 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         self.view.addGestureRecognizer(tapGesture)
         
         setupPickers()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        fetchReportTypes();
+        super.viewWillAppear(animated)
+    }
+    
+    func fetchReportTypes() {
+        AF.request(Environment.SERVER_URL + "api/report_type/", method: .get).response { response in
+            switch response.result {
+            case .success(let value):
+                self.reportTypes = try! JSONDecoder().decode([ReportType].self, from: value!)
+                DispatchQueue.main.async {
+                    self.reportTypePicker.reloadAllComponents()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     @objc
