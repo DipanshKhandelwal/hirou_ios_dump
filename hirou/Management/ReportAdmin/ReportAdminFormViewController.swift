@@ -90,8 +90,35 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
             self.present(addAlert, animated: true, completion: nil)
             return
         }
+        
+        addNewReport()
     }
     
+    func addNewReport() {
+        let collectionPointId = selectedCollectionPoint?.id
+        let reportTypeId = selectedReportType?.id
+        let taskId = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
+
+        let parameters: [String: String] = [
+            "route": String(taskId),
+            "collection_point": String(collectionPointId!),
+            "report_type": String(reportTypeId!),
+        ]
+
+        AF.request(Environment.SERVER_URL + "api/task_report/", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
+            .responseJSON {
+                response in
+                switch response.result {
+                case .success(let value):
+                    print("value", value)
+                    _ = self.navigationController?.popViewController(animated: true)
+
+                case .failure(let error):
+                    print(error)
+                }
+        }
+    }
+
     func setupPickers() {
         setupCollectionPointPicker()
         setupReportTypePicker();
