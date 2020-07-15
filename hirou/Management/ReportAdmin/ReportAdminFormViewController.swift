@@ -9,12 +9,15 @@
 import UIKit
 import Alamofire
 
-class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, ImagePickerDelegate {
     @IBOutlet weak var collectionPointLabel: DisabledUITextField!
     @IBOutlet weak var reportTypeLabel: DisabledUITextField!
+    @IBOutlet weak var reportImage: UIImageView!
     
     var collectionPointPicker = UIPickerView() // tag = 1
     var reportTypePicker = UIPickerView() // tag = 2
+    
+    var imagePicker: ImagePicker!
     
     var collectionPoints = [CollectionPoint]()
     var selectedCollectionPoint: CollectionPoint?
@@ -66,10 +69,18 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         }
     }
     
+    func didSelect(image: UIImage?) {
+        self.reportImage.image = image
+    }
+    
     @objc
     func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         self.collectionPointLabel.resignFirstResponder();
         self.reportTypeLabel.resignFirstResponder();
+    }
+
+    @IBAction func showImagePicker(_ sender: UIButton) {
+        self.imagePicker.present(from: sender)
     }
     
     @IBAction func cancel(_ sender: Any) {
@@ -120,6 +131,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     }
 
     func setupPickers() {
+        self.imagePicker = ImagePicker(presentationController: self, delegate: self);
         setupCollectionPointPicker()
         setupReportTypePicker();
     }

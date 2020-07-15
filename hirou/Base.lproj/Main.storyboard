@@ -574,6 +574,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4MF-AM-gOg">
                                                         <rect key="frame" x="594" y="0.0" width="20" height="22"/>
                                                         <state key="normal" image="pencil.circle" catalog="system"/>
+                                                        <connections>
+                                                            <action selector="showImagePicker:" destination="DT6-ff-ZEJ" eventType="touchUpInside" id="f1i-sG-g7h"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -619,6 +622,7 @@
                     <navigationItem key="navigationItem" title="Report Admin Form" id="qCL-RL-6fr"/>
                     <connections>
                         <outlet property="collectionPointLabel" destination="vVK-yY-OAM" id="QMo-gb-UtS"/>
+                        <outlet property="reportImage" destination="UWw-Ju-2jY" id="X6v-0x-aGm"/>
                         <outlet property="reportTypeLabel" destination="brb-KD-hfn" id="mqZ-Lp-pPL"/>
                     </connections>
                 </viewController>
