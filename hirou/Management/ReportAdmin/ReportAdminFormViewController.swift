@@ -75,6 +75,9 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         self.reportImage.image = image
     }
     
+    func saveImage(id: Int) {
+    }
+    
     @objc
     func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         self.collectionPointLabel.resignFirstResponder();
@@ -123,8 +126,8 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
                 response in
                 switch response.result {
                 case .success(let value):
-                    print("value", value)
-                    _ = self.navigationController?.popViewController(animated: true)
+                    let id = ((value as AnyObject)["id"] as! Int)
+                    self.saveImage(id: id)
 
                 case .failure(let error):
                     print(error)
