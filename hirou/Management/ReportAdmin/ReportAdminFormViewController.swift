@@ -76,6 +76,37 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     func saveImage(id: Int) {
+        let image = self.selectedImage
+        if image == nil {
+            _ = self.navigationController?.popViewController(animated: true)
+        }
+        
+        let imgData = image!.jpegData(compressionQuality: 0.2)!
+        let reportId = id
+                        
+        AF.upload(multipartFormData: { multiPart in
+            multiPart.append(imgData, withName: "image", fileName: String(reportId)+".png", mimeType: "image/png")
+        },
+                  to: Environment.SERVER_URL + "api/task_report/"+String(id)+"/",
+                  method: .patch
+        )
+            .uploadProgress( queue: .main, closure: {
+                progress in
+                print("Upload Progress: \(progress.fractionCompleted)")
+                if progress.fractionCompleted == 1 {
+                    _ = self.navigationController?.popViewController(animated: true)
+                }
+            }).responseJSON(completionHandler: { data in
+                print("upload finished: \(data)")
+                _ = self.navigationController?.popViewController(animated: true)
+            }).response { (response) in
+                switch response.result {
+                case .success(let result):
+                    print("upload success result: \(String(describing: result))")
+                case .failure(let err):
+                    print("upload err: \(err)")
+                }
+        }
     }
     
     @objc
