@@ -24,6 +24,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     
     var reportTypes = [ReportType]()
     var selectedReportType: ReportType?
+    var selectedImage: UIImage?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +71,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     func didSelect(image: UIImage?) {
+        self.selectedImage = image
         self.reportImage.image = image
     }
     
