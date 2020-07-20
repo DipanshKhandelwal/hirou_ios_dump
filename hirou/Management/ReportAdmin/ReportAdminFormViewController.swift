@@ -79,6 +79,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         let image = self.selectedImage
         if image == nil {
             _ = self.navigationController?.popViewController(animated: true)
+            return
         }
         
         let imgData = image!.jpegData(compressionQuality: 0.2)!

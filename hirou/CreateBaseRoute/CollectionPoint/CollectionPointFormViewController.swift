@@ -18,6 +18,7 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     
+    var selectedImage: UIImage?
     
     @IBOutlet weak var imageView: UIImageView!
     var imagePicker: ImagePicker!
@@ -43,28 +44,42 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
     
     func didSelect(image: UIImage?) {
         self.imageView.image = image
-        let imgData = image!.jpegData(compressionQuality: 0.2)!
-//         let params = ["name": "rname"] //Optional for extra parameter
+        self.selectedImage = image
+    }
+    
+    func saveImage(id: Int) {
+        let image = self.selectedImage
         
-        let id = String((detailItem as! CollectionPoint).id)
+        if image == nil {
+            _ = self.navigationController?.popViewController(animated: true)
+            return
+        }
+        
+        let imgData = image!.jpegData(compressionQuality: 0.2)!
+        //         let params = ["name": "rname"] //Optional for extra parameter
+        
         AF.upload(multipartFormData: { multiPart in
             multiPart.append(imgData, withName: "image", fileName: String(id)+".png", mimeType: "image/png")
         },
-        to: Environment.SERVER_URL + "api/collection_point/"+String(id)+"/",
-        method: .patch
+                  to: Environment.SERVER_URL + "api/collection_point/"+String(id)+"/",
+                  method: .patch
         )
-        .uploadProgress( queue: .main, closure: {
-            progress in
-            print("Upload Progress: \(progress.fractionCompleted)")
-        }).responseJSON(completionHandler: { data in
-            print("upload finished: \(data)")
-        }).response { (response) in
-            switch response.result {
-            case .success(let result):
-                print("upload success result: \(result)")
-            case .failure(let err):
-                print("upload err: \(err)")
-            }
+            .uploadProgress( queue: .main, closure: {
+                progress in
+                print("Upload Progress: \(progress.fractionCompleted)")
+                if progress.fractionCompleted == 1 {
+                    _ = self.navigationController?.popViewController(animated: true)
+                }
+            }).responseJSON(completionHandler: { data in
+                print("upload finished: \(data)")
+                _ = self.navigationController?.popViewController(animated: true)
+            }).response { (response) in
+                switch response.result {
+                case .success(let result):
+                    print("upload success result: \(result)")
+                case .failure(let err):
+                    print("upload err: \(err)")
+                }
         }
     }
 
@@ -88,12 +103,12 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
                 "sequence": self.cpSequence.text ?? "0"
             ]
             AF.request(Environment.SERVER_URL + "api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
-                .responseString {
+                .responseJSON {
                     response in
                     switch response.result {
                     case .success(let value):
-                        print("value", value)
-                        _ = self.navigationController?.popViewController(animated: true)
+                        let id = ((value as AnyObject)["id"] as! Int)
+                        self.saveImage(id: id)
 
                     case .failure(let error):
                         print(error)
@@ -116,8 +131,8 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
                     response in
                     switch response.result {
                     case .success(let value):
-                        print("value", value)
-                        _ = self.navigationController?.popViewController(animated: true)
+                        let id = ((value as AnyObject)["id"] as! Int)
+                        self.saveImage(id: id)
                         
                     case .failure(let error):
                         print(error)
