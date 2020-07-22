@@ -168,28 +168,27 @@ class CollectionPointMasterViewController: UITableViewController {
     }
     
     func updateList(){
-        let group = DispatchGroup()
-        for (index, element) in self.collectionPoints.enumerated() {
-            group.enter()
-            let id = element.id
-            let parameters: [String: String] = [
-                "sequence": String(index + 1)
-            ]
-            AF.request(Environment.SERVER_URL + "api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
-                .responseString {
-                    response in
-                    switch response.result {
-                    case .success( _):
-                        group.leave()
-                        
-                    case .failure(let error):
-                        print(error)
+        let baseRouteId = UserDefaults.standard.string(forKey: "selectedRoute")!
+        var array = [String]()
+        for element in self.collectionPoints { array.append(String(element.id)) }
+        let parameters: [String: [String]] = [
+            "points": array
+        ]
+        AF.request(Environment.SERVER_URL + "api/base_route/"+String(baseRouteId)+"/reorder_points/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
+            .response {
+                response in
+                switch response.result {
+                case .success(let value):
+                    let newCollectionPoints = try! JSONDecoder().decode([CollectionPoint].self, from: value!)
+                    self.collectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
+                    self.notificationCenter.post(name: .CollectionPointsTableReorder, object: self.collectionPoints)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
                     }
-            }
-        }
-        group.notify(queue: .main) {
-            // do something here when loop finished
-            self.fetchCollectionPoints(notify: true)
+                    
+                case .failure(let error):
+                    print(error)
+                }
         }
     }
 }
