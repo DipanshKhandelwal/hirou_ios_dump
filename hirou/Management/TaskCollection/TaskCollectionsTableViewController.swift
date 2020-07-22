@@ -51,16 +51,18 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
     @objc
     func collectionPointUpdateFromVList(_ notification: Notification) {
         let tcs = notification.object as! [TaskCollection]
+        var changedIndexes = [IndexPath]()
         for tc in tcs {
             for num in 0...self.taskCollections.count-1 {
                 if self.taskCollections[num].id == tc.id {
                     self.taskCollections[num] = tc
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
+                    changedIndexes.append(IndexPath(row: num, section: 0))
                     break
                 }
             }
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadRows(at: changedIndexes, with: .automatic)
         }
     }
     
@@ -145,16 +147,14 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
                     let taskCollection = try! JSONDecoder().decode(TaskCollection.self, from: value!)
                     self.taskCollections[position] = taskCollection
                     DispatchQueue.main.async {
-                        self.tableView.reloadData()
+                        self.tableView.reloadRows(at: [ IndexPath(row: position, section: 0) ], with: .automatic)
                     }
                     self.notificationCenter.post(name: .TaskCollectionPointsHListUpdate, object: [taskCollection])
-
                 case .failure(let error):
                     print(error)
                 }
         }
     }
-
 
     /*
     // Override to support conditional editing of the table view.
