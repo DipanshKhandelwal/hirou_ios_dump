@@ -43,18 +43,21 @@ class TaskCollectionPointTableViewController: UITableViewController {
     @objc
     func collectionPointUpdateFromHList(_ notification: Notification) {
         let tcs = notification.object as! [TaskCollection]
+        var changedIndexes = [IndexPath]()
         for tc in tcs {
-            for tcp in self.taskCollectionPoints {
+            for tcp_num in 0...self.taskCollectionPoints.count-1 {
+                let tcp = self.taskCollectionPoints[tcp_num]
                 for num in 0...tcp.taskCollections.count-1 {
                     if tcp.taskCollections[num].id == tc.id {
                         tcp.taskCollections[num] = tc
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                        }
-                        break
+                        changedIndexes.append(IndexPath(row: tcp_num, section: 0))
+                        break;
                     }
                 }
             }
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadRows(at: changedIndexes, with: .right)
         }
     }
     
@@ -165,7 +168,7 @@ class TaskCollectionPointTableViewController: UITableViewController {
                     let taskCollectionsNew = try! JSONDecoder().decode([TaskCollection].self, from: value!)
                     self.taskCollectionPoints[sender.tag].taskCollections = taskCollectionsNew
                     DispatchQueue.main.async {
-                        self.tableView.reloadData()
+                        self.tableView.reloadRows(at: [ IndexPath(row: sender.tag, section: 0) ], with: .automatic)
                     }
                     self.notificationCenter.post(name: .TaskCollectionPointsVListUpdate, object: taskCollectionsNew)
                 case .failure(let error):
@@ -196,7 +199,7 @@ class TaskCollectionPointTableViewController: UITableViewController {
                     let taskCollectionNew = try! JSONDecoder().decode(TaskCollection.self, from: value!)
                     self.taskCollectionPoints[sender.taskCollectionPointPosition].taskCollections[sender.taskPosition] = taskCollectionNew
                     DispatchQueue.main.async {
-                        self.tableView.reloadData()
+                        self.tableView.reloadRows(at: [IndexPath(row: sender.taskCollectionPointPosition, section: 0)], with: .automatic)
                     }
                     self.notificationCenter.post(name: .TaskCollectionPointsVListUpdate, object: [taskCollectionNew])
 
