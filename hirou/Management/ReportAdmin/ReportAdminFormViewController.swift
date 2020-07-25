@@ -254,15 +254,19 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if(pickerView.tag == 1) {
             // picker is collection point picker
-            let collectionPoint = self.collectionPoints[row]
-            self.selectedCollectionPoint = collectionPoint
-            self.collectionPointLabel.text = collectionPoint.name
+            if row < self.collectionPoints.count {
+                let collectionPoint = self.collectionPoints[row]
+                self.selectedCollectionPoint = collectionPoint
+                self.collectionPointLabel.text = collectionPoint.name
+            }
         }
         else {
-            // picker is report type
-            let reportType = self.reportTypes[row]
-            self.selectedReportType = reportType
-            self.reportTypeLabel.text = reportType.name
+            if row < self.reportTypes.count {
+                // picker is report type
+                let reportType = self.reportTypes[row]
+                self.selectedReportType = reportType
+                self.reportTypeLabel.text = reportType.name
+            }
         }
     }
 

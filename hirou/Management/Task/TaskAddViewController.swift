@@ -154,9 +154,11 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let route = self.baseRoutes[row]
-        self.selectedBaseRoute = route
-        self.routeLabel.text = route.name
+        if row < self.baseRoutes.count {
+            let route = self.baseRoutes[row]
+            self.selectedBaseRoute = route
+            self.routeLabel.text = route.name
+        }
     }
     
     /*
