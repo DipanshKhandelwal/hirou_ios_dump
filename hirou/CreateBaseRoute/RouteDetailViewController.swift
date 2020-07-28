@@ -14,8 +14,8 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var routeNameTextField: UITextField!
     @IBOutlet weak var customerLabel: UILabel!
     @IBOutlet weak var customerPicker: UIPickerView!
-    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var garbageListLabel: UILabel!
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
     
     var selectedCustomerId : Int?
     var selectedGarbages: [Garbage]! = []
@@ -181,7 +181,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             }
             
             if let button = self.deleteButton {
-                button.isHidden = true
+                button.isEnabled = false
             }
         }
     }
