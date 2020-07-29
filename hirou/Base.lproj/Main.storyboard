@@ -432,9 +432,17 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xPi-kc-Qj8"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Add Task Garbage Amount" id="mfk-gg-xmU"/>
+                    <navigationItem key="navigationItem" title="Add Task Garbage Amount" id="mfk-gg-xmU">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="trash" id="WyN-pX-4r6">
+                            <connections>
+                                <action selector="deleteClicked:" destination="RrN-sE-2iT" id="dSU-zu-gIm"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="addButton" destination="pW3-4h-HrJ" id="Ufg-Ii-eh5"/>
                         <outlet property="amountLabel" destination="Qwe-j0-w2x" id="abt-cv-1sA"/>
+                        <outlet property="deleteButton" destination="WyN-pX-4r6" id="5U8-Xm-SZd"/>
                         <outlet property="garbageLabel" destination="cXA-iL-fYX" id="grQ-5T-vbq"/>
                     </connections>
                 </viewController>
@@ -2220,6 +2228,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="mmn-xT-Ufc"/>
         <segue reference="uMY-IY-NVF"/>
+        <segue reference="qCA-k5-LvD"/>
+        <segue reference="Jsp-8A-qGn"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="carplay_close" width="65" height="65"/>
