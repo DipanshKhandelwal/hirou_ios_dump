@@ -118,5 +118,14 @@ class TaskGarbageAmountTableViewController: UITableViewController {
                 controller.detailItem = self.detailItem
             }
         }
+        else if segue.identifier == "editGarbageAmount" {
+            let controller = (segue.destination as! TaskGarbageAmountFormViewController)
+            if let indexPath = tableView.indexPathForSelectedRow {
+                if detailItem != nil {
+                    controller.detailItem = self.detailItem
+                    controller.taskAmount = self.taskAmounts[indexPath.row]
+                }
+            }
+        }
     }
 }

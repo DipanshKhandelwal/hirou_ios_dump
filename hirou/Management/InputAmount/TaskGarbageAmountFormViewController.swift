@@ -10,6 +10,8 @@ import UIKit
 import Alamofire
 
 class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
     
     var garbages = [Garbage]()
     var selectedGarbage: Garbage?
@@ -19,13 +21,14 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
     var detailItem: Any? {
         didSet {
             // Update the view.
-            if let detail = detailItem {
-                let task = detail as! TaskRoute
-                self.garbages = task.garbageList
-                DispatchQueue.main.async {
-                    self.garbagePicker.reloadAllComponents()
-                }
-            }
+            configureView()
+        }
+    }
+    
+    var taskAmount: Any? {
+        didSet {
+            // Update the view.
+            configureView()
         }
     }
 
@@ -41,6 +44,30 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
+        
+        self.deleteButton?.isEnabled = false
+        configureView()
+    }
+    
+    func configureView() {
+        if let detail = detailItem {
+            let task = detail as! TaskRoute
+            self.garbages = task.garbageList
+            DispatchQueue.main.async {
+                self.garbagePicker.reloadAllComponents()
+            }
+        }
+        
+        if let taskAmountItem = taskAmount {
+            let taskAmount = taskAmountItem as! TaskAmount
+            self.selectedGarbage = taskAmount.garbage
+            self.garbageLabel?.text = taskAmount.garbage.name
+            self.amountLabel?.text = String(taskAmount.amount)
+            
+            self.addButton?.setTitle("Save", for: .normal)
+            self.deleteButton?.isEnabled = true
+            self.title = "Edit Task Garbage Amount"
+        }
     }
     
     @objc
@@ -60,18 +87,49 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
             self.present(addAlert, animated: true, completion: nil)
             return
         }
-        
+
         if amountLabel.text?.count == 0 {
             let addAlert = UIAlertController(title: "Please enter a garbage amount !!", message: "", preferredStyle: .alert)
             addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
             self.present(addAlert, animated: true, completion: nil)
             return
         }
-        
-        addGarbageAmount()
+        addOrEditGarbageAmount()
     }
     
-    func addGarbageAmount() {
+    @IBAction func deleteClicked(_ sender: Any) {
+        let deleteAlert = UIAlertController(title: "Delete Task Amount ?", message: "Are you sure you want to delete the amount ?", preferredStyle: .alert)
+        
+        deleteAlert.addAction(UIAlertAction(title: "Yes. Delete", style: .default, handler: { (action: UIAlertAction!) in
+            self.deleteTaskAmount()
+        }))
+        
+        deleteAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            print("Delte cancelled by the user.")
+        }))
+        
+        self.present(deleteAlert, animated: true, completion: nil)
+    }
+    
+    func deleteTaskAmount() {
+        if let taskAmountItem = taskAmount {
+            let taskAmount = taskAmountItem as! TaskAmount
+            AF.request(Environment.SERVER_URL + "api/task_amount/"+String(taskAmount.id)+"/", method: .delete)
+                .responseString {
+                    response in
+                    switch response.result {
+                    case .success(let value):
+                        print("value", value)
+                        _ = self.navigationController?.popViewController(animated: true)
+                        
+                    case .failure(let error):
+                        print(error)
+                    }
+            }
+        }
+    }
+    
+    func addOrEditGarbageAmount() {
         let garbageId = selectedGarbage?.id
         let taskId = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
 
@@ -80,15 +138,26 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
             "amount": self.amountLabel.text!,
             "route": String(taskId)
         ]
-    
-        AF.request(Environment.SERVER_URL + "api/task_amount/", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
+        
+        var url = Environment.SERVER_URL + "api/task_amount/"
+        var method = "POST"
+        
+        if taskAmount != nil {
+            if let taskAmountItem = taskAmount {
+                let taskAmount = taskAmountItem as! TaskAmount
+                url = url + String(taskAmount.id) + "/"
+                method = "PATCH"
+            }
+        }
+        
+        AF.request(url, method: HTTPMethod(rawValue: method), parameters: parameters, encoder: JSONParameterEncoder.default)
             .responseJSON {
                 response in
                 switch response.result {
                 case .success(let value):
                     print("value", value)
                     _ = self.navigationController?.popViewController(animated: true)
-
+                    
                 case .failure(let error):
                     print(error)
                 }
