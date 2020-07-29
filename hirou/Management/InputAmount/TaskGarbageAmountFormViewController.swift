@@ -10,6 +10,8 @@ import UIKit
 import Alamofire
 
 class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
     
     var garbages = [Garbage]()
     var selectedGarbage: Garbage?
@@ -19,13 +21,14 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
     var detailItem: Any? {
         didSet {
             // Update the view.
-            if let detail = detailItem {
-                let task = detail as! TaskRoute
-                self.garbages = task.garbageList
-                DispatchQueue.main.async {
-                    self.garbagePicker.reloadAllComponents()
-                }
-            }
+            configureView()
+        }
+    }
+    
+    var taskAmount: Any? {
+        didSet {
+            // Update the view.
+            configureView()
         }
     }
 
@@ -41,6 +44,30 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
+        
+        self.deleteButton?.isEnabled = false
+        configureView()
+    }
+    
+    func configureView() {
+        if let detail = detailItem {
+            let task = detail as! TaskRoute
+            self.garbages = task.garbageList
+            DispatchQueue.main.async {
+                self.garbagePicker.reloadAllComponents()
+            }
+        }
+        
+        if let taskAmountItem = taskAmount {
+            let taskAmount = taskAmountItem as! TaskAmount
+            self.selectedGarbage = taskAmount.garbage
+            self.garbageLabel?.text = taskAmount.garbage.name
+            self.amountLabel?.text = String(taskAmount.amount)
+            
+            self.addButton?.setTitle("Save", for: .normal)
+            self.deleteButton?.isEnabled = true
+            self.title = "Edit Task Garbage Amount"
+        }
     }
     
     @objc
