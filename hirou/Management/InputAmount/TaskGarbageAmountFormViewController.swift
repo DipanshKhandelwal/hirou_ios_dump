@@ -61,14 +61,36 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
             return
         }
         
-        if amountLabel.text?.count == 0 {
-            let addAlert = UIAlertController(title: "Please enter a garbage amount !!", message: "", preferredStyle: .alert)
-            addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
-            self.present(addAlert, animated: true, completion: nil)
-            return
-        }
+    @IBAction func deleteClicked(_ sender: Any) {
+        let deleteAlert = UIAlertController(title: "Delete Task Amount ?", message: "Are you sure you want to delete the amount ?", preferredStyle: .alert)
         
-        addGarbageAmount()
+        deleteAlert.addAction(UIAlertAction(title: "Yes. Delete", style: .default, handler: { (action: UIAlertAction!) in
+            self.deleteTaskAmount()
+        }))
+        
+        deleteAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            print("Delte cancelled by the user.")
+        }))
+        
+        self.present(deleteAlert, animated: true, completion: nil)
+    }
+    
+    func deleteTaskAmount() {
+        if let taskAmountItem = taskAmount {
+            let taskAmount = taskAmountItem as! TaskAmount
+            AF.request(Environment.SERVER_URL + "api/task_amount/"+String(taskAmount.id)+"/", method: .delete)
+                .responseString {
+                    response in
+                    switch response.result {
+                    case .success(let value):
+                        print("value", value)
+                        _ = self.navigationController?.popViewController(animated: true)
+                        
+                    case .failure(let error):
+                        print(error)
+                    }
+            }
+        }
     }
     
     func addGarbageAmount() {
