@@ -60,7 +60,16 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
             self.present(addAlert, animated: true, completion: nil)
             return
         }
-        
+
+        if amountLabel.text?.count == 0 {
+            let addAlert = UIAlertController(title: "Please enter a garbage amount !!", message: "", preferredStyle: .alert)
+            addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
+            self.present(addAlert, animated: true, completion: nil)
+            return
+        }
+        addGarbageAmount()
+    }
+    
     @IBAction func deleteClicked(_ sender: Any) {
         let deleteAlert = UIAlertController(title: "Delete Task Amount ?", message: "Are you sure you want to delete the amount ?", preferredStyle: .alert)
         
