@@ -94,7 +94,7 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
             self.present(addAlert, animated: true, completion: nil)
             return
         }
-        addGarbageAmount()
+        addOrEditGarbageAmount()
     }
     
     @IBAction func deleteClicked(_ sender: Any) {
@@ -129,7 +129,7 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         }
     }
     
-    func addGarbageAmount() {
+    func addOrEditGarbageAmount() {
         let garbageId = selectedGarbage?.id
         let taskId = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
 
