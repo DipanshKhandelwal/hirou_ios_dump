@@ -61,11 +61,11 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     @IBAction func addNewTask(_ sender: Any) {
         if selectedBaseRoute == nil {
-            let deleteAlert = UIAlertController(title: "Please select a base route !!", message: "", preferredStyle: .alert)
+            let addAlert = UIAlertController(title: "Please select a base route !!", message: "", preferredStyle: .alert)
             
-            deleteAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
+            addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
             
-            self.present(deleteAlert, animated: true, completion: nil)
+            self.present(addAlert, animated: true, completion: nil)
             return
         } else {
             addNewTask()
