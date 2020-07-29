@@ -138,15 +138,26 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
             "amount": self.amountLabel.text!,
             "route": String(taskId)
         ]
-    
-        AF.request(Environment.SERVER_URL + "api/task_amount/", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
+        
+        var url = Environment.SERVER_URL + "api/task_amount/"
+        var method = "POST"
+        
+        if taskAmount != nil {
+            if let taskAmountItem = taskAmount {
+                let taskAmount = taskAmountItem as! TaskAmount
+                url = url + String(taskAmount.id) + "/"
+                method = "PATCH"
+            }
+        }
+        
+        AF.request(url, method: HTTPMethod(rawValue: method), parameters: parameters, encoder: JSONParameterEncoder.default)
             .responseJSON {
                 response in
                 switch response.result {
                 case .success(let value):
                     print("value", value)
                     _ = self.navigationController?.popViewController(animated: true)
-
+                    
                 case .failure(let error):
                     print(error)
                 }
