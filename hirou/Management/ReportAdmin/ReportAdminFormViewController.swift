@@ -20,12 +20,12 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     var imagePicker: ImagePicker!
     
     var collectionPoints = [CollectionPoint]()
-    var selectedCollectionPoint: CollectionPoint?
+    var selectedCollectionPoint: Int?
     
     var reportTypes = [ReportType]()
     var selectedReportType: ReportType?
     var selectedImage: UIImage?
-
+    
     @IBOutlet weak var deleteButton: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,7 +171,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     func addNewReport() {
-        let collectionPointId = selectedCollectionPoint?.id
+        let collectionPointId = selectedCollectionPoint
         let reportTypeId = selectedReportType?.id
         let taskId = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
 
@@ -302,7 +302,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
             // picker is collection point picker
             if row < self.collectionPoints.count {
                 let collectionPoint = self.collectionPoints[row]
-                self.selectedCollectionPoint = collectionPoint
+                self.selectedCollectionPoint = collectionPoint.id
                 self.collectionPointLabel.text = collectionPoint.name
             }
         }
