@@ -102,6 +102,13 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
             switch response.result {
             case .success(let value):
                 self.collectionPoints = try! JSONDecoder().decode([CollectionPoint].self, from: value!)
+                if self.collectionPointLabel?.text?.count == 0 {
+                    for cp in self.collectionPoints {
+                        if cp.id == self.selectedCollectionPoint {
+                            self.collectionPointLabel?.text = cp.name
+                        }
+                    }
+                }
                 DispatchQueue.main.async {
                     self.collectionPointPicker.reloadAllComponents()
                 }
