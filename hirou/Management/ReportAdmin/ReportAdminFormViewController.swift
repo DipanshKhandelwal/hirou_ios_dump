@@ -34,12 +34,23 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         self.view.addGestureRecognizer(tapGesture)
         
         setupPickers()
+        configureView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         fetchReportTypes();
         fetchCollectionPoints();
         super.viewWillAppear(animated)
+    }
+    
+    var taskReport: Any? {
+        didSet {
+            // Update the view.
+            configureView()
+        }
+    }
+    
+    func configureView() {
     }
     
     func fetchReportTypes() {
