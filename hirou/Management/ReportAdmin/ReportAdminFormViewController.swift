@@ -20,12 +20,15 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     var imagePicker: ImagePicker!
     
     var collectionPoints = [CollectionPoint]()
-    var selectedCollectionPoint: CollectionPoint?
+    var selectedCollectionPoint: Int?
     
     var reportTypes = [ReportType]()
     var selectedReportType: ReportType?
     var selectedImage: UIImage?
-
+    
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
+    @IBOutlet weak var addButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -34,12 +37,50 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         self.view.addGestureRecognizer(tapGesture)
         
         setupPickers()
+        self.deleteButton?.isEnabled = false
+        configureView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         fetchReportTypes();
         fetchCollectionPoints();
         super.viewWillAppear(animated)
+    }
+    
+    var taskReport: Any? {
+        didSet {
+            // Update the view.
+            configureView()
+        }
+    }
+    
+    func configureView() {
+        if let taskReportItem = taskReport {
+            let taskReport = taskReportItem as! TaskReport
+            
+            self.selectedReportType = taskReport.reportType
+            self.reportTypeLabel?.text = taskReport.reportType.name
+
+            self.selectedCollectionPoint = taskReport.collectionPoint
+            
+            if let image = self.reportImage {
+                if taskReport.image != nil {
+                    image.image = UIImage(systemName: "doc")
+                    DispatchQueue.global().async { [] in
+                        let url = NSURL(string: taskReport.image!)! as URL
+                        if let imageData: NSData = NSData(contentsOf: url) {
+                            DispatchQueue.main.async {
+                                image.image = UIImage(data: imageData as Data)
+                            }
+                        }
+                    }
+                }
+            }
+            
+            self.addButton?.setTitle("Save", for: .normal)
+            self.deleteButton?.isEnabled = true
+            self.title = "Edit Report Admin Form"
+        }
     }
     
     func fetchReportTypes() {
@@ -61,6 +102,13 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
             switch response.result {
             case .success(let value):
                 self.collectionPoints = try! JSONDecoder().decode([CollectionPoint].self, from: value!)
+                if self.collectionPointLabel?.text?.count == 0 {
+                    for cp in self.collectionPoints {
+                        if cp.id == self.selectedCollectionPoint {
+                            self.collectionPointLabel?.text = cp.name
+                        }
+                    }
+                }
                 DispatchQueue.main.async {
                     self.collectionPointPicker.reloadAllComponents()
                 }
@@ -124,6 +172,20 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         _ = self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func handleDeleteClicked(_ sender: Any) {
+        let deleteAlert = UIAlertController(title: "Delete Task Report ?", message: "Are you sure you want to delete the report ?", preferredStyle: .alert)
+        
+        deleteAlert.addAction(UIAlertAction(title: "Yes. Delete", style: .default, handler: { (action: UIAlertAction!) in
+            self.deleteTaskReport()
+        }))
+        
+        deleteAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            print("Delte cancelled by the user.")
+        }))
+        
+        self.present(deleteAlert, animated: true, completion: nil)
+    }
+    
     @IBAction func handleAddClick(_ sender: Any) {
         if selectedCollectionPoint == nil {
             let addAlert = UIAlertController(title: "Please select a collection point !!", message: "", preferredStyle: .alert)
@@ -139,11 +201,11 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
             return
         }
         
-        addNewReport()
+        addNewOrEditReport()
     }
     
-    func addNewReport() {
-        let collectionPointId = selectedCollectionPoint?.id
+    func addNewOrEditReport() {
+        let collectionPointId = selectedCollectionPoint
         let reportTypeId = selectedReportType?.id
         let taskId = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
 
@@ -152,8 +214,19 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
             "collection_point": String(collectionPointId!),
             "report_type": String(reportTypeId!),
         ]
+        
+        var url = Environment.SERVER_URL + "api/task_report/"
+        var method = "POST"
+        
+        if taskReport != nil {
+            if let taskReportItem = taskReport {
+            let taskReport = taskReportItem as! TaskReport
+                url = url + String(taskReport.id) + "/"
+                method = "PATCH"
+            }
+        }
 
-        AF.request(Environment.SERVER_URL + "api/task_report/", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
+        AF.request(url, method: HTTPMethod(rawValue: method), parameters: parameters, encoder: JSONParameterEncoder.default)
             .responseJSON {
                 response in
                 switch response.result {
@@ -164,6 +237,24 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
                 case .failure(let error):
                     print(error)
                 }
+        }
+    }
+
+    func deleteTaskReport() {
+        if let taskReportItem = taskReport {
+        let taskReport = taskReportItem as! TaskReport
+            AF.request(Environment.SERVER_URL + "api/task_report/"+String(taskReport.id)+"/", method: .delete)
+                .responseString {
+                    response in
+                    switch response.result {
+                    case .success(let value):
+                        print("value", value)
+                        _ = self.navigationController?.popViewController(animated: true)
+                        
+                    case .failure(let error):
+                        print(error)
+                    }
+            }
         }
     }
 
@@ -256,7 +347,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
             // picker is collection point picker
             if row < self.collectionPoints.count {
                 let collectionPoint = self.collectionPoints[row]
-                self.selectedCollectionPoint = collectionPoint
+                self.selectedCollectionPoint = collectionPoint.id
                 self.collectionPointLabel.text = collectionPoint.name
             }
         }
