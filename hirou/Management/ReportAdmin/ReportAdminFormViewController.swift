@@ -201,10 +201,10 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
             return
         }
         
-        addNewReport()
+        addNewOrEditReport()
     }
     
-    func addNewReport() {
+    func addNewOrEditReport() {
         let collectionPointId = selectedCollectionPoint
         let reportTypeId = selectedReportType?.id
         let taskId = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
