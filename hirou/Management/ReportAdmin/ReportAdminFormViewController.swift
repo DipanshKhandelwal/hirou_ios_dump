@@ -214,8 +214,19 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
             "collection_point": String(collectionPointId!),
             "report_type": String(reportTypeId!),
         ]
+        
+        var url = Environment.SERVER_URL + "api/task_report/"
+        var method = "POST"
+        
+        if taskReport != nil {
+            if let taskReportItem = taskReport {
+            let taskReport = taskReportItem as! TaskReport
+                url = url + String(taskReport.id) + "/"
+                method = "PATCH"
+            }
+        }
 
-        AF.request(Environment.SERVER_URL + "api/task_report/", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
+        AF.request(url, method: HTTPMethod(rawValue: method), parameters: parameters, encoder: JSONParameterEncoder.default)
             .responseJSON {
                 response in
                 switch response.result {
