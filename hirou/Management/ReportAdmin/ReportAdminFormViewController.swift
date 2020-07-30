@@ -124,6 +124,20 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         _ = self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func handleDeleteClicked(_ sender: Any) {
+        let deleteAlert = UIAlertController(title: "Delete Task Report ?", message: "Are you sure you want to delete the report ?", preferredStyle: .alert)
+        
+        deleteAlert.addAction(UIAlertAction(title: "Yes. Delete", style: .default, handler: { (action: UIAlertAction!) in
+            self.deleteTaskReport()
+        }))
+        
+        deleteAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            print("Delte cancelled by the user.")
+        }))
+        
+        self.present(deleteAlert, animated: true, completion: nil)
+    }
+    
     @IBAction func handleAddClick(_ sender: Any) {
         if selectedCollectionPoint == nil {
             let addAlert = UIAlertController(title: "Please select a collection point !!", message: "", preferredStyle: .alert)
@@ -164,6 +178,24 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
                 case .failure(let error):
                     print(error)
                 }
+        }
+    }
+
+    func deleteTaskReport() {
+        if let taskReportItem = taskReport {
+        let taskReport = taskReportItem as! TaskReport
+            AF.request(Environment.SERVER_URL + "api/task_report/"+String(taskReport.id)+"/", method: .delete)
+                .responseString {
+                    response in
+                    switch response.result {
+                    case .success(let value):
+                        print("value", value)
+                        _ = self.navigationController?.popViewController(animated: true)
+                        
+                    case .failure(let error):
+                        print(error)
+                    }
+            }
         }
     }
 
