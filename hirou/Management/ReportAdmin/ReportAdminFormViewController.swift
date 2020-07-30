@@ -55,10 +55,34 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     func configureView() {
-    }
-    
+        if let taskReportItem = taskReport {
+            let taskReport = taskReportItem as! TaskReport
+            
+            self.selectedReportType = taskReport.reportType
+            self.reportTypeLabel?.text = taskReport.reportType.name
+
+            self.selectedCollectionPoint = taskReport.collectionPoint
+            
+            if let image = self.reportImage {
+                if taskReport.image != nil {
+                    image.image = UIImage(systemName: "doc")
+                    DispatchQueue.global().async { [] in
+                        let url = NSURL(string: taskReport.image!)! as URL
+                        if let imageData: NSData = NSData(contentsOf: url) {
+                            DispatchQueue.main.async {
+                                image.image = UIImage(data: imageData as Data)
+                            }
+                        }
+                    }
+                }
+            }
+            
             self.addButton?.setTitle("Save", for: .normal)
             self.deleteButton?.isEnabled = true
+            self.title = "Edit Report Admin Form"
+        }
+    }
+    
     func fetchReportTypes() {
         AF.request(Environment.SERVER_URL + "api/report_type/", method: .get).response { response in
             switch response.result {
