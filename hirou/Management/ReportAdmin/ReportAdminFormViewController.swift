@@ -26,6 +26,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     var selectedReportType: ReportType?
     var selectedImage: UIImage?
 
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -34,6 +35,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         self.view.addGestureRecognizer(tapGesture)
         
         setupPickers()
+        self.deleteButton?.isEnabled = false
         configureView()
     }
     
@@ -53,6 +55,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     func configureView() {
     }
     
+            self.deleteButton?.isEnabled = true
     func fetchReportTypes() {
         AF.request(Environment.SERVER_URL + "api/report_type/", method: .get).response { response in
             switch response.result {
