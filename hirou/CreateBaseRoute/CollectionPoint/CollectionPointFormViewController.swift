@@ -231,10 +231,6 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
                 if let button = self.deleteButton {
                     button.isEnabled = false
                 }
-                
-//                if let button = self.saveButton {
-//                    button.setTitle("Add", for: .normal)
-//                }
             }
         }
     }
