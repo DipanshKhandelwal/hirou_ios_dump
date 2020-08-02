@@ -15,8 +15,8 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
     @IBOutlet weak var cpAddressLabel: UITextField!
     @IBOutlet weak var cpSequence: UITextField!
     @IBOutlet weak var cpMemo: UITextField!
-    @IBOutlet weak var deleteButton: UIButton!
-    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
     
     var selectedImage: UIImage?
     
@@ -215,7 +215,7 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
             
             if let image = self.imageView {
                 if collectionPoint.image != nil {
-                    image.image = UIImage(systemName: "house")
+//                    image.image = UIImage(systemName: "house")
                     DispatchQueue.global().async { [] in
                         let url = NSURL(string: collectionPoint.image!)! as URL
                         if let imageData: NSData = NSData(contentsOf: url) {
@@ -229,11 +229,7 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
 
             if collectionPoint.id == -1 {
                 if let button = self.deleteButton {
-                    button.isHidden = true
-                }
-                
-                if let button = self.saveButton {
-                    button.setTitle("Add", for: .normal)
+                    button.isEnabled = false
                 }
             }
         }
