@@ -16,6 +16,8 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var customerPicker: UIPickerView!
     @IBOutlet weak var garbageListLabel: UILabel!
     @IBOutlet weak var deleteButton: UIBarButtonItem!
+    @IBOutlet weak var moveToRouteScreenButton: UIButton!
+    @IBOutlet weak var routeErrorLabel: UILabel!
     
     var selectedCustomerId : Int?
     var selectedGarbages: [Garbage]! = []
@@ -167,6 +169,9 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             self.selectedGarbages = (detail as! BaseRoute).garbageList
             setGarbageLabelValue()
             UserDefaults.standard.set((detail as! BaseRoute).id, forKey: "selectedRoute")
+            if let routeErrorLabel = self.routeErrorLabel {
+                routeErrorLabel.isHidden = true
+            }
         } else {
             if let label = self.routeNameTextField {
                 label.text = ""
@@ -182,6 +187,10 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             
             if let button = self.deleteButton {
                 button.isEnabled = false
+            }
+            
+            if let moveToRouteScreenButton = self.moveToRouteScreenButton {
+                moveToRouteScreenButton.isEnabled = false
             }
         }
     }
