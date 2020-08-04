@@ -2004,7 +2004,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="FNr-Vy-JEa" userLabel="Image Stack View">
-                                <rect key="frame" x="0.0" y="80" width="768" height="302"/>
+                                <rect key="frame" x="0.0" y="80" width="768" height="402"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aZK-lH-1PP">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="1"/>
@@ -2014,23 +2014,25 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" restorationIdentifier="Collection Poin Image View" translatesAutoresizingMaskIntoConstraints="NO" id="UsI-YE-wNl" userLabel="Collection Poin Image View">
-                                        <rect key="frame" x="0.0" y="1" width="768" height="300"/>
+                                        <rect key="frame" x="0.0" y="1" width="768" height="400"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="17n-aA-UIf">
-                                                <rect key="frame" x="0.0" y="-1" width="768" height="302"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
-                                            </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C9L-qO-Bvl">
-                                                <rect key="frame" x="0.0" y="0.0" width="768" height="300"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C9L-qO-Bvl">
+                                                <rect key="frame" x="0.0" y="0.0" width="768" height="400"/>
+                                                <state key="normal" image="plus" catalog="system"/>
                                                 <connections>
                                                     <action selector="showImagePicker:" destination="RU1-ST-XiR" eventType="touchUpInside" id="Ngb-rA-Knw"/>
                                                 </connections>
                                             </button>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="17n-aA-UIf">
+                                                <rect key="frame" x="0.0" y="-1" width="768" height="402"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                            </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="300" id="3Ws-CY-tQU"/>
+                                            <constraint firstAttribute="height" constant="400" id="3Ws-CY-tQU"/>
                                             <constraint firstItem="17n-aA-UIf" firstAttribute="top" secondItem="UsI-YE-wNl" secondAttribute="top" id="7VL-W9-Iup"/>
                                             <constraint firstAttribute="bottom" secondItem="C9L-qO-Bvl" secondAttribute="bottom" id="Kl0-lW-H9c"/>
                                             <constraint firstItem="C9L-qO-Bvl" firstAttribute="top" secondItem="UsI-YE-wNl" secondAttribute="top" id="V8l-u3-rPL"/>
@@ -2042,7 +2044,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kKp-Ch-Sea">
-                                        <rect key="frame" x="0.0" y="301" width="768" height="1"/>
+                                        <rect key="frame" x="0.0" y="401" width="768" height="1"/>
                                         <color key="backgroundColor" systemColor="systemGray4Color" red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="M1N-TL-hvG"/>
@@ -2051,7 +2053,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zzs-Ks-A77">
-                                <rect key="frame" x="0.0" y="462" width="768" height="325"/>
+                                <rect key="frame" x="0.0" y="562" width="768" height="325"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W9u-PA-rga">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="1"/>
