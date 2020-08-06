@@ -19,7 +19,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     
     var imagePicker: ImagePicker!
     
-    var collectionPoints = [CollectionPoint]()
+    var collectionPoints = [TaskCollectionPoint]()
     var selectedCollectionPoint: Int?
     
     var reportTypes = [ReportType]()
@@ -47,6 +47,13 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         super.viewWillAppear(animated)
     }
     
+    var detailItem: Any? {
+        didSet {
+            // Update the view.
+            configureView()
+        }
+    }
+    
     var taskReport: Any? {
         didSet {
             // Update the view.
@@ -55,13 +62,21 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     func configureView() {
+        if let detail = detailItem {
+            let task = detail as! TaskRoute
+            self.collectionPoints = task.taskCollectionPoints
+            DispatchQueue.main.async {
+                self.taskCollectionPointPicker.reloadAllComponents()
+            }
+        }
+        
         if let taskReportItem = taskReport {
             let taskReport = taskReportItem as! TaskReport
             
             self.selectedReportType = taskReport.reportType
             self.reportTypeLabel?.text = taskReport.reportType.name
 
-            self.selectedCollectionPoint = taskReport.collectionPoint
+            self.selectedCollectionPoint = taskReport.taskCollectionPoint
             
             if let image = self.reportImage {
                 if taskReport.image != nil {
@@ -211,7 +226,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
 
         let parameters: [String: String] = [
             "route": String(taskId),
-            "collection_point": String(collectionPointId!),
+            "task_collection_point": String(collectionPointId!),
             "report_type": String(reportTypeId!),
         ]
         
