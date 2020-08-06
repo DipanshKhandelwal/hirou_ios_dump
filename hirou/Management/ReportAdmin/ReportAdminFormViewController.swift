@@ -10,11 +10,11 @@ import UIKit
 import Alamofire
 
 class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, ImagePickerDelegate {
-    @IBOutlet weak var collectionPointLabel: DisabledUITextField!
+    @IBOutlet weak var taskCollectionPointLabel: DisabledUITextField!
     @IBOutlet weak var reportTypeLabel: DisabledUITextField!
     @IBOutlet weak var reportImage: UIImageView!
     
-    var collectionPointPicker = UIPickerView() // tag = 1
+    var taskCollectionPointPicker = UIPickerView() // tag = 1
     var reportTypePicker = UIPickerView() // tag = 2
     
     var imagePicker: ImagePicker!
@@ -160,7 +160,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     
     @objc
     func dismissKeyboard(_ sender: UITapGestureRecognizer) {
-        self.collectionPointLabel.resignFirstResponder();
+        self.taskCollectionPointLabel.resignFirstResponder();
         self.reportTypeLabel.resignFirstResponder();
     }
 
@@ -260,29 +260,29 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
 
     func setupPickers() {
         self.imagePicker = ImagePicker(presentationController: self, delegate: self);
-        setupCollectionPointPicker()
+        setupTaskCollectionPointPicker()
         setupReportTypePicker();
     }
 
-    func setupCollectionPointPicker() {
-        collectionPointPicker.backgroundColor = UIColor.white
-        collectionPointPicker.tag = 1
+    func setupTaskCollectionPointPicker() {
+        taskCollectionPointPicker.backgroundColor = UIColor.white
+        taskCollectionPointPicker.tag = 1
         
-        collectionPointPicker.delegate = self
-        collectionPointPicker.dataSource = self
+        taskCollectionPointPicker.delegate = self
+        taskCollectionPointPicker.dataSource = self
         
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.sizeToFit()
         
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.collectionPointPickerDone))
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.taskCollectionPointPickerDone))
         
         toolBar.setItems([flexibleSpace, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         
-        collectionPointLabel.inputView = collectionPointPicker
-        collectionPointLabel.inputAccessoryView = toolBar
+        taskCollectionPointLabel.inputView = taskCollectionPointPicker
+        taskCollectionPointLabel.inputAccessoryView = toolBar
     }
     
     func setupReportTypePicker() {
@@ -307,8 +307,8 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     @objc
-    func collectionPointPickerDone() {
-        collectionPointLabel.resignFirstResponder();
+    func taskCollectionPointPickerDone() {
+        taskCollectionPointLabel.resignFirstResponder();
     }
     
     @objc
@@ -348,7 +348,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
             if row < self.collectionPoints.count {
                 let collectionPoint = self.collectionPoints[row]
                 self.selectedCollectionPoint = collectionPoint.id
-                self.collectionPointLabel.text = collectionPoint.name
+                self.taskCollectionPointLabel.text = collectionPoint.name
             }
         }
         else {
