@@ -10,16 +10,16 @@ import UIKit
 import Alamofire
 
 class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, ImagePickerDelegate {
-    @IBOutlet weak var collectionPointLabel: DisabledUITextField!
+    @IBOutlet weak var taskCollectionPointLabel: DisabledUITextField!
     @IBOutlet weak var reportTypeLabel: DisabledUITextField!
     @IBOutlet weak var reportImage: UIImageView!
     
-    var collectionPointPicker = UIPickerView() // tag = 1
+    var taskCollectionPointPicker = UIPickerView() // tag = 1
     var reportTypePicker = UIPickerView() // tag = 2
     
     var imagePicker: ImagePicker!
     
-    var collectionPoints = [CollectionPoint]()
+    var collectionPoints = [TaskCollectionPoint]()
     var selectedCollectionPoint: Int?
     
     var reportTypes = [ReportType]()
@@ -43,8 +43,14 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     
     override func viewDidAppear(_ animated: Bool) {
         fetchReportTypes();
-        fetchCollectionPoints();
         super.viewWillAppear(animated)
+    }
+    
+    var detailItem: Any? {
+        didSet {
+            // Update the view.
+            configureView()
+        }
     }
     
     var taskReport: Any? {
@@ -55,13 +61,21 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     func configureView() {
+        if let detail = detailItem {
+            let task = detail as! TaskRoute
+            self.collectionPoints = task.taskCollectionPoints
+            DispatchQueue.main.async {
+                self.taskCollectionPointPicker.reloadAllComponents()
+            }
+        }
+        
         if let taskReportItem = taskReport {
             let taskReport = taskReportItem as! TaskReport
             
             self.selectedReportType = taskReport.reportType
             self.reportTypeLabel?.text = taskReport.reportType.name
 
-            self.selectedCollectionPoint = taskReport.collectionPoint
+            self.selectedCollectionPoint = taskReport.taskCollectionPoint
             
             if let image = self.reportImage {
                 if taskReport.image != nil {
@@ -90,27 +104,6 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
                 self.reportTypes = try! JSONDecoder().decode([ReportType].self, from: value!)
                 DispatchQueue.main.async {
                     self.reportTypePicker.reloadAllComponents()
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
-    func fetchCollectionPoints() {
-        AF.request(Environment.SERVER_URL + "api/collection_point/", method: .get).response { response in
-            switch response.result {
-            case .success(let value):
-                self.collectionPoints = try! JSONDecoder().decode([CollectionPoint].self, from: value!)
-                if self.collectionPointLabel?.text?.count == 0 {
-                    for cp in self.collectionPoints {
-                        if cp.id == self.selectedCollectionPoint {
-                            self.collectionPointLabel?.text = cp.name
-                        }
-                    }
-                }
-                DispatchQueue.main.async {
-                    self.collectionPointPicker.reloadAllComponents()
                 }
             case .failure(let error):
                 print(error)
@@ -160,7 +153,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     
     @objc
     func dismissKeyboard(_ sender: UITapGestureRecognizer) {
-        self.collectionPointLabel.resignFirstResponder();
+        self.taskCollectionPointLabel.resignFirstResponder();
         self.reportTypeLabel.resignFirstResponder();
     }
 
@@ -211,7 +204,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
 
         let parameters: [String: String] = [
             "route": String(taskId),
-            "collection_point": String(collectionPointId!),
+            "task_collection_point": String(collectionPointId!),
             "report_type": String(reportTypeId!),
         ]
         
@@ -260,29 +253,29 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
 
     func setupPickers() {
         self.imagePicker = ImagePicker(presentationController: self, delegate: self);
-        setupCollectionPointPicker()
+        setupTaskCollectionPointPicker()
         setupReportTypePicker();
     }
 
-    func setupCollectionPointPicker() {
-        collectionPointPicker.backgroundColor = UIColor.white
-        collectionPointPicker.tag = 1
+    func setupTaskCollectionPointPicker() {
+        taskCollectionPointPicker.backgroundColor = UIColor.white
+        taskCollectionPointPicker.tag = 1
         
-        collectionPointPicker.delegate = self
-        collectionPointPicker.dataSource = self
+        taskCollectionPointPicker.delegate = self
+        taskCollectionPointPicker.dataSource = self
         
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.sizeToFit()
         
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.collectionPointPickerDone))
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.taskCollectionPointPickerDone))
         
         toolBar.setItems([flexibleSpace, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         
-        collectionPointLabel.inputView = collectionPointPicker
-        collectionPointLabel.inputAccessoryView = toolBar
+        taskCollectionPointLabel.inputView = taskCollectionPointPicker
+        taskCollectionPointLabel.inputAccessoryView = toolBar
     }
     
     func setupReportTypePicker() {
@@ -307,8 +300,8 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     @objc
-    func collectionPointPickerDone() {
-        collectionPointLabel.resignFirstResponder();
+    func taskCollectionPointPickerDone() {
+        taskCollectionPointLabel.resignFirstResponder();
     }
     
     @objc
@@ -348,7 +341,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
             if row < self.collectionPoints.count {
                 let collectionPoint = self.collectionPoints[row]
                 self.selectedCollectionPoint = collectionPoint.id
-                self.collectionPointLabel.text = collectionPoint.name
+                self.taskCollectionPointLabel.text = collectionPoint.name
             }
         }
         else {

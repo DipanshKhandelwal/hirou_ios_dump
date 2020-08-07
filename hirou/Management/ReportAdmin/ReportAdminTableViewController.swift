@@ -16,6 +16,8 @@ class ReportAdminTableViewCell: UITableViewCell {
 
 class ReportAdminTableViewController: UITableViewController {
     var taskReports = [TaskReport]()
+    
+    var detailItem: Any?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +69,11 @@ class ReportAdminTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reportAdminTableViewCell", for: indexPath) as! ReportAdminTableViewCell
         let taskReport = self.taskReports[indexPath.row]
-        cell.collectionPoint?.text = String(taskReport.collectionPoint)
+        if taskReport.taskCollectionPoint != nil {
+            cell.collectionPoint?.text =  String(taskReport.taskCollectionPoint!)
+        }else {
+            cell.collectionPoint?.text =  "--"
+        }
         cell.reportType?.text = taskReport.reportType.name
         return cell
     }
@@ -111,10 +117,16 @@ class ReportAdminTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "editAdminReport" {
+        if segue.identifier == "inputTaskReportFormSegue" {
+            let controller = (segue.destination as! ReportAdminFormViewController)
+            if detailItem != nil {
+                controller.detailItem = self.detailItem
+            }
+        } else if segue.identifier == "editAdminReport" {
             let controller = (segue.destination as! ReportAdminFormViewController)
             if let indexPath = tableView.indexPathForSelectedRow {
                 controller.taskReport = self.taskReports[indexPath.row]
+                controller.detailItem = self.detailItem
             }
         }
     }

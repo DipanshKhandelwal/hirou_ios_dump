@@ -178,6 +178,11 @@ class TaskDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
             if detailItem != nil {
                 controller.detailItem = self.detailItem
             }
+        } else if segue.identifier == "inputTaskReportSegue" {
+            let controller = (segue.destination as! ReportAdminTableViewController)
+            if detailItem != nil {
+                controller.detailItem = self.detailItem
+            }
         }
     }
 }

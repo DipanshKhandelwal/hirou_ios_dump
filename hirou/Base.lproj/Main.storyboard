@@ -517,7 +517,7 @@
                     <navigationItem key="navigationItem" id="2dY-9v-T1p">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="7KT-39-ICZ">
                             <connections>
-                                <segue destination="DT6-ff-ZEJ" kind="show" id="Mr6-j3-8Qs"/>
+                                <segue destination="DT6-ff-ZEJ" kind="show" identifier="inputTaskReportFormSegue" id="Mr6-j3-8Qs"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -540,13 +540,13 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ift-LR-goe">
                                         <rect key="frame" x="0.0" y="0.0" width="614" height="64.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collection Point" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czw-hv-eHi">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Collection Point" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czw-hv-eHi">
                                                 <rect key="frame" x="0.0" y="0.0" width="614" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vVK-yY-OAM" customClass="DisabledUITextField" customModule="hirou" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vVK-yY-OAM" userLabel="Task Collection Point Label" customClass="DisabledUITextField" customModule="hirou" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="30.5" width="614" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -638,10 +638,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addButton" destination="lXU-3d-n7Q" id="jcA-PU-iJx"/>
-                        <outlet property="collectionPointLabel" destination="vVK-yY-OAM" id="QMo-gb-UtS"/>
                         <outlet property="deleteButton" destination="25a-Bl-uep" id="3Ah-Ey-U2c"/>
                         <outlet property="reportImage" destination="UWw-Ju-2jY" id="X6v-0x-aGm"/>
                         <outlet property="reportTypeLabel" destination="brb-KD-hfn" id="mqZ-Lp-pPL"/>
+                        <outlet property="taskCollectionPointLabel" destination="vVK-yY-OAM" id="na8-gE-LsO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Z1-oI-jNz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1116,7 +1116,7 @@
                                                     <color key="titleColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="JnD-g4-JZA" kind="show" id="6LH-N5-tKP"/>
+                                                    <segue destination="JnD-g4-JZA" kind="show" identifier="inputTaskReportSegue" id="6LH-N5-tKP"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UAN-oM-Yay">
@@ -1164,7 +1164,7 @@
             <objects>
                 <viewController id="Vjx-SN-QwH" customClass="TaskNavigationViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FFz-su-39i">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xUY-eU-34k" customClass="MGLMapView">
@@ -2409,8 +2409,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="mmn-xT-Ufc"/>
         <segue reference="uMY-IY-NVF"/>
-        <segue reference="qCA-k5-LvD"/>
-        <segue reference="Jsp-8A-qGn"/>
+        <segue reference="Mr6-j3-8Qs"/>
+        <segue reference="dkT-2W-XoR"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="checkmark" catalog="system" width="128" height="114"/>

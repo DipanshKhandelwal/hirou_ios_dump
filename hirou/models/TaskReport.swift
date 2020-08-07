@@ -11,24 +11,27 @@ import Foundation
 struct TaskReport : Encodable, Decodable{
     var id: Int
     var route: Int
-    var collectionPoint: Int
+    var taskCollectionPoint: Int?
     var reportType: ReportType
     var image: String?
+    var timestamp: String?
     
-    init?(id: Int, route : Int, collectionPoint: Int, reportType: ReportType, image: String?) {
+    init?(id: Int, route : Int, taskCollectionPoint: Int, timestamp: String, reportType: ReportType, image: String?) {
         // Initialize stored properties.
         self.id = id
         self.route = route
-        self.collectionPoint = collectionPoint
+        self.taskCollectionPoint = taskCollectionPoint
         self.reportType = reportType
         self.image = image
+        self.timestamp = timestamp
     }
     
     enum CodingKeys : String, CodingKey {
         case id
         case route
-        case collectionPoint = "collection_point"
+        case taskCollectionPoint = "task_collection_point"
         case reportType = "report_type"
         case image
+        case timestamp
     }
 }
