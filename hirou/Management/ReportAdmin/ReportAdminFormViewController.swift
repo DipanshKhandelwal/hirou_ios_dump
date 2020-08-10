@@ -64,6 +64,15 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         if let detail = detailItem {
             let task = detail as! TaskRoute
             self.collectionPoints = task.taskCollectionPoints
+            
+            if self.taskCollectionPointLabel?.text?.count == 0 {
+                for cp in self.collectionPoints {
+                    if cp.id == self.selectedCollectionPoint {
+                        self.taskCollectionPointLabel?.text = cp.name
+                    }
+                }
+            }
+            
             DispatchQueue.main.async {
                 self.taskCollectionPointPicker.reloadAllComponents()
             }
