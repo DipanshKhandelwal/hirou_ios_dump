@@ -190,6 +190,8 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .TaskCollectionPointsVListUpdate, object: nil)
         
+        notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .TaskCollectionPointsHListUpdate, object: nil)
+        
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .TaskCollectionPointsHListSelect, object: nil)
     }
     
@@ -217,6 +219,14 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
                 for num in 0...tcp.taskCollections.count-1 {
                     if tcp.taskCollections[num].id == tc.id {
                         tcp.taskCollections[num] = tc
+                        for x in annotations {
+                            if String(x.coordinate.latitude) == String(tcp.location.latitude) {
+                                DispatchQueue.main.async {
+                                    self.mapView.removeAnnotation(x)
+                                    self.mapView.addAnnotation(x)
+                                }
+                            }
+                        }
                         DispatchQueue.main.async {
                             self.collectionView.reloadData()
                         }
@@ -414,6 +424,42 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             currentIndex += 1
         }
         return button
+    }
+    
+    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+        guard annotation is MGLPointAnnotation else {
+            return nil
+        }
+        
+        // Use the point annotation’s longitude value (as a string) as the reuse identifier for its view.
+        let reuseIdentifier = "\(annotation.coordinate.longitude)"
+        
+        // For better performance, always try to reuse existing annotations.
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+        
+        // If there’s no reusable annotation view available, initialize a new one.
+        if annotationView == nil {
+            annotationView = CustomAnnotationView(reuseIdentifier: reuseIdentifier)
+            annotationView!.bounds = CGRect(x: 0, y: 0, width: 20, height: 20)
+            
+            // Set the annotation view’s background color to a value determined by its longitude.
+//            let hue = CGFloat(annotation.coordinate.longitude) / 100
+//            annotationView!.backgroundColor = UIColor(hue: hue, saturation: 0.5, brightness: 1, alpha: 1)
+            annotationView!.backgroundColor = UIColor.red
+            
+            for i in self.taskCollectionPoints {
+                if String(i.location.latitude) == String(annotation.coordinate.latitude) {
+                    if String(i.location.longitude) == String(annotation.coordinate.longitude) {
+                        if i.getCompleteStatus() {
+                            annotationView!.backgroundColor = UIColor.gray
+                        }
+                    }
+                }
+            }
+            
+        }
+        
+        return annotationView
     }
     
     @objc
