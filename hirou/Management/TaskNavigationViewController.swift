@@ -416,6 +416,42 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         return button
     }
     
+    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+        guard annotation is MGLPointAnnotation else {
+            return nil
+        }
+        
+        // Use the point annotation’s longitude value (as a string) as the reuse identifier for its view.
+        let reuseIdentifier = "\(annotation.coordinate.longitude)"
+        
+        // For better performance, always try to reuse existing annotations.
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+        
+        // If there’s no reusable annotation view available, initialize a new one.
+        if annotationView == nil {
+            annotationView = CustomAnnotationView(reuseIdentifier: reuseIdentifier)
+            annotationView!.bounds = CGRect(x: 0, y: 0, width: 20, height: 20)
+            
+            // Set the annotation view’s background color to a value determined by its longitude.
+//            let hue = CGFloat(annotation.coordinate.longitude) / 100
+//            annotationView!.backgroundColor = UIColor(hue: hue, saturation: 0.5, brightness: 1, alpha: 1)
+            annotationView!.backgroundColor = UIColor.red
+            
+            for i in self.taskCollectionPoints {
+                if String(i.location.latitude) == String(annotation.coordinate.latitude) {
+                    if String(i.location.longitude) == String(annotation.coordinate.longitude) {
+                        if i.getCompleteStatus() {
+                            annotationView!.backgroundColor = UIColor.gray
+                        }
+                    }
+                }
+            }
+            
+        }
+        
+        return annotationView
+    }
+    
     @objc
     func navigateToPoint (sender: UIButton) {
         navigate(coordinate: self.annotations[sender.tag].coordinate)
