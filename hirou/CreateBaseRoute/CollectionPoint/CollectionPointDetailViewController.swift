@@ -58,7 +58,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     }
     
     func focusPoint(index: Int) {
-        mapView.setCenter(self.annotations[index].coordinate, zoomLevel: 22, direction: -1, animated: true)
+        mapView.setCenter(self.annotations[index].coordinate, zoomLevel: 18, direction: -1, animated: true)
         mapView.selectAnnotation(self.annotations[index], animated: false, completionHandler: nil)
     }
     
