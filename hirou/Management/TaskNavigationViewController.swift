@@ -190,6 +190,8 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .TaskCollectionPointsVListUpdate, object: nil)
         
+        notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .TaskCollectionPointsHListUpdate, object: nil)
+        
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .TaskCollectionPointsHListSelect, object: nil)
     }
     
@@ -217,6 +219,14 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
                 for num in 0...tcp.taskCollections.count-1 {
                     if tcp.taskCollections[num].id == tc.id {
                         tcp.taskCollections[num] = tc
+                        for x in annotations {
+                            if String(x.coordinate.latitude) == String(tcp.location.latitude) {
+                                DispatchQueue.main.async {
+                                    self.mapView.removeAnnotation(x)
+                                    self.mapView.addAnnotation(x)
+                                }
+                            }
+                        }
                         DispatchQueue.main.async {
                             self.collectionView.reloadData()
                         }
