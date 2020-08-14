@@ -127,15 +127,25 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
                 "sequence": self.cpSequence.text ?? "0"
             ]
             AF.request(Environment.SERVER_URL + "api/collection_point/", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
+                .validate()
                 .responseJSON {
                     response in
                     switch response.result {
                     case .success(let value):
-                        let id = ((value as AnyObject)["id"] as! Int)
+                        guard
+                            let id = ((value as AnyObject)["id"] as? Int)
+                        else {
+                            let alert = UIAlertController(title: "Error", message: "", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
+                            self.present(alert, animated: true, completion: nil)
+                            return
+                        }
                         self.saveImage(id: id)
                         
                     case .failure(let error):
-                        print(error)
+                        let alert = UIAlertController(title: "Error", message: error.errorDescription, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
+                        self.present(alert, animated: true, completion: nil)
                     }
             }
         }
