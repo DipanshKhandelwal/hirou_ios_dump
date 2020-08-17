@@ -16,7 +16,7 @@ class TaskDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var vehiclePicker: UIPickerView!
     
     
-    @IBOutlet weak var deleteTaskButton: UIButton!
+    @IBOutlet weak var deleteTaskButton: UIBarButtonItem!
     
     var vehiclesList = [Vehicle]()
     var selectedVehicle: Vehicle!
@@ -102,7 +102,7 @@ class TaskDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
             }
             
             if let button = self.deleteTaskButton {
-                button.isHidden = true
+                button.isEnabled = false
             }
         }
     }
