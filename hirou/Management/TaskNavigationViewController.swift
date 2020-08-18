@@ -152,7 +152,7 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
 
 class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, NavigationViewControllerDelegate {
     var id: String = ""
-    @IBOutlet weak var mapView: MGLMapView!
+    @IBOutlet weak var mapView: NavigationMapView!
     @IBOutlet weak var collectionView: FSPagerView! {
         didSet {
             self.collectionView.register(UINib(nibName: "TaskCollectionPointPagerCell", bundle: Bundle.main), forCellWithReuseIdentifier: "taskCollectionPointPagerCell")
