@@ -150,7 +150,7 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
     }
 }
 
-class TaskNavigationViewController: UIViewController, MGLMapViewDelegate {
+class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, NavigationViewControllerDelegate {
     var id: String = ""
     @IBOutlet weak var mapView: NavigationMapView!
     @IBOutlet weak var collectionView: FSPagerView! {
@@ -168,6 +168,8 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate {
     
     @IBOutlet weak var navigationViewContainer: UIView!
     @IBOutlet weak var mapViewContainer: NavigationMapView!
+    
+    var navigationViewController: NavigationViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -378,18 +380,18 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate {
                 
                 let navigationService = MapboxNavigationService(route: route, routeOptions: options, simulating: .never)
                 let navigationOptions = NavigationOptions(navigationService: navigationService)
-                let navigationViewController = NavigationViewController(for: route, routeOptions: options, navigationOptions: navigationOptions)
-                strongSelf.addChild(navigationViewController)
-                strongSelf.navigationViewContainer.addSubview(navigationViewController.view)
+                strongSelf.navigationViewController = NavigationViewController(for: route, routeOptions: options, navigationOptions: navigationOptions)
+                strongSelf.navigationViewController.delegate = strongSelf
+                strongSelf.navigationViewContainer.addSubview(strongSelf.navigationViewController.view)
                 
-                navigationViewController.view.translatesAutoresizingMaskIntoConstraints = false
+                strongSelf.navigationViewController.view.translatesAutoresizingMaskIntoConstraints = false
                 NSLayoutConstraint.activate([
-                    navigationViewController.view.leadingAnchor.constraint(equalTo: (strongSelf.navigationViewContainer.leadingAnchor), constant: 0),
-                    navigationViewController.view.trailingAnchor.constraint(equalTo: (strongSelf.navigationViewContainer.trailingAnchor), constant: 0),
-                    navigationViewController.view.topAnchor.constraint(equalTo: (strongSelf.navigationViewContainer.topAnchor), constant: 0),
-                    navigationViewController.view.bottomAnchor.constraint(equalTo: (strongSelf.navigationViewContainer.bottomAnchor), constant: 0)
+                    strongSelf.navigationViewController.view.leadingAnchor.constraint(equalTo: (strongSelf.navigationViewContainer.leadingAnchor), constant: 0),
+                    strongSelf.navigationViewController.view.trailingAnchor.constraint(equalTo: (strongSelf.navigationViewContainer.trailingAnchor), constant: 0),
+                    strongSelf.navigationViewController.view.topAnchor.constraint(equalTo: (strongSelf.navigationViewContainer.topAnchor), constant: 0),
+                    strongSelf.navigationViewController.view.bottomAnchor.constraint(equalTo: (strongSelf.navigationViewContainer.bottomAnchor), constant: 0)
                 ])
-                strongSelf.didMove(toParent: self)
+                strongSelf.navigationViewController.didMove(toParent: strongSelf)
             }
         }
     }
@@ -492,6 +494,14 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate {
         self.performSegue(withIdentifier: "editTaskCollectionPoint", sender: self)
     }
     
+    func navigationViewControllerDidDismiss(_ navigationViewController: NavigationViewController, byCanceling canceled: Bool) {
+        if(canceled) {
+            navigationViewController.willMove(toParent: nil)
+            navigationViewController.removeFromParent()
+            navigationViewContainer.isHidden = true
+            mapViewContainer.isHidden = false
+        }
+    }
     
     // MARK: - Navigation
     
