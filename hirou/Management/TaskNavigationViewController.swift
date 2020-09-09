@@ -150,7 +150,7 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
     }
 }
 
-class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, NavigationViewControllerDelegate {
+class TaskNavigationViewController: UIViewController, MGLMapViewDelegate {
     var id: String = ""
     @IBOutlet weak var mapView: NavigationMapView!
     @IBOutlet weak var collectionView: FSPagerView! {
@@ -165,6 +165,10 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     
     private let notificationCenter = NotificationCenter.default
     
+    
+    @IBOutlet weak var navigationViewContainer: UIView!
+    @IBOutlet weak var mapViewContainer: NavigationMapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -172,6 +176,9 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .followWithHeading
         mapView.showsUserHeadingIndicator = true
+        
+        navigationViewContainer.isHidden = true
+        mapViewContainer.isHidden = false
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -349,6 +356,9 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     }
     
     func navigate(coordinate: CLLocationCoordinate2D) {
+//        navigationViewContainer.isHidden = false
+//        mapViewContainer.isHidden = true
+        
         var waypoints = [Waypoint]()
         waypoints.append(Waypoint(coordinate: (mapView.userLocation?.coordinate)!))
         waypoints.append(Waypoint(coordinate: coordinate))
@@ -363,12 +373,23 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
                     return
                 }
                 
+                strongSelf.navigationViewContainer.isHidden = false
+                strongSelf.mapViewContainer.isHidden = true
+                
                 let navigationService = MapboxNavigationService(route: route, routeOptions: options, simulating: .never)
                 let navigationOptions = NavigationOptions(navigationService: navigationService)
                 let navigationViewController = NavigationViewController(for: route, routeOptions: options, navigationOptions: navigationOptions)
-                navigationViewController.modalPresentationStyle = .fullScreen
+                strongSelf.addChild(navigationViewController)
+                strongSelf.navigationViewContainer.addSubview(navigationViewController.view)
                 
-                strongSelf.present(navigationViewController, animated: true, completion: nil)
+                navigationViewController.view.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    navigationViewController.view.leadingAnchor.constraint(equalTo: (strongSelf.navigationViewContainer.leadingAnchor), constant: 0),
+                    navigationViewController.view.trailingAnchor.constraint(equalTo: (strongSelf.navigationViewContainer.trailingAnchor), constant: 0),
+                    navigationViewController.view.topAnchor.constraint(equalTo: (strongSelf.navigationViewContainer.topAnchor), constant: 0),
+                    navigationViewController.view.bottomAnchor.constraint(equalTo: (strongSelf.navigationViewContainer.bottomAnchor), constant: 0)
+                ])
+                strongSelf.didMove(toParent: self)
             }
         }
     }
