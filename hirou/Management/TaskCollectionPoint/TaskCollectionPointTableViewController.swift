@@ -114,38 +114,41 @@ class TaskCollectionPointTableViewController: UITableViewController {
         cell.sequence!.text = String(tcp.sequence)
         cell.name!.text = tcp.name
         cell.memo!.text = tcp.memo
-        
-        cell.garbageStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        cell.garbageStack.spacing = 10
-        cell.garbageStack.axis = .horizontal
-        cell.garbageStack.distribution = .equalCentering
-        
-        let toggleAllTasksButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        toggleAllTasksButton.tag = indexPath.row;
-        toggleAllTasksButton.addTarget(self, action: #selector(TaskNavigationViewController.toggleAllTasks(sender:)), for: .touchDown)
-        toggleAllTasksButton.layer.backgroundColor = tcp.getCompleteStatus() ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
-        toggleAllTasksButton.layer.borderWidth = 2
-        toggleAllTasksButton.layer.borderColor = UIColor.red.cgColor
-        toggleAllTasksButton.layer.cornerRadius = 10
-        toggleAllTasksButton.setTitle("*", for: .normal)
-        toggleAllTasksButton.titleLabel?.font = toggleAllTasksButton.titleLabel?.font.withSize(20)
-        toggleAllTasksButton.setTitleColor(.black, for: .normal)
-        cell.garbageStack.addArrangedSubview(toggleAllTasksButton)
 
-        for num in 0...tcp.taskCollections.count-1 {
-            let taskCollection = tcp.taskCollections[num];
+        if tcp.taskCollections.count >= 1 {
+            cell.garbageStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
+            cell.garbageStack.spacing = 10
+            cell.garbageStack.axis = .horizontal
+            cell.garbageStack.distribution = .equalCentering
             
-            let garbageView = GarbageButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0), taskCollectionPointPosition: indexPath.row, taskPosition: num)
-            garbageView.addTarget(self, action: #selector(TaskCollectionPointTableViewController.pressed(sender:)), for: .touchDown)
-            garbageView.layer.backgroundColor = taskCollection.complete ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
-            garbageView.layer.borderWidth = 2
-            garbageView.layer.borderColor = UIColor.systemBlue.cgColor
-            garbageView.layer.cornerRadius = 10
-            garbageView.setTitle(String(taskCollection.garbage.name.prefix(1)), for: .normal)
-            garbageView.titleLabel?.font = garbageView.titleLabel?.font.withSize(15)
-            garbageView.setTitleColor(.black, for: .normal)
-            cell.garbageStack.addArrangedSubview(garbageView)
+            let toggleAllTasksButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+            toggleAllTasksButton.tag = indexPath.row;
+            toggleAllTasksButton.addTarget(self, action: #selector(TaskNavigationViewController.toggleAllTasks(sender:)), for: .touchDown)
+            toggleAllTasksButton.layer.backgroundColor = tcp.getCompleteStatus() ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
+            toggleAllTasksButton.layer.borderWidth = 2
+            toggleAllTasksButton.layer.borderColor = UIColor.red.cgColor
+            toggleAllTasksButton.layer.cornerRadius = 10
+            toggleAllTasksButton.setTitle("*", for: .normal)
+            toggleAllTasksButton.titleLabel?.font = toggleAllTasksButton.titleLabel?.font.withSize(20)
+            toggleAllTasksButton.setTitleColor(.black, for: .normal)
+            cell.garbageStack.addArrangedSubview(toggleAllTasksButton)
+            
+            for num in 0...tcp.taskCollections.count-1 {
+                let taskCollection = tcp.taskCollections[num];
+                
+                let garbageView = GarbageButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0), taskCollectionPointPosition: indexPath.row, taskPosition: num)
+                garbageView.addTarget(self, action: #selector(TaskCollectionPointTableViewController.pressed(sender:)), for: .touchDown)
+                garbageView.layer.backgroundColor = taskCollection.complete ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
+                garbageView.layer.borderWidth = 2
+                garbageView.layer.borderColor = UIColor.systemBlue.cgColor
+                garbageView.layer.cornerRadius = 10
+                garbageView.setTitle(String(taskCollection.garbage.name.prefix(1)), for: .normal)
+                garbageView.titleLabel?.font = garbageView.titleLabel?.font.withSize(15)
+                garbageView.setTitleColor(.black, for: .normal)
+                cell.garbageStack.addArrangedSubview(garbageView)
+            }
         }
+        
         return cell
     }
     
