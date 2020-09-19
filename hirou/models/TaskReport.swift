@@ -15,8 +15,9 @@ struct TaskReport : Encodable, Decodable{
     var reportType: ReportType
     var image: String?
     var timestamp: String?
+    var description: String?
     
-    init?(id: Int, route : Int, taskCollectionPoint: Int, timestamp: String, reportType: ReportType, image: String?) {
+    init?(id: Int, route : Int, taskCollectionPoint: Int, timestamp: String, reportType: ReportType, image: String?, description: String?) {
         // Initialize stored properties.
         self.id = id
         self.route = route
@@ -24,6 +25,7 @@ struct TaskReport : Encodable, Decodable{
         self.reportType = reportType
         self.image = image
         self.timestamp = timestamp
+        self.description = description
     }
     
     enum CodingKeys : String, CodingKey {
@@ -33,5 +35,6 @@ struct TaskReport : Encodable, Decodable{
         case reportType = "report_type"
         case image
         case timestamp
+        case description
     }
 }
