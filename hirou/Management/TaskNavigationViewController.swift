@@ -164,6 +164,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     var selectedTaskCollectionPoint: TaskCollectionPoint!
     var taskCollectionPoints = [TaskCollectionPoint]()
     var annotations = [MGLPointAnnotation]()
+    var route:TaskRoute?
     
     private let notificationCenter = NotificationCenter.default
     
@@ -274,8 +275,8 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             //to get status code
             switch response.result {
             case .success(let value):
-                let route = try! JSONDecoder().decode(TaskRoute.self, from: value!)
-                let newCollectionPoints = route.taskCollectionPoints
+                self.route = try! JSONDecoder().decode(TaskRoute.self, from: value!)
+                let newCollectionPoints = self.route!.taskCollectionPoints
                 self.taskCollectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
                 self.addPointsTopMap()
                 
@@ -515,6 +516,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         if segue.identifier == "editTaskCollectionPoint" {
             let controller = (segue.destination as! TaskCollectionsTableViewController)
             controller.detailItem = self.selectedTaskCollectionPoint
+            controller.route = self.route
         }
     }
 
