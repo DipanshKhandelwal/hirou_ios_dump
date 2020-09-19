@@ -13,6 +13,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     @IBOutlet weak var taskCollectionPointLabel: DisabledUITextField!
     @IBOutlet weak var reportTypeLabel: DisabledUITextField!
     @IBOutlet weak var reportImage: UIImageView!
+    @IBOutlet weak var descriptionLabel: UITextField!
     
     var taskCollectionPointPicker = UIPickerView() // tag = 1
     var reportTypePicker = UIPickerView() // tag = 2
@@ -83,6 +84,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
             
             self.selectedReportType = taskReport.reportType
             self.reportTypeLabel?.text = taskReport.reportType.name
+            self.descriptionLabel?.text = taskReport.description
 
             self.selectedCollectionPoint = taskReport.taskCollectionPoint
             
@@ -162,6 +164,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     
     @objc
     func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        self.descriptionLabel.resignFirstResponder()
         self.taskCollectionPointLabel.resignFirstResponder();
         self.reportTypeLabel.resignFirstResponder();
     }
@@ -209,12 +212,14 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     func addNewOrEditReport() {
         let collectionPointId = selectedCollectionPoint
         let reportTypeId = selectedReportType?.id
+        let description = self.descriptionLabel?.text
         let taskId = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
 
         let parameters: [String: String] = [
             "route": String(taskId),
             "task_collection_point": String(collectionPointId!),
             "report_type": String(reportTypeId!),
+            "description": String(description!),
         ]
         
         var url = Environment.SERVER_URL + "api/task_report/"
