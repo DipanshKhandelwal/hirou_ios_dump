@@ -199,10 +199,11 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "taskCollectionsToReportAdminSegue" {
-            let controller = (segue.destination as! ReportAdminTableViewController)
-            if detailItem != nil {
+        if segue.identifier == "taskCollectionsToReportAdminFormSegue" {
+            let controller = (segue.destination as! ReportAdminFormViewController)
+            if let detail = detailItem {
                 controller.detailItem = self.route
+                controller.segueTaskCollectionPoint = (detail as! TaskCollectionPoint)
             }
         }
     }

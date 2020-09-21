@@ -61,6 +61,24 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         }
     }
     
+    var segueTaskCollectionPoint: Any? {
+        didSet {
+            // Update the view.
+            configureView()
+        }
+    }
+    
+    func setTaskCollectionPointFromSegue() {
+        if let taskCollectionPoint = segueTaskCollectionPoint {
+            let receivedTaskCollectionPoint = (taskCollectionPoint as! TaskCollectionPoint)
+            self.selectedCollectionPoint = receivedTaskCollectionPoint.id
+            self.taskCollectionPointLabel?.text = receivedTaskCollectionPoint.name
+            self.taskCollectionPointLabel?.isUserInteractionEnabled = false
+            self.taskCollectionPointLabel?.isEnabled = false
+            self.taskCollectionPointPicker.isUserInteractionEnabled = false
+        }
+    }
+    
     func configureView() {
         if let detail = detailItem {
             let task = detail as! TaskRoute
@@ -106,6 +124,8 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
             self.deleteButton?.isEnabled = true
             self.title = "Edit Report Admin Form"
         }
+        
+        setTaskCollectionPointFromSegue()
     }
     
     func fetchReportTypes() {
@@ -267,7 +287,9 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
 
     func setupPickers() {
         self.imagePicker = ImagePicker(presentationController: self, delegate: self);
-        setupTaskCollectionPointPicker()
+        if segueTaskCollectionPoint == nil {
+            setupTaskCollectionPointPicker()
+        }
         setupReportTypePicker();
     }
 
