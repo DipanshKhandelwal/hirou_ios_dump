@@ -179,9 +179,8 @@ class TaskCollectionPointTableViewController: UITableViewController {
                 }
         }
     }
-
-    @objc
-    func pressed(sender: GarbageButton) {
+    
+    func changeTaskStatus(sender: GarbageButton) {
         let taskCollectionPoint = self.taskCollectionPoints[sender.taskCollectionPointPosition]
         let taskCollection = taskCollectionPoint.taskCollections[sender.taskPosition]
         
@@ -209,6 +208,29 @@ class TaskCollectionPointTableViewController: UITableViewController {
                 case .failure(let error):
                     print(error)
                 }
+            }
+    }
+    
+    @objc
+    func pressed(sender: GarbageButton) {
+        let taskCollectionPoint = self.taskCollectionPoints[sender.taskCollectionPointPosition]
+        let taskCollection = taskCollectionPoint.taskCollections[sender.taskPosition]
+        
+        if(taskCollection.complete == true) {
+            let confirmAlert = UIAlertController(title: "Incomplete ?", message: "Are you sure you want to incomplete the collection ?", preferredStyle: .alert)
+            
+            confirmAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+                return
+            }))
+            
+            confirmAlert.addAction(UIAlertAction(title: "Yes. Incomplete", style: .default, handler: { (action: UIAlertAction!) in
+                self.changeTaskStatus(sender: sender)
+            }))
+            
+            self.present(confirmAlert, animated: true, completion: nil)
+        }
+        else {
+            changeTaskStatus(sender: sender)
         }
     }
 
