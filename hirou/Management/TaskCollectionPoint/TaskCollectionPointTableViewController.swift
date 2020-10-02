@@ -156,8 +156,18 @@ class TaskCollectionPointTableViewController: UITableViewController {
         self.notificationCenter.post(name: .TaskCollectionPointsHListSelect, object: self.taskCollectionPoints[indexPath.row])
     }
     
-    @objc
-    func toggleAllTasks(sender: UIButton) {
+    func isAllCompleted(taskCollectionPoint: TaskCollectionPoint) -> Bool {
+        var completed = true;
+        for taskCollection in taskCollectionPoint.taskCollections {
+            if(!taskCollection.complete) {
+                completed = false
+                break
+            }
+        }
+        return completed;
+    }
+    
+    func changeAllApiCall(sender: UIButton) {
         let taskCollectionPoint = self.taskCollectionPoints[sender.tag]
         let url = Environment.SERVER_URL + "api/task_collection_point/"+String(taskCollectionPoint.id)+"/bulk_complete/"
         var request = URLRequest(url: try! url.asURL())
@@ -177,6 +187,27 @@ class TaskCollectionPointTableViewController: UITableViewController {
                 case .failure(let error):
                     print(error)
                 }
+        }
+    }
+    
+    @objc
+    func toggleAllTasks(sender: UIButton) {
+        let taskCollectionPoint = self.taskCollectionPoints[sender.tag]
+        if( isAllCompleted(taskCollectionPoint: taskCollectionPoint)) {
+            let confirmAlert = UIAlertController(title: "Incomplete ?", message: "Are you sure you want to incomplete the collection ?", preferredStyle: .alert)
+            
+            confirmAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+                return
+            }))
+            
+            confirmAlert.addAction(UIAlertAction(title: "Yes. Incomplete", style: .default, handler: { (action: UIAlertAction!) in
+                self.changeAllApiCall(sender: sender)
+            }))
+            
+            self.present(confirmAlert, animated: true, completion: nil)
+        }
+        else {
+            self.changeAllApiCall(sender: sender)
         }
     }
     
