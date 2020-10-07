@@ -29,6 +29,9 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         self.id = UserDefaults.standard.string(forKey: "selectedRoute")!
         self.addNewPointGesture()
         
+        let button1 = UIBarButtonItem(image: UIImage(systemName: "selection.pin.in.out"), style: .plain, target: self, action: #selector(self.handleAutomaticZoom))
+        navigationItem.setRightBarButtonItems([button1], animated: true)
+        
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .CollectionPointsTableSelect, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointReorderFromVList(_:)), name: .CollectionPointsTableReorder, object: nil)
