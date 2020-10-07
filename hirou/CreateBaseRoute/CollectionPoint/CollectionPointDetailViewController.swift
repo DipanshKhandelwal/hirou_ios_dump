@@ -89,7 +89,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         }
     }
     
-    func addPointsTopMap() {
+    func addPointsTopMap(autoZoom: Bool = false) {
         self.mapView.removeAnnotations(self.annotations)
         if self.newAnnotation != nil {
             self.mapView.removeAnnotation(self.newAnnotation)
@@ -108,7 +108,9 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         
         mapView.addAnnotations(annotations)
         
-        self.handleAutomaticZoom()
+        if autoZoom {
+            self.handleAutomaticZoom()
+        }
         // Center the map on the annotation.
         //        mapView.setCenter(annotations[0].coordinate, zoomLevel: 14, animated: false)
         
@@ -116,7 +118,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         //        mapView.selectAnnotation(annotations[0], animated: true, completionHandler: nil)
     }
     
-    func handleAutomaticZoom() {
+    @objc func handleAutomaticZoom() {
         let annotations = self.annotations
         
         if annotations.count > 0 {
