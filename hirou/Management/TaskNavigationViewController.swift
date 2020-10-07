@@ -422,9 +422,14 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         
         var waypoints = [Waypoint]()
         waypoints.append(Waypoint(coordinate: (mapView.userLocation?.coordinate)!))
-        waypoints.append(Waypoint(coordinate: coordinate))
         
-        let options = NavigationRouteOptions(waypoints: waypoints)
+        for i in self.annotations {
+            waypoints.append(Waypoint(coordinate: i.coordinate))
+        }
+        
+//        waypoints.append(Waypoint(coordinate: coordinate))
+        
+        let options = NavigationRouteOptions(waypoints: waypoints, profileIdentifier: .automobile)
         Directions.shared.calculate(options) { [weak self] (session, result) in
             switch result {
             case .failure(let error):
@@ -470,6 +475,9 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             }
             currentIndex += 1
         }
+        let origin = (mapView.userLocation?.coordinate)!
+        let coordinate = annotation.coordinate
+        calculateRoute(from: origin, to: coordinate)
     }
     
     func mapView(_ mapView: MGLMapView, didDeselect annotation: MGLAnnotation) {
@@ -480,6 +488,60 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
                 break
             }
             currentIndex += 1
+        }
+    }
+    
+    // Calculate route to be used for navigation
+    func calculateRoute(from origin: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D) {
+        // Coordinate accuracy is how close the route must come to the waypoint in order to be considered viable. It is measured in meters. A negative value indicates that the route is viable regardless of how far the route is from the waypoint.
+        let origin = Waypoint(coordinate: origin, coordinateAccuracy: -1, name: "Start")
+        let destination = Waypoint(coordinate: destination, coordinateAccuracy: -1, name: "Finish")
+        
+        // Specify that the route is intended for automobiles avoiding traffic
+        let routeOptions = NavigationRouteOptions(waypoints: [origin, destination], profileIdentifier: .automobileAvoidingTraffic)
+        
+        // Generate the route object and draw it on the map
+        Directions.shared.calculate(routeOptions) { [weak self] (session, result) in
+            switch result {
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .success(let response):
+                guard let route = response.routes?.first, let _ = self else {
+                    return
+                }
+                
+//                self.route = route
+//                self.routeOptions = routeOptions
+                
+                // Draw the route on the map after creating it
+                self!.drawRoute(route: route)
+                
+                // Show destination waypoint on the map
+                self?.mapView.showWaypoints(on: route)
+            }
+        }
+    }
+    
+    func drawRoute(route: Route) {
+        guard let routeShape = route.shape, routeShape.coordinates.count > 0 else { return }
+        // Convert the route’s coordinates into a polyline
+        var routeCoordinates = routeShape.coordinates
+        let polyline = MGLPolylineFeature(coordinates: &routeCoordinates, count: UInt(routeCoordinates.count))
+        
+        // If there's already a route line on the map, reset its shape to the new route
+        if let source = mapView.style?.source(withIdentifier: "route-source") as? MGLShapeSource {
+            source.shape = polyline
+        } else {
+            let source = MGLShapeSource(identifier: "route-source", features: [polyline], options: nil)
+            
+            // Customize the route line color and width
+            let lineStyle = MGLLineStyleLayer(identifier: "route-style", source: source)
+            lineStyle.lineColor = NSExpression(forConstantValue: #colorLiteral(red: 0.1897518039, green: 0.3010634184, blue: 0.7994888425, alpha: 1))
+            lineStyle.lineWidth = NSExpression(forConstantValue: 3)
+            
+            // Add the source and style layer of the route line to the map
+            mapView.style?.addSource(source)
+            mapView.style?.addLayer(lineStyle)
         }
     }
     
