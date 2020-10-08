@@ -16,10 +16,38 @@ class TaskCollectionPointCell: UITableViewCell {
     @IBOutlet weak var garbageStack: UIStackView!
 }
 
-class TaskCollectionPointTableViewController: UITableViewController {
+class GarbageSummaryCell: UITableViewCell {
+    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var amount: UILabel!
+}
+
+struct GarbageListItem {
+    var garbage: Garbage
+    var complete: Int
+    var total: Int
+}
+
+class TaskCollectionPointTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var taskCollectionPoints: [TaskCollectionPoint] = []
+    var garbageSummaryList: [GarbageListItem] = []
     
     private let notificationCenter = NotificationCenter.default
+    
+    
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.dataSource = self
+            tableView.delegate = self
+        }
+    }
+    
+    @IBOutlet weak var garbageSummaryTable: UITableView! {
+        didSet {
+            garbageSummaryTable.dataSource = self
+            garbageSummaryTable.delegate = self
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,8 +84,10 @@ class TaskCollectionPointTableViewController: UITableViewController {
                 }
             }
         }
+        self.garbageSummaryList = getGarbageSummaryList(taskCollectionPoints: self.taskCollectionPoints)
         DispatchQueue.main.async {
             self.tableView.reloadRows(at: changedIndexes, with: .right)
+            self.garbageSummaryTable.reloadData()
         }
     }
     
@@ -73,7 +103,12 @@ class TaskCollectionPointTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
+        
+//        if let indexPath = tableView.indexPathForSelectedRow() {
+//                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+//            }
+//
+//        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         fetchTaskCollectionPoints()
     }
     
@@ -86,8 +121,13 @@ class TaskCollectionPointTableViewController: UITableViewController {
                 let route = try! JSONDecoder().decode(TaskRoute.self, from: value!)
                 let newCollectionPoints = route.taskCollectionPoints
                 self.taskCollectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
+                
+                self.garbageSummaryList = self.getGarbageSummaryList(taskCollectionPoints: self.taskCollectionPoints)
+                
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    self.garbageSummaryTable.reloadData()
+                    
                 }
             case .failure(let error):
                 print(error)
@@ -97,17 +137,30 @@ class TaskCollectionPointTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.taskCollectionPoints.count
+        if tableView == self.tableView {
+            return self.taskCollectionPoints.count
+        }
+        else {
+            return self.garbageSummaryList.count
+        }
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if tableView == self.garbageSummaryTable {
+            let garbageCell = tableView.dequeueReusableCell(withIdentifier: "garbageSummaryTableCell", for: indexPath) as! GarbageSummaryCell
+            let garbageListItem = self.garbageSummaryList[indexPath.row]
+            garbageCell.label!.text = garbageListItem.garbage.name
+            garbageCell.amount!.text = String(garbageListItem.complete) + " / " + String(garbageListItem.total)
+            return garbageCell
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCollectionPointCell", for: indexPath) as! TaskCollectionPointCell
         
         let tcp = self.taskCollectionPoints[indexPath.row]
@@ -152,12 +205,25 @@ class TaskCollectionPointTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == self.garbageSummaryTable {
+            return
+        }
         self.notificationCenter.post(name: .TaskCollectionPointsHListSelect, object: self.taskCollectionPoints[indexPath.row])
     }
     
-    @objc
-    func toggleAllTasks(sender: UIButton) {
+    func isAllCompleted(taskCollectionPoint: TaskCollectionPoint) -> Bool {
+        var completed = true;
+        for taskCollection in taskCollectionPoint.taskCollections {
+            if(!taskCollection.complete) {
+                completed = false
+                break
+            }
+        }
+        return completed;
+    }
+    
+    func changeAllApiCall(sender: UIButton) {
         let taskCollectionPoint = self.taskCollectionPoints[sender.tag]
         let url = Environment.SERVER_URL + "api/task_collection_point/"+String(taskCollectionPoint.id)+"/bulk_complete/"
         var request = URLRequest(url: try! url.asURL())
@@ -170,8 +236,10 @@ class TaskCollectionPointTableViewController: UITableViewController {
                 case .success(let value):
                     let taskCollectionsNew = try! JSONDecoder().decode([TaskCollection].self, from: value!)
                     self.taskCollectionPoints[sender.tag].taskCollections = taskCollectionsNew
+                    self.garbageSummaryList = self.getGarbageSummaryList(taskCollectionPoints: self.taskCollectionPoints)
                     DispatchQueue.main.async {
                         self.tableView.reloadRows(at: [ IndexPath(row: sender.tag, section: 0) ], with: .automatic)
+                        self.garbageSummaryTable.reloadData()
                     }
                     self.notificationCenter.post(name: .TaskCollectionPointsVListUpdate, object: taskCollectionsNew)
                 case .failure(let error):
@@ -179,9 +247,29 @@ class TaskCollectionPointTableViewController: UITableViewController {
                 }
         }
     }
-
+    
     @objc
-    func pressed(sender: GarbageButton) {
+    func toggleAllTasks(sender: UIButton) {
+        let taskCollectionPoint = self.taskCollectionPoints[sender.tag]
+        if( isAllCompleted(taskCollectionPoint: taskCollectionPoint)) {
+            let confirmAlert = UIAlertController(title: "Incomplete ?", message: "Are you sure you want to incomplete the collection ?", preferredStyle: .alert)
+            
+            confirmAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+                return
+            }))
+            
+            confirmAlert.addAction(UIAlertAction(title: "Yes. Incomplete", style: .default, handler: { (action: UIAlertAction!) in
+                self.changeAllApiCall(sender: sender)
+            }))
+            
+            self.present(confirmAlert, animated: true, completion: nil)
+        }
+        else {
+            self.changeAllApiCall(sender: sender)
+        }
+    }
+    
+    func changeTaskStatus(sender: GarbageButton) {
         let taskCollectionPoint = self.taskCollectionPoints[sender.taskCollectionPointPosition]
         let taskCollection = taskCollectionPoint.taskCollections[sender.taskPosition]
         
@@ -201,15 +289,78 @@ class TaskCollectionPointTableViewController: UITableViewController {
                 case .success(let value):
                     let taskCollectionNew = try! JSONDecoder().decode(TaskCollection.self, from: value!)
                     self.taskCollectionPoints[sender.taskCollectionPointPosition].taskCollections[sender.taskPosition] = taskCollectionNew
+                    self.garbageSummaryList = self.getGarbageSummaryList(taskCollectionPoints: self.taskCollectionPoints)
                     DispatchQueue.main.async {
                         self.tableView.reloadRows(at: [IndexPath(row: sender.taskCollectionPointPosition, section: 0)], with: .automatic)
+                        self.garbageSummaryTable.reloadData()
                     }
                     self.notificationCenter.post(name: .TaskCollectionPointsVListUpdate, object: [taskCollectionNew])
 
                 case .failure(let error):
                     print(error)
                 }
+            }
+    }
+    
+    @objc
+    func pressed(sender: GarbageButton) {
+        let taskCollectionPoint = self.taskCollectionPoints[sender.taskCollectionPointPosition]
+        let taskCollection = taskCollectionPoint.taskCollections[sender.taskPosition]
+        
+        if(taskCollection.complete == true) {
+            let confirmAlert = UIAlertController(title: "Incomplete ?", message: "Are you sure you want to incomplete the collection ?", preferredStyle: .alert)
+            
+            confirmAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+                return
+            }))
+            
+            confirmAlert.addAction(UIAlertAction(title: "Yes. Incomplete", style: .default, handler: { (action: UIAlertAction!) in
+                self.changeTaskStatus(sender: sender)
+            }))
+            
+            self.present(confirmAlert, animated: true, completion: nil)
         }
+        else {
+            changeTaskStatus(sender: sender)
+        }
+    }
+    
+    func getGarbageSummaryList(taskCollectionPoints: [TaskCollectionPoint]) -> [GarbageListItem]{
+        
+        if taskCollectionPoints.count == 0 {
+            return []
+        }
+        
+        
+        if taskCollectionPoints[0].taskCollections.count == 0 {
+            return []
+        }
+        
+        var garbageSummaryMap: [Int: GarbageListItem] = [:]
+        
+        for tc in taskCollectionPoints[0].taskCollections {
+            let garbageSummaryItem = GarbageListItem(garbage: tc.garbage, complete: 0, total: 0)
+            garbageSummaryMap[tc.garbage.id] = garbageSummaryItem
+        }
+        
+        for tcp in taskCollectionPoints {
+            for tc in tcp.taskCollections {
+                if tc.complete {
+                    garbageSummaryMap[tc.garbage.id]?.complete += 1
+                }
+                garbageSummaryMap[tc.garbage.id]?.total += 1
+            }
+        }
+        
+        var listToReturn: [GarbageListItem] = []
+        
+        for (_, garbageSummaryItem) in garbageSummaryMap.enumerated() {
+            listToReturn.append(garbageSummaryItem.value)
+        }
+        
+        listToReturn = listToReturn.sorted() { $0.complete > $1.complete }
+        
+        return listToReturn
     }
 
     /*

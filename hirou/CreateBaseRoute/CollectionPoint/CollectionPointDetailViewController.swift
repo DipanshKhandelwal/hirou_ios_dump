@@ -29,6 +29,9 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         self.id = UserDefaults.standard.string(forKey: "selectedRoute")!
         self.addNewPointGesture()
         
+        let button1 = UIBarButtonItem(image: UIImage(systemName: "selection.pin.in.out"), style: .plain, target: self, action: #selector(self.handleAutomaticZoom))
+        navigationItem.setRightBarButtonItems([button1], animated: true)
+        
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .CollectionPointsTableSelect, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointReorderFromVList(_:)), name: .CollectionPointsTableReorder, object: nil)
@@ -89,7 +92,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         }
     }
     
-    func addPointsTopMap() {
+    func addPointsTopMap(autoZoom: Bool = false) {
         self.mapView.removeAnnotations(self.annotations)
         if self.newAnnotation != nil {
             self.mapView.removeAnnotation(self.newAnnotation)
@@ -108,7 +111,9 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         
         mapView.addAnnotations(annotations)
         
-        self.handleAutomaticZoom()
+        if autoZoom {
+            self.handleAutomaticZoom()
+        }
         // Center the map on the annotation.
         //        mapView.setCenter(annotations[0].coordinate, zoomLevel: 14, animated: false)
         
@@ -116,7 +121,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         //        mapView.selectAnnotation(annotations[0], animated: true, completionHandler: nil)
     }
     
-    func handleAutomaticZoom() {
+    @objc func handleAutomaticZoom() {
         let annotations = self.annotations
         
         if annotations.count > 0 {
