@@ -423,8 +423,8 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         var waypoints = [Waypoint]()
         waypoints.append(Waypoint(coordinate: (mapView.userLocation?.coordinate)!))
         
-        for i in self.annotations {
-            waypoints.append(Waypoint(coordinate: i.coordinate))
+        for (index, i)  in self.annotations.enumerated() {
+            waypoints.append(Waypoint(coordinate: i.coordinate, name: self.taskCollectionPoints[index].name))
         }
         
 //        waypoints.append(Waypoint(coordinate: coordinate))
@@ -494,8 +494,8 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     // Calculate route to be used for navigation
     func calculateRoute(from origin: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D) {
         // Coordinate accuracy is how close the route must come to the waypoint in order to be considered viable. It is measured in meters. A negative value indicates that the route is viable regardless of how far the route is from the waypoint.
-        let origin = Waypoint(coordinate: origin, coordinateAccuracy: -1, name: "Start")
-        let destination = Waypoint(coordinate: destination, coordinateAccuracy: -1, name: "Finish")
+        let origin = Waypoint(coordinate: origin, name: "Start")
+        let destination = Waypoint(coordinate: destination, name: "Finish")
         
         // Specify that the route is intended for automobiles avoiding traffic
         let routeOptions = NavigationRouteOptions(waypoints: [origin, destination], profileIdentifier: .automobileAvoidingTraffic)
@@ -623,6 +623,16 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             mapViewContainer.isHidden = false
         }
     }
+
+        func navigationViewController(_ navigationViewController: NavigationViewController, waypointStyleLayerWithIdentifier identifier: String, source: MGLSource) -> MGLStyleLayer? {
+            
+            let waypointStyleLayer = MGLCircleStyleLayer(identifier: identifier, source: source)
+            waypointStyleLayer.circleColor = NSExpression(forConstantValue: UIColor.yellow)
+            waypointStyleLayer.circleRadius = NSExpression(forConstantValue: 10)
+            waypointStyleLayer.circleStrokeColor = NSExpression(forConstantValue: UIColor.black)
+            waypointStyleLayer.circleStrokeWidth = NSExpression(forConstantValue: 1)
+            return waypointStyleLayer
+        }
     
     // MARK: - Navigation
     
