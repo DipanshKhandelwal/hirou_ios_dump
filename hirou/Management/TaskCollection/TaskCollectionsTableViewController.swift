@@ -206,5 +206,12 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
                 controller.segueTaskCollectionPoint = (detail as! TaskCollectionPoint)
             }
         }
+        
+        if segue.identifier == "taskCollectionsToTaskAmountFormSegue" {
+            let controller = (segue.destination as! TaskGarbageAmountFormViewController)
+            if self.route != nil {
+                controller.detailItem = self.route
+            }
+        }
     }
 }
