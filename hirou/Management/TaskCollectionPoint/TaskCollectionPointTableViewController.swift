@@ -358,7 +358,7 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
             listToReturn.append(garbageSummaryItem.value)
         }
         
-        listToReturn = listToReturn.sorted() { $0.complete > $1.complete }
+        listToReturn = listToReturn.sorted() { $0.garbage.id < $1.garbage.id }
         
         return listToReturn
     }
