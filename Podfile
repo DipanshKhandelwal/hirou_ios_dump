@@ -15,4 +15,7 @@ target 'hirou' do
   
 # Pager
   pod 'FSPagerView'
+  
+# Firebase
+  pod 'Firebase/Firestore'
 end
