@@ -31,7 +31,7 @@ class LoginViewController: UIViewController {
                 return
                 
             case .success(let data):
-                print("data", data)
+                print("logged in", data)
                 // First make sure you got back a dictionary if that's what you expect
                 guard let json = data as? [String : AnyObject] else {
                     return

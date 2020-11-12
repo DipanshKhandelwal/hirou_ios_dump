@@ -68,7 +68,7 @@ class CollectionPointMasterViewController: UITableViewController {
     func fetchCollectionPoints(notify: Bool = false){
         let id = UserDefaults.standard.string(forKey: "selectedRoute")!
         let url = Environment.SERVER_URL + "api/base_route/"+String(id)+"/"
-        AF.request(url, method: .get).response { response in
+        AF.request(url, method: .get).validate().response { response in
             switch response.result {
             case .success(let value):
                 let route = try! JSONDecoder().decode(BaseRoute.self, from: value!)
@@ -175,6 +175,7 @@ class CollectionPointMasterViewController: UITableViewController {
             "points": array
         ]
         AF.request(Environment.SERVER_URL + "api/base_route/"+String(baseRouteId)+"/reorder_points/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
+            .validate()
             .response {
                 response in
                 switch response.result {

@@ -142,6 +142,7 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
         request.httpBody = try! JSONSerialization.data(withJSONObject: values)
         
         AF.request(request)
+            .validate()
             .response {
                 response in
                 switch response.result {

@@ -73,6 +73,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             request.httpBody = try! JSONSerialization.data(withJSONObject: values)
             
             AF.request(request)
+                .validate()
                 .responseString {
                     response in
                     switch response.result {
@@ -92,6 +93,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             request.httpBody = try! JSONSerialization.data(withJSONObject: values)
             
             AF.request(request)
+                .validate()
                 .response {
                     response in
                     switch response.result {
@@ -109,6 +111,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
         if detailItem != nil {
             let id = UserDefaults.standard.string(forKey: "selectedRoute")!
             AF.request(Environment.SERVER_URL + "api/base_route/"+String(id)+"/", method: .delete)
+                .validate()
                 .responseString {
                     response in
                     switch response.result {
@@ -207,7 +210,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        AF.request(Environment.SERVER_URL + "api/customer/", method: .get).response { response in
+        AF.request(Environment.SERVER_URL + "api/customer/", method: .get).validate().response { response in
             switch response.result {
             case .success(let value):
                 self.customers = try! JSONDecoder().decode([Customer].self, from: value!)

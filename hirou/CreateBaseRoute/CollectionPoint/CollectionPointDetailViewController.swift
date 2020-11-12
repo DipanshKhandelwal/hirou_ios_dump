@@ -77,7 +77,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     func getPoints() {
         let id = self.id
         let url = Environment.SERVER_URL + "api/base_route/"+String(id)+"/"
-        AF.request(url, method: .get).response { response in
+        AF.request(url, method: .get).validate().response { response in
             //to get status code
             switch response.result {
             case .success(let value):

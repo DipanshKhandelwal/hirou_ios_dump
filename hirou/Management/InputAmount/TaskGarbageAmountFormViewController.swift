@@ -115,6 +115,7 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         if let taskAmountItem = taskAmount {
             let taskAmount = taskAmountItem as! TaskAmount
             AF.request(Environment.SERVER_URL + "api/task_amount/"+String(taskAmount.id)+"/", method: .delete)
+                .validate()
                 .responseString {
                     response in
                     switch response.result {
@@ -151,6 +152,7 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         }
         
         AF.request(url, method: HTTPMethod(rawValue: method), parameters: parameters, encoder: JSONParameterEncoder.default)
+            .validate()
             .responseJSON {
                 response in
                 switch response.result {
