@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+struct UserDefaultsConstants {
+    static let AUTH_TOKEN = "hirou::auth::token"
+}
