@@ -129,7 +129,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     func fetchReportTypes() {
-        AF.request(Environment.SERVER_URL + "api/report_type/", method: .get).response { response in
+        AF.request(Environment.SERVER_URL + "api/report_type/", method: .get).validate().response { response in
             switch response.result {
             case .success(let value):
                 self.reportTypes = try! JSONDecoder().decode([ReportType].self, from: value!)
@@ -254,6 +254,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         }
 
         AF.request(url, method: HTTPMethod(rawValue: method), parameters: parameters, encoder: JSONParameterEncoder.default)
+            .validate()
             .responseJSON {
                 response in
                 switch response.result {
@@ -271,6 +272,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         if let taskReportItem = taskReport {
         let taskReport = taskReportItem as! TaskReport
             AF.request(Environment.SERVER_URL + "api/task_report/"+String(taskReport.id)+"/", method: .delete)
+                .validate()
                 .responseString {
                     response in
                     switch response.result {

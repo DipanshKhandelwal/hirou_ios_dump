@@ -93,6 +93,7 @@ class CollectionPointDraggableAnnotationView: MGLAnnotationView {
         ]
 
         AF.request(Environment.SERVER_URL + "api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
+            .validate()
             .responseString {
                 response in
                 switch response.result {

@@ -103,6 +103,7 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
                 "sequence": self.cpSequence.text ?? "0"
             ]
             AF.request(Environment.SERVER_URL + "api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
+                .validate()
                 .responseJSON {
                     response in
                     switch response.result {
@@ -155,6 +156,7 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
         if let detail = detailItem {
             let id = (detail as! CollectionPoint).id
             AF.request(Environment.SERVER_URL + "api/collection_point/"+String(id)+"/", method: .delete)
+                .validate()
                 .responseString {
                     response in
                     switch response.result {

@@ -115,7 +115,7 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     func fetchTaskCollectionPoints(){
         let id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
         let url = Environment.SERVER_URL + "api/task_route/"+String(id)+"/"
-        AF.request(url, method: .get).response { response in
+        AF.request(url, method: .get).validate().response { response in
             switch response.result {
             case .success(let value):
                 let route = try! JSONDecoder().decode(TaskRoute.self, from: value!)
@@ -230,6 +230,7 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         request.httpMethod = "PATCH"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         AF.request(request)
+            .validate()
             .response {
                 response in
                 switch response.result {
@@ -283,6 +284,7 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         request.httpBody = try! JSONSerialization.data(withJSONObject: values)
         
         AF.request(request)
+            .validate()
             .response {
                 response in
                 switch response.result {
