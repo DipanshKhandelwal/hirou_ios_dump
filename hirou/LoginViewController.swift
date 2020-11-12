@@ -25,6 +25,9 @@ class LoginViewController: UIViewController {
             switch response.result {
             case .failure(let error):
                 print("error: logging in", error)
+                let addAlert = UIAlertController(title: "Error in logging in", message: "Please check credentials", preferredStyle: .alert)
+                addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
+                self.present(addAlert, animated: true, completion: nil)
                 return
                 
             case .success(let data):
@@ -34,6 +37,9 @@ class LoginViewController: UIViewController {
                     return
                 }
                 UserDefaults.standard.set(json["key"], forKey: UserDefaultsConstants.AUTH_TOKEN)
+                let addAlert = UIAlertController(title: "Successfully logged in", message: "", preferredStyle: .alert)
+                addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
+                self.present(addAlert, animated: true, completion: nil)
             }
         }
     }
