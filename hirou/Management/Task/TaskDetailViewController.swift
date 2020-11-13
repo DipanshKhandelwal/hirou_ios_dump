@@ -49,7 +49,8 @@ class TaskDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        AF.request(Environment.SERVER_URL + "api/vehicle/", method: .get).validate().responseJSON { response in
+        let headers = APIHeaders.getHeaders()
+        AF.request(Environment.SERVER_URL + "api/vehicle/", method: .get, headers: headers).validate().responseJSON { response in
             switch response.result {
             case .success(let value):
                 print("response", value)
@@ -125,8 +126,9 @@ class TaskDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     func deleteTaskCall(){
         if let detail = detailItem {
+            let headers = APIHeaders.getHeaders()
             let id = (detail as! TaskRoute).id
-            AF.request(Environment.SERVER_URL + "api/task_route/"+String(id)+"/", method: .delete)
+            AF.request(Environment.SERVER_URL + "api/task_route/"+String(id)+"/", method: .delete, headers: headers)
                 .validate()
                 .responseString {
                     response in

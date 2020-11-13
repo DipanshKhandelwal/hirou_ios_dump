@@ -37,7 +37,10 @@ class TaskTableViewController: UITableViewController {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateStr = dateFormatter.string(from: dateToFetch)
         let parameters: Parameters = [ "date": dateStr ]
-        AF.request(Environment.SERVER_URL + "api/task_route/", method: .get, parameters: parameters).validate().response { response in
+        
+        let headers = APIHeaders.getHeaders()
+        
+        AF.request(Environment.SERVER_URL + "api/task_route/", method: .get, parameters: parameters, headers: headers).validate().response { response in
             //to get status code
             switch response.result {
             case .success(let value):

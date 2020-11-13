@@ -129,7 +129,8 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     func fetchReportTypes() {
-        AF.request(Environment.SERVER_URL + "api/report_type/", method: .get).validate().response { response in
+        let headers = APIHeaders.getHeaders()
+        AF.request(Environment.SERVER_URL + "api/report_type/", method: .get, headers: headers).validate().response { response in
             switch response.result {
             case .success(let value):
                 self.reportTypes = try! JSONDecoder().decode([ReportType].self, from: value!)
@@ -156,29 +157,32 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         
         let imgData = image!.jpegData(compressionQuality: 0.2)!
         let reportId = id
+        let headers = APIHeaders.getHeaders()
                         
         AF.upload(multipartFormData: { multiPart in
             multiPart.append(imgData, withName: "image", fileName: String(reportId)+".png", mimeType: "image/png")
         },
-                  to: Environment.SERVER_URL + "api/task_report/"+String(id)+"/",
-                  method: .patch
+        to: Environment.SERVER_URL + "api/task_report/"+String(id)+"/",
+        method: .patch,
+        headers: headers
         )
-            .uploadProgress( queue: .main, closure: {
-                progress in
-                print("Upload Progress: \(progress.fractionCompleted)")
-                if progress.fractionCompleted == 1 {
-                    _ = self.navigationController?.popViewController(animated: true)
-                }
-            }).responseJSON(completionHandler: { data in
-                print("upload finished: \(data)")
+        .validate()
+        .uploadProgress( queue: .main, closure: {
+            progress in
+            print("Upload Progress: \(progress.fractionCompleted)")
+            if progress.fractionCompleted == 1 {
                 _ = self.navigationController?.popViewController(animated: true)
-            }).response { (response) in
-                switch response.result {
-                case .success(let result):
-                    print("upload success result: \(String(describing: result))")
-                case .failure(let err):
-                    print("upload err: \(err)")
-                }
+            }
+        }).responseJSON(completionHandler: { data in
+            print("upload finished: \(data)")
+            _ = self.navigationController?.popViewController(animated: true)
+        }).response { (response) in
+            switch response.result {
+            case .success(let result):
+                print("upload success result: \(String(describing: result))")
+            case .failure(let err):
+                print("upload err: \(err)")
+            }
         }
     }
     
@@ -244,6 +248,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         
         var url = Environment.SERVER_URL + "api/task_report/"
         var method = "POST"
+        let headers = APIHeaders.getHeaders()
         
         if taskReport != nil {
             if let taskReportItem = taskReport {
@@ -253,7 +258,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
             }
         }
 
-        AF.request(url, method: HTTPMethod(rawValue: method), parameters: parameters, encoder: JSONParameterEncoder.default)
+        AF.request(url, method: HTTPMethod(rawValue: method), parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
             .responseJSON {
                 response in
@@ -270,8 +275,9 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
 
     func deleteTaskReport() {
         if let taskReportItem = taskReport {
-        let taskReport = taskReportItem as! TaskReport
-            AF.request(Environment.SERVER_URL + "api/task_report/"+String(taskReport.id)+"/", method: .delete)
+            let headers = APIHeaders.getHeaders()
+            let taskReport = taskReportItem as! TaskReport
+            AF.request(Environment.SERVER_URL + "api/task_report/"+String(taskReport.id)+"/", method: .delete, headers: headers)
                 .validate()
                 .responseString {
                     response in
@@ -283,7 +289,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
                     case .failure(let error):
                         print(error)
                     }
-            }
+                }
         }
     }
 

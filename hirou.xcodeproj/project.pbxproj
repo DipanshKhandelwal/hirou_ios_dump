@@ -55,6 +55,7 @@
 		31EBE46524477FE40023305D /* TaskCollectionPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EBE46424477FE40023305D /* TaskCollectionPoint.swift */; };
 		31EBE46724477FED0023305D /* TaskCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EBE46624477FED0023305D /* TaskCollection.swift */; };
 		31F26E38255D42E900D08A6E /* UserDefaultsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F26E37255D42E900D08A6E /* UserDefaultsConstants.swift */; };
+		31F26E4A255EA25000D08A6E /* APIHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F26E49255EA25000D08A6E /* APIHeaders.swift */; };
 		31F57D1C243A600A00903F38 /* GarbageTypesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F57D1B243A600A00903F38 /* GarbageTypesTableViewController.swift */; };
 		31F57D1E243A618500903F38 /* Garbage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F57D1D243A618500903F38 /* Garbage.swift */; };
 		31FB0DB32463BF3500856B4C /* TaskCollectionPointTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FB0DB22463BF3500856B4C /* TaskCollectionPointTableViewController.swift */; };
@@ -134,6 +135,7 @@
 		31EBE46424477FE40023305D /* TaskCollectionPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionPoint.swift; sourceTree = "<group>"; };
 		31EBE46624477FED0023305D /* TaskCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollection.swift; sourceTree = "<group>"; };
 		31F26E37255D42E900D08A6E /* UserDefaultsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConstants.swift; sourceTree = "<group>"; };
+		31F26E49255EA25000D08A6E /* APIHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHeaders.swift; sourceTree = "<group>"; };
 		31F57D1B243A600A00903F38 /* GarbageTypesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarbageTypesTableViewController.swift; sourceTree = "<group>"; };
 		31F57D1D243A618500903F38 /* Garbage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Garbage.swift; sourceTree = "<group>"; };
 		31FB0DB22463BF3500856B4C /* TaskCollectionPointTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionPointTableViewController.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 		317E230023C6306C00F8F0C1 /* hirou */ = {
 			isa = PBXGroup;
 			children = (
+				31F26E48255EA23600D08A6E /* Helpers */,
 				31F26E36255D42CF00D08A6E /* Constants */,
 				31CAF1BD254EFB1B006CD083 /* GoogleService-Info.plist */,
 				3153653B243F8BA0001ED8C4 /* Components */,
@@ -341,6 +344,14 @@
 				31F26E37255D42E900D08A6E /* UserDefaultsConstants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		31F26E48255EA23600D08A6E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				31F26E49255EA25000D08A6E /* APIHeaders.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		31FB0DB12463BEEB00856B4C /* TaskCollectionPoint */ = {
@@ -578,6 +589,7 @@
 				311BA35C24B8BF6900CE1BD9 /* TaskReport.swift in Sources */,
 				3159198524A0B7BB009D064B /* GarbageButton.swift in Sources */,
 				31B09589248F75FC00D560B0 /* Environment.swift in Sources */,
+				31F26E4A255EA25000D08A6E /* APIHeaders.swift in Sources */,
 				3133F2042424BE0F001C158C /* BaseRoute.swift in Sources */,
 				313172682445E5D800585B7F /* TaskTableViewController.swift in Sources */,
 				312E9A2A242A39980073D165 /* CollectionPointMasterViewController.swift in Sources */,

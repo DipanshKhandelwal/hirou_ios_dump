@@ -114,7 +114,8 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
     func deleteTaskAmount() {
         if let taskAmountItem = taskAmount {
             let taskAmount = taskAmountItem as! TaskAmount
-            AF.request(Environment.SERVER_URL + "api/task_amount/"+String(taskAmount.id)+"/", method: .delete)
+            let headers = APIHeaders.getHeaders()
+            AF.request(Environment.SERVER_URL + "api/task_amount/"+String(taskAmount.id)+"/", method: .delete, headers: headers)
                 .validate()
                 .responseString {
                     response in
@@ -142,6 +143,7 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         
         var url = Environment.SERVER_URL + "api/task_amount/"
         var method = "POST"
+        let headers = APIHeaders.getHeaders()
         
         if taskAmount != nil {
             if let taskAmountItem = taskAmount {
@@ -151,7 +153,7 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
             }
         }
         
-        AF.request(url, method: HTTPMethod(rawValue: method), parameters: parameters, encoder: JSONParameterEncoder.default)
+        AF.request(url, method: HTTPMethod(rawValue: method), parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
             .responseJSON {
                 response in

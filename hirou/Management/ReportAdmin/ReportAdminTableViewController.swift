@@ -39,7 +39,8 @@ class ReportAdminTableViewController: UITableViewController {
         let id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
         let url = Environment.SERVER_URL + "api/task_report/"
         let parameters: Parameters = [ "task_route": id ]
-        AF.request(url, method: .get, parameters: parameters).validate().response { response in
+        let headers = APIHeaders.getHeaders()
+        AF.request(url, method: .get, parameters: parameters, headers: headers).validate().response { response in
             switch response.result {
             case .success(let value):
                 let decoder = JSONDecoder()

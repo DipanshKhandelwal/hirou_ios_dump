@@ -115,7 +115,8 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     func fetchTaskCollectionPoints(){
         let id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
         let url = Environment.SERVER_URL + "api/task_route/"+String(id)+"/"
-        AF.request(url, method: .get).validate().response { response in
+        let headers = APIHeaders.getHeaders()
+        AF.request(url, method: .get, headers: headers).validate().response { response in
             switch response.result {
             case .success(let value):
                 let route = try! JSONDecoder().decode(TaskRoute.self, from: value!)
@@ -226,9 +227,15 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     func changeAllApiCall(sender: UIButton) {
         let taskCollectionPoint = self.taskCollectionPoints[sender.tag]
         let url = Environment.SERVER_URL + "api/task_collection_point/"+String(taskCollectionPoint.id)+"/bulk_complete/"
+
         var request = URLRequest(url: try! url.asURL())
         request.httpMethod = "PATCH"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        if let headers = APIHeaders.getHeaders() {
+            request.headers = headers
+        }
+
         AF.request(request)
             .validate()
             .response {
@@ -282,6 +289,10 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         request.httpMethod = "PATCH"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! JSONSerialization.data(withJSONObject: values)
+        
+        if let headers = APIHeaders.getHeaders() {
+            request.headers = headers
+        }
         
         AF.request(request)
             .validate()

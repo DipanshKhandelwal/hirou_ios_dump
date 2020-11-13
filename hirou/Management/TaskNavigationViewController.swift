@@ -104,6 +104,9 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
         var request = URLRequest(url: try! url.asURL())
         request.httpMethod = "PATCH"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if let headers = APIHeaders.getHeaders() {
+            request.headers = headers
+        }
         AF.request(request)
             .validate()
             .response {
@@ -155,6 +158,9 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
         request.httpMethod = "PATCH"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! JSONSerialization.data(withJSONObject: values)
+        if let headers = APIHeaders.getHeaders() {
+            request.headers = headers
+        }
         
         AF.request(request)
             .validate()
@@ -329,7 +335,8 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     func getPoints() {
         let id = self.id
         let url = Environment.SERVER_URL + "api/task_route/"+String(id)+"/"
-        AF.request(url, method: .get).validate().response { response in
+        let headers = APIHeaders.getHeaders()
+        AF.request(url, method: .get, headers: headers).validate().response { response in
             //to get status code
             switch response.result {
             case .success(let value):

@@ -71,6 +71,9 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             request.httpMethod = "PATCH"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = try! JSONSerialization.data(withJSONObject: values)
+            if let headers = APIHeaders.getHeaders() {
+                request.headers = headers
+            }
             
             AF.request(request)
                 .validate()
@@ -91,6 +94,9 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = try! JSONSerialization.data(withJSONObject: values)
+            if let headers = APIHeaders.getHeaders() {
+                request.headers = headers
+            }
             
             AF.request(request)
                 .validate()
@@ -110,7 +116,8 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     func deleteRouteCall(){
         if detailItem != nil {
             let id = UserDefaults.standard.string(forKey: "selectedRoute")!
-            AF.request(Environment.SERVER_URL + "api/base_route/"+String(id)+"/", method: .delete)
+            let headers = APIHeaders.getHeaders()
+            AF.request(Environment.SERVER_URL + "api/base_route/"+String(id)+"/", method: .delete, headers: headers)
                 .validate()
                 .responseString {
                     response in
@@ -210,7 +217,8 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        AF.request(Environment.SERVER_URL + "api/customer/", method: .get).validate().response { response in
+        let headers = APIHeaders.getHeaders()
+        AF.request(Environment.SERVER_URL + "api/customer/", method: .get, headers: headers).validate().response { response in
             switch response.result {
             case .success(let value):
                 self.customers = try! JSONDecoder().decode([Customer].self, from: value!)
