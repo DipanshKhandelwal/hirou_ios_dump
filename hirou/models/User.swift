@@ -30,4 +30,14 @@ struct User : Encodable, Decodable{
         case first_name
         case last_name
     }
+    
+    static func getUserFromDictionary(obj : AnyObject) -> User {
+        let id = obj["id"] as! Int
+        let email = obj["email"] as! String
+        let username = obj["username"] as! String
+        let first_name = obj["first_name"] as! String
+        let last_name = obj["last_name"] as! String
+        let userObj = User(id: id, email: email, username: username, first_name: first_name, last_name: last_name)
+        return userObj!
+    }
 }
