@@ -37,18 +37,19 @@ class LoginViewController: UIViewController {
                 return
                 
             case .success(let data):
-                print("logged in", data)
-                // First make sure you got back a dictionary if that's what you expect
                 guard let json = data as? [String : AnyObject] else {
                     return
                 }
                 
-                if let token = json["key"] {
+                if let token = json["key"], let user = json["user"] {
+                    let userObj = User.getUserFromDictionary(obj: user)
+                    UserDefaults.standard.set(userObj.username, forKey: UserDefaultsConstants.USER_USERNAME)
+                    UserDefaults.standard.set(userObj.id, forKey: UserDefaultsConstants.USER_ID)
                     UserDefaults.standard.set(token, forKey: UserDefaultsConstants.AUTH_TOKEN)
                     self.performSegue(withIdentifier: "loginSuccessfulSegue", sender: self)
                 }
                 else {
-                    let addAlert = UIAlertController(title: "Error getting token", message: "Try again", preferredStyle: .alert)
+                    let addAlert = UIAlertController(title: "Error getting token or user", message: "Try again", preferredStyle: .alert)
                     addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
                     self.present(addAlert, animated: true, completion: nil)
 
