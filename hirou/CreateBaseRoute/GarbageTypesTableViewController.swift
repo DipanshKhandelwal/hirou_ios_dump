@@ -24,7 +24,8 @@ class GarbageTypesTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        AF.request(Environment.SERVER_URL + "api/garbage/", method: .get).validate().response { response in
+        let headers = APIHeaders.getHeaders()
+        AF.request(Environment.SERVER_URL + "api/garbage/", method: .get, headers: headers).validate().response { response in
             //to get status code
             switch response.result {
             case .success(let value):

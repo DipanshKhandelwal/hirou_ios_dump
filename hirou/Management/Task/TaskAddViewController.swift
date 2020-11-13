@@ -83,7 +83,9 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             "id": String(routeId!),
             "date": dateFormatter.string(from: self.date)
         ]
-        AF.request(Environment.SERVER_URL + "api/task_route/", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
+        let headers = APIHeaders.getHeaders()
+
+        AF.request(Environment.SERVER_URL + "api/task_route/", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
             .responseJSON {
                 response in
@@ -99,7 +101,8 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        AF.request(Environment.SERVER_URL + "api/base_route/", method: .get)
+        let headers = APIHeaders.getHeaders()
+        AF.request(Environment.SERVER_URL + "api/base_route/", method: .get, headers: headers)
             .validate()
             .response { response in
                 switch response.result {

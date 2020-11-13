@@ -91,8 +91,10 @@ class CollectionPointDraggableAnnotationView: MGLAnnotationView {
         let parameters: [String: String] = [
             "location": lat + "," + long,
         ]
+        
+        let headers = APIHeaders.getHeaders()
 
-        AF.request(Environment.SERVER_URL + "api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
+        AF.request(Environment.SERVER_URL + "api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
             .validate()
             .responseString {
                 response in

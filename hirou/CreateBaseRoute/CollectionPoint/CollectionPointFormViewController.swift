@@ -57,29 +57,32 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
         
         let imgData = image!.jpegData(compressionQuality: 0.2)!
         //         let params = ["name": "rname"] //Optional for extra parameter
+        let headers = APIHeaders.getHeaders()
         
         AF.upload(multipartFormData: { multiPart in
             multiPart.append(imgData, withName: "image", fileName: String(id)+".png", mimeType: "image/png")
         },
-                  to: Environment.SERVER_URL + "api/collection_point/"+String(id)+"/",
-                  method: .patch
+        to: Environment.SERVER_URL + "api/collection_point/"+String(id)+"/",
+        method: .patch,
+        headers: headers
         )
-            .uploadProgress( queue: .main, closure: {
-                progress in
-                print("Upload Progress: \(progress.fractionCompleted)")
-                if progress.fractionCompleted == 1 {
-                    _ = self.navigationController?.popViewController(animated: true)
-                }
-            }).responseJSON(completionHandler: { data in
-                print("upload finished: \(data)")
+        .validate()
+        .uploadProgress( queue: .main, closure: {
+            progress in
+            print("Upload Progress: \(progress.fractionCompleted)")
+            if progress.fractionCompleted == 1 {
                 _ = self.navigationController?.popViewController(animated: true)
-            }).response { (response) in
-                switch response.result {
-                case .success(let result):
-                    print("upload success result: \(result)")
-                case .failure(let err):
-                    print("upload err: \(err)")
-                }
+            }
+        }).responseJSON(completionHandler: { data in
+            print("upload finished: \(data)")
+            _ = self.navigationController?.popViewController(animated: true)
+        }).response { (response) in
+            switch response.result {
+            case .success(let result):
+                print("upload success result: \(String(describing: result))")
+            case .failure(let err):
+                print("upload err: \(err)")
+            }
         }
     }
 
@@ -102,7 +105,8 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
                 "memo": self.cpMemo.text ?? "",
                 "sequence": self.cpSequence.text ?? "0"
             ]
-            AF.request(Environment.SERVER_URL + "api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default)
+            let headers = APIHeaders.getHeaders()
+            AF.request(Environment.SERVER_URL + "api/collection_point/"+String(id)+"/", method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
                 .validate()
                 .responseJSON {
                     response in
@@ -127,7 +131,8 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
                 "route": String(routeId),
                 "sequence": self.cpSequence.text ?? "0"
             ]
-            AF.request(Environment.SERVER_URL + "api/collection_point/", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default)
+            let headers = APIHeaders.getHeaders()
+            AF.request(Environment.SERVER_URL + "api/collection_point/", method: .post, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers)
                 .validate()
                 .responseJSON {
                     response in
@@ -155,7 +160,8 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
     func deleteCPCall() {
         if let detail = detailItem {
             let id = (detail as! CollectionPoint).id
-            AF.request(Environment.SERVER_URL + "api/collection_point/"+String(id)+"/", method: .delete)
+            let headers = APIHeaders.getHeaders()
+            AF.request(Environment.SERVER_URL + "api/collection_point/"+String(id)+"/", method: .delete, headers: headers)
                 .validate()
                 .responseString {
                     response in

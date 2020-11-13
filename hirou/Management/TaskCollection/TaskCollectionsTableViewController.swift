@@ -141,6 +141,10 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! JSONSerialization.data(withJSONObject: values)
         
+        if let headers = APIHeaders.getHeaders() {
+            request.headers = headers
+        }
+        
         AF.request(request)
             .validate()
             .response {

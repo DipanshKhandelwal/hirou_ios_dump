@@ -97,7 +97,8 @@ class CalendarViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func fetchTaskRoutesAndUpdatetasks() {
-        AF.request(Environment.SERVER_URL + "api/task_route/", method: .get).validate().response { response in
+        let headers = APIHeaders.getHeaders()
+        AF.request(Environment.SERVER_URL + "api/task_route/", method: .get, headers: headers).validate().response { response in
             //to get status code
             switch response.result {
             case .success(let value):
