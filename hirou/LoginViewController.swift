@@ -37,8 +37,9 @@ class LoginViewController: UIViewController {
                     return
                 }
 //                TODO :: Route to next screen
-                UserDefaults.standard.set(json["key"], forKey: UserDefaultsConstants.AUTH_TOKEN)
-                let addAlert = UIAlertController(title: "Successfully logged in", message: "", preferredStyle: .alert)
+                if let token = json["key"] {
+                    UserDefaults.standard.set(token, forKey: UserDefaultsConstants.AUTH_TOKEN)
+                }
                 addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
                 self.present(addAlert, animated: true, completion: nil)
             }
