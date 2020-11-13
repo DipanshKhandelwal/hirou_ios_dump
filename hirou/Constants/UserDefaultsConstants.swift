@@ -9,5 +9,10 @@
 import Foundation
 
 struct UserDefaultsConstants {
+    // auth
     static let AUTH_TOKEN = "hirou::auth::token"
+    
+    // user
+    static let USER_ID = "hirou::user::id"
+    static let USER_USERNAME = "hirou::user::username"
 }

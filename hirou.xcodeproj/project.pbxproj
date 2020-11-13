@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		31093F9D23CFA6B40025679A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31093F9C23CFA6B40025679A /* LoginViewController.swift */; };
+		310C5687255EC0EC0012B8B1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310C5686255EC0EC0012B8B1 /* User.swift */; };
 		311BA35624B8AC1700CE1BD9 /* TaskGarbageAmountFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311BA35524B8AC1700CE1BD9 /* TaskGarbageAmountFormViewController.swift */; };
 		311BA35824B8B08B00CE1BD9 /* TaskAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311BA35724B8B08B00CE1BD9 /* TaskAmount.swift */; };
 		311BA35A24B8BB5700CE1BD9 /* ReportAdminFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311BA35924B8BB5700CE1BD9 /* ReportAdminFormViewController.swift */; };
@@ -82,6 +83,7 @@
 /* Begin PBXFileReference section */
 		09B53D18299FA1A1A9AA36ED /* Pods-hirou.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hirou.release.xcconfig"; path = "Target Support Files/Pods-hirou/Pods-hirou.release.xcconfig"; sourceTree = "<group>"; };
 		31093F9C23CFA6B40025679A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		310C5686255EC0EC0012B8B1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		311BA35524B8AC1700CE1BD9 /* TaskGarbageAmountFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskGarbageAmountFormViewController.swift; sourceTree = "<group>"; };
 		311BA35724B8B08B00CE1BD9 /* TaskAmount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskAmount.swift; sourceTree = "<group>"; };
 		311BA35924B8BB5700CE1BD9 /* ReportAdminFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportAdminFormViewController.swift; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 				311BA35724B8B08B00CE1BD9 /* TaskAmount.swift */,
 				311BA35B24B8BF6900CE1BD9 /* TaskReport.swift */,
 				311BA35D24B8BF8400CE1BD9 /* ReportType.swift */,
+				310C5686255EC0EC0012B8B1 /* User.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -579,6 +582,7 @@
 				31538CF624E44DFC00976EEE /* CustomAnnotationView.swift in Sources */,
 				31920C9F241CD5D900A55403 /* Location.swift in Sources */,
 				31093F9D23CFA6B40025679A /* LoginViewController.swift in Sources */,
+				310C5687255EC0EC0012B8B1 /* User.swift in Sources */,
 				31F26E38255D42E900D08A6E /* UserDefaultsConstants.swift in Sources */,
 				31EBE46324477F640023305D /* TaskRoute.swift in Sources */,
 				31803C2C24AC735D00B8D1C8 /* ImagePicker.swift in Sources */,
