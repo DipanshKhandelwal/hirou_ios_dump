@@ -13,6 +13,12 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
     
+    override func viewDidAppear(_ animated: Bool) {
+        if UserDefaults.standard.string(forKey: UserDefaultsConstants.AUTH_TOKEN) != nil {
+            self.performSegue(withIdentifier: "loginSuccessfulSegue", sender: self)
+        }
+    }
+    
     @IBAction func loginButtonClicked(_ sender: Any) {
         guard let user = username.text, let pass = password.text else {
             print("LoginScreen::error getting username and password")
@@ -36,11 +42,17 @@ class LoginViewController: UIViewController {
                 guard let json = data as? [String : AnyObject] else {
                     return
                 }
-//                TODO :: Route to next screen
-                UserDefaults.standard.set(json["key"], forKey: UserDefaultsConstants.AUTH_TOKEN)
-                let addAlert = UIAlertController(title: "Successfully logged in", message: "", preferredStyle: .alert)
-                addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
-                self.present(addAlert, animated: true, completion: nil)
+                
+                if let token = json["key"] {
+                    UserDefaults.standard.set(token, forKey: UserDefaultsConstants.AUTH_TOKEN)
+                    self.performSegue(withIdentifier: "loginSuccessfulSegue", sender: self)
+                }
+                else {
+                    let addAlert = UIAlertController(title: "Error getting token", message: "Try again", preferredStyle: .alert)
+                    addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
+                    self.present(addAlert, animated: true, completion: nil)
+
+                }
             }
         }
     }

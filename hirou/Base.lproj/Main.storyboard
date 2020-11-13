@@ -64,11 +64,12 @@
                     <connections>
                         <outlet property="password" destination="aTc-nh-f1E" id="sbI-ou-R4k"/>
                         <outlet property="username" destination="TPh-j1-K2C" id="fIE-N9-7Eu"/>
+                        <segue destination="MCu-za-UV4" kind="showDetail" identifier="loginSuccessfulSegue" id="ER4-PK-QIH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ImL-aD-bTP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3773" y="-330"/>
+            <point key="canvasLocation" x="-2259" y="374"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="bOd-sP-6PM">
@@ -112,9 +113,6 @@
                                                 <rect key="frame" x="0.0" y="144" width="144" height="42"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <state key="normal" title="Route Collection"/>
-                                                <connections>
-                                                    <segue destination="MCu-za-UV4" kind="show" id="uiz-yM-H75"/>
-                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -158,11 +156,11 @@
             <objects>
                 <viewController wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" id="mGe-w2-RF3" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xSX-b0-igH">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="984"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="69" translatesAutoresizingMaskIntoConstraints="NO" id="Uy2-x3-dFN">
-                                <rect key="frame" x="281.5" y="300.5" width="205" height="473"/>
+                                <rect key="frame" x="249.5" y="283.5" width="205" height="473"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="f5p-Ko-Gvu">
                                         <rect key="frame" x="0.0" y="0.0" width="205" height="202"/>
@@ -365,11 +363,11 @@
             <objects>
                 <viewController title="Add Garbage Input" id="RrN-sE-2iT" customClass="TaskGarbageAmountFormViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RQO-jk-mAs">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="1ra-en-ATf">
-                                <rect key="frame" x="77" y="106" width="614" height="279"/>
+                                <rect key="frame" x="77" y="100" width="614" height="279"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="t43-Uc-FNA">
                                         <rect key="frame" x="0.0" y="0.0" width="614" height="64.5"/>
@@ -930,14 +928,14 @@
             <objects>
                 <viewController id="x0Q-bg-kCI" customClass="TaskAddViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LhM-9V-ECW">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="984"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="XMM-YU-t0p">
-                                <rect key="frame" x="77" y="150" width="614" height="450"/>
+                                <rect key="frame" x="70.5" y="156" width="563" height="450"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="S7q-0P-lmj">
-                                        <rect key="frame" x="0.0" y="0.0" width="614" height="61"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="563" height="61"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8QY-N0-HzD">
                                                 <rect key="frame" x="0.0" y="0.0" width="36" height="20.5"/>
@@ -954,7 +952,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="CeC-5g-bho">
-                                        <rect key="frame" x="0.0" y="111" width="614" height="74.5"/>
+                                        <rect key="frame" x="0.0" y="111" width="563" height="74.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YID-2e-M1y">
                                                 <rect key="frame" x="0.0" y="0.0" width="84" height="20.5"/>
@@ -963,7 +961,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dej-aj-nie">
-                                                <rect key="frame" x="0.0" y="40.5" width="614" height="34"/>
+                                                <rect key="frame" x="0.0" y="40.5" width="563" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -973,7 +971,7 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="a8u-RP-mip">
-                                        <rect key="frame" x="0.0" y="235.5" width="614" height="74.5"/>
+                                        <rect key="frame" x="0.0" y="235.5" width="563" height="74.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Base Route" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mDK-rk-CzJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="86.5" height="20.5"/>
@@ -982,7 +980,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FWD-Er-9Fd" customClass="DisabledUITextField" customModule="hirou" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="40.5" width="614" height="34"/>
+                                                <rect key="frame" x="0.0" y="40.5" width="563" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -992,17 +990,17 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Txr-bN-V4H">
-                                        <rect key="frame" x="0.0" y="360" width="614" height="90"/>
+                                        <rect key="frame" x="0.0" y="360" width="563" height="90"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0PR-mC-Z2B">
-                                                <rect key="frame" x="0.0" y="0.0" width="614" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="563" height="30"/>
                                                 <state key="normal" title="Add Task"/>
                                                 <connections>
                                                     <action selector="addNewTask:" destination="x0Q-bg-kCI" eventType="touchUpInside" id="Bn0-uX-3Rk"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dH5-R9-Dtf">
-                                                <rect key="frame" x="0.0" y="60" width="614" height="30"/>
+                                                <rect key="frame" x="0.0" y="60" width="563" height="30"/>
                                                 <state key="normal" title="Cancel">
                                                     <color key="titleColor" systemColor="systemRedColor"/>
                                                 </state>
@@ -2656,7 +2654,7 @@
         <!--Navigation Controller-->
         <scene sceneID="DhD-i3-pTI">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MCu-za-UV4" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="MCu-za-UV4" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="aQV-9J-0Wn"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JBC-Rp-5OV">
@@ -2695,7 +2693,7 @@
         <segue reference="mmn-xT-Ufc"/>
         <segue reference="uMY-IY-NVF"/>
         <segue reference="Xck-sm-1VP"/>
-        <segue reference="1JW-2v-0zI"/>
+        <segue reference="dkT-2W-XoR"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="car" catalog="system" width="128" height="93"/>
