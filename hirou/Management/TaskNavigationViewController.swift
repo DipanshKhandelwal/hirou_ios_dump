@@ -16,6 +16,9 @@ import MapboxCoreNavigation
 import MapboxNavigation
 import MapboxDirections
 
+import Firebase
+import FirebaseFirestore
+
 extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSource {
     func numberOfItems(in pagerView: FSPagerView) -> Int {
         return self.taskCollectionPoints.count
@@ -235,6 +238,9 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     
     var navigationViewController: NavigationViewController!
     
+    let db = Firestore.firestore()
+    var locationListener: ListenerRegistration!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -500,6 +506,78 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         }
     }
     
+    func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
+        locationListener = db.collection("vehicles")
+            .addSnapshotListener { querySnapshot, error in
+                guard let snapshot = querySnapshot else {
+                    print("Error fetching snapshots: \(error!)")
+                    return
+                }
+                snapshot.documentChanges.forEach { diff in
+                    if (diff.type == .added) {
+                        print("New city: \(diff.document.data()) \(diff.document.documentID)")
+                      
+                        let latitude = diff.document.data() ["latitude"] as? NSNumber
+                        let longitude = diff.document.data() ["longitude"] as? NSNumber
+                        
+                        let coordinates =  CLLocationCoordinate2D(latitude: Double(latitude ?? 0) , longitude: Double(truncating: longitude ?? 0));
+                        
+                        let point = MGLPointAnnotation()
+                        point.coordinate = coordinates
+                        
+                        let source = MGLShapeSource(identifier: diff.document.documentID, shape: point, options: nil)
+                        style.addSource(source)
+                        
+                        let droneLayer = MGLSymbolStyleLayer(identifier: diff.document.documentID, source: source)
+                        droneLayer.iconImageName = NSExpression(forConstantValue: "car-15")
+                        droneLayer.iconHaloColor = NSExpression(forConstantValue: UIColor.white)
+                        style.addLayer(droneLayer)
+                        
+                    }
+                    if (diff.type == .modified) {
+                        print("Modified city: \(diff.document.data()) \(diff.document.documentID)")
+
+//                        TODO :: Check if we can change the source coordinates without deleting and creating a new one
+                        
+                        if let source = style.source(withIdentifier: diff.document.documentID) {
+                            if let droneLayer = style.layer(withIdentifier: diff.document.documentID) {
+                                style.removeLayer(droneLayer)
+                                style.removeSource(source)
+                            }
+                        }
+
+                        let latitude = diff.document.data() ["latitude"] as? NSNumber
+                        let longitude = diff.document.data() ["longitude"] as? NSNumber
+
+                        let coordinates =  CLLocationCoordinate2D(latitude: Double(latitude ?? 0) , longitude: Double(truncating: longitude ?? 0));
+
+                        let point = MGLPointAnnotation()
+                        point.coordinate = coordinates
+
+                        let source = MGLShapeSource(identifier: diff.document.documentID, shape: point, options: nil)
+                        style.addSource(source)
+
+                        let droneLayer = MGLSymbolStyleLayer(identifier: diff.document.documentID, source: source)
+                        droneLayer.iconImageName = NSExpression(forConstantValue: "car-15")
+                        droneLayer.iconHaloColor = NSExpression(forConstantValue: UIColor.white)
+                        style.addLayer(droneLayer)
+                        
+                        
+                    }
+                    if (diff.type == .removed) {
+                        print("Removed city: \(diff.document.data()) \(diff.document.documentID)")
+                        
+                        if let source = style.source(withIdentifier: diff.document.documentID) {
+                            if let droneLayer = style.layer(withIdentifier: diff.document.documentID) {
+                                style.removeLayer(droneLayer)
+                                style.removeSource(source)
+                            }
+                        }
+                    }
+                }
+            }
+    }
+    
     // Calculate route to be used for navigation
     func calculateRoute(from origin: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D) {
         // Coordinate accuracy is how close the route must come to the waypoint in order to be considered viable. It is measured in meters. A negative value indicates that the route is viable regardless of how far the route is from the waypoint.
@@ -633,16 +711,16 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         }
     }
 
-        func navigationViewController(_ navigationViewController: NavigationViewController, waypointStyleLayerWithIdentifier identifier: String, source: MGLSource) -> MGLStyleLayer? {
-            
-            let waypointStyleLayer = MGLCircleStyleLayer(identifier: identifier, source: source)
-            waypointStyleLayer.circleColor = NSExpression(forConstantValue: UIColor.yellow)
-            waypointStyleLayer.circleRadius = NSExpression(forConstantValue: 10)
-            waypointStyleLayer.circleStrokeColor = NSExpression(forConstantValue: UIColor.black)
-            waypointStyleLayer.circleStrokeWidth = NSExpression(forConstantValue: 1)
-            return waypointStyleLayer
-        }
-    
+    func navigationViewController(_ navigationViewController: NavigationViewController, waypointStyleLayerWithIdentifier identifier: String, source: MGLSource) -> MGLStyleLayer? {
+        
+        let waypointStyleLayer = MGLCircleStyleLayer(identifier: identifier, source: source)
+        waypointStyleLayer.circleColor = NSExpression(forConstantValue: UIColor.yellow)
+        waypointStyleLayer.circleRadius = NSExpression(forConstantValue: 10)
+        waypointStyleLayer.circleStrokeColor = NSExpression(forConstantValue: UIColor.black)
+        waypointStyleLayer.circleStrokeWidth = NSExpression(forConstantValue: 1)
+        return waypointStyleLayer
+    }
+
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
