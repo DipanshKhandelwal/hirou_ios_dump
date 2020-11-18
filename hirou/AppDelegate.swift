@@ -8,14 +8,70 @@
 
 import UIKit
 import Firebase
+import CoreLocation
+
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
+    
+    var locationManager: CLLocationManager?
+    var db: Firestore?
+    var presentLocation: CLLocation?
+    var timer: Timer?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+        db = Firestore.firestore()
+        
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.requestAlwaysAuthorization()
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { _ in self.updateLocationOnFirebase() })
+        
         return true
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedAlways {
+            print("authorizedAlways")
+            locationManager?.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            print("New location is \(location)")
+            presentLocation = location
+        }
+    }
+    
+    func updateLocationOnFirebase() {
+        guard let userId = UserDefaults.standard.string(forKey: UserDefaultsConstants.USER_ID) else {
+            print("USER_ID not found :: Location not updated")
+            return
+        }
+        
+        if presentLocation == nil {
+            print("Present Location not found :: Location not updated")
+            return
+        }
+        
+        let latitude = presentLocation?.coordinate.latitude
+        let longitude = presentLocation?.coordinate.longitude
+        
+        let data: [String: Any] = [
+            "id": userId,
+            "latitude": latitude!,
+            "longitude": longitude!,
+        ]
+
+        db?.collection(FirestoreConstants.VEHICLES).document(userId).setData(data) { err in
+            if let err = err {
+                print("Error updating location :: firebase write error: \(err)")
+            }
+        }
     }
 
     // MARK: UISceneSession Lifecycle
