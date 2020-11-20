@@ -135,9 +135,18 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     @objc func handleAutomaticZoom() {
         let annotations = self.annotations
         
+        var firstCoordinate: CLLocationCoordinate2D
+        
+        if mapView.userLocation?.coordinate != nil {
+            firstCoordinate = mapView.userLocation!.coordinate
+        }
+        else {
+            firstCoordinate = annotations[0].coordinate
+        }
+        
         if annotations.count > 0 {
             
-            let firstCoordinate = annotations[0].coordinate
+//            let firstCoordinate = annotations[0].coordinate
             
             //Find the southwest and northeast point
             var northEastLatitude = firstCoordinate.latitude
