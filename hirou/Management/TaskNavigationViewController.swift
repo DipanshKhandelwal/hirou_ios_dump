@@ -380,7 +380,15 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     
     func handleAutomaticZoom() {
         let annotations = self.annotations
-        let firstCoordinate = (mapView.userLocation?.coordinate)!
+        
+        var firstCoordinate: CLLocationCoordinate2D
+        
+        if mapView.userLocation?.coordinate != nil {
+            firstCoordinate = mapView.userLocation!.coordinate
+        }
+        else {
+            firstCoordinate = annotations[0].coordinate
+        }
         
         if annotations.count > 0 {
 //            let firstCoordinate = annotations[0].coordinate
