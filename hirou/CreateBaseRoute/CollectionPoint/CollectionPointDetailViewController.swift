@@ -32,8 +32,9 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         self.id = UserDefaults.standard.string(forKey: "selectedRoute")!
         self.addNewPointGesture()
         
-        let button1 = UIBarButtonItem(image: UIImage(systemName: "selection.pin.in.out"), style: .plain, target: self, action: #selector(self.handleAutomaticZoom))
-        navigationItem.setRightBarButtonItems([button1], animated: true)
+        let button1 = UIBarButtonItem(image: UIImage(systemName: "mappin.and.ellipse"), style: .plain, target: self, action: #selector(goToUserLocation))
+        let button2 = UIBarButtonItem(image: UIImage(systemName: "selection.pin.in.out"), style: .plain, target: self, action: #selector(self.handleAutomaticZoom))
+        navigationItem.setRightBarButtonItems([button1, button2], animated: true)
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .CollectionPointsTableSelect, object: nil)
         
@@ -123,6 +124,12 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         
         // Pop-up the callout view.
         //        mapView.selectAnnotation(annotations[0], animated: true, completionHandler: nil)
+    }
+    
+    @objc
+    func goToUserLocation() {
+        guard let userCoordinate = mapView.userLocation?.coordinate else { return }
+        mapView.setCenter(userCoordinate, zoomLevel: 18, animated: true)
     }
     
     @objc func handleAutomaticZoom() {
