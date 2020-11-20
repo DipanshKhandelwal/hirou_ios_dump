@@ -25,6 +25,9 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         super.viewDidLoad()
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.delegate = self
+        mapView.showsUserLocation = true
+        mapView.userTrackingMode = .followWithHeading
+        mapView.showsUserHeadingIndicator = true
         
         self.id = UserDefaults.standard.string(forKey: "selectedRoute")!
         self.addNewPointGesture()
