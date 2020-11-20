@@ -507,6 +507,10 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     }
     
     func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
+        if let image = UIImage(named: "truck") {
+            mapView.style?.setImage(image, forName: "truck-icon")
+        }
+        
         locationListener = db.collection("vehicles")
             .addSnapshotListener { querySnapshot, error in
                 guard let snapshot = querySnapshot else {
@@ -520,7 +524,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
                         let latitude = diff.document.data() ["latitude"] as? NSNumber
                         let longitude = diff.document.data() ["longitude"] as? NSNumber
                         
-                        let coordinates =  CLLocationCoordinate2D(latitude: Double(latitude ?? 0) , longitude: Double(truncating: longitude ?? 0));
+                        let coordinates =  CLLocationCoordinate2D(latitude: Double(truncating: latitude ?? 0) , longitude: Double(truncating: longitude ?? 0));
                         
                         let point = MGLPointAnnotation()
                         point.coordinate = coordinates
@@ -529,7 +533,8 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
                         style.addSource(source)
                         
                         let droneLayer = MGLSymbolStyleLayer(identifier: diff.document.documentID, source: source)
-                        droneLayer.iconImageName = NSExpression(forConstantValue: "car-15")
+                        droneLayer.iconScale = NSExpression(forConstantValue: 0.5)
+                        droneLayer.iconImageName = NSExpression(forConstantValue: "truck-icon")
                         droneLayer.iconHaloColor = NSExpression(forConstantValue: UIColor.white)
                         style.addLayer(droneLayer)
                         
@@ -549,7 +554,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
                         let latitude = diff.document.data() ["latitude"] as? NSNumber
                         let longitude = diff.document.data() ["longitude"] as? NSNumber
 
-                        let coordinates =  CLLocationCoordinate2D(latitude: Double(latitude ?? 0) , longitude: Double(truncating: longitude ?? 0));
+                        let coordinates =  CLLocationCoordinate2D(latitude: Double(truncating: latitude ?? 0) , longitude: Double(truncating: longitude ?? 0));
 
                         let point = MGLPointAnnotation()
                         point.coordinate = coordinates
@@ -558,7 +563,8 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
                         style.addSource(source)
 
                         let droneLayer = MGLSymbolStyleLayer(identifier: diff.document.documentID, source: source)
-                        droneLayer.iconImageName = NSExpression(forConstantValue: "car-15")
+                        droneLayer.iconScale = NSExpression(forConstantValue: 0.5)
+                        droneLayer.iconImageName = NSExpression(forConstantValue: "truck-icon")
                         droneLayer.iconHaloColor = NSExpression(forConstantValue: UIColor.white)
                         style.addLayer(droneLayer)
                         
