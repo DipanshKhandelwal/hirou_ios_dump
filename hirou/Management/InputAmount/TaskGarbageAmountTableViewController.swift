@@ -12,6 +12,7 @@ import Alamofire
 class TaskGarbageAmountTableViewCell: UITableViewCell {
     @IBOutlet weak var garbageType: UILabel!
     @IBOutlet weak var amount: UILabel!
+    @IBOutlet weak var memo: UILabel!
 }
 
 class TaskGarbageAmountTableViewController: UITableViewController {
@@ -72,6 +73,7 @@ class TaskGarbageAmountTableViewController: UITableViewController {
         let taskAmount = self.taskAmounts[indexPath.row]
         cell.garbageType?.text = taskAmount.garbage.name
         cell.amount?.text = String(taskAmount.amount)
+        cell.memo?.text = String(taskAmount.memo)
         return cell
     }
 
