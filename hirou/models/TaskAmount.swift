@@ -14,14 +14,16 @@ struct TaskAmount : Encodable, Decodable{
     var garbage: Garbage
     var amount: Int
     var user: Int?
+    var memo: String = ""
     
-    init?(id: Int, route : Int, garbage: Garbage, amount: Int, user: Int) {
+    init?(id: Int, route : Int, garbage: Garbage, amount: Int, user: Int, memo: String) {
         // Initialize stored properties.
         self.id = id
         self.route = route
         self.garbage = garbage
         self.amount = amount
         self.user = user
+        self.memo = memo
     }
     
     enum CodingKeys : String, CodingKey {
@@ -30,5 +32,6 @@ struct TaskAmount : Encodable, Decodable{
         case garbage
         case amount
         case user
+        case memo
     }
 }
