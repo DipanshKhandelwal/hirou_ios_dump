@@ -16,8 +16,12 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
     var garbages = [Garbage]()
     var selectedGarbage: Garbage?
     
-    var garbagePicker = UIPickerView()
+    var vehicles = [Vehicle]()
+    var selectedVehicle: Vehicle?
     
+    var garbagePicker = UIPickerView()
+    var vehiclePicker = UIPickerView()
+
     var detailItem: Any? {
         didSet {
             // Update the view.
@@ -34,12 +38,13 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
 
     @IBOutlet weak var garbageLabel: DisabledUITextField!
     @IBOutlet weak var amountLabel: DisabledUITextField!
+    @IBOutlet weak var vehicleLabel: DisabledUITextField!
     @IBOutlet weak var memoLabel: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupGarbagePicker()
+        setupPickers()
         
         amountLabel.delegate = self
         amountLabel.tag = 1
@@ -52,7 +57,31 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         self.view.addGestureRecognizer(tapGesture)
         
         self.deleteButton?.isEnabled = false
+        
+        fetchVehicles()
+        
         configureView()
+    }
+    
+    func fetchVehicles() {
+        let headers = APIHeaders.getHeaders()
+        AF.request(Environment.SERVER_URL + "api/vehicle/", method: .get, headers: headers).validate().response { response in
+            switch response.result {
+            case .success(let value):
+                let decoder = JSONDecoder()
+                self.vehicles = try! decoder.decode([Vehicle].self, from: value!)
+                DispatchQueue.main.async {
+                    self.vehiclePicker.reloadAllComponents()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+
+    func setupPickers() {
+        setupGarbagePicker()
+        setupVehiclePicker()
     }
     
     func configureView() {
@@ -68,6 +97,8 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
             let taskAmount = taskAmountItem as! TaskAmount
             self.selectedGarbage = taskAmount.garbage
             self.garbageLabel?.text = taskAmount.garbage.name
+            self.selectedVehicle = taskAmount.vehicle
+            self.vehicleLabel?.text = taskAmount.vehicle?.registrationNumber
             self.amountLabel?.text = String(taskAmount.amount)
             self.memoLabel?.text = taskAmount.memo
             
@@ -82,6 +113,7 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         self.amountLabel.resignFirstResponder();
         self.memoLabel.resignFirstResponder();
         self.garbageLabel.resignFirstResponder();
+        self.vehicleLabel.resignFirstResponder();
     }
 
     @IBAction func cancel(_ sender: Any) {
@@ -91,6 +123,13 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
     @IBAction func addClicked(_ sender: Any) {
         if selectedGarbage == nil {
             let addAlert = UIAlertController(title: "Please select a garbage type !!", message: "", preferredStyle: .alert)
+            addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
+            self.present(addAlert, animated: true, completion: nil)
+            return
+        }
+        
+        if selectedVehicle == nil {
+            let addAlert = UIAlertController(title: "Please select a vehicle !!", message: "", preferredStyle: .alert)
             addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
             self.present(addAlert, animated: true, completion: nil)
             return
@@ -141,10 +180,12 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
     
     func addOrEditGarbageAmount() {
         let garbageId = selectedGarbage?.id
+        let vehicleId = selectedVehicle?.id
         let taskId = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
 
         let parameters: [String: String] = [
             "garbage": String(garbageId!),
+            "vehicle": String(vehicleId!),
             "amount": self.amountLabel.text!,
             "memo": self.memoLabel.text!,
             "route": String(taskId)
@@ -178,8 +219,13 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
     }
     
     @objc
-    func pickerDone() {
+    func garbagePickerDone() {
         garbageLabel.resignFirstResponder()
+    }
+    
+    @objc
+    func vehiclePickerDone() {
+        vehicleLabel.resignFirstResponder()
     }
     
     func setupGarbagePicker() {
@@ -187,13 +233,14 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         
         garbagePicker.delegate = self
         garbagePicker.dataSource = self
+        garbagePicker.tag = 1
         
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.sizeToFit()
         
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.pickerDone))
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.garbagePickerDone))
         
         toolBar.setItems([flexibleSpace, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
@@ -202,22 +249,58 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         garbageLabel.inputAccessoryView = toolBar
     }
     
+    func setupVehiclePicker() {
+        vehiclePicker.backgroundColor = UIColor.white
+        
+        vehiclePicker.delegate = self
+        vehiclePicker.dataSource = self
+        vehiclePicker.tag = 2
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.sizeToFit()
+        
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.vehiclePickerDone))
+        
+        toolBar.setItems([flexibleSpace, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        vehicleLabel.inputView = vehiclePicker
+        vehicleLabel.inputAccessoryView = toolBar
+    }
+
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.garbages.count
+        if pickerView.tag == 1 {
+            return self.garbages.count
+        }
+        return self.vehicles.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return self.garbages[row].name
+        if pickerView.tag == 1 {
+            return self.garbages[row].name
+        }
+        return self.vehicles[row].registrationNumber
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let garbage = self.garbages[row]
-        self.selectedGarbage = garbage
-        self.garbageLabel.text = garbage.name
+        if pickerView.tag == 1 {
+            let garbage = self.garbages[row]
+            self.selectedGarbage = garbage
+            self.garbageLabel.text = garbage.name
+            return
+        }
+        
+        let vehicle = self.vehicles[row]
+        self.selectedVehicle = vehicle
+        self.vehicleLabel.text = vehicle.registrationNumber
+        
     }
     
     // text field
