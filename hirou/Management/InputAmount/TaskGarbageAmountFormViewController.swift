@@ -34,12 +34,18 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
 
     @IBOutlet weak var garbageLabel: DisabledUITextField!
     @IBOutlet weak var amountLabel: DisabledUITextField!
+    @IBOutlet weak var memoLabel: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupGarbagePicker()
+        
         amountLabel.delegate = self
+        amountLabel.tag = 1
+        
+        memoLabel.delegate = self
+        memoLabel.tag = 2
         // Do any additional setup after loading the view.
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
@@ -63,6 +69,7 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
             self.selectedGarbage = taskAmount.garbage
             self.garbageLabel?.text = taskAmount.garbage.name
             self.amountLabel?.text = String(taskAmount.amount)
+            self.memoLabel?.text = taskAmount.memo
             
             self.addButton?.setTitle("Save", for: .normal)
             self.deleteButton?.isEnabled = true
@@ -73,6 +80,7 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
     @objc
     func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         self.amountLabel.resignFirstResponder();
+        self.memoLabel.resignFirstResponder();
         self.garbageLabel.resignFirstResponder();
     }
 
@@ -138,6 +146,7 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         let parameters: [String: String] = [
             "garbage": String(garbageId!),
             "amount": self.amountLabel.text!,
+            "memo": self.memoLabel.text!,
             "route": String(taskId)
         ]
         
@@ -213,6 +222,10 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
     
     // text field
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField.tag == 2 {
+            return true
+        }
+        
         let aSet = NSCharacterSet(charactersIn:"0123456789").inverted
         let compSepByCharInSet = string.components(separatedBy: aSet)
         let numberFiltered = compSepByCharInSet.joined(separator: "")
