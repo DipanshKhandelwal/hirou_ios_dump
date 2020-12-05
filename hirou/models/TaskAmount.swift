@@ -12,15 +12,17 @@ struct TaskAmount : Encodable, Decodable{
     var id: Int
     var route: Int
     var garbage: Garbage
+    var vehicle: Vehicle?
     var amount: Int
     var user: Int?
     var memo: String = ""
     
-    init?(id: Int, route : Int, garbage: Garbage, amount: Int, user: Int, memo: String) {
+    init?(id: Int, route : Int, garbage: Garbage, vehicle: Vehicle, amount: Int, user: Int, memo: String) {
         // Initialize stored properties.
         self.id = id
         self.route = route
         self.garbage = garbage
+        self.vehicle = vehicle
         self.amount = amount
         self.user = user
         self.memo = memo
@@ -30,6 +32,7 @@ struct TaskAmount : Encodable, Decodable{
         case id
         case route
         case garbage
+        case vehicle
         case amount
         case user
         case memo
