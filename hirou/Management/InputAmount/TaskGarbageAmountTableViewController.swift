@@ -13,6 +13,7 @@ class TaskGarbageAmountTableViewCell: UITableViewCell {
     @IBOutlet weak var garbageType: UILabel!
     @IBOutlet weak var amount: UILabel!
     @IBOutlet weak var memo: UILabel!
+    @IBOutlet weak var vehicle: UILabel!
 }
 
 class TaskGarbageAmountTableViewController: UITableViewController {
@@ -74,6 +75,7 @@ class TaskGarbageAmountTableViewController: UITableViewController {
         cell.garbageType?.text = taskAmount.garbage.name
         cell.amount?.text = String(taskAmount.amount)
         cell.memo?.text = String(taskAmount.memo)
+        cell.vehicle?.text = taskAmount.vehicle?.registrationNumber
         return cell
     }
 
