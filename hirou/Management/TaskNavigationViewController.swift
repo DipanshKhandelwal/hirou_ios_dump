@@ -501,9 +501,9 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             }
             currentIndex += 1
         }
-        let origin = (mapView.userLocation?.coordinate)!
-        let coordinate = annotation.coordinate
-        calculateRoute(from: origin, to: coordinate)
+//        let origin = (mapView.userLocation?.coordinate)!
+//        let coordinate = annotation.coordinate
+//        calculateRoute(from: origin, to: coordinate)
     }
     
     func mapView(_ mapView: MGLMapView, didDeselect annotation: MGLAnnotation) {
@@ -595,36 +595,36 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             }
     }
     
-    // Calculate route to be used for navigation
-    func calculateRoute(from origin: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D) {
-        // Coordinate accuracy is how close the route must come to the waypoint in order to be considered viable. It is measured in meters. A negative value indicates that the route is viable regardless of how far the route is from the waypoint.
-        let origin = Waypoint(coordinate: origin, name: "Start")
-        let destination = Waypoint(coordinate: destination, name: "Finish")
-        
-        // Specify that the route is intended for automobiles avoiding traffic
-        let routeOptions = NavigationRouteOptions(waypoints: [origin, destination], profileIdentifier: .automobileAvoidingTraffic)
-        
-        // Generate the route object and draw it on the map
-        Directions.shared.calculate(routeOptions) { [weak self] (session, result) in
-            switch result {
-            case .failure(let error):
-                print(error.localizedDescription)
-            case .success(let response):
-                guard let route = response.routes?.first, let _ = self else {
-                    return
-                }
-                
-//                self.route = route
-//                self.routeOptions = routeOptions
-                
-                // Draw the route on the map after creating it
-                self!.drawRoute(route: route)
-                
-                // Show destination waypoint on the map
-                self?.mapView.showWaypoints(on: route)
-            }
-        }
-    }
+//    // Calculate route to be used for navigation
+//    func calculateRoute(from origin: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D) {
+//        // Coordinate accuracy is how close the route must come to the waypoint in order to be considered viable. It is measured in meters. A negative value indicates that the route is viable regardless of how far the route is from the waypoint.
+//        let origin = Waypoint(coordinate: origin, name: "Start")
+//        let destination = Waypoint(coordinate: destination, name: "Finish")
+//
+//        // Specify that the route is intended for automobiles avoiding traffic
+//        let routeOptions = NavigationRouteOptions(waypoints: [origin, destination], profileIdentifier: .automobileAvoidingTraffic)
+//
+//        // Generate the route object and draw it on the map
+//        Directions.shared.calculate(routeOptions) { [weak self] (session, result) in
+//            switch result {
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            case .success(let response):
+//                guard let route = response.routes?.first, let _ = self else {
+//                    return
+//                }
+//
+////                self.route = route
+////                self.routeOptions = routeOptions
+//
+//                // Draw the route on the map after creating it
+//                self!.drawRoute(route: route)
+//
+//                // Show destination waypoint on the map
+//                self?.mapView.showWaypoints(on: route)
+//            }
+//        }
+//    }
     
     func drawRoute(route: Route) {
         guard let routeShape = route.shape, routeShape.coordinates.count > 0 else { return }

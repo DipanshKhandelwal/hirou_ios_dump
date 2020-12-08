@@ -51,6 +51,9 @@ class CollectionPointMasterViewController: UITableViewController {
     @objc
     func collectionPointUpdateFromMap(_ notification: Notification) {
         let cp = notification.object as! CollectionPoint
+        if self.collectionPoints.count == 0 {
+            return
+        }
         for num in 0...self.collectionPoints.count-1 {
             if self.collectionPoints[num].id == cp.id {
                 self.tableView.selectRow(at: IndexPath(row: num, section: 0), animated: true, scrollPosition: .middle)
