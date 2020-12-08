@@ -1599,10 +1599,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="1004"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eCF-nR-BDj">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eCF-nR-BDj">
                                 <rect key="frame" x="0.0" y="56" width="320" height="204"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="204" id="7ck-NB-62l"/>
+                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="garbageSummaryTableCell" id="jbT-0U-TR7" customClass="GarbageSummaryCell" customModule="hirou" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="43.5"/>
@@ -1628,7 +1630,8 @@
                                                 <constraint firstItem="037-d8-9Dy" firstAttribute="leading" secondItem="kot-hP-kFs" secondAttribute="leading" constant="36" id="Akf-gs-Eak"/>
                                                 <constraint firstItem="037-d8-9Dy" firstAttribute="centerY" secondItem="kot-hP-kFs" secondAttribute="centerY" id="CxM-LU-Zbu"/>
                                                 <constraint firstItem="DRY-cX-5Mz" firstAttribute="centerY" secondItem="037-d8-9Dy" secondAttribute="centerY" id="VVR-Fx-1Ly"/>
-                                                <constraint firstItem="DRY-cX-5Mz" firstAttribute="leading" secondItem="037-d8-9Dy" secondAttribute="trailing" constant="38.5" id="fZU-Jt-Iey"/>
+                                                <constraint firstAttribute="trailing" secondItem="DRY-cX-5Mz" secondAttribute="trailing" constant="120" id="aPw-g9-hy0"/>
+                                                <constraint firstItem="DRY-cX-5Mz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="037-d8-9Dy" secondAttribute="trailing" constant="8" symbolic="YES" id="fZU-Jt-Iey"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -1638,9 +1641,8 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="130" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E3E-MX-laX">
-                                <rect key="frame" x="0.0" y="268" width="320" height="736"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="130" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E3E-MX-laX">
+                                <rect key="frame" x="0.0" y="260" width="320" height="744"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCollectionPointCell" rowHeight="130" id="LE6-dw-EGn" customClass="TaskCollectionPointCell" customModule="hirou" customModuleProvider="target">
@@ -1705,6 +1707,15 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="pbE-R4-YQY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="E3E-MX-laX" firstAttribute="leading" secondItem="pbE-R4-YQY" secondAttribute="leading" id="4jI-rd-a5e"/>
+                            <constraint firstItem="eCF-nR-BDj" firstAttribute="leading" secondItem="pbE-R4-YQY" secondAttribute="leading" id="4kh-rZ-xIc"/>
+                            <constraint firstItem="E3E-MX-laX" firstAttribute="top" secondItem="eCF-nR-BDj" secondAttribute="bottom" id="BWO-bU-9Ma"/>
+                            <constraint firstItem="pbE-R4-YQY" firstAttribute="trailing" secondItem="eCF-nR-BDj" secondAttribute="trailing" id="O3l-nv-nzv"/>
+                            <constraint firstItem="pbE-R4-YQY" firstAttribute="bottom" secondItem="E3E-MX-laX" secondAttribute="bottom" id="PWU-86-zlw"/>
+                            <constraint firstItem="eCF-nR-BDj" firstAttribute="top" secondItem="pbE-R4-YQY" secondAttribute="top" id="j7I-lN-JJj"/>
+                            <constraint firstItem="pbE-R4-YQY" firstAttribute="trailing" secondItem="E3E-MX-laX" secondAttribute="trailing" id="qna-xF-DSb"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nV2-l8-neA"/>
                     <connections>
