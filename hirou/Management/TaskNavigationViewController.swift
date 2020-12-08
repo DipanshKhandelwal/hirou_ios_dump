@@ -484,6 +484,9 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     }
     
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        if annotation is MGLUserLocation {
+            return false
+        }
         return true
     }
     
