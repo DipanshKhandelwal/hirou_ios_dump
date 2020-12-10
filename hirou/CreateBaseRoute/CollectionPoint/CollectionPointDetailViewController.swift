@@ -26,7 +26,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.delegate = self
         mapView.showsUserLocation = true
-        mapView.userTrackingMode = .followWithHeading
+        mapView.userTrackingMode = .followWithCourse
         mapView.showsUserHeadingIndicator = true
         
         self.id = UserDefaults.standard.string(forKey: "selectedRoute")!
@@ -34,7 +34,8 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         
         let button1 = UIBarButtonItem(image: UIImage(systemName: "mappin.and.ellipse"), style: .plain, target: self, action: #selector(goToUserLocation))
         let button2 = UIBarButtonItem(image: UIImage(systemName: "selection.pin.in.out"), style: .plain, target: self, action: #selector(self.handleAutomaticZoom))
-        navigationItem.setRightBarButtonItems([button1, button2], animated: true)
+        let button3 = UIBarButtonItem(image: UIImage(systemName: "car"), style: .plain, target: self, action: #selector(self.followVehicle))
+        navigationItem.setRightBarButtonItems([button1, button2, button3], animated: true)
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .CollectionPointsTableSelect, object: nil)
         
@@ -194,6 +195,11 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
             
             mapView.setVisibleCoordinateBounds(MGLCoordinateBoundsMake(CLLocationCoordinate2DMake(southWestLatitude, southWestLongitude), CLLocationCoordinate2DMake(northEastLatitude, northEastLongitude)), animated: true)
         }
+    }
+    
+    @objc
+    func followVehicle() {
+        mapView.userTrackingMode = .followWithCourse
     }
     
     @objc func handleNewPointTap(_ gesture: UILongPressGestureRecognizer) {
