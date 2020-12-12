@@ -19,8 +19,12 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
     var vehicles = [Vehicle]()
     var selectedVehicle: Vehicle?
     
-    var garbagePicker = UIPickerView()
-    var vehiclePicker = UIPickerView()
+    var collectionPoints = [TaskCollectionPoint]()
+    var selectedCollectionPoint: Int?
+    
+    var garbagePicker = UIPickerView() // tag = 1
+    var vehiclePicker = UIPickerView() // tag = 2
+    var taskCollectionPointPicker = UIPickerView() // tag = 3
 
     var detailItem: Any? {
         didSet {
@@ -35,11 +39,19 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
             configureView()
         }
     }
+    
+    var segueTaskCollectionPoint: Any? {
+        didSet {
+            // Update the view.
+            configureView()
+        }
+    }
 
+    @IBOutlet weak var taskCollectionPointLabel: DisabledUITextField!
     @IBOutlet weak var garbageLabel: DisabledUITextField!
-    @IBOutlet weak var amountLabel: DisabledUITextField!
+    @IBOutlet weak var amountLabel: DisabledUITextField! // tag = 1
     @IBOutlet weak var vehicleLabel: DisabledUITextField!
-    @IBOutlet weak var memoLabel: UITextField!
+    @IBOutlet weak var memoLabel: UITextField! // tag = 2
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,14 +94,38 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
     func setupPickers() {
         setupGarbagePicker()
         setupVehiclePicker()
+        setupTaskCollectionPointPicker()
+    }
+    
+    func setTaskCollectionPointFromSegue() {
+        if let taskCollectionPoint = segueTaskCollectionPoint {
+            let receivedTaskCollectionPoint = (taskCollectionPoint as! TaskCollectionPoint)
+            self.selectedCollectionPoint = receivedTaskCollectionPoint.id
+            self.taskCollectionPointLabel?.text = receivedTaskCollectionPoint.name
+            self.taskCollectionPointLabel?.isUserInteractionEnabled = false
+            self.taskCollectionPointLabel?.isEnabled = false
+            self.taskCollectionPointPicker.isUserInteractionEnabled = false
+        }
     }
     
     func configureView() {
         if let detail = detailItem {
             let task = detail as! TaskRoute
             self.garbages = task.garbageList
+            
+            self.collectionPoints = task.taskCollectionPoints
+            
+            if self.taskCollectionPointLabel?.text?.count == 0 {
+                for cp in self.collectionPoints {
+                    if cp.id == self.selectedCollectionPoint {
+                        self.taskCollectionPointLabel?.text = cp.name
+                    }
+                }
+            }
+            
             DispatchQueue.main.async {
                 self.garbagePicker.reloadAllComponents()
+                self.taskCollectionPointPicker.reloadAllComponents()
             }
         }
         
@@ -106,6 +142,8 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
             self.deleteButton?.isEnabled = true
             self.title = "Edit Task Garbage Amount"
         }
+        
+        setTaskCollectionPointFromSegue()
     }
     
     @objc
@@ -114,6 +152,7 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         self.memoLabel.resignFirstResponder();
         self.garbageLabel.resignFirstResponder();
         self.vehicleLabel.resignFirstResponder();
+        self.taskCollectionPointLabel.resignFirstResponder();
     }
 
     @IBAction func cancel(_ sender: Any) {
@@ -121,6 +160,13 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
     }
 
     @IBAction func addClicked(_ sender: Any) {
+        if selectedCollectionPoint == nil {
+            let addAlert = UIAlertController(title: "Please select a collection point !!", message: "", preferredStyle: .alert)
+            addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
+            self.present(addAlert, animated: true, completion: nil)
+            return
+        }
+        
         if selectedGarbage == nil {
             let addAlert = UIAlertController(title: "Please select a garbage type !!", message: "", preferredStyle: .alert)
             addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
@@ -179,11 +225,13 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
     }
     
     func addOrEditGarbageAmount() {
+        let collectionPointId = selectedCollectionPoint
         let garbageId = selectedGarbage?.id
         let vehicleId = selectedVehicle?.id
         let taskId = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
 
         let parameters: [String: String] = [
+            "task_collection_point": String(collectionPointId!),
             "garbage": String(garbageId!),
             "vehicle": String(vehicleId!),
             "amount": self.amountLabel.text!,
@@ -269,8 +317,37 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         vehicleLabel.inputView = vehiclePicker
         vehicleLabel.inputAccessoryView = toolBar
     }
-
     
+    func setupTaskCollectionPointPicker() {
+        if segueTaskCollectionPoint != nil {
+            return
+        }
+    
+        taskCollectionPointPicker.backgroundColor = UIColor.white
+        taskCollectionPointPicker.tag = 3
+        
+        taskCollectionPointPicker.delegate = self
+        taskCollectionPointPicker.dataSource = self
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.sizeToFit()
+        
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.taskCollectionPointPickerDone))
+        
+        toolBar.setItems([flexibleSpace, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        taskCollectionPointLabel.inputView = taskCollectionPointPicker
+        taskCollectionPointLabel.inputAccessoryView = toolBar
+    }
+    
+    @objc
+    func taskCollectionPointPickerDone() {
+        taskCollectionPointLabel.resignFirstResponder();
+    }
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1
     }
@@ -279,14 +356,26 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         if pickerView.tag == 1 {
             return self.garbages.count
         }
-        return self.vehicles.count
+        
+        if pickerView.tag == 2 {
+            return self.vehicles.count
+        }
+        
+        // tag == 3
+        return self.collectionPoints.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView.tag == 1 {
             return self.garbages[row].name
         }
-        return self.vehicles[row].registrationNumber
+        
+        if pickerView.tag == 2 {
+            return self.vehicles[row].registrationNumber
+        }
+        
+        // tag == 3
+        return self.collectionPoints[row].name
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -297,10 +386,19 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
             return
         }
         
-        let vehicle = self.vehicles[row]
-        self.selectedVehicle = vehicle
-        self.vehicleLabel.text = vehicle.registrationNumber
+        if pickerView.tag == 2 {
+            let vehicle = self.vehicles[row]
+            self.selectedVehicle = vehicle
+            self.vehicleLabel.text = vehicle.registrationNumber
+            return
+        }
         
+        // tag == 3
+        if row < self.collectionPoints.count {
+            let collectionPoint = self.collectionPoints[row]
+            self.selectedCollectionPoint = collectionPoint.id
+            self.taskCollectionPointLabel.text = collectionPoint.name
+        }
     }
     
     // text field

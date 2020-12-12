@@ -214,8 +214,9 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
         
         if segue.identifier == "taskCollectionsToTaskAmountFormSegue" {
             let controller = (segue.destination as! TaskGarbageAmountFormViewController)
-            if self.route != nil {
+            if let detail = detailItem {
                 controller.detailItem = self.route
+                controller.segueTaskCollectionPoint = (detail as! TaskCollectionPoint)
             }
         }
     }

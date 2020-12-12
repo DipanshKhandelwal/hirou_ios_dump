@@ -81,13 +81,11 @@ class TaskDetailViewController: UIViewController {
                 .responseString {
                     response in
                     switch response.result {
-                    case .success(let value):
-                        print("value", value)
+                    case .success( _):
                         _ = self.navigationController?.popViewController(animated: true)
                         
                     case .failure(let error):
                         print(error)
-                        //                completion(nil)
                     }
             }
         }
