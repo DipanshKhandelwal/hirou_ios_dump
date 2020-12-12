@@ -285,16 +285,16 @@
         <scene sceneID="t1R-Jt-taD">
             <objects>
                 <tableViewController id="1CD-Ry-sI3" customClass="TaskGarbageAmountTableViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="115" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hZb-e9-T1R">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="140" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hZb-e9-T1R">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskGarbageAmountTableViewCell" id="44Z-2w-3I6" customClass="TaskGarbageAmountTableViewCell" customModule="hirou" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="768" height="115"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskGarbageAmountTableViewCell" rowHeight="140" id="44Z-2w-3I6" customClass="TaskGarbageAmountTableViewCell" customModule="hirou" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="768" height="140"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="44Z-2w-3I6" id="6sA-XX-cuW">
-                                    <rect key="frame" x="0.0" y="0.0" width="768" height="115"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="140"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Garbage Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLZ-F5-jiF" userLabel="Garbage Type Heading">
@@ -345,6 +345,18 @@
                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Collection Point" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PXc-fI-G25" userLabel="Task Collection Point Heading">
+                                            <rect key="frame" x="16" y="114" width="127" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lgw-iJ-vJc" userLabel="Task Collection Point">
+                                            <rect key="frame" x="159" y="114" width="33" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
@@ -352,17 +364,21 @@
                                         <constraint firstItem="Nlm-hj-5eh" firstAttribute="centerY" secondItem="gLZ-F5-jiF" secondAttribute="centerY" id="6we-iU-xEJ"/>
                                         <constraint firstItem="qxt-fK-ROx" firstAttribute="centerY" secondItem="S5a-ns-BPH" secondAttribute="centerY" id="BGb-lI-oWZ"/>
                                         <constraint firstItem="IkN-8D-DQw" firstAttribute="leading" secondItem="S5a-ns-BPH" secondAttribute="leading" id="Ked-7T-Wek"/>
+                                        <constraint firstItem="Lgw-iJ-vJc" firstAttribute="centerY" secondItem="PXc-fI-G25" secondAttribute="centerY" id="Lnf-E1-6nY"/>
                                         <constraint firstItem="mX2-JU-4dm" firstAttribute="leading" secondItem="2Mu-XR-Bda" secondAttribute="trailing" constant="16" id="MOf-LM-NA8"/>
                                         <constraint firstItem="3SV-Gu-N1O" firstAttribute="leading" secondItem="IkN-8D-DQw" secondAttribute="trailing" constant="16" id="Mr6-YD-IZQ"/>
                                         <constraint firstItem="2Mu-XR-Bda" firstAttribute="leading" secondItem="IkN-8D-DQw" secondAttribute="leading" id="UIP-O2-Urg"/>
                                         <constraint firstItem="IkN-8D-DQw" firstAttribute="top" secondItem="S5a-ns-BPH" secondAttribute="bottom" constant="10" id="VkA-vW-99n"/>
                                         <constraint firstItem="Nlm-hj-5eh" firstAttribute="leading" secondItem="gLZ-F5-jiF" secondAttribute="trailing" constant="16" id="ZRE-sj-VI4"/>
+                                        <constraint firstItem="PXc-fI-G25" firstAttribute="top" secondItem="2Mu-XR-Bda" secondAttribute="bottom" constant="10" id="a1H-3n-joE"/>
                                         <constraint firstItem="3SV-Gu-N1O" firstAttribute="centerY" secondItem="IkN-8D-DQw" secondAttribute="centerY" id="bHy-Xc-ela"/>
                                         <constraint firstItem="mX2-JU-4dm" firstAttribute="centerY" secondItem="2Mu-XR-Bda" secondAttribute="centerY" id="d21-Lg-Ffs"/>
                                         <constraint firstItem="gLZ-F5-jiF" firstAttribute="leading" secondItem="6sA-XX-cuW" secondAttribute="leading" constant="16" id="g40-PS-Z3F"/>
+                                        <constraint firstItem="Lgw-iJ-vJc" firstAttribute="leading" secondItem="PXc-fI-G25" secondAttribute="trailing" constant="16" id="hZP-b9-tsk"/>
                                         <constraint firstItem="gLZ-F5-jiF" firstAttribute="top" secondItem="6sA-XX-cuW" secondAttribute="top" constant="10" id="k1E-fb-OqP"/>
                                         <constraint firstItem="2Mu-XR-Bda" firstAttribute="top" secondItem="IkN-8D-DQw" secondAttribute="bottom" constant="10" id="nyo-2n-3ra"/>
                                         <constraint firstItem="qxt-fK-ROx" firstAttribute="leading" secondItem="S5a-ns-BPH" secondAttribute="trailing" constant="16" id="qHz-ad-EDH"/>
+                                        <constraint firstItem="PXc-fI-G25" firstAttribute="leading" secondItem="2Mu-XR-Bda" secondAttribute="leading" id="sAj-w0-JzC"/>
                                         <constraint firstItem="S5a-ns-BPH" firstAttribute="top" secondItem="gLZ-F5-jiF" secondAttribute="bottom" constant="10" id="yZr-QK-Hu4"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -370,6 +386,7 @@
                                     <outlet property="amount" destination="qxt-fK-ROx" id="5Hf-8Y-S33"/>
                                     <outlet property="garbageType" destination="Nlm-hj-5eh" id="paj-9T-YGt"/>
                                     <outlet property="memo" destination="3SV-Gu-N1O" id="oVu-n7-U6f"/>
+                                    <outlet property="taskCollectionPoint" destination="Lgw-iJ-vJc" id="ezX-K3-Cz3"/>
                                     <outlet property="vehicle" destination="mX2-JU-4dm" id="7ph-6I-Skw"/>
                                     <segue destination="RrN-sE-2iT" kind="show" identifier="editGarbageAmount" id="Jsp-8A-qGn"/>
                                 </connections>
