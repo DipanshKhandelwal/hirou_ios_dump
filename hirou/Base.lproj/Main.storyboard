@@ -357,17 +357,32 @@
                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5b-sb-HlW" userLabel="Username">
+                                            <rect key="frame" x="719" y="10" width="33" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qLE-mL-32m" userLabel="Username Heading">
+                                            <rect key="frame" x="641" y="10" width="62" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="S5a-ns-BPH" firstAttribute="leading" secondItem="gLZ-F5-jiF" secondAttribute="leading" id="5sa-5l-7J5"/>
                                         <constraint firstItem="Nlm-hj-5eh" firstAttribute="centerY" secondItem="gLZ-F5-jiF" secondAttribute="centerY" id="6we-iU-xEJ"/>
+                                        <constraint firstItem="j5b-sb-HlW" firstAttribute="leading" secondItem="qLE-mL-32m" secondAttribute="trailing" constant="16" id="7Bk-wp-DXD"/>
                                         <constraint firstItem="qxt-fK-ROx" firstAttribute="centerY" secondItem="S5a-ns-BPH" secondAttribute="centerY" id="BGb-lI-oWZ"/>
+                                        <constraint firstItem="qLE-mL-32m" firstAttribute="centerY" secondItem="j5b-sb-HlW" secondAttribute="centerY" id="Cqp-oN-VY4"/>
                                         <constraint firstItem="IkN-8D-DQw" firstAttribute="leading" secondItem="S5a-ns-BPH" secondAttribute="leading" id="Ked-7T-Wek"/>
                                         <constraint firstItem="Lgw-iJ-vJc" firstAttribute="centerY" secondItem="PXc-fI-G25" secondAttribute="centerY" id="Lnf-E1-6nY"/>
                                         <constraint firstItem="mX2-JU-4dm" firstAttribute="leading" secondItem="2Mu-XR-Bda" secondAttribute="trailing" constant="16" id="MOf-LM-NA8"/>
                                         <constraint firstItem="3SV-Gu-N1O" firstAttribute="leading" secondItem="IkN-8D-DQw" secondAttribute="trailing" constant="16" id="Mr6-YD-IZQ"/>
                                         <constraint firstItem="2Mu-XR-Bda" firstAttribute="leading" secondItem="IkN-8D-DQw" secondAttribute="leading" id="UIP-O2-Urg"/>
+                                        <constraint firstItem="j5b-sb-HlW" firstAttribute="top" secondItem="6sA-XX-cuW" secondAttribute="top" constant="10" id="V9P-EP-6nS"/>
                                         <constraint firstItem="IkN-8D-DQw" firstAttribute="top" secondItem="S5a-ns-BPH" secondAttribute="bottom" constant="10" id="VkA-vW-99n"/>
                                         <constraint firstItem="Nlm-hj-5eh" firstAttribute="leading" secondItem="gLZ-F5-jiF" secondAttribute="trailing" constant="16" id="ZRE-sj-VI4"/>
                                         <constraint firstItem="PXc-fI-G25" firstAttribute="top" secondItem="2Mu-XR-Bda" secondAttribute="bottom" constant="10" id="a1H-3n-joE"/>
@@ -379,6 +394,7 @@
                                         <constraint firstItem="2Mu-XR-Bda" firstAttribute="top" secondItem="IkN-8D-DQw" secondAttribute="bottom" constant="10" id="nyo-2n-3ra"/>
                                         <constraint firstItem="qxt-fK-ROx" firstAttribute="leading" secondItem="S5a-ns-BPH" secondAttribute="trailing" constant="16" id="qHz-ad-EDH"/>
                                         <constraint firstItem="PXc-fI-G25" firstAttribute="leading" secondItem="2Mu-XR-Bda" secondAttribute="leading" id="sAj-w0-JzC"/>
+                                        <constraint firstAttribute="trailing" secondItem="j5b-sb-HlW" secondAttribute="trailing" constant="16" id="vFj-OR-CnJ"/>
                                         <constraint firstItem="S5a-ns-BPH" firstAttribute="top" secondItem="gLZ-F5-jiF" secondAttribute="bottom" constant="10" id="yZr-QK-Hu4"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -387,6 +403,7 @@
                                     <outlet property="garbageType" destination="Nlm-hj-5eh" id="paj-9T-YGt"/>
                                     <outlet property="memo" destination="3SV-Gu-N1O" id="oVu-n7-U6f"/>
                                     <outlet property="taskCollectionPoint" destination="Lgw-iJ-vJc" id="ezX-K3-Cz3"/>
+                                    <outlet property="usernameLabel" destination="j5b-sb-HlW" id="laB-fy-ZJ8"/>
                                     <outlet property="vehicle" destination="mX2-JU-4dm" id="7ph-6I-Skw"/>
                                     <segue destination="RrN-sE-2iT" kind="show" identifier="editGarbageAmount" id="Jsp-8A-qGn"/>
                                 </connections>
