@@ -69,6 +69,7 @@ open class ImagePicker: NSObject {
     }
 
     private func pickerController(_ controller: UIImagePickerController, didSelect image: UIImage?) {
+        UIImageWriteToSavedPhotosAlbum(image!, self, #selector(save(_:didFinishSavingWithError:contextInfo:)), nil)
         controller.dismiss(animated: true, completion: nil)
 
         self.delegate?.didSelect(image: image)
