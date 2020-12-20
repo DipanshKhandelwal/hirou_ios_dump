@@ -16,8 +16,9 @@ class TaskRoute: Encodable, Decodable {
     var date: Date
     var garbageList: [Garbage]
     var taskCollectionPoints: [TaskCollectionPoint]
+    var timestamp: String = ""
     
-    init?(id: Int, name : String, customer: Customer?, garbageList: [Garbage], date: Date, taskCollectionPoints: [TaskCollectionPoint]) {
+    init?(id: Int, name : String, customer: Customer?, garbageList: [Garbage], date: Date, taskCollectionPoints: [TaskCollectionPoint], timestamp: String) {
         // Initialize stored properties.
         self.id = id
         self.name = name
@@ -25,6 +26,7 @@ class TaskRoute: Encodable, Decodable {
         self.garbageList = garbageList
         self.date = date
         self.taskCollectionPoints = taskCollectionPoints
+        self.timestamp = timestamp
     }
     
     enum CodingKeys : String, CodingKey {
@@ -34,6 +36,7 @@ class TaskRoute: Encodable, Decodable {
         case date
         case garbageList = "garbage"
         case taskCollectionPoints = "task_collection_point"
+        case timestamp
     }
     
     required init(from decoder: Decoder) throws {

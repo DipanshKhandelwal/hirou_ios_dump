@@ -12,6 +12,7 @@ import Alamofire
 class ReportAdminTableViewCell: UITableViewCell {
     @IBOutlet weak var collectionPoint: UILabel!
     @IBOutlet weak var reportType: UILabel!
+    @IBOutlet weak var timestamp: UILabel!
 }
 
 class ReportAdminTableViewController: UITableViewController {
@@ -76,6 +77,7 @@ class ReportAdminTableViewController: UITableViewController {
             cell.collectionPoint?.text =  "--"
         }
         cell.reportType?.text = taskReport.reportType.name
+        cell.timestamp?.text = taskReport.timestamp
         return cell
     }
 
