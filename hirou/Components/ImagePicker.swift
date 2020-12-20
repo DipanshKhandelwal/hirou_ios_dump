@@ -69,9 +69,18 @@ open class ImagePicker: NSObject {
     }
 
     private func pickerController(_ controller: UIImagePickerController, didSelect image: UIImage?) {
+        UIImageWriteToSavedPhotosAlbum(image!, self, #selector(save(_:didFinishSavingWithError:contextInfo:)), nil)
         controller.dismiss(animated: true, completion: nil)
 
         self.delegate?.didSelect(image: image)
+    }
+    
+    @objc private func save(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            self.presentationController?.present(ac, animated: true)
+        }
     }
 }
 
