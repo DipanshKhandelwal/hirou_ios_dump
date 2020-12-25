@@ -14,7 +14,6 @@ class TaskGarbageAmountTableViewCell: UITableViewCell {
     @IBOutlet weak var amount: UILabel!
     @IBOutlet weak var memo: UILabel!
     @IBOutlet weak var vehicle: UILabel!
-    @IBOutlet weak var taskCollectionPoint: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var timestamp: UILabel!
 }
@@ -81,8 +80,6 @@ class TaskGarbageAmountTableViewController: UITableViewController {
         cell.vehicle?.text = taskAmount.vehicle?.registrationNumber
         cell.timestamp?.text = taskAmount.timestamp
         cell.usernameLabel?.text = taskAmount.user?.username ?? "--"
-        // TODO : Set required data
-        cell.taskCollectionPoint?.text = "[[ Task collection point ]]"
         return cell
     }
 
