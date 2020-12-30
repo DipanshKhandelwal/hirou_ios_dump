@@ -24,4 +24,8 @@ extension Notification.Name {
     static var TaskCollectionPointsMapSelect: Notification.Name {
         return .init(rawValue: "TaskCollectionPoints.Select.Map")
     }
+    
+    static var TaskCollectionPointsHideCompleted: Notification.Name {
+        return .init(rawValue: "TaskCollectionPoints.Hide.Completed")
+    }
 }
