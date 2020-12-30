@@ -260,9 +260,14 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         collectionView.itemSize = collectionView.frame.size.applying(transform)
         collectionView.decelerationDistance = FSPagerView.automaticDistance
         
+        let completedHiddenSwitch = UISwitch(frame: .zero)
+        completedHiddenSwitch.isOn = false
+        completedHiddenSwitch.addTarget(self, action: #selector(switchToggled(_:)), for: .valueChanged)
+        let switch_display = UIBarButtonItem(customView: completedHiddenSwitch)
+        
         let button1 = UIBarButtonItem(image: UIImage(systemName: "mappin.and.ellipse"), style: .plain, target: self, action: #selector(goToUserLocation))
         let button2 = UIBarButtonItem(image: UIImage(systemName: "selection.pin.in.out"), style: .plain, target: self, action: #selector(adjustMap))
-        navigationItem.setRightBarButtonItems([button1, button2], animated: true)
+        navigationItem.setRightBarButtonItems([button1, button2, switch_display], animated: true)
         
         self.id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
         // Do any additional setup after loading the view.
