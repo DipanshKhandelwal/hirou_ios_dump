@@ -260,21 +260,34 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         collectionView.itemSize = collectionView.frame.size.applying(transform)
         collectionView.decelerationDistance = FSPagerView.automaticDistance
         
+        let completedHiddenSwitch = UISwitch(frame: .zero)
+        completedHiddenSwitch.isOn = false
+        completedHiddenSwitch.addTarget(self, action: #selector(switchToggled(_:)), for: .valueChanged)
+        let switch_display = UIBarButtonItem(customView: completedHiddenSwitch)
+        
         let button1 = UIBarButtonItem(image: UIImage(systemName: "mappin.and.ellipse"), style: .plain, target: self, action: #selector(goToUserLocation))
         let button2 = UIBarButtonItem(image: UIImage(systemName: "selection.pin.in.out"), style: .plain, target: self, action: #selector(adjustMap))
-        navigationItem.setRightBarButtonItems([button1, button2], animated: true)
+        navigationItem.setRightBarButtonItems([button1, button2, switch_display], animated: true)
         
         self.id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
         // Do any additional setup after loading the view.
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .TaskCollectionPointsVListUpdate, object: nil)
-        
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .TaskCollectionPointsHListUpdate, object: nil)
-        
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .TaskCollectionPointsHListSelect, object: nil)
-        
-        
         self.getPoints()
+    }
+    
+    @objc
+    func switchToggled(_ sender: UISwitch) {
+        if sender.isOn {
+            addPointsTopMap(hideCompleted: true)
+            self.notificationCenter.post(name: .TaskCollectionPointsHideCompleted, object: true)
+        }
+        else{
+            addPointsTopMap()
+            notificationCenter.post(name: .TaskCollectionPointsHideCompleted, object: false)
+        }
     }
     
     @objc
@@ -359,7 +372,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         }
     }
     
-    func addPointsTopMap() {
+    func addPointsTopMap(hideCompleted : Bool = false) {
         self.mapView.removeAnnotations(self.annotations)
         self.annotations = []
         
@@ -370,7 +383,10 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
             annotation.title = cp.name
             //            annotation.subtitle = "\(Double(annotation.coordinate.latitude)), \(Double(annotation.coordinate.longitude))"
-            annotations.append(annotation)
+            
+            if(!cp.getCompleteStatus() || !hideCompleted) {
+                annotations.append(annotation)
+            }
         }
         
         mapView.addAnnotations(annotations)

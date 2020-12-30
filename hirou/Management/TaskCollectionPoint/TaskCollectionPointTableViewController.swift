@@ -29,10 +29,10 @@ struct GarbageListItem {
 
 class TaskCollectionPointTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var taskCollectionPoints: [TaskCollectionPoint] = []
+    var hideComplated: Bool = false
     var garbageSummaryList: [GarbageListItem] = []
     
     private let notificationCenter = NotificationCenter.default
-    
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -61,11 +61,14 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromHList(_:)), name: .TaskCollectionPointsHListUpdate, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromMap(_:)), name: .TaskCollectionPointsMapSelect, object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(hideCompletedTriggered(_:)), name: .TaskCollectionPointsHideCompleted, object: nil)
     }
     
     deinit {
         notificationCenter.removeObserver(self, name: .TaskCollectionPointsHListUpdate, object: nil)
         notificationCenter.removeObserver(self, name: .TaskCollectionPointsMapSelect, object: nil)
+        notificationCenter.removeObserver(self, name: .TaskCollectionPointsHideCompleted, object: nil)
     }
     
     @objc
@@ -99,6 +102,13 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
                 self.tableView.selectRow(at: IndexPath(row: num, section: 0), animated: true, scrollPosition: .middle)
             }
         }
+    }
+    
+    @objc
+    func hideCompletedTriggered(_ notification: Notification) {
+        let status = notification.object as! Bool
+        self.hideComplated = status
+        self.tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -146,7 +156,12 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if tableView == self.tableView {
-            return self.taskCollectionPoints.count
+            if(!self.hideComplated) {
+                return self.taskCollectionPoints.count
+            }
+            
+            let filtered = self.taskCollectionPoints.filter { !$0.getCompleteStatus() }
+            return filtered.count
         }
         else {
             return self.garbageSummaryList.count
@@ -164,7 +179,13 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCollectionPointCell", for: indexPath) as! TaskCollectionPointCell
         
-        let tcp = self.taskCollectionPoints[indexPath.row]
+        var data = self.taskCollectionPoints
+        
+        if(hideComplated) {
+            data = self.taskCollectionPoints.filter { !$0.getCompleteStatus() }
+        }
+        
+        let tcp = data[indexPath.row]
         cell.sequence!.text = String(tcp.sequence)
         cell.name!.text = tcp.name
         cell.memo!.text = tcp.memo
