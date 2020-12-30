@@ -33,7 +33,6 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     
     private let notificationCenter = NotificationCenter.default
     
-    
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.dataSource = self
@@ -61,11 +60,14 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromHList(_:)), name: .TaskCollectionPointsHListUpdate, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromMap(_:)), name: .TaskCollectionPointsMapSelect, object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(hideCompletedTriggered(_:)), name: .TaskCollectionPointsHideCompleted, object: nil)
     }
     
     deinit {
         notificationCenter.removeObserver(self, name: .TaskCollectionPointsHListUpdate, object: nil)
         notificationCenter.removeObserver(self, name: .TaskCollectionPointsMapSelect, object: nil)
+        notificationCenter.removeObserver(self, name: .TaskCollectionPointsHideCompleted, object: nil)
     }
     
     @objc
@@ -99,6 +101,11 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
                 self.tableView.selectRow(at: IndexPath(row: num, section: 0), animated: true, scrollPosition: .middle)
             }
         }
+    }
+    
+    @objc
+    func hideCompletedTriggered(_ notification: Notification) {
+        let status = notification.object as! Bool
     }
     
     override func viewWillAppear(_ animated: Bool) {
