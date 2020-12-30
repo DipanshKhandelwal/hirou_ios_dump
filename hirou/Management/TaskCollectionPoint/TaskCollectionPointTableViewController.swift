@@ -108,6 +108,7 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     func hideCompletedTriggered(_ notification: Notification) {
         let status = notification.object as! Bool
         self.hideComplated = status
+        self.tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -155,7 +156,12 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if tableView == self.tableView {
-            return self.taskCollectionPoints.count
+            if(!self.hideComplated) {
+                return self.taskCollectionPoints.count
+            }
+            
+            let filtered = self.taskCollectionPoints.filter { !$0.getCompleteStatus() }
+            return filtered.count
         }
         else {
             return self.garbageSummaryList.count
@@ -173,7 +179,13 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCollectionPointCell", for: indexPath) as! TaskCollectionPointCell
         
-        let tcp = self.taskCollectionPoints[indexPath.row]
+        var data = self.taskCollectionPoints
+        
+        if(hideComplated) {
+            data = self.taskCollectionPoints.filter { !$0.getCompleteStatus() }
+        }
+        
+        let tcp = data[indexPath.row]
         cell.sequence!.text = String(tcp.sequence)
         cell.name!.text = tcp.name
         cell.memo!.text = tcp.memo
