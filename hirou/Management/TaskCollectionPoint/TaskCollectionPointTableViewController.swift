@@ -29,6 +29,7 @@ struct GarbageListItem {
 
 class TaskCollectionPointTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var taskCollectionPoints: [TaskCollectionPoint] = []
+    var hideComplated: Bool = false
     var garbageSummaryList: [GarbageListItem] = []
     
     private let notificationCenter = NotificationCenter.default
@@ -106,6 +107,7 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     @objc
     func hideCompletedTriggered(_ notification: Notification) {
         let status = notification.object as! Bool
+        self.hideComplated = status
     }
     
     override func viewWillAppear(_ animated: Bool) {
