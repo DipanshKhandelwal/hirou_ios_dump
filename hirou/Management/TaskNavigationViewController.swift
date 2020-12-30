@@ -273,13 +273,19 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         // Do any additional setup after loading the view.
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .TaskCollectionPointsVListUpdate, object: nil)
-        
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .TaskCollectionPointsHListUpdate, object: nil)
-        
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .TaskCollectionPointsHListSelect, object: nil)
-        
-        
         self.getPoints()
+    }
+    
+    @objc
+    func switchToggled(_ sender: UISwitch) {
+        if sender.isOn {
+            addPointsTopMap(hideCompleted: true)
+        }
+        else{
+            addPointsTopMap()
+        }
     }
     
     @objc
@@ -364,7 +370,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         }
     }
     
-    func addPointsTopMap() {
+    func addPointsTopMap(hideCompleted : Bool = false) {
         self.mapView.removeAnnotations(self.annotations)
         self.annotations = []
         
@@ -375,7 +381,10 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
             annotation.title = cp.name
             //            annotation.subtitle = "\(Double(annotation.coordinate.latitude)), \(Double(annotation.coordinate.longitude))"
-            annotations.append(annotation)
+            
+            if(!cp.getCompleteStatus() || !hideCompleted) {
+                annotations.append(annotation)
+            }
         }
         
         mapView.addAnnotations(annotations)
