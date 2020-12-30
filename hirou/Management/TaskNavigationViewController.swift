@@ -282,9 +282,11 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     func switchToggled(_ sender: UISwitch) {
         if sender.isOn {
             addPointsTopMap(hideCompleted: true)
+            self.notificationCenter.post(name: .TaskCollectionPointsHideCompleted, object: true)
         }
         else{
             addPointsTopMap()
+            notificationCenter.post(name: .TaskCollectionPointsHideCompleted, object: false)
         }
     }
     
