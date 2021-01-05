@@ -260,6 +260,10 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         collectionView.itemSize = collectionView.frame.size.applying(transform)
         collectionView.decelerationDistance = FSPagerView.automaticDistance
         
+        let plus = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(zoomIn))
+        let minus = UIBarButtonItem(image: UIImage(systemName: "minus"), style: .plain, target: self, action: #selector(zoomOut))
+        navigationItem.setLeftBarButtonItems([minus, plus], animated: true)
+        
         let completedHiddenSwitch = UISwitch(frame: .zero)
         completedHiddenSwitch.isOn = false
         completedHiddenSwitch.addTarget(self, action: #selector(switchToggled(_:)), for: .valueChanged)
@@ -276,6 +280,20 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .TaskCollectionPointsHListUpdate, object: nil)
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .TaskCollectionPointsHListSelect, object: nil)
         self.getPoints()
+    }
+    
+    @objc
+    func zoomIn() {
+        if(self.mapView.zoomLevel + 1 <= self.mapView.maximumZoomLevel) {
+            self.mapView.setZoomLevel(self.mapView.zoomLevel + 1, animated: true)
+        }
+    }
+    
+    @objc
+    func zoomOut() {
+        if(self.mapView.zoomLevel - 1 >= self.mapView.minimumZoomLevel) {
+            self.mapView.setZoomLevel(self.mapView.zoomLevel - 1, animated: true)
+        }
     }
     
     @objc
