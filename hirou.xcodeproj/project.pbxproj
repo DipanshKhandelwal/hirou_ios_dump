@@ -62,6 +62,7 @@
 		31F57D1E243A618500903F38 /* Garbage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F57D1D243A618500903F38 /* Garbage.swift */; };
 		31FB0DB32463BF3500856B4C /* TaskCollectionPointTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FB0DB22463BF3500856B4C /* TaskCollectionPointTableViewController.swift */; };
 		58514F6DD549292BFD156FB8 /* Pods_hirou.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE9740D6C8CD4CA3B0744CD /* Pods_hirou.framework */; };
+		CA39CD8325A4C12300FE116A /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39CD8225A4C12200FE116A /* MainMenuViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +146,7 @@
 		31FB0DB22463BF3500856B4C /* TaskCollectionPointTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionPointTableViewController.swift; sourceTree = "<group>"; };
 		9AE9740D6C8CD4CA3B0744CD /* Pods_hirou.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_hirou.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C39C6D95DFF4BD26552FF608 /* Pods-hirou.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hirou.debug.xcconfig"; path = "Target Support Files/Pods-hirou/Pods-hirou.debug.xcconfig"; sourceTree = "<group>"; };
+		CA39CD8225A4C12200FE116A /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -339,6 +341,7 @@
 				317325D52484C2EA00799BD5 /* TaskNavigationViewController.swift */,
 				315B21B72499147100257D84 /* TaskCollectionPointPagerCell.swift */,
 				315B21B82499147100257D84 /* TaskCollectionPointPagerCell.xib */,
+				CA39CD8225A4C12200FE116A /* MainMenuViewController.swift */,
 			);
 			path = Management;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA39CD8325A4C12300FE116A /* MainMenuViewController.swift in Sources */,
 				31C24F1B2435E6BF000C3206 /* CollectionPointFormViewController.swift in Sources */,
 				31920C9C241C074A00A55403 /* RouteDetailViewController.swift in Sources */,
 				31DA88B623F3CF7B00713805 /* Vehicle.swift in Sources */,
@@ -792,6 +796,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dipansh.khandelwal.hirou;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -811,6 +816,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dipansh.khandelwal.hirou;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
