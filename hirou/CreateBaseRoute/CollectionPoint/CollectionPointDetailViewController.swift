@@ -21,6 +21,20 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     
     private let notificationCenter = NotificationCenter.default
     
+    @objc
+    func zoomIn() {
+        if(self.mapView.zoomLevel + 1 <= self.mapView.maximumZoomLevel) {
+            self.mapView.setZoomLevel(self.mapView.zoomLevel + 1, animated: true)
+        }
+    }
+    
+    @objc
+    func zoomOut() {
+        if(self.mapView.zoomLevel - 1 >= self.mapView.minimumZoomLevel) {
+            self.mapView.setZoomLevel(self.mapView.zoomLevel - 1, animated: true)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -28,7 +42,66 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .followWithCourse
         mapView.showsUserHeadingIndicator = true
+        mapView.zoomLevel = 22
         
+        let plus = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(zoomIn))
+        let minus = UIBarButtonItem(image: UIImage(systemName: "minus"), style: .plain, target: self, action: #selector(zoomOut))
+        navigationItem.setLeftBarButtonItems([minus, plus], animated: true)
+        
+        if let gestures = self.mapView.gestureRecognizers {
+            for gestureRecognizer in gestures {
+                
+                var enabled = true;
+                
+                switch gestureRecognizer.self {
+                    case is UITapGestureRecognizer:
+                        print("UITapGestureRecognizer")
+                        enabled = false
+                        break
+                        
+                    case is UIPinchGestureRecognizer:
+                        print("UIPinchGestureRecognizer")
+                        enabled = false
+                        break
+                        
+                    case is UIRotationGestureRecognizer:
+                        print("UIRotationGestureRecognizer")
+                        enabled = false
+                        break
+                        
+                    case is UISwipeGestureRecognizer:
+                        print("UISwipeGestureRecognizer")
+                        enabled = false
+                        break
+                        
+                    case is UIPanGestureRecognizer:
+                        print("UIPanGestureRecognizer")
+                        enabled = false
+                        break
+                        
+                    case is UIScreenEdgePanGestureRecognizer:
+                        print("UIScreenEdgePanGestureRecognizer")
+                        enabled = false
+                        break
+                        
+                    case is UILongPressGestureRecognizer:
+                        print("UILongPressGestureRecognizer")
+                        enabled = false
+                        break
+                        
+                    default:
+                        print("none")
+                        enabled = false
+                        break
+                }
+                
+                if(!enabled){
+                    mapView.removeGestureRecognizer(gestureRecognizer)
+                }
+
+            }
+        }
+
         self.id = UserDefaults.standard.string(forKey: "selectedRoute")!
         self.addNewPointGesture()
         
