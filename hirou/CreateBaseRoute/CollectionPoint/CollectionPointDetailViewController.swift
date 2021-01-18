@@ -23,6 +23,10 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     
     private let notificationCenter = NotificationCenter.default
     
+    var userLocationButton: UIBarButtonItem? = nil;
+    var allLayoutButton: UIBarButtonItem? = nil;
+    var navigateButton: UIBarButtonItem? = nil;
+
     @objc
     func zoomIn() {
         if(self.mapView.zoomLevel + 1 <= self.mapView.maximumZoomLevel) {
@@ -44,7 +48,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .followWithCourse
         mapView.showsUserHeadingIndicator = true
-        mapView.zoomLevel = 22
+//        mapView.zoomLevel = 22
         
         let plus = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(zoomIn))
         let minus = UIBarButtonItem(image: UIImage(systemName: "minus"), style: .plain, target: self, action: #selector(zoomOut))
@@ -58,14 +62,18 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
 
         self.id = UserDefaults.standard.string(forKey: "selectedRoute")!
         
+        self.userLocationButton = UIBarButtonItem(image: UIImage(systemName: "mappin.and.ellipse"), style: .plain, target: self, action: #selector(goToUserLocation))
+        self.allLayoutButton = UIBarButtonItem(image: UIImage(systemName: "selection.pin.in.out"), style: .plain, target: self, action: #selector(self.handleAutomaticZoom))
+        self.navigateButton = UIBarButtonItem(image: UIImage(systemName: "car"), style: .plain, target: self, action: #selector(self.followVehicle))
+        navigationItem.setRightBarButtonItems([self.userLocationButton!, self.allLayoutButton!, self.navigateButton!], animated: true)
+        
         self.gestures = self.mapView.gestureRecognizers ?? []
         toggleGestures(disable: true)
-        self.addNewPointGesture()
+        self.allLayoutButton?.isEnabled = false
+        self.userLocationButton?.isEnabled = false
+        self.navigateButton?.isEnabled = false
         
-        let button1 = UIBarButtonItem(image: UIImage(systemName: "mappin.and.ellipse"), style: .plain, target: self, action: #selector(goToUserLocation))
-        let button2 = UIBarButtonItem(image: UIImage(systemName: "selection.pin.in.out"), style: .plain, target: self, action: #selector(self.handleAutomaticZoom))
-        let button3 = UIBarButtonItem(image: UIImage(systemName: "car"), style: .plain, target: self, action: #selector(self.followVehicle))
-        navigationItem.setRightBarButtonItems([button1, button2, button3], animated: true)
+        self.addNewPointGesture()
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .CollectionPointsTableSelect, object: nil)
         
@@ -85,9 +93,17 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
             self.addNewPointGesture()
             mapView.userTrackingMode = .followWithCourse
             mapView.showsUserHeadingIndicator = true
+            
+            self.allLayoutButton?.isEnabled = false
+            self.userLocationButton?.isEnabled = false
+            self.navigateButton?.isEnabled = false
         }
         else{
             toggleGestures(disable: false)
+            
+            self.allLayoutButton?.isEnabled = true
+            self.userLocationButton?.isEnabled = true
+            self.navigateButton?.isEnabled = true
         }
     }
     
