@@ -19,6 +19,8 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     var collectionPoints = [CollectionPoint]()
     var annotations = [CollectionPointPointAnnotation]()
     
+    var gestures : [UIGestureRecognizer] = []
+    
     private let notificationCenter = NotificationCenter.default
     
     @objc
@@ -46,63 +48,18 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         
         let plus = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(zoomIn))
         let minus = UIBarButtonItem(image: UIImage(systemName: "minus"), style: .plain, target: self, action: #selector(zoomOut))
-        navigationItem.setLeftBarButtonItems([minus, plus], animated: true)
         
-        if let gestures = self.mapView.gestureRecognizers {
-            for gestureRecognizer in gestures {
-                
-                var enabled = true;
-                
-                switch gestureRecognizer.self {
-                    case is UITapGestureRecognizer:
-                        print("UITapGestureRecognizer")
-                        enabled = false
-                        break
-                        
-                    case is UIPinchGestureRecognizer:
-                        print("UIPinchGestureRecognizer")
-                        enabled = false
-                        break
-                        
-                    case is UIRotationGestureRecognizer:
-                        print("UIRotationGestureRecognizer")
-                        enabled = false
-                        break
-                        
-                    case is UISwipeGestureRecognizer:
-                        print("UISwipeGestureRecognizer")
-                        enabled = false
-                        break
-                        
-                    case is UIPanGestureRecognizer:
-                        print("UIPanGestureRecognizer")
-                        enabled = false
-                        break
-                        
-                    case is UIScreenEdgePanGestureRecognizer:
-                        print("UIScreenEdgePanGestureRecognizer")
-                        enabled = false
-                        break
-                        
-                    case is UILongPressGestureRecognizer:
-                        print("UILongPressGestureRecognizer")
-                        enabled = false
-                        break
-                        
-                    default:
-                        print("none")
-                        enabled = false
-                        break
-                }
-                
-                if(!enabled){
-                    mapView.removeGestureRecognizer(gestureRecognizer)
-                }
-
-            }
-        }
+        let lockUserTracking = UISwitch(frame: .zero)
+        lockUserTracking.isOn = true
+        lockUserTracking.addTarget(self, action: #selector(switchToggled(_:)), for: .valueChanged)
+        let switch_display = UIBarButtonItem(customView: lockUserTracking)
+        
+        navigationItem.setLeftBarButtonItems([minus, plus, switch_display], animated: true)
 
         self.id = UserDefaults.standard.string(forKey: "selectedRoute")!
+        
+        self.gestures = self.mapView.gestureRecognizers ?? []
+        toggleGestures(disable: true)
         self.addNewPointGesture()
         
         let button1 = UIBarButtonItem(image: UIImage(systemName: "mappin.and.ellipse"), style: .plain, target: self, action: #selector(goToUserLocation))
@@ -120,6 +77,30 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         notificationCenter.removeObserver(self, name: .CollectionPointsTableSelect, object: nil)
         notificationCenter.removeObserver(self, name: .CollectionPointsTableReorder, object: nil)
      }
+    
+    @objc
+    func switchToggled(_ sender: UISwitch) {
+        if sender.isOn {
+            toggleGestures(disable: true)
+            self.addNewPointGesture()
+            mapView.userTrackingMode = .followWithCourse
+            mapView.showsUserHeadingIndicator = true
+        }
+        else{
+            toggleGestures(disable: false)
+        }
+    }
+    
+    func toggleGestures(disable: Bool = true) {
+        for gestureRecognizer in self.gestures {
+            if(disable){
+                mapView.removeGestureRecognizer(gestureRecognizer)
+            }
+            else {
+                mapView.addGestureRecognizer(gestureRecognizer)
+            }
+        }
+    }
     
     @objc
     func collectionPointSelectFromVList(_ notification: Notification) {
