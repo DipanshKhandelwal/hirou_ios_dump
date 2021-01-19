@@ -32,6 +32,7 @@
 		316D774B24B66A880074549A /* ReportAdminTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316D774A24B66A880074549A /* ReportAdminTableViewController.swift */; };
 		316D774E24B66DD60074549A /* TaskGarbageAmountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316D774D24B66DD60074549A /* TaskGarbageAmountTableViewController.swift */; };
 		316F0DAD25B6139A00F00E55 /* BaseRoute.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 316F0DAC25B6139A00F00E55 /* BaseRoute.storyboard */; };
+		316F0E0725B61A1800F00E55 /* TaskManagement.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 316F0E0625B61A1800F00E55 /* TaskManagement.storyboard */; };
 		317325D62484C2EA00799BD5 /* TaskNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317325D52484C2EA00799BD5 /* TaskNavigationViewController.swift */; };
 		317E230223C6306C00F8F0C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230123C6306C00F8F0C1 /* AppDelegate.swift */; };
 		317E230423C6306C00F8F0C1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E230323C6306C00F8F0C1 /* SceneDelegate.swift */; };
@@ -110,6 +111,7 @@
 		316D774A24B66A880074549A /* ReportAdminTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportAdminTableViewController.swift; sourceTree = "<group>"; };
 		316D774D24B66DD60074549A /* TaskGarbageAmountTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskGarbageAmountTableViewController.swift; sourceTree = "<group>"; };
 		316F0DAC25B6139A00F00E55 /* BaseRoute.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BaseRoute.storyboard; sourceTree = SOURCE_ROOT; };
+		316F0E0625B61A1800F00E55 /* TaskManagement.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TaskManagement.storyboard; sourceTree = SOURCE_ROOT; };
 		317325D52484C2EA00799BD5 /* TaskNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNavigationViewController.swift; sourceTree = "<group>"; };
 		317E22FE23C6306C00F8F0C1 /* hirou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hirou.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		317E230123C6306C00F8F0C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 				317E230C23C6306D00F8F0C1 /* Assets.xcassets */,
 				317E230923C6306C00F8F0C1 /* Main.storyboard */,
 				316F0DAC25B6139A00F00E55 /* BaseRoute.storyboard */,
+				316F0E0625B61A1800F00E55 /* TaskManagement.storyboard */,
 				31CAF1BD254EFB1B006CD083 /* GoogleService-Info.plist */,
 			);
 			path = hirou;
@@ -504,6 +507,7 @@
 				316F0DAD25B6139A00F00E55 /* BaseRoute.storyboard in Resources */,
 				315B21BA2499147100257D84 /* TaskCollectionPointPagerCell.xib in Resources */,
 				317E230B23C6306C00F8F0C1 /* Main.storyboard in Resources */,
+				316F0E0725B61A1800F00E55 /* TaskManagement.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
