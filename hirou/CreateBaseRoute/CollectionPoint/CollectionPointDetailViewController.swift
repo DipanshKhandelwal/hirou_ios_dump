@@ -19,7 +19,27 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     var collectionPoints = [CollectionPoint]()
     var annotations = [CollectionPointPointAnnotation]()
     
+    var gestures : [UIGestureRecognizer] = []
+    
     private let notificationCenter = NotificationCenter.default
+    
+    var userLocationButton: UIBarButtonItem? = nil;
+    var allLayoutButton: UIBarButtonItem? = nil;
+    var navigateButton: UIBarButtonItem? = nil;
+
+    @objc
+    func zoomIn() {
+        if(self.mapView.zoomLevel + 1 <= self.mapView.maximumZoomLevel) {
+            self.mapView.setZoomLevel(self.mapView.zoomLevel + 1, animated: true)
+        }
+    }
+    
+    @objc
+    func zoomOut() {
+        if(self.mapView.zoomLevel - 1 >= self.mapView.minimumZoomLevel) {
+            self.mapView.setZoomLevel(self.mapView.zoomLevel - 1, animated: true)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,14 +48,32 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .followWithCourse
         mapView.showsUserHeadingIndicator = true
+//        mapView.zoomLevel = 22
         
+        let plus = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(zoomIn))
+        let minus = UIBarButtonItem(image: UIImage(systemName: "minus"), style: .plain, target: self, action: #selector(zoomOut))
+        
+        let lockUserTracking = UISwitch(frame: .zero)
+        lockUserTracking.isOn = true
+        lockUserTracking.addTarget(self, action: #selector(switchToggled(_:)), for: .valueChanged)
+        let switch_display = UIBarButtonItem(customView: lockUserTracking)
+        
+        navigationItem.setLeftBarButtonItems([minus, plus, switch_display], animated: true)
+
         self.id = UserDefaults.standard.string(forKey: "selectedRoute")!
-        self.addNewPointGesture()
         
-        let button1 = UIBarButtonItem(image: UIImage(systemName: "mappin.and.ellipse"), style: .plain, target: self, action: #selector(goToUserLocation))
-        let button2 = UIBarButtonItem(image: UIImage(systemName: "selection.pin.in.out"), style: .plain, target: self, action: #selector(self.handleAutomaticZoom))
-        let button3 = UIBarButtonItem(image: UIImage(systemName: "car"), style: .plain, target: self, action: #selector(self.followVehicle))
-        navigationItem.setRightBarButtonItems([button1, button2, button3], animated: true)
+        self.userLocationButton = UIBarButtonItem(image: UIImage(systemName: "mappin.and.ellipse"), style: .plain, target: self, action: #selector(goToUserLocation))
+        self.allLayoutButton = UIBarButtonItem(image: UIImage(systemName: "selection.pin.in.out"), style: .plain, target: self, action: #selector(self.handleAutomaticZoom))
+        self.navigateButton = UIBarButtonItem(image: UIImage(systemName: "car"), style: .plain, target: self, action: #selector(self.followVehicle))
+        navigationItem.setRightBarButtonItems([self.userLocationButton!, self.allLayoutButton!, self.navigateButton!], animated: true)
+        
+        self.gestures = self.mapView.gestureRecognizers ?? []
+        toggleGestures(disable: true)
+        self.allLayoutButton?.isEnabled = false
+        self.userLocationButton?.isEnabled = false
+        self.navigateButton?.isEnabled = false
+        
+        self.addNewPointGesture()
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .CollectionPointsTableSelect, object: nil)
         
@@ -47,6 +85,38 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         notificationCenter.removeObserver(self, name: .CollectionPointsTableSelect, object: nil)
         notificationCenter.removeObserver(self, name: .CollectionPointsTableReorder, object: nil)
      }
+    
+    @objc
+    func switchToggled(_ sender: UISwitch) {
+        if sender.isOn {
+            toggleGestures(disable: true)
+            self.addNewPointGesture()
+            mapView.userTrackingMode = .followWithCourse
+            mapView.showsUserHeadingIndicator = true
+            
+            self.allLayoutButton?.isEnabled = false
+            self.userLocationButton?.isEnabled = false
+            self.navigateButton?.isEnabled = false
+        }
+        else{
+            toggleGestures(disable: false)
+            
+            self.allLayoutButton?.isEnabled = true
+            self.userLocationButton?.isEnabled = true
+            self.navigateButton?.isEnabled = true
+        }
+    }
+    
+    func toggleGestures(disable: Bool = true) {
+        for gestureRecognizer in self.gestures {
+            if(disable){
+                mapView.removeGestureRecognizer(gestureRecognizer)
+            }
+            else {
+                mapView.addGestureRecognizer(gestureRecognizer)
+            }
+        }
+    }
     
     @objc
     func collectionPointSelectFromVList(_ notification: Notification) {
