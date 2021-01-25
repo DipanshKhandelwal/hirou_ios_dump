@@ -196,30 +196,17 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
             cell.garbageStack.axis = .horizontal
             cell.garbageStack.distribution = .equalCentering
             
-            let toggleAllTasksButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+            let toggleAllTasksButton = GarbageButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
             toggleAllTasksButton.tag = indexPath.row;
             toggleAllTasksButton.addTarget(self, action: #selector(TaskNavigationViewController.toggleAllTasks(sender:)), for: .touchDown)
             toggleAllTasksButton.layer.backgroundColor = tcp.getCompleteStatus() ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
-            toggleAllTasksButton.layer.borderWidth = 2
-            toggleAllTasksButton.layer.borderColor = UIColor.red.cgColor
-            toggleAllTasksButton.layer.cornerRadius = 10
-            toggleAllTasksButton.setTitle("*", for: .normal)
-            toggleAllTasksButton.titleLabel?.font = toggleAllTasksButton.titleLabel?.font.withSize(20)
-            toggleAllTasksButton.setTitleColor(.black, for: .normal)
             cell.garbageStack.addArrangedSubview(toggleAllTasksButton)
             
             for num in 0...tcp.taskCollections.count-1 {
                 let taskCollection = tcp.taskCollections[num];
                 
-                let garbageView = GarbageButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0), taskCollectionPointPosition: indexPath.row, taskPosition: num)
+                let garbageView = GarbageButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0), taskCollectionPointPosition: indexPath.row, taskPosition: num, taskCollection: taskCollection)
                 garbageView.addTarget(self, action: #selector(TaskCollectionPointTableViewController.pressed(sender:)), for: .touchDown)
-                garbageView.layer.backgroundColor = taskCollection.complete ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
-                garbageView.layer.borderWidth = 2
-                garbageView.layer.borderColor = UIColor.systemBlue.cgColor
-                garbageView.layer.cornerRadius = 10
-                garbageView.setTitle(String(taskCollection.garbage.name.prefix(1)), for: .normal)
-                garbageView.titleLabel?.font = garbageView.titleLabel?.font.withSize(15)
-                garbageView.setTitleColor(.black, for: .normal)
                 cell.garbageStack.addArrangedSubview(garbageView)
             }
         }
@@ -299,8 +286,8 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     }
     
     func changeTaskStatus(sender: GarbageButton) {
-        let taskCollectionPoint = self.taskCollectionPoints[sender.taskCollectionPointPosition]
-        let taskCollection = taskCollectionPoint.taskCollections[sender.taskPosition]
+        let taskCollectionPoint = self.taskCollectionPoints[sender.taskCollectionPointPosition!]
+        let taskCollection = taskCollectionPoint.taskCollections[sender.taskPosition!]
         
         let url = Environment.SERVER_URL + "api/task_collection/"+String(taskCollection.id)+"/"
         
@@ -322,10 +309,10 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
                 switch response.result {
                 case .success(let value):
                     let taskCollectionNew = try! JSONDecoder().decode(TaskCollection.self, from: value!)
-                    self.taskCollectionPoints[sender.taskCollectionPointPosition].taskCollections[sender.taskPosition] = taskCollectionNew
+                    self.taskCollectionPoints[sender.taskCollectionPointPosition!].taskCollections[sender.taskPosition!] = taskCollectionNew
                     self.garbageSummaryList = self.getGarbageSummaryList(taskCollectionPoints: self.taskCollectionPoints)
                     DispatchQueue.main.async {
-                        self.tableView.reloadRows(at: [IndexPath(row: sender.taskCollectionPointPosition, section: 0)], with: .automatic)
+                        self.tableView.reloadRows(at: [IndexPath(row: sender.taskCollectionPointPosition!, section: 0)], with: .automatic)
                         self.garbageSummaryTable.reloadData()
                     }
                     self.notificationCenter.post(name: .TaskCollectionPointsVListUpdate, object: [taskCollectionNew])
@@ -338,8 +325,8 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     
     @objc
     func pressed(sender: GarbageButton) {
-        let taskCollectionPoint = self.taskCollectionPoints[sender.taskCollectionPointPosition]
-        let taskCollection = taskCollectionPoint.taskCollections[sender.taskPosition]
+        let taskCollectionPoint = self.taskCollectionPoints[sender.taskCollectionPointPosition!]
+        let taskCollection = taskCollectionPoint.taskCollections[sender.taskPosition!]
         
         if(taskCollection.complete == true) {
             let confirmAlert = UIAlertController(title: "Incomplete ?", message: "Are you sure you want to incomplete the collection ?", preferredStyle: .alert)
