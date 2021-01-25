@@ -36,6 +36,12 @@ class GarbageButton: UIButton {
         self.setTitleColor(.black, for: .normal)
         self.layer.borderWidth = 2
         self.layer.cornerRadius = 10
+        self.addTarget(self, action: #selector(buttonClicked(_:)), for: .touchDown)
+    }
+    
+    @objc func buttonClicked(_ sender: UIButton) {
+        let systemSoundID: SystemSoundID = 1103;
+        AudioServicesPlaySystemSound(systemSoundID)
     }
     
     required init?(coder: NSCoder) {
