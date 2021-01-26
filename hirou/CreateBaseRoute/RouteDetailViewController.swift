@@ -16,6 +16,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var customerPicker: UIPickerView!
     @IBOutlet weak var garbageListLabel: UILabel!
     @IBOutlet weak var deleteButton: UIBarButtonItem!
+    @IBOutlet weak var copyButton: UIBarButtonItem!
     @IBOutlet weak var moveToRouteScreenButton: UIButton!
     @IBOutlet weak var routeErrorLabel: UILabel!
     
@@ -135,6 +136,39 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
     }
     
+    func copyRouteCall(){
+        if detailItem != nil {
+            let id = UserDefaults.standard.string(forKey: "selectedRoute")!
+            let headers = APIHeaders.getHeaders()
+            AF.request(Environment.SERVER_URL + "api/base_route/"+String(id)+"/copy/", method: .post, headers: headers)
+                .validate()
+                .responseString {
+                    response in
+                    switch response.result {
+                    case .success(let value):
+                        print("value", value)
+                        _ = self.navigationController?.popViewController(animated: true)
+                        
+                    case .failure(let error):
+                        print(error)
+                    }
+            }
+        }
+    }
+    
+    @IBAction func copyRoute(_ sender: Any) {
+        let copyAlert = UIAlertController(title: "Copy Route ?", message: "Are you sure you want to copy the base route ?", preferredStyle: .alert)
+        
+        copyAlert.addAction(UIAlertAction(title: "Yes. Copy", style: .default, handler: { (action: UIAlertAction!) in
+            self.copyRouteCall()
+        }))
+        
+        copyAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        }))
+        
+        self.present(copyAlert, animated: true, completion: nil)
+    }
+    
     @IBAction func saveRoute(_ sender: Any) {
         if self.routeNameTextField.text!.count == 0 {
             let nameAlert = UIAlertController(title: "Route name empty !!", message: "Please enter name of the route.", preferredStyle: .alert)
@@ -196,6 +230,10 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
             }
             
             if let button = self.deleteButton {
+                button.isEnabled = false
+            }
+            
+            if let button = self.copyButton {
                 button.isEnabled = false
             }
             
