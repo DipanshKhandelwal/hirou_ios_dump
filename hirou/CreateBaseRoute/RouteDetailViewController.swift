@@ -136,6 +136,26 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
     }
     
+    func copyRouteCall(){
+        if detailItem != nil {
+            let id = UserDefaults.standard.string(forKey: "selectedRoute")!
+            let headers = APIHeaders.getHeaders()
+            AF.request(Environment.SERVER_URL + "api/base_route/"+String(id)+"/copy/", method: .post, headers: headers)
+                .validate()
+                .responseString {
+                    response in
+                    switch response.result {
+                    case .success(let value):
+                        print("value", value)
+                        _ = self.navigationController?.popViewController(animated: true)
+                        
+                    case .failure(let error):
+                        print(error)
+                    }
+            }
+        }
+    }
+    
     @IBAction func copyRoute(_ sender: Any) {
         let copyAlert = UIAlertController(title: "Copy Route ?", message: "Are you sure you want to copy the base route ?", preferredStyle: .alert)
         
