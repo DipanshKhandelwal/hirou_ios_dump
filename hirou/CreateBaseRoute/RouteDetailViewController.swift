@@ -233,6 +233,10 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
                 button.isEnabled = false
             }
             
+            if let button = self.copyButton {
+                button.isEnabled = false
+            }
+            
             if let moveToRouteScreenButton = self.moveToRouteScreenButton {
                 moveToRouteScreenButton.isEnabled = false
             }
