@@ -16,6 +16,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     @IBOutlet weak var customerPicker: UIPickerView!
     @IBOutlet weak var garbageListLabel: UILabel!
     @IBOutlet weak var deleteButton: UIBarButtonItem!
+    @IBOutlet weak var copyButton: UIBarButtonItem!
     @IBOutlet weak var moveToRouteScreenButton: UIButton!
     @IBOutlet weak var routeErrorLabel: UILabel!
     
@@ -133,6 +134,19 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     }
             }
         }
+    }
+    
+    @IBAction func copyRoute(_ sender: Any) {
+        let copyAlert = UIAlertController(title: "Copy Route ?", message: "Are you sure you want to copy the base route ?", preferredStyle: .alert)
+        
+        copyAlert.addAction(UIAlertAction(title: "Yes. Copy", style: .default, handler: { (action: UIAlertAction!) in
+            self.copyRouteCall()
+        }))
+        
+        copyAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        }))
+        
+        self.present(copyAlert, animated: true, completion: nil)
     }
     
     @IBAction func saveRoute(_ sender: Any) {
