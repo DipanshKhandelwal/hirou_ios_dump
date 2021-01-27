@@ -835,12 +835,12 @@
                     </view>
                     <navigationItem key="navigationItem" title="Collection Point" id="Khz-21-Xs9">
                         <rightBarButtonItems>
-                            <barButtonItem title="Item" image="barButtonItem:e6C-ue-qcu:image" id="eTN-14-89Y">
+                            <barButtonItem systemItem="save" id="eTN-14-89Y">
                                 <connections>
                                     <action selector="savePressed:" destination="RU1-ST-XiR" id="u0F-OO-LMf"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" image="barButtonItem:tez-dt-7Cu:image" id="2CM-UA-Opc">
+                            <barButtonItem systemItem="trash" id="2CM-UA-Opc">
                                 <connections>
                                     <action selector="deletePressed:" destination="RU1-ST-XiR" id="Ibd-hP-ve3"/>
                                 </connections>
@@ -923,8 +923,6 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="barButtonItem:d5W-nL-8gr:image" width="128" height="113"/>
-        <image name="barButtonItem:e6C-ue-qcu:image" width="128" height="128"/>
-        <image name="barButtonItem:tez-dt-7Cu:image" width="128" height="128"/>
         <image name="chevron.compact.right" catalog="system" width="64" height="128"/>
         <image name="doc.on.doc" catalog="system" width="116" height="128"/>
         <image name="imageView:17n-aA-UIf:image" width="128" height="128"/>
