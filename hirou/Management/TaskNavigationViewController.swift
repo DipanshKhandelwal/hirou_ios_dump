@@ -226,6 +226,13 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     
     let db = Firestore.firestore()
     var locationListener: ListenerRegistration!
+    
+    var gestures : [UIGestureRecognizer] = []
+    
+    var userLocationButton: UIBarButtonItem? = nil;
+    var allLayoutButton: UIBarButtonItem? = nil;
+    
+    var lockUserTracking: UISwitch = UISwitch()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -248,16 +255,25 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         
         let plus = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(zoomIn))
         let minus = UIBarButtonItem(image: UIImage(systemName: "minus"), style: .plain, target: self, action: #selector(zoomOut))
-        navigationItem.setLeftBarButtonItems([minus, plus], animated: true)
+        
+        self.lockUserTracking = UISwitch(frame: .zero)
+        lockUserTracking.isOn = false
+        lockUserTracking.addTarget(self, action: #selector(userTrackingSwitchToggled(_:)), for: .valueChanged)
+        let user_track_switch_display = UIBarButtonItem(customView: lockUserTracking)
+        
+        navigationItem.setLeftBarButtonItems([minus, plus, user_track_switch_display], animated: true)
         
         let completedHiddenSwitch = UISwitch(frame: .zero)
         completedHiddenSwitch.isOn = false
         completedHiddenSwitch.addTarget(self, action: #selector(switchToggled(_:)), for: .valueChanged)
         let switch_display = UIBarButtonItem(customView: completedHiddenSwitch)
+                
+        self.userLocationButton = UIBarButtonItem(image: UIImage(systemName: "mappin.and.ellipse"), style: .plain, target: self, action: #selector(goToUserLocation))
+        self.allLayoutButton = UIBarButtonItem(image: UIImage(systemName: "selection.pin.in.out"), style: .plain, target: self, action: #selector(adjustMap))
+        navigationItem.setRightBarButtonItems([self.userLocationButton!, self.allLayoutButton!, switch_display], animated: true)
         
-        let button1 = UIBarButtonItem(image: UIImage(systemName: "mappin.and.ellipse"), style: .plain, target: self, action: #selector(goToUserLocation))
-        let button2 = UIBarButtonItem(image: UIImage(systemName: "selection.pin.in.out"), style: .plain, target: self, action: #selector(adjustMap))
-        navigationItem.setRightBarButtonItems([button1, button2, switch_display], animated: true)
+        self.gestures = self.mapView.gestureRecognizers ?? []
+        toggleGestures(disable: false)
         
         self.id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
         // Do any additional setup after loading the view.
@@ -282,6 +298,35 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         }
     }
     
+    func toggleGestures(disable: Bool = true) {
+        for gestureRecognizer in self.gestures {
+            if(disable){
+                mapView.removeGestureRecognizer(gestureRecognizer)
+            }
+            else {
+                mapView.addGestureRecognizer(gestureRecognizer)
+            }
+        }
+    }
+    
+    @objc
+    func userTrackingSwitchToggled(_ sender: UISwitch) {
+        if sender.isOn {
+            toggleGestures(disable: true)
+            mapView.userTrackingMode = .followWithCourse
+            mapView.showsUserHeadingIndicator = true
+            
+            self.allLayoutButton?.isEnabled = false
+            self.userLocationButton?.isEnabled = false
+        }
+        else{
+            toggleGestures(disable: false)
+            
+            self.allLayoutButton?.isEnabled = true
+            self.userLocationButton?.isEnabled = true
+        }
+    }
+    
     @objc
     func switchToggled(_ sender: UISwitch) {
         if sender.isOn {
@@ -297,7 +342,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     @objc
     func goToUserLocation() {
         let userCoordinate = (mapView.userLocation?.coordinate)!
-        mapView.setCenter(userCoordinate, zoomLevel: 18, animated: true)
+        mapView.setCenter(userCoordinate, zoomLevel: self.mapView.zoomLevel, animated: true)
     }
     
     @objc
@@ -347,7 +392,9 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     }
     
     func focusPoint(index: Int) {
-        mapView.setCenter(self.annotations[index].coordinate, zoomLevel: 18, direction: -1, animated: true)
+        if(!lockUserTracking.isOn) {
+            mapView.setCenter(self.annotations[index].coordinate, zoomLevel: self.mapView.zoomLevel, direction: -1, animated: true)
+        }
         mapView.selectAnnotation(self.annotations[index], animated: false, completionHandler: nil)
     }
     
