@@ -40,7 +40,7 @@ class GarbageButton: UIButton {
     }
     
     @objc func buttonClicked(_ sender: UIButton) {
-        let systemSoundID: SystemSoundID = 1103;
+        let systemSoundID: SystemSoundID = 1104;
         AudioServicesPlaySystemSound(systemSoundID)
     }
     
