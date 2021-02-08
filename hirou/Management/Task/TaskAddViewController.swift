@@ -108,7 +108,8 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                 switch response.result {
                 case .success(let value):
                     let decoder = JSONDecoder()
-                    self.baseRoutes = try! decoder.decode([BaseRoute].self, from: value!)
+                    let baseRoutesList = try! decoder.decode([BaseRoute].self, from: value!)
+                    self.baseRoutes = baseRoutesList.sorted() { $0.name < $1.name }
                     DispatchQueue.main.async {
                         self.customerPicker.reloadAllComponents()
                     }
