@@ -66,6 +66,10 @@ class GarbageTypesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "garbageListCell", for: indexPath)
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let garbage = self.garbageList[indexPath.row]
         cell.textLabel!.text = garbage.name
         cell.accessoryType = UITableViewCell.AccessoryType.none
@@ -76,7 +80,6 @@ class GarbageTypesTableViewController: UITableViewController {
                 cell.isSelected = true
             }
         }
-        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
