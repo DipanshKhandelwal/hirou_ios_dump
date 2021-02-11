@@ -108,7 +108,9 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     func hideCompletedTriggered(_ notification: Notification) {
         let status = notification.object as! Bool
         self.hideCompleted = status
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
