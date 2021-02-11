@@ -246,11 +246,7 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     func setGarbageLabelValue() {
         if let label = self.garbageListLabel {
             let garbageList = self.selectedGarbages!
-            var stringGarbageList = ""
-            for garbage in garbageList {
-                stringGarbageList += garbage.name + ", "
-            }
-            label.text = stringGarbageList
+            label.text = garbageList.map(){ String($0.name) }.joined(separator: ", ")
         }
     }
     
