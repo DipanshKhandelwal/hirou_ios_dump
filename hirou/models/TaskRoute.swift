@@ -57,11 +57,7 @@ class TaskRoute: Encodable, Decodable {
     }
     
     func getGarbagesNameList() -> String{
-        var stringGarbageList = ""
-        for garbage in self.garbageList {
-            stringGarbageList += garbage.name + ", "
-        }
-        return stringGarbageList
+        return self.garbageList.map(){ String($0.name) }.joined(separator: ", ")
     }
     
     func getCompleteStatus() -> Bool{
