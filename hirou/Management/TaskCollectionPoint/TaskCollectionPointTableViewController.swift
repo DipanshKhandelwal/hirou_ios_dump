@@ -29,7 +29,7 @@ struct GarbageListItem {
 
 class TaskCollectionPointTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var taskCollectionPoints: [TaskCollectionPoint] = []
-    var hideComplated: Bool = false
+    var hideCompleted: Bool = false
     var garbageSummaryList: [GarbageListItem] = []
     
     private let notificationCenter = NotificationCenter.default
@@ -107,7 +107,7 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     @objc
     func hideCompletedTriggered(_ notification: Notification) {
         let status = notification.object as! Bool
-        self.hideComplated = status
+        self.hideCompleted = status
         self.tableView.reloadData()
     }
     
@@ -156,7 +156,7 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if tableView == self.tableView {
-            if(!self.hideComplated) {
+            if(!self.hideCompleted) {
                 return self.taskCollectionPoints.count
             }
             
@@ -181,7 +181,7 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         
         var data = self.taskCollectionPoints
         
-        if(hideComplated) {
+        if(hideCompleted) {
             data = self.taskCollectionPoints.filter { !$0.getCompleteStatus() }
         }
         
