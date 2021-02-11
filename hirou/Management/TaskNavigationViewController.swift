@@ -21,13 +21,14 @@ import FirebaseFirestore
 
 extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSource {
     func numberOfItems(in pagerView: FSPagerView) -> Int {
-        return self.taskCollectionPoints.count
+        return getTaskCollectionPoints().count
     }
 
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "taskCollectionPointPagerCell", at: index) as! TaskCollectionPointPagerCell
         
-        let tcp = self.taskCollectionPoints[index]
+        let tcp = getTaskCollectionPoints()[index]
+        
         cell.sequence?.text = String(tcp.sequence)
         cell.name?.text = tcp.name
         cell.memo?.text = tcp.memo
@@ -88,7 +89,7 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
     }
     
     func changeAllApiCall(sender: UIButton) {
-        let taskCollectionPoint = self.taskCollectionPoints[sender.tag]
+        let taskCollectionPoint = getTaskCollectionPoints()[sender.tag]
         let url = Environment.SERVER_URL + "api/task_collection_point/"+String(taskCollectionPoint.id)+"/bulk_complete/"
         var request = URLRequest(url: try! url.asURL())
         request.httpMethod = "PATCH"
@@ -103,9 +104,10 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
                 switch response.result {
                 case .success(let value):
                     let taskCollectionsNew = try! JSONDecoder().decode([TaskCollection].self, from: value!)
-                    self.taskCollectionPoints[sender.tag].taskCollections = taskCollectionsNew
+                    self.getTaskCollectionPoints()[sender.tag].taskCollections = taskCollectionsNew
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
+                        self.addPointsTopMap()
                     }
                     self.notificationCenter.post(name: .TaskCollectionPointsHListUpdate, object: taskCollectionsNew)
                 case .failure(let error):
@@ -116,7 +118,7 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
     
     @objc
     func toggleAllTasks(sender: UIButton) {
-        let taskCollectionPoint = self.taskCollectionPoints[sender.tag]
+        let taskCollectionPoint = getTaskCollectionPoints()[sender.tag]
         if( isAllCompleted(taskCollectionPoint: taskCollectionPoint)) {
             let confirmAlert = UIAlertController(title: "Incomplete ?", message: "Are you sure you want to incomplete the collection ?", preferredStyle: .alert)
             
@@ -136,7 +138,7 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
     }
     
     func changeTaskStatus(sender: GarbageButton) {
-        let taskCollectionPoint = self.taskCollectionPoints[sender.taskCollectionPointPosition!]
+        let taskCollectionPoint = getTaskCollectionPoints()[sender.taskCollectionPointPosition!]
         let taskCollection = taskCollectionPoint.taskCollections[sender.taskPosition!]
         
         let url = Environment.SERVER_URL + "api/task_collection/"+String(taskCollection.id)+"/"
@@ -158,9 +160,10 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
                 switch response.result {
                 case .success(let value):
                     let taskCollectionNew = try! JSONDecoder().decode(TaskCollection.self, from: value!)
-                    self.taskCollectionPoints[sender.taskCollectionPointPosition!].taskCollections[sender.taskPosition!] = taskCollectionNew
+                    self.getTaskCollectionPoints()[sender.taskCollectionPointPosition!].taskCollections[sender.taskPosition!] = taskCollectionNew
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
+                        self.addPointsTopMap()
                     }
                     self.notificationCenter.post(name: .TaskCollectionPointsHListUpdate, object: [taskCollectionNew])
                     
@@ -215,6 +218,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     var taskCollectionPoints = [TaskCollectionPoint]()
     var annotations = [MGLPointAnnotation]()
     var route:TaskRoute?
+    var hideCompleted: Bool = false
     
     private let notificationCenter = NotificationCenter.default
     
@@ -281,9 +285,17 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .TaskCollectionPointsVListUpdate, object: nil)
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .TaskCollectionPointsHListUpdate, object: nil)
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .TaskCollectionPointsHListSelect, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(hideCompletedTriggered(_:)), name: .TaskCollectionPointsHideCompleted, object: nil)
         self.getPoints()
     }
     
+    func getTaskCollectionPoints () -> [TaskCollectionPoint] {
+        if(hideCompleted) {
+            return self.taskCollectionPoints.filter { !$0.getCompleteStatus() }
+        }
+        return self.taskCollectionPoints
+    }
+
     @objc
     func zoomIn() {
         if(self.mapView.zoomLevel + 1 <= self.mapView.maximumZoomLevel) {
@@ -330,13 +342,26 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     @objc
     func switchToggled(_ sender: UISwitch) {
         if sender.isOn {
-            addPointsTopMap(hideCompleted: true)
             self.notificationCenter.post(name: .TaskCollectionPointsHideCompleted, object: true)
         }
         else{
-            addPointsTopMap()
             notificationCenter.post(name: .TaskCollectionPointsHideCompleted, object: false)
         }
+    }
+    
+    @objc
+    func hideCompletedTriggered(_ notification: Notification) {
+        let status = notification.object as! Bool
+        hideCompletedFunc(hideCompleted: status)
+    }
+    
+    
+    func hideCompletedFunc(hideCompleted : Bool = false) {
+        self.hideCompleted = hideCompleted
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+        addPointsTopMap()
     }
     
     @objc
@@ -353,13 +378,14 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     deinit {
         notificationCenter.removeObserver(self, name: .TaskCollectionPointsVListUpdate, object: nil)
         notificationCenter.removeObserver(self, name: .TaskCollectionPointsHListSelect, object: nil)
+        notificationCenter.removeObserver(self, name: .TaskCollectionPointsHideCompleted, object: nil)
     }
 
     @objc
     func collectionPointUpdateFromVList(_ notification: Notification) {
         let tcs = notification.object as! [TaskCollection]
         for tc in tcs {
-            for tcp in self.taskCollectionPoints {
+            for tcp in getTaskCollectionPoints() {
                 for num in 0...tcp.taskCollections.count-1 {
                     if tcp.taskCollections[num].id == tc.id {
                         tcp.taskCollections[num] = tc
@@ -384,8 +410,10 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     @objc
     func collectionPointSelectFromVList(_ notification: Notification) {
         let tc = notification.object as! TaskCollectionPoint
-        for num in 0...self.taskCollectionPoints.count-1 {
-            if tc.id == self.taskCollectionPoints[num].id {
+        let data = getTaskCollectionPoints()
+        
+        for num in 0...data.count-1 {
+            if tc.id == data[num].id {
                 focusPoint(index: num)
             }
         }
@@ -415,7 +443,9 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
                 self.taskCollectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
                 self.addPointsTopMap()
                 
-                self.collectionView.reloadData()
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
                 
             case .failure(let error):
                 print(error)
@@ -423,11 +453,11 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         }
     }
     
-    func addPointsTopMap(hideCompleted : Bool = false) {
+    func addPointsTopMap() {
         self.mapView.removeAnnotations(self.annotations)
         self.annotations = []
         
-        for cp in self.taskCollectionPoints {
+        for cp in getTaskCollectionPoints() {
             let annotation = MGLPointAnnotation()
             let lat = Double(cp.location.latitude)!
             let long = Double(cp.location.longitude)!
