@@ -23,6 +23,8 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
     @IBOutlet weak var imageView: UIImageView!
     var imagePicker: ImagePicker!
     
+    private let notificationCenter = NotificationCenter.default
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,11 +49,16 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
         self.selectedImage = image
     }
     
+    func updateComplete() {
+        self.notificationCenter.post(name: .CollectionPointsUpdated, object: nil)
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+    
     func saveImage(id: Int) {
         let image = self.selectedImage
         
         if image == nil {
-            _ = self.navigationController?.popViewController(animated: true)
+            updateComplete()
             return
         }
         
@@ -71,11 +78,11 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
             progress in
             print("Upload Progress: \(progress.fractionCompleted)")
             if progress.fractionCompleted == 1 {
-                _ = self.navigationController?.popViewController(animated: true)
+                self.updateComplete()
             }
         }).responseJSON(completionHandler: { data in
             print("upload finished: \(data)")
-            _ = self.navigationController?.popViewController(animated: true)
+            self.updateComplete()
         }).response { (response) in
             switch response.result {
             case .success(let result):
@@ -168,12 +175,10 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
                     switch response.result {
                     case .success(let value):
                         print("value", value)
-                        _ = self.navigationController?.popViewController(animated: true)
-                        //                        self.customers = []
+                        self.updateComplete()
                         
                     case .failure(let error):
                         print(error)
-                        //                completion(nil)
                     }
             }
         }

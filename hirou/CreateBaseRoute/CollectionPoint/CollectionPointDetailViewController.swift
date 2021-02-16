@@ -78,12 +78,15 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .CollectionPointsTableSelect, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointReorderFromVList(_:)), name: .CollectionPointsTableReorder, object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(collectionPointsUpdated(_:)), name: .CollectionPointsUpdated, object: nil)
 
     }
     
     deinit {
         notificationCenter.removeObserver(self, name: .CollectionPointsTableSelect, object: nil)
         notificationCenter.removeObserver(self, name: .CollectionPointsTableReorder, object: nil)
+        notificationCenter.removeObserver(self, name: .CollectionPointsUpdated, object: nil)
      }
     
     @objc
@@ -133,6 +136,13 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         let cps = notification.object as! [CollectionPoint]
         self.collectionPoints = cps
         self.addPointsTopMap()
+    }
+    
+    @objc
+    func collectionPointsUpdated(_ notification: Notification) {
+        DispatchQueue.main.async {
+            self.getPoints()
+        }
     }
     
     func focusPoint(index: Int) {
