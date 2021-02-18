@@ -481,39 +481,50 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="i" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rcp-Fd-uef">
-                                            <rect key="frame" x="16" y="34.5" width="4" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <rect key="frame" x="90" y="13" width="4" height="20"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collection Point Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szn-tL-5Fp" userLabel="Collection Point Name">
-                                            <rect key="frame" x="36" y="12" width="168.5" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Collection Point Memo" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NoP-Ta-uoU">
-                                            <rect key="frame" x="36" y="41" width="268" height="30"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="GR9-Uf-qOP"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" verticalHuggingPriority="251" text="Collection Point Memo Collection Point Memo Collection Point Memo Collection Point Memo" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NoP-Ta-uoU">
+                                            <rect key="frame" x="90" y="37" width="221" height="44"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="house.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="YUg-1W-Uhu">
+                                            <rect key="frame" x="9" y="9" width="72" height="72"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="72" id="LAJ-4M-V3T" userLabel="width = 72"/>
+                                                <constraint firstAttribute="height" constant="72" id="ZJx-Bn-jwX"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collection Point Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szn-tL-5Fp" userLabel="Collection Point Name">
+                                            <rect key="frame" x="103" y="13" width="160.5" height="20"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="NoP-Ta-uoU" secondAttribute="trailing" constant="16" id="HpY-mU-sSc"/>
-                                        <constraint firstItem="rcp-Fd-uef" firstAttribute="leading" secondItem="1DY-6b-Y9I" secondAttribute="leading" constant="15.999999999999829" id="MWG-BY-X68"/>
-                                        <constraint firstItem="rcp-Fd-uef" firstAttribute="centerY" secondItem="1DY-6b-Y9I" secondAttribute="centerY" id="Na9-CT-gWx"/>
-                                        <constraint firstItem="szn-tL-5Fp" firstAttribute="top" secondItem="1DY-6b-Y9I" secondAttribute="top" constant="12" id="Pw6-F6-YzU"/>
-                                        <constraint firstItem="szn-tL-5Fp" firstAttribute="leading" secondItem="rcp-Fd-uef" secondAttribute="trailing" constant="16" id="S3Q-b4-zFH"/>
-                                        <constraint firstItem="NoP-Ta-uoU" firstAttribute="top" secondItem="szn-tL-5Fp" secondAttribute="bottom" constant="8" id="fmc-Vv-IDl" userLabel="Collection Point Address.top = Collection Point Name.bottom + 8"/>
-                                        <constraint firstItem="NoP-Ta-uoU" firstAttribute="leading" secondItem="rcp-Fd-uef" secondAttribute="trailing" constant="15.999999999999829" id="rs6-XP-Eqa"/>
+                                        <constraint firstItem="rcp-Fd-uef" firstAttribute="top" secondItem="1DY-6b-Y9I" secondAttribute="top" constant="13" id="9qb-Ec-oDS"/>
+                                        <constraint firstItem="szn-tL-5Fp" firstAttribute="leading" secondItem="rcp-Fd-uef" secondAttribute="trailing" constant="9" id="AwA-cX-rn1"/>
+                                        <constraint firstItem="NoP-Ta-uoU" firstAttribute="leading" secondItem="rcp-Fd-uef" secondAttribute="leading" id="I4W-7C-d6M"/>
+                                        <constraint firstItem="YUg-1W-Uhu" firstAttribute="top" secondItem="1DY-6b-Y9I" secondAttribute="top" constant="9" id="Mjh-Zf-v0O"/>
+                                        <constraint firstAttribute="trailing" secondItem="NoP-Ta-uoU" secondAttribute="trailing" constant="9" id="Qt6-H3-awx"/>
+                                        <constraint firstItem="rcp-Fd-uef" firstAttribute="leading" secondItem="YUg-1W-Uhu" secondAttribute="trailing" constant="9" id="SEv-2J-nPs"/>
+                                        <constraint firstItem="szn-tL-5Fp" firstAttribute="firstBaseline" secondItem="rcp-Fd-uef" secondAttribute="firstBaseline" id="VE0-kC-Bum"/>
+                                        <constraint firstAttribute="bottom" secondItem="YUg-1W-Uhu" secondAttribute="bottom" constant="9" id="YvX-nD-l5u"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="szn-tL-5Fp" secondAttribute="trailing" constant="20" symbolic="YES" id="bgU-d5-5t7"/>
+                                        <constraint firstItem="rcp-Fd-uef" firstAttribute="baseline" secondItem="szn-tL-5Fp" secondAttribute="baseline" id="eud-IB-e7H"/>
+                                        <constraint firstItem="NoP-Ta-uoU" firstAttribute="bottom" secondItem="YUg-1W-Uhu" secondAttribute="bottom" id="kKj-wX-UES"/>
+                                        <constraint firstItem="YUg-1W-Uhu" firstAttribute="leading" secondItem="1DY-6b-Y9I" secondAttribute="leading" constant="9" id="kbd-WZ-xwa"/>
+                                        <constraint firstItem="NoP-Ta-uoU" firstAttribute="top" secondItem="rcp-Fd-uef" secondAttribute="bottom" constant="4" id="myL-OA-EDk"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
+                                    <outlet property="collectionPointImage" destination="YUg-1W-Uhu" id="b9y-pk-oVE"/>
                                     <outlet property="collectionPointIndexLabel" destination="rcp-Fd-uef" id="1QH-Go-Nkk"/>
                                     <outlet property="collectionPointMemoLabel" destination="NoP-Ta-uoU" id="k0E-M5-9n8"/>
                                     <outlet property="collectionPointNameLabel" destination="szn-tL-5Fp" id="hH1-HJ-6RZ"/>
@@ -925,6 +936,7 @@
         <image name="barButtonItem:d5W-nL-8gr:image" width="128" height="113"/>
         <image name="chevron.compact.right" catalog="system" width="64" height="128"/>
         <image name="doc.on.doc" catalog="system" width="116" height="128"/>
+        <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="imageView:17n-aA-UIf:image" width="128" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
