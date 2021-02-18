@@ -13,6 +13,7 @@ class CollectionPointTableViewCell : UITableViewCell {
     @IBOutlet weak var collectionPointIndexLabel: UILabel!
     @IBOutlet weak var collectionPointNameLabel: UILabel!
     @IBOutlet weak var collectionPointMemoLabel: UILabel!
+    @IBOutlet weak var collectionPointImage: UIImageView!
 }
 
 class CollectionPointMasterViewController: UITableViewController {
@@ -118,6 +119,20 @@ class CollectionPointMasterViewController: UITableViewController {
         cell.collectionPointNameLabel!.text = collectionPoint.name
         cell.collectionPointMemoLabel!.text = collectionPoint.memo
         cell.collectionPointIndexLabel!.text = String(collectionPoint.sequence)
+        
+        if let image = cell.collectionPointImage {
+            if collectionPoint.image != nil {
+                DispatchQueue.global().async { [] in
+                    let url = NSURL(string: collectionPoint.image!)! as URL
+                    if let imageData: NSData = NSData(contentsOf: url) {
+                        DispatchQueue.main.async {
+                            image.image = UIImage(data: imageData as Data)
+                        }
+                    }
+                }
+            }
+        }
+        
         return cell
     }
     
