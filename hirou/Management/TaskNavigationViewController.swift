@@ -360,8 +360,8 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         self.hideCompleted = hideCompleted
         DispatchQueue.main.async {
             self.collectionView.reloadData()
+            self.addPointsTopMap()
         }
-        addPointsTopMap()
     }
     
     @objc
@@ -471,8 +471,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         }
         
         mapView.addAnnotations(annotations)
-        
-        self.handleAutomaticZoom()
+//        self.handleAutomaticZoom()
     }
     
     func handleAutomaticZoom() {
