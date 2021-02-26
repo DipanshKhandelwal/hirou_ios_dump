@@ -312,6 +312,8 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     }
     
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
+        Sound.playInteractionSound()
+        
         if annotation.title == "New Collection Point" {
             return
         }

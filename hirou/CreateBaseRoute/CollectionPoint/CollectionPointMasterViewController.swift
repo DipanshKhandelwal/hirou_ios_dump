@@ -143,6 +143,8 @@ class CollectionPointMasterViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        Sound.playInteractionSound()
+        
         self.notificationCenter.post(name: .CollectionPointsTableSelect, object: self.collectionPoints[indexPath.row])
     }
     

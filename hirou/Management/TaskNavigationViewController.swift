@@ -587,6 +587,8 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     }
     
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
+        Sound.playInteractionSound()
+        
         var currentIndex = 0
         for cp in self.taskCollectionPoints {
             if cp.location.latitude == String(annotation.coordinate.latitude) {
@@ -800,7 +802,6 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
                     }
                 }
             }
-            
         }
         
         return annotationView
