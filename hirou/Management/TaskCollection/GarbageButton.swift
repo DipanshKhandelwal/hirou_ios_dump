@@ -6,7 +6,6 @@
 //  Copyright © 2020 Dipansh Khandelwal. All rights reserved.
 //
 
-import AVFoundation
 import UIKit
 
 class GarbageButton: UIButton {
@@ -40,8 +39,7 @@ class GarbageButton: UIButton {
     }
     
     @objc func buttonClicked(_ sender: UIButton) {
-        let systemSoundID: SystemSoundID = 1104;
-        AudioServicesPlaySystemSound(systemSoundID)
+        Sound.playInteractionSound()
     }
     
     required init?(coder: NSCoder) {

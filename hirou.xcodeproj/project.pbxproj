@@ -63,6 +63,7 @@
 		31F57D1C243A600A00903F38 /* GarbageTypesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F57D1B243A600A00903F38 /* GarbageTypesTableViewController.swift */; };
 		31F57D1E243A618500903F38 /* Garbage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F57D1D243A618500903F38 /* Garbage.swift */; };
 		31FB0DB32463BF3500856B4C /* TaskCollectionPointTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FB0DB22463BF3500856B4C /* TaskCollectionPointTableViewController.swift */; };
+		31FEB53F25E1F7FE00E77B74 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FEB53E25E1F7FE00E77B74 /* Sound.swift */; };
 		58514F6DD549292BFD156FB8 /* Pods_hirou.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE9740D6C8CD4CA3B0744CD /* Pods_hirou.framework */; };
 		CA39CD8325A4C12300FE116A /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39CD8225A4C12200FE116A /* MainMenuViewController.swift */; };
 /* End PBXBuildFile section */
@@ -148,6 +149,7 @@
 		31F57D1B243A600A00903F38 /* GarbageTypesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarbageTypesTableViewController.swift; sourceTree = "<group>"; };
 		31F57D1D243A618500903F38 /* Garbage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Garbage.swift; sourceTree = "<group>"; };
 		31FB0DB22463BF3500856B4C /* TaskCollectionPointTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionPointTableViewController.swift; sourceTree = "<group>"; };
+		31FEB53E25E1F7FE00E77B74 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		9AE9740D6C8CD4CA3B0744CD /* Pods_hirou.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_hirou.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C39C6D95DFF4BD26552FF608 /* Pods-hirou.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hirou.debug.xcconfig"; path = "Target Support Files/Pods-hirou/Pods-hirou.debug.xcconfig"; sourceTree = "<group>"; };
 		CA39CD8225A4C12200FE116A /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
@@ -365,6 +367,7 @@
 			isa = PBXGroup;
 			children = (
 				31F26E49255EA25000D08A6E /* APIHeaders.swift */,
+				31FEB53E25E1F7FE00E77B74 /* Sound.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -602,6 +605,7 @@
 				31EBE46324477F640023305D /* TaskRoute.swift in Sources */,
 				31803C2C24AC735D00B8D1C8 /* ImagePicker.swift in Sources */,
 				31C9AE042481097B00161374 /* DisabledUITextField.swift in Sources */,
+				31FEB53F25E1F7FE00E77B74 /* Sound.swift in Sources */,
 				316D774E24B66DD60074549A /* TaskGarbageAmountTableViewController.swift in Sources */,
 				31CF0A42245A0B8500E0F5DC /* CalendarViewController.swift in Sources */,
 				3133F2022424BD0A001C158C /* RouteMasterViewController.swift in Sources */,

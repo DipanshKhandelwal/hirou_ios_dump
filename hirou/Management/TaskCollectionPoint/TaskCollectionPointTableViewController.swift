@@ -222,6 +222,8 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == self.tableView {
+            Sound.playInteractionSound()
+            
             self.notificationCenter.post(name: .TaskCollectionPointsHListSelect, object: getTaskCollectionPoints()[indexPath.row])
         }
     }
