@@ -10,4 +10,5 @@ import Foundation
 
 struct Environment {
     static let SERVER_URL = "http://18.191.207.99/"
+    static let SERVER_SOCKET_URL = "ws://127.0.0.1:8000/ws/"
 }
