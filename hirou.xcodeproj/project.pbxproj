@@ -22,6 +22,10 @@
 		3133F2022424BD0A001C158C /* RouteMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3133F2012424BD0A001C158C /* RouteMasterViewController.swift */; };
 		3133F2042424BE0F001C158C /* BaseRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3133F2032424BE0F001C158C /* BaseRoute.swift */; };
 		3138F1932421F5CC007C7434 /* CollectionPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3138F1922421F5CC007C7434 /* CollectionPoint.swift */; };
+		313CF8E1262C6921007CA36C /* WebSocketProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313CF8E0262C6921007CA36C /* WebSocketProtocol.swift */; };
+		313CF8E9262C693C007CA36C /* WebSocketConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313CF8E8262C693C007CA36C /* WebSocketConnector.swift */; };
+		313CF8EE262C6ED5007CA36C /* WebSocketConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313CF8ED262C6ED5007CA36C /* WebSocketConstants.swift */; };
+		313CF8F3262C78EB007CA36C /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313CF8F2262C78EB007CA36C /* JSONHelper.swift */; };
 		3153653D243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3153653C243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift */; };
 		31538CF624E44DFC00976EEE /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31538CF524E44DFC00976EEE /* CustomAnnotationView.swift */; };
 		3154873A247B8CDB00A16100 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31548739247B8CDB00A16100 /* PageViewController.swift */; };
@@ -102,6 +106,10 @@
 		3133F2012424BD0A001C158C /* RouteMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMasterViewController.swift; sourceTree = "<group>"; };
 		3133F2032424BE0F001C158C /* BaseRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRoute.swift; sourceTree = "<group>"; };
 		3138F1922421F5CC007C7434 /* CollectionPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPoint.swift; sourceTree = "<group>"; };
+		313CF8E0262C6921007CA36C /* WebSocketProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketProtocol.swift; sourceTree = "<group>"; };
+		313CF8E8262C693C007CA36C /* WebSocketConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketConnector.swift; sourceTree = "<group>"; };
+		313CF8ED262C6ED5007CA36C /* WebSocketConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketConstants.swift; sourceTree = "<group>"; };
+		313CF8F2262C78EB007CA36C /* JSONHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONHelper.swift; sourceTree = "<group>"; };
 		3153653C243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointDraggableAnnotationView.swift; sourceTree = "<group>"; };
 		31538CF524E44DFC00976EEE /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
 		31548739247B8CDB00A16100 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
@@ -201,6 +209,15 @@
 			path = CollectionPoint;
 			sourceTree = "<group>";
 		};
+		313CF8DF262C6908007CA36C /* Sockets */ = {
+			isa = PBXGroup;
+			children = (
+				313CF8E0262C6921007CA36C /* WebSocketProtocol.swift */,
+				313CF8E8262C693C007CA36C /* WebSocketConnector.swift */,
+			);
+			path = Sockets;
+			sourceTree = "<group>";
+		};
 		314A60CF241F7BF3005418EB /* CreateBaseRoute */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +294,7 @@
 		317E230023C6306C00F8F0C1 /* hirou */ = {
 			isa = PBXGroup;
 			children = (
+				313CF8DF262C6908007CA36C /* Sockets */,
 				31F26E48255EA23600D08A6E /* Helpers */,
 				31F26E36255D42CF00D08A6E /* Constants */,
 				3153653B243F8BA0001ED8C4 /* Components */,
@@ -359,6 +377,7 @@
 			children = (
 				31F26E37255D42E900D08A6E /* UserDefaultsConstants.swift */,
 				310C56AB255F097A0012B8B1 /* FirestoreConstants.swift */,
+				313CF8ED262C6ED5007CA36C /* WebSocketConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -368,6 +387,7 @@
 			children = (
 				31F26E49255EA25000D08A6E /* APIHeaders.swift */,
 				31FEB53E25E1F7FE00E77B74 /* Sound.swift */,
+				313CF8F2262C78EB007CA36C /* JSONHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -584,6 +604,7 @@
 				3138F1932421F5CC007C7434 /* CollectionPoint.swift in Sources */,
 				317E230223C6306C00F8F0C1 /* AppDelegate.swift in Sources */,
 				31FB0DB32463BF3500856B4C /* TaskCollectionPointTableViewController.swift in Sources */,
+				313CF8EE262C6ED5007CA36C /* WebSocketConstants.swift in Sources */,
 				317E230423C6306C00F8F0C1 /* SceneDelegate.swift in Sources */,
 				311BA35824B8B08B00CE1BD9 /* TaskAmount.swift in Sources */,
 				31920CA1241CD63600A55403 /* Customer.swift in Sources */,
@@ -614,7 +635,9 @@
 				31B09589248F75FC00D560B0 /* Environment.swift in Sources */,
 				31F26E4A255EA25000D08A6E /* APIHeaders.swift in Sources */,
 				3133F2042424BE0F001C158C /* BaseRoute.swift in Sources */,
+				313CF8E1262C6921007CA36C /* WebSocketProtocol.swift in Sources */,
 				313172682445E5D800585B7F /* TaskTableViewController.swift in Sources */,
+				313CF8E9262C693C007CA36C /* WebSocketConnector.swift in Sources */,
 				312E9A2A242A39980073D165 /* CollectionPointMasterViewController.swift in Sources */,
 				319035112442731A0020E152 /* CollectionPointPointAnnotation.swift in Sources */,
 				31685D3F24A3738600073493 /* TaskCollectionPointsNotifications.swift in Sources */,
@@ -624,6 +647,7 @@
 				312E7AC12462A7AD00A73363 /* TaskCollectionsTableViewController.swift in Sources */,
 				3154873A247B8CDB00A16100 /* PageViewController.swift in Sources */,
 				312E9A2D242A39F10073D165 /* CollectionPointDetailViewController.swift in Sources */,
+				313CF8F3262C78EB007CA36C /* JSONHelper.swift in Sources */,
 				31F57D1C243A600A00903F38 /* GarbageTypesTableViewController.swift in Sources */,
 				315B21B92499147100257D84 /* TaskCollectionPointPagerCell.swift in Sources */,
 			);
