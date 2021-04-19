@@ -25,6 +25,36 @@ class CollectionPointMasterViewController: UITableViewController {
     
     private let notificationCenter = NotificationCenter.default
     
+    let socketConnection = WebSocketConnector(withSocketURL: URL(string: Environment.SERVER_SOCKET_URL + "updates/")!)
+
+    private func setupConnection(){
+        socketConnection.establishConnection()
+        socketConnection.didReceiveMessage = {message in
+            let dict = convertToDictionary(text: message)
+            if let event = dict?[SocketKeys.EVENT] as?String, let sub_event = dict?[SocketKeys.SUB_EVENT] as?String {
+                if event == SocketEventTypes.BASE_ROUTE {
+                    switch sub_event {
+                        case SocketSubEventTypes.REORDER:
+                            // reorder
+                            if let data = dict?[SocketKeys.DATA] as?[String: Any] {
+                                if let updatedBaseRouteId = data["id"] as?Int {
+                                    if Int(updatedBaseRouteId) == Int(self.baseRouteId) {
+                                        DispatchQueue.main.async {
+                                            self.fetchCollectionPoints(notify: true)
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,6 +77,7 @@ class CollectionPointMasterViewController: UITableViewController {
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointsUpdated(_:)), name: .CollectionPointsUpdated, object: nil)
 
+        setupConnection()
     }
     
     deinit {
@@ -203,7 +234,7 @@ class CollectionPointMasterViewController: UITableViewController {
     }
     
     func updateList(){
-        let baseRouteId = UserDefaults.standard.string(forKey: "selectedRoute")!
+        let baseRouteId = self.baseRouteId
         var array = [String]()
         for element in self.collectionPoints { array.append(String(element.id)) }
         let parameters: [String: [String]] = [
