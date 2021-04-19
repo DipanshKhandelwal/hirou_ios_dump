@@ -21,6 +21,8 @@ class CollectionPointMasterViewController: UITableViewController {
     var detailViewController: CollectionPointDetailViewController? = nil
     var collectionPoints = [CollectionPoint]()
     
+    let baseRouteId = UserDefaults.standard.string(forKey: "selectedRoute")!
+    
     private let notificationCenter = NotificationCenter.default
     
     override func viewDidLoad() {
@@ -80,7 +82,7 @@ class CollectionPointMasterViewController: UITableViewController {
     }
     
     func fetchCollectionPoints(notify: Bool = false){
-        let id = UserDefaults.standard.string(forKey: "selectedRoute")!
+        let id = self.baseRouteId
         let url = Environment.SERVER_URL + "api/base_route/"+String(id)+"/"
         let headers = APIHeaders.getHeaders()
         AF.request(url, method: .get, headers: headers).validate().response { response in
