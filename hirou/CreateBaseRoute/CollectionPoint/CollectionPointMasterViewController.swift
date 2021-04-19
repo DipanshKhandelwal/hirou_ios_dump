@@ -121,6 +121,8 @@ class CollectionPointMasterViewController: UITableViewController {
         cell.collectionPointIndexLabel!.text = String(collectionPoint.sequence)
         
         if let image = cell.collectionPointImage {
+            image.image = UIImage(systemName: "house")
+            
             if collectionPoint.image != nil {
                 DispatchQueue.global().async { [] in
                     let url = NSURL(string: collectionPoint.image!)! as URL
