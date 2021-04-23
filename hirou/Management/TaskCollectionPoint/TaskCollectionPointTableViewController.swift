@@ -35,6 +35,9 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     private let notificationCenter = NotificationCenter.default
     
     let taskRouteId = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
+    
+    let socketConnection = WebSocketConnector(withSocketURL: URL(string: Environment.SERVER_SOCKET_URL + "updates/")!)
+    
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.dataSource = self
@@ -47,6 +50,10 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
             garbageSummaryTable.dataSource = self
             garbageSummaryTable.delegate = self
         }
+    }
+    
+    private func setupConnection(){
+        socketConnection.establishConnection()
     }
     
     
@@ -64,6 +71,8 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromMap(_:)), name: .TaskCollectionPointsMapSelect, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(hideCompletedTriggered(_:)), name: .TaskCollectionPointsHideCompleted, object: nil)
+        
+        setupConnection()
     }
     
     deinit {
