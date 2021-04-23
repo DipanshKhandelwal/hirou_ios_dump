@@ -28,4 +28,8 @@ extension Notification.Name {
     static var TaskCollectionPointsHideCompleted: Notification.Name {
         return .init(rawValue: "TaskCollectionPoints.Hide.Completed")
     }
+    
+    static var TaskCollectionPointsUpdate: Notification.Name {
+        return .init(rawValue: "TaskCollectionPoints.Update")
+    }
 }
