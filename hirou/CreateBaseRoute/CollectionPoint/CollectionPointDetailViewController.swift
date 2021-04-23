@@ -135,7 +135,9 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     func collectionPointReorderFromVList(_ notification: Notification) {
         let cps = notification.object as! [CollectionPoint]
         self.collectionPoints = cps
-        self.addPointsTopMap()
+        DispatchQueue.main.async {
+            self.addPointsToMap()
+        }
     }
     
     @objc
