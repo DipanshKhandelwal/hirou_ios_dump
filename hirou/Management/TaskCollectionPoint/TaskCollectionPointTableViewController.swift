@@ -54,6 +54,23 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     
     private func setupConnection(){
         socketConnection.establishConnection()
+        socketConnection.didReceiveMessage = {message in
+            let dict = convertToDictionary(text: message)
+            if let event = dict?[SocketKeys.EVENT] as?String, let _ = dict?[SocketKeys.SUB_EVENT] as?String {
+                if event == SocketEventTypes.TASK_ROUTE {
+                    if let data = dict?[SocketKeys.DATA] as?[String: Any] {
+                        if let updatedtaskRouteId = data["id"] as?Int {
+                            if Int(updatedtaskRouteId) == Int(self.taskRouteId) {
+                                DispatchQueue.main.async {
+                                    self.fetchTaskCollectionPoints()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
     }
     
     
