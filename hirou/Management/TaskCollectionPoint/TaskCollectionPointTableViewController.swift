@@ -148,6 +148,8 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
                 
                 self.garbageSummaryList = self.getGarbageSummaryList(taskCollectionPoints: self.getTaskCollectionPoints())
                 
+                self.notificationCenter.post(name: .TaskCollectionPointsUpdate, object: self.taskCollectionPoints)
+                
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                     self.garbageSummaryTable.reloadData()
