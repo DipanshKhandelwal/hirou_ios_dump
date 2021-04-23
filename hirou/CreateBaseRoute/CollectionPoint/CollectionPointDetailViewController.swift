@@ -172,7 +172,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
                 let route = try! JSONDecoder().decode(BaseRoute.self, from: value!)
                 let newCollectionPoints = route.collectionPoints
                 self.collectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
-                self.addPointsTopMap()
+                self.addPointsToMap()
                 
             case .failure(let error):
                 print(error)
@@ -180,7 +180,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         }
     }
     
-    func addPointsTopMap(autoZoom: Bool = false) {
+    func addPointsToMap(autoZoom: Bool = false) {
         self.mapView.removeAnnotations(self.annotations)
         if self.newAnnotation != nil {
             self.mapView.removeAnnotation(self.newAnnotation)
