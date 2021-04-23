@@ -34,6 +34,7 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     
     private let notificationCenter = NotificationCenter.default
     
+    let taskRouteId = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.dataSource = self
@@ -135,7 +136,7 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     }
     
     func fetchTaskCollectionPoints(){
-        let id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
+        let id = self.taskRouteId
         let url = Environment.SERVER_URL + "api/task_route/"+String(id)+"/"
         let headers = APIHeaders.getHeaders()
         AF.request(url, method: .get, headers: headers).validate().response { response in
