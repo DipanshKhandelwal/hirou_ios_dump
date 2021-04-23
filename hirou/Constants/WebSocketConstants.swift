@@ -21,12 +21,14 @@ struct WebSocketChannels {
 
 struct SocketEventTypes {
     static let BASE_ROUTE = "base-route"
+    static let TASK_ROUTE = "task-route"
     static let COLLECTION_POINT = "collection-point"
     static let TASK_COLLECTION_POINT = "task-collection-point"
 }
 
 struct SocketSubEventTypes {
     static let REORDER = "reorder"
+    static let UPDATE = "update"
 }
 
 struct SocketUpdateTypes {

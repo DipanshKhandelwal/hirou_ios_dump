@@ -286,6 +286,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .TaskCollectionPointsHListUpdate, object: nil)
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .TaskCollectionPointsHListSelect, object: nil)
         notificationCenter.addObserver(self, selector: #selector(hideCompletedTriggered(_:)), name: .TaskCollectionPointsHideCompleted, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(collectionPointUpdate(_:)), name: .TaskCollectionPointsUpdate, object: nil)
         self.getPoints()
     }
     
@@ -404,6 +405,16 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
                     }
                 }
             }
+        }
+    }
+    
+    @objc
+    func collectionPointUpdate(_ notification: Notification) {
+        let tcPoints = notification.object as! [TaskCollectionPoint]
+        self.taskCollectionPoints = tcPoints
+        DispatchQueue.main.async {
+            self.addPointsTopMap()
+            self.collectionView.reloadData()
         }
     }
     
