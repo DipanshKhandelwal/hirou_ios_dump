@@ -105,6 +105,17 @@ class CollectionPointMasterViewController: UITableViewController {
         super.viewWillAppear(animated)
     }
     
+    func updateFromBaseRoute(route: BaseRoute, notify: Bool = false) {
+        let newCollectionPoints = route.collectionPoints
+        self.collectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
+        if notify {
+            self.notificationCenter.post(name: .CollectionPointsTableReorder, object: self.collectionPoints)
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
     func fetchCollectionPoints(notify: Bool = false){
         let id = self.baseRouteId
         let url = Environment.SERVER_URL + "api/base_route/"+String(id)+"/"
@@ -113,14 +124,7 @@ class CollectionPointMasterViewController: UITableViewController {
             switch response.result {
             case .success(let value):
                 let route = try! JSONDecoder().decode(BaseRoute.self, from: value!)
-                let newCollectionPoints = route.collectionPoints
-                self.collectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
-                if notify {
-                    self.notificationCenter.post(name: .CollectionPointsTableReorder, object: self.collectionPoints)
-                }
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+                self.updateFromBaseRoute(route: route, notify: notify)
             case .failure(let error):
                 print(error)
             }
