@@ -319,14 +319,17 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         if annotation.title == "New Collection Point" {
             return
         }
-        var currentIndex = 0
-        for cp in self.collectionPoints {
-            if cp.location.latitude == String(annotation.coordinate.latitude) {
-                self.selectedCollectionPoint = self.collectionPoints[currentIndex];
-                self.notificationCenter.post(name: .CollectionPointsMapSelect, object: self.collectionPoints[currentIndex])
-                break
+        
+        if(annotation is CollectionPointPointAnnotation) {
+            let ann = annotation as! CollectionPointPointAnnotation
+            let annCpId = ann.collectionPoint.id
+            for (index, cp) in self.collectionPoints.enumerated() {
+                if annCpId == cp.id {
+                    self.selectedCollectionPoint = self.collectionPoints[index];
+                    self.notificationCenter.post(name: .CollectionPointsMapSelect, object: self.collectionPoints[index])
+                    break
+                }
             }
-            currentIndex += 1
         }
     }
     
@@ -344,20 +347,21 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
             addPoint.addTarget(self, action: #selector(addPointSegue(sender:)), for: .touchDown)
             return addPoint
         } else {
-            var currentIndex = 0
-            for cp in self.collectionPoints {
-                if cp.location.latitude == String(annotation.coordinate.latitude) {
-                    self.selectedCollectionPoint = self.collectionPoints[currentIndex];
-                    print("selected", self.collectionPoints[currentIndex].name)
-                    break
+            if(annotation is CollectionPointPointAnnotation) {
+                let ann = annotation as! CollectionPointPointAnnotation
+                let annCpId = ann.collectionPoint.id
+                for (currentIndex, cp) in self.collectionPoints.enumerated() {
+                    if annCpId == cp.id {
+                        self.selectedCollectionPoint = self.collectionPoints[currentIndex];
+                        break
+                    }
                 }
-                currentIndex += 1
+                let editPoint = UIButton(type: .detailDisclosure)
+                editPoint.addTarget(self, action: #selector(editPointSegue(sender:)), for: .touchDown)
+                return editPoint
             }
-            
-            let editPoint = UIButton(type: .detailDisclosure)
-            editPoint.addTarget(self, action: #selector(editPointSegue(sender:)), for: .touchDown)
-            return editPoint
         }
+        return nil
     }
     
     @objc func addPointSegue(sender: UIButton) {
