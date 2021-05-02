@@ -32,6 +32,7 @@ struct SocketSubEventTypes {
     static let UPDATE = "update"
     static let CREATE = "create"
     static let DELETE = "delete"
+    static let BULK_COMPLETE = "bulk-complete"
 }
 
 struct SocketUpdateTypes {
