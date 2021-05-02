@@ -31,20 +31,26 @@ class CollectionPointMasterViewController: UITableViewController {
         socketConnection.establishConnection()
         socketConnection.didReceiveMessage = {message in
             let dict = convertToDictionary(text: message)
-            if let event = dict?[SocketKeys.EVENT] as?String, let _ = dict?[SocketKeys.SUB_EVENT] as?String {
+            if let event = dict?[SocketKeys.EVENT] as?String, let sub_event = dict?[SocketKeys.SUB_EVENT] as?String {
                 if event == SocketEventTypes.BASE_ROUTE {
-                    if let data = dict?[SocketKeys.DATA] as?[String: Any] {
-                        if let updatedBaseRouteId = data["id"] as?Int {
-                            if Int(updatedBaseRouteId) == Int(self.baseRouteId) {
-                                DispatchQueue.main.async {
-                                    self.fetchCollectionPoints(notify: true)
-                                }
+                    switch sub_event {
+                        case SocketSubEventTypes.REORDER: do {
+                            let baseRouteData = jsonToNSData(json: dict?[SocketKeys.DATA] as Any)
+                            let route = try! JSONDecoder().decode(BaseRoute.self, from: baseRouteData!)
+                            if route.id == Int(self.baseRouteId) {
+                                self.updateFromBaseRoute(route: route, notify: true)
                             }
+                            break;
                         }
-                    }
+
+                            default:
+                                break;
+                        }
+                }
                 }
             }
             
+            }
         }
     }
     
