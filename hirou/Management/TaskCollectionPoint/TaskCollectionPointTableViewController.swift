@@ -80,14 +80,14 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
                         let taskCPData = jsonToNSData(json: dict?[SocketKeys.DATA] as Any)
                         self.updateTaskCollectionPointFromEventData(taskCPData: taskCPData!)
                     }
-                                    self.fetchTaskCollectionPoints()
-                                }
-                            }
-                        }
+                }
+                else if event == SocketEventTypes.TASK_COLLECTION {
+                    if sub_event == SocketSubEventTypes.UPDATE {
+                        let taskCPData = jsonToNSData(json: dict?[SocketKeys.DATA] as Any)
+                        self.updateTaskCollectionPointFromEventData(taskCPData: taskCPData!)
                     }
                 }
             }
-            
         }
     }
     
