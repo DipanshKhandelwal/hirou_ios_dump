@@ -244,12 +244,8 @@ class CollectionPointMasterViewController: UITableViewController {
                 response in
                 switch response.result {
                 case .success(let value):
-                    let newCollectionPoints = try! JSONDecoder().decode([CollectionPoint].self, from: value!)
-                    self.collectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
-                    self.notificationCenter.post(name: .CollectionPointsTableReorder, object: self.collectionPoints)
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
+                    let baseRoute = try! JSONDecoder().decode(BaseRoute.self, from: value!)
+                    self.updateFromBaseRoute(route: baseRoute, notify: true)
                     
                 case .failure(let error):
                     print(error)
