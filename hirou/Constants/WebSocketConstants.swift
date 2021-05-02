@@ -29,6 +29,8 @@ struct SocketEventTypes {
 struct SocketSubEventTypes {
     static let REORDER = "reorder"
     static let UPDATE = "update"
+    static let CREATE = "create"
+    static let DELETE = "delete"
 }
 
 struct SocketUpdateTypes {
