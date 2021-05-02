@@ -319,14 +319,17 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         if annotation.title == "New Collection Point" {
             return
         }
-        var currentIndex = 0
-        for cp in self.collectionPoints {
-            if cp.location.latitude == String(annotation.coordinate.latitude) {
-                self.selectedCollectionPoint = self.collectionPoints[currentIndex];
-                self.notificationCenter.post(name: .CollectionPointsMapSelect, object: self.collectionPoints[currentIndex])
-                break
+        
+        if(annotation is CollectionPointPointAnnotation) {
+            let ann = annotation as! CollectionPointPointAnnotation
+            let annCpId = ann.collectionPoint.id
+            for (index, cp) in self.collectionPoints.enumerated() {
+                if annCpId == cp.id {
+                    self.selectedCollectionPoint = self.collectionPoints[index];
+                    self.notificationCenter.post(name: .CollectionPointsMapSelect, object: self.collectionPoints[index])
+                    break
+                }
             }
-            currentIndex += 1
         }
     }
     
