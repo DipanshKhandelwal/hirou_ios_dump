@@ -52,16 +52,34 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         }
     }
     
+    func updateTaskCollectionPointFromEventData(taskCPData: Data) {
+        let taskCP = try! JSONDecoder().decode(TaskCollectionPoint.self, from: taskCPData)
+        if taskCP.taskRoute == Int(self.taskRouteId) {
+            for (idx, tcp) in self.taskCollectionPoints.enumerated() {
+                if tcp.id == taskCP.id {
+                    self.taskCollectionPoints[idx] = taskCP
+                    self.garbageSummaryList = self.getGarbageSummaryList(taskCollectionPoints: self.getTaskCollectionPoints())
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                        self.garbageSummaryTable.reloadData()
+                    }
+                    self.notificationCenter.post(name: .TaskCollectionPointsVListUpdate, object: taskCP.taskCollections)
+                }
+            }
+        }
+    }
+    
     private func setupConnection(){
         socketConnection.establishConnection()
         socketConnection.didReceiveMessage = {message in
             let dict = convertToDictionary(text: message)
-            if let event = dict?[SocketKeys.EVENT] as?String, let _ = dict?[SocketKeys.SUB_EVENT] as?String {
-                if event == SocketEventTypes.TASK_ROUTE {
-                    if let data = dict?[SocketKeys.DATA] as?[String: Any] {
-                        if let updatedtaskRouteId = data["id"] as?Int {
-                            if Int(updatedtaskRouteId) == Int(self.taskRouteId) {
-                                DispatchQueue.main.async {
+            if let event = dict?[SocketKeys.EVENT] as?String, let sub_event = dict?[SocketKeys.SUB_EVENT] as?String {
+                if event == SocketEventTypes.TASK_COLLECTION_POINT {
+                    if sub_event == SocketSubEventTypes.BULK_COMPLETE {
+                        let taskCPData = jsonToNSData(json: dict?[SocketKeys.DATA] as Any)
+                        self.updateTaskCollectionPointFromEventData(taskCPData: taskCPData!)
+                    }
                                     self.fetchTaskCollectionPoints()
                                 }
                             }
