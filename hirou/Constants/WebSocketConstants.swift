@@ -24,6 +24,7 @@ struct SocketEventTypes {
     static let TASK_ROUTE = "task-route"
     static let COLLECTION_POINT = "collection-point"
     static let TASK_COLLECTION_POINT = "task-collection-point"
+    static let TASK_COLLECTION = "task-collection"
 }
 
 struct SocketSubEventTypes {
