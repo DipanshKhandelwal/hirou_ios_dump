@@ -18,3 +18,12 @@ func convertToDictionary(text: String) -> [String: Any]? {
     }
     return nil
 }
+
+func jsonToNSData(json: Any) -> Data?{
+    do {
+        return try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+    } catch let myJSONError {
+        print(myJSONError)
+    }
+    return nil;
+}
