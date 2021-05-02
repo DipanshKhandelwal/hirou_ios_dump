@@ -47,9 +47,22 @@ class CollectionPointMasterViewController: UITableViewController {
                                 break;
                         }
                 }
+                
+                else if event == SocketEventTypes.COLLECTION_POINT {
+                    switch sub_event {
+                        case SocketSubEventTypes.CREATE, SocketSubEventTypes.UPDATE, SocketSubEventTypes.DELETE: do {
+                            let baseRouteData = jsonToNSData(json: dict?[SocketKeys.DATA] as Any)
+                            let route = try! JSONDecoder().decode(BaseRoute.self, from: baseRouteData!)
+                            if route.id == Int(self.baseRouteId) {
+                                self.updateFromBaseRoute(route: route, notify: true)
+                            }
+                            break;
+                        }
+                        
+                        default:
+                            break;
+                    }
                 }
-            }
-            
             }
         }
     }
