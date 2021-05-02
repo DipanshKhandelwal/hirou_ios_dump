@@ -179,6 +179,20 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         fetchTaskCollectionPoints()
     }
     
+    func updateDataFromTaskRoute(taskRoute: TaskRoute) {
+        let newCollectionPoints = taskRoute.taskCollectionPoints
+        self.taskCollectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
+        
+        self.garbageSummaryList = self.getGarbageSummaryList(taskCollectionPoints: self.getTaskCollectionPoints())
+        
+        self.notificationCenter.post(name: .TaskCollectionPointsUpdate, object: self.taskCollectionPoints)
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.garbageSummaryTable.reloadData()
+        }
+    }
+    
     func fetchTaskCollectionPoints(){
         let id = self.taskRouteId
         let url = Environment.SERVER_URL + "api/task_route/"+String(id)+"/"
@@ -187,17 +201,7 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
             switch response.result {
             case .success(let value):
                 let route = try! JSONDecoder().decode(TaskRoute.self, from: value!)
-                let newCollectionPoints = route.taskCollectionPoints
-                self.taskCollectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
-                
-                self.garbageSummaryList = self.getGarbageSummaryList(taskCollectionPoints: self.getTaskCollectionPoints())
-                
-                self.notificationCenter.post(name: .TaskCollectionPointsUpdate, object: self.taskCollectionPoints)
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    self.garbageSummaryTable.reloadData()
-                }
+                self.updateDataFromTaskRoute(taskRoute: route)
             case .failure(let error):
                 print(error)
             }
@@ -252,7 +256,7 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
                 
                 let toggleAllTasksButton = GarbageButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
                 toggleAllTasksButton.tag = indexPath.row;
-                toggleAllTasksButton.addTarget(self, action: #selector(TaskNavigationViewController.toggleAllTasks(sender:)), for: .touchDown)
+                toggleAllTasksButton.addTarget(self, action: #selector(TaskCollectionPointTableViewController.toggleAllTasks(sender:)), for: .touchDown)
                 toggleAllTasksButton.layer.backgroundColor = tcp.getCompleteStatus() ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
                 tcpCell.garbageStack.addArrangedSubview(toggleAllTasksButton)
                 
