@@ -46,7 +46,6 @@ class ReportAdminTableViewController: UITableViewController {
             case .success(let value):
                 let decoder = JSONDecoder()
                 self.taskReports = try! decoder.decode([TaskReport].self, from: value!)
-                print(self.taskReports.count)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }

@@ -49,7 +49,6 @@ class TaskGarbageAmountTableViewController: UITableViewController {
             case .success(let value):
                 let decoder = JSONDecoder()
                 self.taskAmounts = try! decoder.decode([TaskAmount].self, from: value!)
-                print(self.taskAmounts.count)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
