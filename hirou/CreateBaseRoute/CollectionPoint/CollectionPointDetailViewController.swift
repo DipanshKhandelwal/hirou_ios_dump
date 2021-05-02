@@ -137,6 +137,13 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         self.collectionPoints = cps
         DispatchQueue.main.async {
             self.addPointsToMap()
+            if((self.selectedCollectionPoint) != nil) {
+                for (idx, cp) in self.collectionPoints.enumerated() {
+                    if self.selectedCollectionPoint.id == cp.id {
+                        self.focusPoint(index: idx)
+                    }
+                }
+            }
         }
     }
     
@@ -166,7 +173,6 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         let url = Environment.SERVER_URL + "api/base_route/"+String(id)+"/"
         let headers = APIHeaders.getHeaders()
         AF.request(url, method: .get, headers: headers).validate().response { response in
-            //to get status code
             switch response.result {
             case .success(let value):
                 let route = try! JSONDecoder().decode(BaseRoute.self, from: value!)
