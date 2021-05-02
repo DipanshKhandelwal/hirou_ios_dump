@@ -34,6 +34,10 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     
     private let notificationCenter = NotificationCenter.default
     
+    let taskRouteId = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
+    
+    let socketConnection = WebSocketConnector(withSocketURL: URL(string: Environment.SERVER_SOCKET_URL + "updates/")!)
+    
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.dataSource = self
@@ -45,6 +49,27 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         didSet {
             garbageSummaryTable.dataSource = self
             garbageSummaryTable.delegate = self
+        }
+    }
+    
+    private func setupConnection(){
+        socketConnection.establishConnection()
+        socketConnection.didReceiveMessage = {message in
+            let dict = convertToDictionary(text: message)
+            if let event = dict?[SocketKeys.EVENT] as?String, let _ = dict?[SocketKeys.SUB_EVENT] as?String {
+                if event == SocketEventTypes.TASK_ROUTE {
+                    if let data = dict?[SocketKeys.DATA] as?[String: Any] {
+                        if let updatedtaskRouteId = data["id"] as?Int {
+                            if Int(updatedtaskRouteId) == Int(self.taskRouteId) {
+                                DispatchQueue.main.async {
+                                    self.fetchTaskCollectionPoints()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
         }
     }
     
@@ -63,6 +88,8 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromMap(_:)), name: .TaskCollectionPointsMapSelect, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(hideCompletedTriggered(_:)), name: .TaskCollectionPointsHideCompleted, object: nil)
+        
+        setupConnection()
     }
     
     deinit {
@@ -135,7 +162,7 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     }
     
     func fetchTaskCollectionPoints(){
-        let id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
+        let id = self.taskRouteId
         let url = Environment.SERVER_URL + "api/task_route/"+String(id)+"/"
         let headers = APIHeaders.getHeaders()
         AF.request(url, method: .get, headers: headers).validate().response { response in
@@ -146,6 +173,8 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
                 self.taskCollectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
                 
                 self.garbageSummaryList = self.getGarbageSummaryList(taskCollectionPoints: self.getTaskCollectionPoints())
+                
+                self.notificationCenter.post(name: .TaskCollectionPointsUpdate, object: self.taskCollectionPoints)
                 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
