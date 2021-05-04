@@ -165,6 +165,10 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             let route = self.baseRoutes[row]
             self.selectedBaseRoute = route
             self.routeLabel.text = route.name
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd MMM"
+            let dateMonthText = dateFormatter.string(from: self.date)
+            self.taskName?.text = dateMonthText + " : " + route.name
         }
     }
     
