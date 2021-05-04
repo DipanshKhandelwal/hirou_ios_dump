@@ -14,6 +14,7 @@ class TaskTableViewCell: UITableViewCell {
     @IBOutlet weak var routeCustomer: UILabel!
     @IBOutlet weak var routeGarbageList: UILabel!
     @IBOutlet weak var routeStatus: UILabel!
+    @IBOutlet weak var baseRouteName: UILabel!
 }
 
 class TaskTableViewController: UITableViewController {
@@ -73,6 +74,7 @@ class TaskTableViewController: UITableViewController {
         let taskRoute = self.taskRoutes[indexPath.row]
         cell.routeName?.text = taskRoute.name
         cell.routeCustomer?.text = taskRoute.customer?.name ?? "n/a"
+        cell.baseRouteName?.text = taskRoute.baseRouteName
 
         cell.routeGarbageList?.text = taskRoute.getGarbagesNameList()
         
