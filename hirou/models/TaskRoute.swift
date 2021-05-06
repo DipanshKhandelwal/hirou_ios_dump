@@ -17,8 +17,9 @@ class TaskRoute: Encodable, Decodable {
     var garbageList: [Garbage]
     var taskCollectionPoints: [TaskCollectionPoint]
     var timestamp: String = ""
+    var baseRouteName: String = ""
     
-    init?(id: Int, name : String, customer: Customer?, garbageList: [Garbage], date: Date, taskCollectionPoints: [TaskCollectionPoint], timestamp: String) {
+    init?(id: Int, name : String, customer: Customer?, garbageList: [Garbage], date: Date, taskCollectionPoints: [TaskCollectionPoint], timestamp: String, baseRouteName: String) {
         // Initialize stored properties.
         self.id = id
         self.name = name
@@ -27,6 +28,7 @@ class TaskRoute: Encodable, Decodable {
         self.date = date
         self.taskCollectionPoints = taskCollectionPoints
         self.timestamp = timestamp
+        self.baseRouteName = baseRouteName
     }
     
     enum CodingKeys : String, CodingKey {
@@ -36,6 +38,7 @@ class TaskRoute: Encodable, Decodable {
         case date
         case garbageList = "garbage"
         case taskCollectionPoints = "task_collection_point"
+        case baseRouteName = "base_route_name"
         case timestamp
     }
     
@@ -43,6 +46,7 @@ class TaskRoute: Encodable, Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
+        baseRouteName = try container.decode(String.self, forKey: .baseRouteName)
         customer = try container.decodeIfPresent(Customer.self, forKey: .customer)
         garbageList = try container.decode([Garbage].self, forKey: .garbageList)
         taskCollectionPoints = try container.decode([TaskCollectionPoint].self, forKey: .taskCollectionPoints)

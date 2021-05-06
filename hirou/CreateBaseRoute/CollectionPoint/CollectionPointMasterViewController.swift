@@ -31,20 +31,39 @@ class CollectionPointMasterViewController: UITableViewController {
         socketConnection.establishConnection()
         socketConnection.didReceiveMessage = {message in
             let dict = convertToDictionary(text: message)
-            if let event = dict?[SocketKeys.EVENT] as?String, let _ = dict?[SocketKeys.SUB_EVENT] as?String {
+            if let event = dict?[SocketKeys.EVENT] as?String, let sub_event = dict?[SocketKeys.SUB_EVENT] as?String {
                 if event == SocketEventTypes.BASE_ROUTE {
-                    if let data = dict?[SocketKeys.DATA] as?[String: Any] {
-                        if let updatedBaseRouteId = data["id"] as?Int {
-                            if Int(updatedBaseRouteId) == Int(self.baseRouteId) {
-                                DispatchQueue.main.async {
-                                    self.fetchCollectionPoints(notify: true)
-                                }
+                    switch sub_event {
+                        case SocketSubEventTypes.REORDER: do {
+                            let baseRouteData = jsonToNSData(json: dict?[SocketKeys.DATA] as Any)
+                            let route = try! JSONDecoder().decode(BaseRoute.self, from: baseRouteData!)
+                            if route.id == Int(self.baseRouteId) {
+                                self.updateFromBaseRoute(route: route, notify: true)
                             }
+                            break;
                         }
+
+                            default:
+                                break;
+                        }
+                }
+                
+                else if event == SocketEventTypes.COLLECTION_POINT {
+                    switch sub_event {
+                        case SocketSubEventTypes.CREATE, SocketSubEventTypes.UPDATE, SocketSubEventTypes.DELETE: do {
+                            let baseRouteData = jsonToNSData(json: dict?[SocketKeys.DATA] as Any)
+                            let route = try! JSONDecoder().decode(BaseRoute.self, from: baseRouteData!)
+                            if route.id == Int(self.baseRouteId) {
+                                self.updateFromBaseRoute(route: route, notify: true)
+                            }
+                            break;
+                        }
+                        
+                        default:
+                            break;
                     }
                 }
             }
-            
         }
     }
     
@@ -105,6 +124,17 @@ class CollectionPointMasterViewController: UITableViewController {
         super.viewWillAppear(animated)
     }
     
+    func updateFromBaseRoute(route: BaseRoute, notify: Bool = false) {
+        let newCollectionPoints = route.collectionPoints
+        self.collectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
+        if notify {
+            self.notificationCenter.post(name: .CollectionPointsTableReorder, object: self.collectionPoints)
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
     func fetchCollectionPoints(notify: Bool = false){
         let id = self.baseRouteId
         let url = Environment.SERVER_URL + "api/base_route/"+String(id)+"/"
@@ -113,14 +143,7 @@ class CollectionPointMasterViewController: UITableViewController {
             switch response.result {
             case .success(let value):
                 let route = try! JSONDecoder().decode(BaseRoute.self, from: value!)
-                let newCollectionPoints = route.collectionPoints
-                self.collectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
-                if notify {
-                    self.notificationCenter.post(name: .CollectionPointsTableReorder, object: self.collectionPoints)
-                }
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+                self.updateFromBaseRoute(route: route, notify: notify)
             case .failure(let error):
                 print(error)
             }
@@ -176,18 +199,6 @@ class CollectionPointMasterViewController: UITableViewController {
         self.notificationCenter.post(name: .CollectionPointsTableSelect, object: self.collectionPoints[indexPath.row])
     }
     
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
     
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
@@ -240,12 +251,8 @@ class CollectionPointMasterViewController: UITableViewController {
                 response in
                 switch response.result {
                 case .success(let value):
-                    let newCollectionPoints = try! JSONDecoder().decode([CollectionPoint].self, from: value!)
-                    self.collectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
-                    self.notificationCenter.post(name: .CollectionPointsTableReorder, object: self.collectionPoints)
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
+                    let baseRoute = try! JSONDecoder().decode(BaseRoute.self, from: value!)
+                    self.updateFromBaseRoute(route: baseRoute, notify: true)
                     
                 case .failure(let error):
                     print(error)

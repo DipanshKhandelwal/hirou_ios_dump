@@ -15,13 +15,13 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var dateLabel: UILabel!
     
     var baseRoutes = [BaseRoute]()
-    var customerPicker = UIPickerView()
+    var baseRoutePicker = UIPickerView()
     var selectedBaseRoute: BaseRoute?
     var date = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCustomerPicker()
+        setupBaseRoutePicker()
         configureView()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
@@ -40,7 +40,6 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             if let detail = detailItem {
                 let date = detail as! Date
                 self.date = date
-                print("date", date)
                 configureView()
             }
         }
@@ -50,7 +49,6 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         if let label = self.dateLabel {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd MMM yyyy"
-            print("date", dateFormatter.string(from: self.date))
             label.text = dateFormatter.string(from: self.date)
         }
     }
@@ -62,9 +60,7 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBAction func addNewTask(_ sender: Any) {
         if selectedBaseRoute == nil {
             let addAlert = UIAlertController(title: "Please select a base route !!", message: "", preferredStyle: .alert)
-            
             addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
-            
             self.present(addAlert, animated: true, completion: nil)
             return
         } else {
@@ -74,10 +70,8 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     func addNewTask () {
         let routeId = selectedBaseRoute?.id
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd"
-        
         let parameters: [String: String] = [
             "name": String(self.taskName.text!),
             "id": String(routeId!),
@@ -90,8 +84,7 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             .responseJSON {
                 response in
                 switch response.result {
-                case .success(let value):
-                    print("value", value)
+                case .success(_):
                     _ = self.navigationController?.popViewController(animated: true)
 
                 case .failure(let error):
@@ -111,7 +104,7 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                     let baseRoutesList = try! decoder.decode([BaseRoute].self, from: value!)
                     self.baseRoutes = baseRoutesList.sorted() { $0.name < $1.name }
                     DispatchQueue.main.async {
-                        self.customerPicker.reloadAllComponents()
+                        self.baseRoutePicker.reloadAllComponents()
                     }
                 case .failure(let error):
                     print(error)
@@ -122,12 +115,11 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     
     // picker
-    
-    func setupCustomerPicker() {
-        customerPicker.backgroundColor = UIColor.white
+    func setupBaseRoutePicker() {
+        baseRoutePicker.backgroundColor = UIColor.white
         
-        customerPicker.delegate = self
-        customerPicker.dataSource = self
+        baseRoutePicker.delegate = self
+        baseRoutePicker.dataSource = self
         
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
@@ -139,7 +131,7 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         toolBar.setItems([flexibleSpace, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         
-        routeLabel.inputView = customerPicker
+        routeLabel.inputView = baseRoutePicker
         routeLabel.inputAccessoryView = toolBar
     }
     
@@ -164,7 +156,12 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         if row < self.baseRoutes.count {
             let route = self.baseRoutes[row]
             self.selectedBaseRoute = route
-            self.routeLabel.text = route.name
+            self.routeLabel?.text = route.name
+
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd MMM"
+            let dateMonthText = dateFormatter.string(from: self.date)
+            self.taskName?.text = dateMonthText + " : " + route.name
         }
     }
     
