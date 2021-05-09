@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BGN-LU-jTo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BGN-LU-jTo">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -60,6 +60,7 @@
                             <constraint firstItem="aTc-nh-f1E" firstAttribute="centerX" secondItem="J04-fA-cPN" secondAttribute="centerX" id="zBp-fh-AzV"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="oET-g8-mx4"/>
                     <connections>
                         <outlet property="password" destination="aTc-nh-f1E" id="sbI-ou-R4k"/>
                         <outlet property="username" destination="TPh-j1-K2C" id="fIE-N9-7Eu"/>
@@ -229,9 +230,16 @@
                             <constraint firstItem="Uy2-x3-dFN" firstAttribute="top" secondItem="iSE-nD-VKS" secondAttribute="top" constant="80" id="qf0-O8-ysA"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="WmL-CK-WwI"/>
+                    <navigationItem key="navigationItem" id="WmL-CK-WwI">
+                        <barButtonItem key="rightBarButtonItem" title="Logout" style="plain" id="zxq-xn-zWT">
+                            <connections>
+                                <action selector="logoutPressed:" destination="mGe-w2-RF3" id="reA-Ot-Qkm"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="versionLabel" destination="70a-ex-NRO" id="n3D-Pm-Ewi"/>
+                        <segue destination="BGN-LU-jTo" kind="showDetail" identifier="logoutSegue" id="2G9-eN-wE7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CGU-zd-IAI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
