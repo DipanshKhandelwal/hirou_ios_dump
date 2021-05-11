@@ -20,8 +20,4 @@ extension Notification.Name {
     static var CollectionPointsMapSelect: Notification.Name {
         return .init(rawValue: "CollectionPoints.Select.Map")
     }
-    
-    static var CollectionPointsUpdated: Notification.Name {
-        return .init(rawValue: "CollectionPoints.Updated")
-    }
 }
