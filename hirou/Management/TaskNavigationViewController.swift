@@ -216,7 +216,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     
     var selectedTaskCollectionPoint: TaskCollectionPoint!
     var taskCollectionPoints = [TaskCollectionPoint]()
-    var annotations = [MGLPointAnnotation]()
+    var annotations = [TaskCollectionPointPointAnnotation]()
     var route:TaskRoute?
     var hideCompleted: Bool = false
     
@@ -387,11 +387,11 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         let tcs = notification.object as! [TaskCollection]
         for tc in tcs {
             for tcp in getTaskCollectionPoints() {
-                for num in 0...tcp.taskCollections.count-1 {
+                for (num, _) in tcp.taskCollections.enumerated() {
                     if tcp.taskCollections[num].id == tc.id {
                         tcp.taskCollections[num] = tc
                         for x in annotations {
-                            if String(x.coordinate.latitude) == String(tcp.location.latitude) {
+                            if x.taskCollectionPoint.id == tcp.id {
                                 DispatchQueue.main.async {
                                     self.mapView.removeAnnotation(x)
                                     self.mapView.addAnnotation(x)
@@ -469,7 +469,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         self.annotations = []
         
         for cp in getTaskCollectionPoints() {
-            let annotation = MGLPointAnnotation()
+            let annotation = TaskCollectionPointPointAnnotation(taskCollectionPoint: cp)
             let lat = Double(cp.location.latitude)!
             let long = Double(cp.location.longitude)!
             annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
@@ -600,29 +600,35 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
         Sound.playInteractionSound()
         
-        var currentIndex = 0
-        for cp in self.taskCollectionPoints {
-            if cp.location.latitude == String(annotation.coordinate.latitude) {
-                self.selectedTaskCollectionPoint = self.taskCollectionPoints[currentIndex];
-                collectionView.selectItem(at: currentIndex, animated: true)
-                self.notificationCenter.post(name: .TaskCollectionPointsMapSelect, object: self.taskCollectionPoints[currentIndex])
-                break
+        if annotation is TaskCollectionPointPointAnnotation {
+            let ann = annotation as! TaskCollectionPointPointAnnotation
+            let annTcpId = ann.taskCollectionPoint.id
+
+            for (index, cp) in self.taskCollectionPoints.enumerated() {
+                if cp.id == annTcpId {
+                    self.selectedTaskCollectionPoint = self.taskCollectionPoints[index];
+                    collectionView.selectItem(at: index, animated: true)
+                    self.notificationCenter.post(name: .TaskCollectionPointsMapSelect, object: self.taskCollectionPoints[index])
+                    break
+                }
             }
-            currentIndex += 1
         }
+
 //        let origin = (mapView.userLocation?.coordinate)!
 //        let coordinate = annotation.coordinate
 //        calculateRoute(from: origin, to: coordinate)
     }
     
     func mapView(_ mapView: MGLMapView, didDeselect annotation: MGLAnnotation) {
-        var currentIndex = 0
-        for cp in self.taskCollectionPoints {
-            if cp.location.latitude == String(annotation.coordinate.latitude) {
-                self.selectedTaskCollectionPoint = self.taskCollectionPoints[currentIndex];
-                break
+        if(annotation is TaskCollectionPointPointAnnotation) {
+            let ann = annotation as! TaskCollectionPointPointAnnotation
+            let annCpId = ann.taskCollectionPoint.id
+            for (index, cp) in self.taskCollectionPoints.enumerated() {
+                if cp.id == annCpId {
+                    self.selectedTaskCollectionPoint = self.taskCollectionPoints[index];
+                    break
+                }
             }
-            currentIndex += 1
         }
     }
     
@@ -765,28 +771,35 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     }
     
     func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
-        let image = UIImage(systemName: "location")
-        let button   = UIButton(type: UIButton.ButtonType.custom)
-        button.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
-        button.setBackgroundImage(image, for: .normal)
-        button.addTarget(self, action: #selector(navigateToPoint(sender:)), for: .touchDown)
-        
-        var currentIndex = 0
-        for cp in self.taskCollectionPoints {
-            if cp.location.latitude == String(annotation.coordinate.latitude) {
-                self.selectedTaskCollectionPoint = self.taskCollectionPoints[currentIndex];
-                button.tag = currentIndex
-                break
+        if(annotation is TaskCollectionPointPointAnnotation) {
+            let image = UIImage(systemName: "location")
+            let button   = UIButton(type: UIButton.ButtonType.custom)
+            button.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+            button.setBackgroundImage(image, for: .normal)
+            button.addTarget(self, action: #selector(navigateToPoint(sender:)), for: .touchDown)
+
+            let ann = annotation as! TaskCollectionPointPointAnnotation
+            let annCpId = ann.taskCollectionPoint.id
+            for (currentIndex, cp) in self.taskCollectionPoints.enumerated() {
+                if annCpId == cp.id {
+                    self.selectedTaskCollectionPoint = self.taskCollectionPoints[currentIndex];
+                    button.tag = currentIndex
+                    break
+                }
             }
-            currentIndex += 1
+            return button
         }
-        return button
+        
+        return nil
     }
     
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-        guard annotation is MGLPointAnnotation else {
+        guard annotation is TaskCollectionPointPointAnnotation else {
             return nil
         }
+        
+        let ann = annotation as! TaskCollectionPointPointAnnotation
+        let annTcpId = ann.taskCollectionPoint.id
         
         // Use the point annotation’s longitude value (as a string) as the reuse identifier for its view.
         let reuseIdentifier = "\(annotation.coordinate.longitude)"
@@ -798,18 +811,12 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         if annotationView == nil {
             annotationView = CustomAnnotationView(reuseIdentifier: reuseIdentifier)
             annotationView!.bounds = CGRect(x: 0, y: 0, width: 20, height: 20)
-            
-            // Set the annotation view’s background color to a value determined by its longitude.
-//            let hue = CGFloat(annotation.coordinate.longitude) / 100
-//            annotationView!.backgroundColor = UIColor(hue: hue, saturation: 0.5, brightness: 1, alpha: 1)
             annotationView!.backgroundColor = UIColor.red
             
-            for i in self.taskCollectionPoints {
-                if String(i.location.latitude) == String(annotation.coordinate.latitude) {
-                    if String(i.location.longitude) == String(annotation.coordinate.longitude) {
-                        if i.getCompleteStatus() {
-                            annotationView!.backgroundColor = UIColor.gray
-                        }
+            for tcp in self.taskCollectionPoints {
+                if tcp.id == annTcpId {
+                    if tcp.getCompleteStatus() {
+                        annotationView!.backgroundColor = UIColor.gray
                     }
                 }
             }
