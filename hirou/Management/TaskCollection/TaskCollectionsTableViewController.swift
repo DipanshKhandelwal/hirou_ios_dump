@@ -44,10 +44,6 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .TaskCollectionPointsVListUpdate, object: nil)
     }
     
-    deinit {
-        notificationCenter.removeObserver(self, name: .TaskCollectionPointsVListUpdate, object: nil)
-    }
-    
     @objc
     func collectionPointUpdateFromVList(_ notification: Notification) {
         let tcs = notification.object as! [TaskCollection]

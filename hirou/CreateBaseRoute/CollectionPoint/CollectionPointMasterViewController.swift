@@ -117,10 +117,6 @@ class CollectionPointMasterViewController: UITableViewController {
         setupConnection()
     }
     
-    deinit {
-        notificationCenter.removeObserver(self, name: .CollectionPointsMapSelect, object: nil)
-    }
-    
     @objc
     func collectionPointUpdateFromMap(_ notification: Notification) {
         let cp = notification.object as! CollectionPoint
