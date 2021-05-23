@@ -79,6 +79,33 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     
     private func setupConnection(){
         socketConnection.establishConnection()
+                
+        socketConnection.didReceiveError = { error in
+            //Handle error here
+        }
+        
+        socketConnection.didOpenConnection = {
+            let data: [String: Any] = [
+                SocketKeys.EVENT: SocketUpdateTypes.SUBSCRIBE,
+                SocketKeys.SUB_EVENT: "",
+                SocketKeys.DATA: WebSocketChannels.TASK_COLLECTION_POINT_CHANNEL
+            ]
+            
+            if let jsonToSend = jsonToNSData(json: data) {
+                if let str = String(data: jsonToSend, encoding: .utf8) {
+                    self.socketConnection.send(message: str)
+                }
+            }
+        }
+        
+        socketConnection.didCloseConnection = {
+            // Connection closed
+        }
+        
+        socketConnection.didReceiveData = { data in
+            // Get your data here
+        }
+        
         socketConnection.didReceiveMessage = {message in
             let dict = convertToDictionary(text: message)
             if let event = dict?[SocketKeys.EVENT] as?String, let sub_event = dict?[SocketKeys.SUB_EVENT] as?String {
@@ -181,6 +208,11 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         notificationCenter.removeObserver(self, name: .TaskCollectionPointsHListUpdate, object: nil)
         notificationCenter.removeObserver(self, name: .TaskCollectionPointsMapSelect, object: nil)
         notificationCenter.removeObserver(self, name: .TaskCollectionPointsHideCompleted, object: nil)
+        
+        timer?.invalidate()
+        timer = nil
+        locationManager?.stopMonitoringVisits()
+        socketConnection.disconnect()
     }
     
     func getTaskCollectionPoints () -> [TaskCollectionPoint] {
