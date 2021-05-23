@@ -646,7 +646,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
                     return
                 }
                 
-                self.usersCountText?.text = "Users: " +  String(snapshot.documents.count*10)
+                self.usersCountText?.text = "Users: " +  String(snapshot.documents.count)
                 
                 snapshot.documentChanges.forEach { diff in
                     if (diff.type == .added) {
