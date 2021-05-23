@@ -29,6 +29,33 @@ class CollectionPointMasterViewController: UITableViewController {
 
     private func setupConnection(){
         socketConnection.establishConnection()
+        
+        socketConnection.didReceiveError = { error in
+            //Handle error here
+        }
+        
+        socketConnection.didOpenConnection = {
+            let data: [String: Any] = [
+                SocketKeys.EVENT: SocketUpdateTypes.SUBSCRIBE,
+                SocketKeys.SUB_EVENT: "",
+                SocketKeys.DATA: WebSocketChannels.COLLECTION_POINT_CHANNEL
+            ]
+            
+            if let jsonToSend = jsonToNSData(json: data) {
+                if let str = String(data: jsonToSend, encoding: .utf8) {
+                    self.socketConnection.send(message: str)
+                }
+            }
+        }
+        
+        socketConnection.didCloseConnection = {
+            // Connection closed
+        }
+        
+        socketConnection.didReceiveData = { data in
+            // Get your data here
+        }
+        
         socketConnection.didReceiveMessage = {message in
             let dict = convertToDictionary(text: message)
             if let event = dict?[SocketKeys.EVENT] as?String, let sub_event = dict?[SocketKeys.SUB_EVENT] as?String {
