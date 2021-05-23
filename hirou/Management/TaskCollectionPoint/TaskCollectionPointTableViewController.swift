@@ -8,6 +8,8 @@
 
 import UIKit
 import Alamofire
+import Firebase
+import CoreLocation
 
 class TaskCollectionPointCell: UITableViewCell {
     @IBOutlet weak var sequence: UILabel!
@@ -27,7 +29,7 @@ struct GarbageListItem {
     var total: Int
 }
 
-class TaskCollectionPointTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TaskCollectionPointTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     var taskCollectionPoints: [TaskCollectionPoint] = []
     var hideCompleted: Bool = false
     var garbageSummaryList: [GarbageListItem] = []
@@ -37,6 +39,11 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     let taskRouteId = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
     
     let socketConnection = WebSocketConnector(withSocketURL: URL(string: Environment.SERVER_SOCKET_URL + "updates/")!)
+    
+    var locationManager: CLLocationManager?
+    var db: Firestore?
+    var presentLocation: CLLocation?
+    var timer: Timer?
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -108,6 +115,28 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         notificationCenter.addObserver(self, selector: #selector(hideCompletedTriggered(_:)), name: .TaskCollectionPointsHideCompleted, object: nil)
         
         setupConnection()
+        
+        db = Firestore.firestore()
+        
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.requestAlwaysAuthorization()
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { _ in self.updateLocationOnFirebase() })
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse || status == .authorizedAlways{
+            print("authorizedAlways")
+            locationManager?.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            print("New location is \(location)")
+            presentLocation = location
+        }
     }
     
     deinit {
