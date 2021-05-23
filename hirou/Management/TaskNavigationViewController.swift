@@ -207,6 +207,8 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
 
 class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, NavigationViewControllerDelegate {
     var id: String = ""
+    
+    @IBOutlet weak var usersCountText: UILabel!
     @IBOutlet weak var mapView: NavigationMapView!
     @IBOutlet weak var collectionView: FSPagerView! {
         didSet {
@@ -643,6 +645,9 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
                     print("Error fetching snapshots: \(error!)")
                     return
                 }
+                
+                self.usersCountText?.text = "Users: " +  String(snapshot.documents.count*10)
+                
                 snapshot.documentChanges.forEach { diff in
                     if (diff.type == .added) {
                         print("New city: \(diff.document.data()) \(diff.document.documentID)")
