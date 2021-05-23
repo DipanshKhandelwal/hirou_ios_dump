@@ -379,9 +379,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     }
     
     deinit {
-        notificationCenter.removeObserver(self, name: .TaskCollectionPointsVListUpdate, object: nil)
-        notificationCenter.removeObserver(self, name: .TaskCollectionPointsHListSelect, object: nil)
-        notificationCenter.removeObserver(self, name: .TaskCollectionPointsHideCompleted, object: nil)
+        print("view deinit TNVC")
     }
 
     @objc
@@ -437,10 +435,6 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             mapView.setCenter(self.annotations[index].coordinate, zoomLevel: self.mapView.zoomLevel, direction: -1, animated: true)
         }
         mapView.selectAnnotation(self.annotations[index], animated: false, completionHandler: nil)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-//        self.getPoints()
     }
     
     func getPoints() {
