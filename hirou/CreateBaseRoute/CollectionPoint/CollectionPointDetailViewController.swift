@@ -81,11 +81,6 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
 
     }
     
-    deinit {
-        notificationCenter.removeObserver(self, name: .CollectionPointsTableSelect, object: nil)
-        notificationCenter.removeObserver(self, name: .CollectionPointsTableReorder, object: nil)
-     }
-    
     @objc
     func switchToggled(_ sender: UISwitch) {
         if sender.isOn {

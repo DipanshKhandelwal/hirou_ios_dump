@@ -205,9 +205,9 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     }
     
     deinit {
-        notificationCenter.removeObserver(self, name: .TaskCollectionPointsHListUpdate, object: nil)
-        notificationCenter.removeObserver(self, name: .TaskCollectionPointsMapSelect, object: nil)
-        notificationCenter.removeObserver(self, name: .TaskCollectionPointsHideCompleted, object: nil)
+        
+        
+        print("view deinit TCPTVC")
         
         timer?.invalidate()
         timer = nil
