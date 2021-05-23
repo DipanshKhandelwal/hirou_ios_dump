@@ -139,6 +139,44 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         }
     }
     
+    func updateLocationOnFirebase() {
+        guard let userId = UserDefaults.standard.string(forKey: UserDefaultsConstants.USER_ID) else {
+            print("USER_ID not found :: Location not updated")
+            return
+        }
+        
+        if presentLocation == nil {
+            print("Present Location not found :: Location not updated")
+            return
+        }
+        
+        let latitude = (presentLocation?.coordinate.latitude)!
+        let longitude = (presentLocation?.coordinate.longitude)!
+        
+        let location = String(latitude) + "," + String(longitude)
+        
+        let data: [String: Any] = [
+            SocketKeys.EVENT: SocketEventTypes.LOCATION,
+            SocketKeys.SUB_EVENT: SocketSubEventTypes.UPDATE,
+            SocketKeys.DATA: [
+                "id": userId,
+                "location": location,
+            ]
+        ]
+        
+        if let jsonToSend = jsonToNSData(json: data) {
+            if let str = String(data: jsonToSend, encoding: .utf8) {
+                self.socketConnection.send(message: str)
+            }
+        }
+
+        db?.collection(FirestoreConstants.VEHICLES).document(userId).setData(data) { err in
+            if let err = err {
+                print("Error updating location :: firebase write error: \(err)")
+            }
+        }
+    }
+    
     deinit {
         notificationCenter.removeObserver(self, name: .TaskCollectionPointsHListUpdate, object: nil)
         notificationCenter.removeObserver(self, name: .TaskCollectionPointsMapSelect, object: nil)
