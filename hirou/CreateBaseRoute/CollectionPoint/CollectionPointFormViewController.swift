@@ -50,7 +50,6 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
     }
     
     func updateComplete() {
-        self.notificationCenter.post(name: .CollectionPointsUpdated, object: nil)
         _ = self.navigationController?.popViewController(animated: true)
     }
     
