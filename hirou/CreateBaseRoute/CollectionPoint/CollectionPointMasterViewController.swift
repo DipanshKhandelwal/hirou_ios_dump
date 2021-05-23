@@ -86,22 +86,12 @@ class CollectionPointMasterViewController: UITableViewController {
         }
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromMap(_:)), name: .CollectionPointsMapSelect, object: nil)
-        
-        notificationCenter.addObserver(self, selector: #selector(collectionPointsUpdated(_:)), name: .CollectionPointsUpdated, object: nil)
 
         setupConnection()
     }
     
     deinit {
         notificationCenter.removeObserver(self, name: .CollectionPointsMapSelect, object: nil)
-        notificationCenter.removeObserver(self, name: .CollectionPointsUpdated, object: nil)
-    }
-    
-    @objc
-    func collectionPointsUpdated(_ notification: Notification) {
-        DispatchQueue.main.async {
-            self.fetchCollectionPoints()
-        }
     }
     
     @objc

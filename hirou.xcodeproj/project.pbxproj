@@ -59,6 +59,7 @@
 		31CAF1BE254EFB1B006CD083 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31CAF1BD254EFB1B006CD083 /* GoogleService-Info.plist */; };
 		31CF0A42245A0B8500E0F5DC /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF0A41245A0B8500E0F5DC /* CalendarViewController.swift */; };
 		31DA88B623F3CF7B00713805 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA88B523F3CF7B00713805 /* Vehicle.swift */; };
+		31E28245264B0A330090ECC1 /* TaskCollectionPointPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E28244264B0A320090ECC1 /* TaskCollectionPointPointAnnotation.swift */; };
 		31EBE46324477F640023305D /* TaskRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EBE46224477F640023305D /* TaskRoute.swift */; };
 		31EBE46524477FE40023305D /* TaskCollectionPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EBE46424477FE40023305D /* TaskCollectionPoint.swift */; };
 		31EBE46724477FED0023305D /* TaskCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EBE46624477FED0023305D /* TaskCollection.swift */; };
@@ -149,6 +150,7 @@
 		31CAF1BD254EFB1B006CD083 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		31CF0A41245A0B8500E0F5DC /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		31DA88B523F3CF7B00713805 /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
+		31E28244264B0A320090ECC1 /* TaskCollectionPointPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionPointPointAnnotation.swift; sourceTree = "<group>"; };
 		31EBE46224477F640023305D /* TaskRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRoute.swift; sourceTree = "<group>"; };
 		31EBE46424477FE40023305D /* TaskCollectionPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionPoint.swift; sourceTree = "<group>"; };
 		31EBE46624477FED0023305D /* TaskCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollection.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				31C9AE032481097B00161374 /* DisabledUITextField.swift */,
 				31803C2B24AC735D00B8D1C8 /* ImagePicker.swift */,
 				31538CF524E44DFC00976EEE /* CustomAnnotationView.swift */,
+				31E28244264B0A320090ECC1 /* TaskCollectionPointPointAnnotation.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -636,6 +639,7 @@
 				31F26E4A255EA25000D08A6E /* APIHeaders.swift in Sources */,
 				3133F2042424BE0F001C158C /* BaseRoute.swift in Sources */,
 				313CF8E1262C6921007CA36C /* WebSocketProtocol.swift in Sources */,
+				31E28245264B0A330090ECC1 /* TaskCollectionPointPointAnnotation.swift in Sources */,
 				313172682445E5D800585B7F /* TaskTableViewController.swift in Sources */,
 				313CF8E9262C693C007CA36C /* WebSocketConnector.swift in Sources */,
 				312E9A2A242A39980073D165 /* CollectionPointMasterViewController.swift in Sources */,
