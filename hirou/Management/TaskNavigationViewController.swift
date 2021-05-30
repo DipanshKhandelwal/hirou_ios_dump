@@ -371,10 +371,6 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     func adjustMap() {
         handleAutomaticZoom()
     }
-    
-    deinit {
-        print("view deinit TNVC")
-    }
 
     @objc
     func collectionPointUpdateFromVList(_ notification: Notification) {
