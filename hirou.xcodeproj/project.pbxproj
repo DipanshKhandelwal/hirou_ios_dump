@@ -56,7 +56,6 @@
 		31C5473F2448C7FE00CE0F6C /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C5473E2448C7FE00CE0F6C /* TaskDetailViewController.swift */; };
 		31C9AE022480FB4D00161374 /* TaskAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C9AE012480FB4D00161374 /* TaskAddViewController.swift */; };
 		31C9AE042481097B00161374 /* DisabledUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C9AE032481097B00161374 /* DisabledUITextField.swift */; };
-		31CAF1BE254EFB1B006CD083 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31CAF1BD254EFB1B006CD083 /* GoogleService-Info.plist */; };
 		31CF0A42245A0B8500E0F5DC /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF0A41245A0B8500E0F5DC /* CalendarViewController.swift */; };
 		31DA88B623F3CF7B00713805 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DA88B523F3CF7B00713805 /* Vehicle.swift */; };
 		31E28245264B0A330090ECC1 /* TaskCollectionPointPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E28244264B0A320090ECC1 /* TaskCollectionPointPointAnnotation.swift */; };
@@ -147,7 +146,6 @@
 		31C5473E2448C7FE00CE0F6C /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		31C9AE012480FB4D00161374 /* TaskAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskAddViewController.swift; sourceTree = "<group>"; };
 		31C9AE032481097B00161374 /* DisabledUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledUITextField.swift; sourceTree = "<group>"; };
-		31CAF1BD254EFB1B006CD083 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		31CF0A41245A0B8500E0F5DC /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		31DA88B523F3CF7B00713805 /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
 		31E28244264B0A320090ECC1 /* TaskCollectionPointPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionPointPointAnnotation.swift; sourceTree = "<group>"; };
@@ -314,7 +312,6 @@
 				317E230923C6306C00F8F0C1 /* Main.storyboard */,
 				316F0F6D25B6BAEB00F00E55 /* BaseRoute.storyboard */,
 				316F0F6B25B6BAEB00F00E55 /* TaskManagement.storyboard */,
-				31CAF1BD254EFB1B006CD083 /* GoogleService-Info.plist */,
 			);
 			path = hirou;
 			sourceTree = SOURCE_ROOT;
@@ -531,7 +528,6 @@
 				316F0F6F25B6BAEB00F00E55 /* TaskManagement.storyboard in Resources */,
 				317E231023C6306D00F8F0C1 /* LaunchScreen.storyboard in Resources */,
 				317E230D23C6306D00F8F0C1 /* Assets.xcassets in Resources */,
-				31CAF1BE254EFB1B006CD083 /* GoogleService-Info.plist in Resources */,
 				315B21BA2499147100257D84 /* TaskCollectionPointPagerCell.xib in Resources */,
 				317E230B23C6306C00F8F0C1 /* Main.storyboard in Resources */,
 			);

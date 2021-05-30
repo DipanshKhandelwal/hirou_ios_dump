@@ -8,7 +8,6 @@
 
 import UIKit
 import Alamofire
-import Firebase
 import CoreLocation
 
 class TaskCollectionPointCell: UITableViewCell {
@@ -41,7 +40,6 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     let socketConnection = WebSocketConnector(withSocketURL: URL(string: Environment.SERVER_SOCKET_URL + "updates/")!)
     
     var locationManager: CLLocationManager?
-    var db: Firestore?
     var presentLocation: CLLocation?
     var timer: Timer?
     
@@ -142,14 +140,12 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         notificationCenter.addObserver(self, selector: #selector(hideCompletedTriggered(_:)), name: .TaskCollectionPointsHideCompleted, object: nil)
         
         setupConnection()
-        
-        db = Firestore.firestore()
-        
+                
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.requestAlwaysAuthorization()
         
-        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { _ in self.updateLocationOnFirebase() })
+        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { _ in self.updateLocation() })
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -166,7 +162,7 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         }
     }
     
-    func updateLocationOnFirebase() {
+    func updateLocation() {
         guard let userId = UserDefaults.standard.string(forKey: UserDefaultsConstants.USER_ID) else {
             print("USER_ID not found :: Location not updated")
             return
@@ -194,12 +190,6 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         if let jsonToSend = jsonToNSData(json: data) {
             if let str = String(data: jsonToSend, encoding: .utf8) {
                 self.socketConnection.send(message: str)
-            }
-        }
-
-        db?.collection(FirestoreConstants.VEHICLES).document(userId).setData(data) { err in
-            if let err = err {
-                print("Error updating location :: firebase write error: \(err)")
             }
         }
     }
