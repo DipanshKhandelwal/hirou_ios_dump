@@ -16,9 +16,6 @@ import MapboxCoreNavigation
 import MapboxNavigation
 import MapboxDirections
 
-import Firebase
-import FirebaseFirestore
-
 extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSource {
     func numberOfItems(in pagerView: FSPagerView) -> Int {
         return getTaskCollectionPoints().count
@@ -229,10 +226,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     @IBOutlet weak var mapViewContainer: NavigationMapView!
     
     var navigationViewController: NavigationViewController!
-    
-    let db = Firestore.firestore()
-    var locationListener: ListenerRegistration!
-    
+       
     var gestures : [UIGestureRecognizer] = []
     
     var userLocationButton: UIBarButtonItem? = nil;
@@ -633,86 +627,86 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             mapView.style?.setImage(image, forName: "truck-icon")
         }
         
-        locationListener = db.collection("vehicles")
-            .addSnapshotListener { querySnapshot, error in
-                guard let snapshot = querySnapshot else {
-                    print("Error fetching snapshots: \(error!)")
-                    return
-                }
-                
-                self.usersCountText?.text = "Users: " +  String(snapshot.documents.count)
-                
-                snapshot.documentChanges.forEach { diff in
-                    if (diff.type == .added) {
-                        print("New city: \(diff.document.data()) \(diff.document.documentID)")
-                      
-                        let latitude = diff.document.data() ["latitude"] as? NSNumber
-                        let longitude = diff.document.data() ["longitude"] as? NSNumber
-                        
-                        let coordinates =  CLLocationCoordinate2D(latitude: Double(truncating: latitude ?? 0) , longitude: Double(truncating: longitude ?? 0));
-                        
-                        let point = MGLPointAnnotation()
-                        point.coordinate = coordinates
-                        
-                        let source = MGLShapeSource(identifier: diff.document.documentID, shape: point, options: nil)
-                        style.addSource(source)
-                        
-                        let droneLayer = MGLSymbolStyleLayer(identifier: diff.document.documentID, source: source)
-                        droneLayer.iconScale = NSExpression(forConstantValue: 0.5)
-                        // TODO: change the text to user name ?
-                        droneLayer.text = NSExpression(forConstantValue: diff.document.documentID)
-                        droneLayer.textAnchor =  NSExpression(forConstantValue: "bottom")
-                        droneLayer.textTranslation = NSExpression(forConstantValue: NSValue(cgVector: CGVector(dx: 0, dy: -10)))
-                        droneLayer.textFontSize = NSExpression(forConstantValue: "18")
-                        droneLayer.textHaloColor = NSExpression(forConstantValue:UIColor.white)
-                        droneLayer.iconImageName = NSExpression(forConstantValue: "truck-icon")
-                        droneLayer.iconHaloColor = NSExpression(forConstantValue: UIColor.white)
-                        style.addLayer(droneLayer)
-                        
-                    }
-                    if (diff.type == .modified) {
-                        print("Modified city: \(diff.document.data()) \(diff.document.documentID)")
-
-//                        TODO :: Check if we can change the source coordinates without deleting and creating a new one
-                        
-                        if let source = style.source(withIdentifier: diff.document.documentID) {
-                            if let droneLayer = style.layer(withIdentifier: diff.document.documentID) {
-                                style.removeLayer(droneLayer)
-                                style.removeSource(source)
-                            }
-                        }
-
-                        let latitude = diff.document.data() ["latitude"] as? NSNumber
-                        let longitude = diff.document.data() ["longitude"] as? NSNumber
-
-                        let coordinates =  CLLocationCoordinate2D(latitude: Double(truncating: latitude ?? 0) , longitude: Double(truncating: longitude ?? 0));
-
-                        let point = MGLPointAnnotation()
-                        point.coordinate = coordinates
-
-                        let source = MGLShapeSource(identifier: diff.document.documentID, shape: point, options: nil)
-                        style.addSource(source)
-
-                        let droneLayer = MGLSymbolStyleLayer(identifier: diff.document.documentID, source: source)
-                        droneLayer.iconScale = NSExpression(forConstantValue: 0.5)
-                        droneLayer.iconImageName = NSExpression(forConstantValue: "truck-icon")
-                        droneLayer.iconHaloColor = NSExpression(forConstantValue: UIColor.white)
-                        style.addLayer(droneLayer)
-                        
-                        
-                    }
-                    if (diff.type == .removed) {
-                        print("Removed city: \(diff.document.data()) \(diff.document.documentID)")
-                        
-                        if let source = style.source(withIdentifier: diff.document.documentID) {
-                            if let droneLayer = style.layer(withIdentifier: diff.document.documentID) {
-                                style.removeLayer(droneLayer)
-                                style.removeSource(source)
-                            }
-                        }
-                    }
-                }
-            }
+//        locationListener = db.collection("vehicles")
+//            .addSnapshotListener { querySnapshot, error in
+//                guard let snapshot = querySnapshot else {
+//                    print("Error fetching snapshots: \(error!)")
+//                    return
+//                }
+//
+//                self.usersCountText?.text = "Users: " +  String(snapshot.documents.count)
+//
+//                snapshot.documentChanges.forEach { diff in
+//                    if (diff.type == .added) {
+//                        print("New city: \(diff.document.data()) \(diff.document.documentID)")
+//
+//                        let latitude = diff.document.data() ["latitude"] as? NSNumber
+//                        let longitude = diff.document.data() ["longitude"] as? NSNumber
+//
+//                        let coordinates =  CLLocationCoordinate2D(latitude: Double(truncating: latitude ?? 0) , longitude: Double(truncating: longitude ?? 0));
+//
+//                        let point = MGLPointAnnotation()
+//                        point.coordinate = coordinates
+//
+//                        let source = MGLShapeSource(identifier: diff.document.documentID, shape: point, options: nil)
+//                        style.addSource(source)
+//
+//                        let droneLayer = MGLSymbolStyleLayer(identifier: diff.document.documentID, source: source)
+//                        droneLayer.iconScale = NSExpression(forConstantValue: 0.5)
+//                        // TODO: change the text to user name ?
+//                        droneLayer.text = NSExpression(forConstantValue: diff.document.documentID)
+//                        droneLayer.textAnchor =  NSExpression(forConstantValue: "bottom")
+//                        droneLayer.textTranslation = NSExpression(forConstantValue: NSValue(cgVector: CGVector(dx: 0, dy: -10)))
+//                        droneLayer.textFontSize = NSExpression(forConstantValue: "18")
+//                        droneLayer.textHaloColor = NSExpression(forConstantValue:UIColor.white)
+//                        droneLayer.iconImageName = NSExpression(forConstantValue: "truck-icon")
+//                        droneLayer.iconHaloColor = NSExpression(forConstantValue: UIColor.white)
+//                        style.addLayer(droneLayer)
+//
+//                    }
+//                    if (diff.type == .modified) {
+//                        print("Modified city: \(diff.document.data()) \(diff.document.documentID)")
+//
+////                        TODO :: Check if we can change the source coordinates without deleting and creating a new one
+//
+//                        if let source = style.source(withIdentifier: diff.document.documentID) {
+//                            if let droneLayer = style.layer(withIdentifier: diff.document.documentID) {
+//                                style.removeLayer(droneLayer)
+//                                style.removeSource(source)
+//                            }
+//                        }
+//
+//                        let latitude = diff.document.data() ["latitude"] as? NSNumber
+//                        let longitude = diff.document.data() ["longitude"] as? NSNumber
+//
+//                        let coordinates =  CLLocationCoordinate2D(latitude: Double(truncating: latitude ?? 0) , longitude: Double(truncating: longitude ?? 0));
+//
+//                        let point = MGLPointAnnotation()
+//                        point.coordinate = coordinates
+//
+//                        let source = MGLShapeSource(identifier: diff.document.documentID, shape: point, options: nil)
+//                        style.addSource(source)
+//
+//                        let droneLayer = MGLSymbolStyleLayer(identifier: diff.document.documentID, source: source)
+//                        droneLayer.iconScale = NSExpression(forConstantValue: 0.5)
+//                        droneLayer.iconImageName = NSExpression(forConstantValue: "truck-icon")
+//                        droneLayer.iconHaloColor = NSExpression(forConstantValue: UIColor.white)
+//                        style.addLayer(droneLayer)
+//
+//
+//                    }
+//                    if (diff.type == .removed) {
+//                        print("Removed city: \(diff.document.data()) \(diff.document.documentID)")
+//
+//                        if let source = style.source(withIdentifier: diff.document.documentID) {
+//                            if let droneLayer = style.layer(withIdentifier: diff.document.documentID) {
+//                                style.removeLayer(droneLayer)
+//                                style.removeSource(source)
+//                            }
+//                        }
+//                    }
+//                }
+//            }
     }
     
 //    // Calculate route to be used for navigation
