@@ -37,7 +37,7 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     
     let taskRouteId = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
     
-    let socketConnection = WebSocketConnector(withSocketURL: URL(string: Environment.SERVER_SOCKET_URL + "updates/")!)
+    var socketConnection: WebSocketConnector?
     
     var locationManager: CLLocationManager?
     var presentLocation: CLLocation?
@@ -76,35 +76,34 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     }
     
     private func setupConnection(){
-        socketConnection.establishConnection()
+        let userToken = UserDefaults.standard.string(forKey: UserDefaultsConstants.AUTH_TOKEN)
+        let queryItems = [URLQueryItem(name: "token", value: userToken)]
+        let socketBaseUrl = Environment.SERVER_SOCKET_URL + "subscribe/task-route/" + taskRouteId + "/"
+        var urlComponent = URLComponents(string: socketBaseUrl)!
+        urlComponent.queryItems = queryItems
+        let finalUrl = urlComponent.url!
+        socketConnection = WebSocketConnector(withSocketURL: finalUrl)
+        
+        socketConnection?.establishConnection()
                 
-        socketConnection.didReceiveError = { error in
-            //Handle error here
+        socketConnection?.didReceiveError = { error in
+            // Handle error here
         }
         
-        socketConnection.didOpenConnection = {
-            let data: [String: Any] = [
-                SocketKeys.EVENT: SocketUpdateTypes.SUBSCRIBE,
-                SocketKeys.SUB_EVENT: "",
-                SocketKeys.DATA: WebSocketChannels.TASK_COLLECTION_POINT_CHANNEL
-            ]
-            
-            if let jsonToSend = jsonToNSData(json: data) {
-                if let str = String(data: jsonToSend, encoding: .utf8) {
-                    self.socketConnection.send(message: str)
-                }
-            }
+        socketConnection?.didOpenConnection = {
+            // Connection opened
         }
         
-        socketConnection.didCloseConnection = {
+        socketConnection?.didCloseConnection = {
             // Connection closed
+            print("connection closed")
         }
         
-        socketConnection.didReceiveData = { data in
+        socketConnection?.didReceiveData = { data in
             // Get your data here
         }
         
-        socketConnection.didReceiveMessage = {message in
+        socketConnection?.didReceiveMessage = {message in
             let dict = convertToDictionary(text: message)
             if let event = dict?[SocketKeys.EVENT] as?String, let sub_event = dict?[SocketKeys.SUB_EVENT] as?String {
                 if event == SocketEventTypes.TASK_COLLECTION_POINT {
@@ -117,6 +116,13 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
                     if sub_event == SocketSubEventTypes.UPDATE {
                         let taskCPData = jsonToNSData(json: dict?[SocketKeys.DATA] as Any)
                         self.updateTaskCollectionPointFromEventData(taskCPData: taskCPData!)
+                    }
+                }
+                else if event == SocketEventTypes.LOCATION {
+                    if sub_event == SocketSubEventTypes.UPDATE {
+                        let userLocationData = jsonToNSData(json: dict?[SocketKeys.DATA] as Any)
+                        let userLocations = try! JSONDecoder().decode([UserLocation].self, from: userLocationData!)
+                        self.notificationCenter.post(name: .TaskCollectionPointsUserLocationsUpdate, object: userLocations)
                     }
                 }
             }
@@ -143,31 +149,24 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
                 
         locationManager = CLLocationManager()
         locationManager?.delegate = self
-        locationManager?.requestAlwaysAuthorization()
+        locationManager?.requestWhenInUseAuthorization()
         
         timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { _ in self.updateLocation() })
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse || status == .authorizedAlways{
-            print("authorizedAlways")
             locationManager?.startUpdatingLocation()
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-            print("New location is \(location)")
             presentLocation = location
         }
     }
     
     func updateLocation() {
-        guard let userId = UserDefaults.standard.string(forKey: UserDefaultsConstants.USER_ID) else {
-            print("USER_ID not found :: Location not updated")
-            return
-        }
-        
         if presentLocation == nil {
             print("Present Location not found :: Location not updated")
             return
@@ -181,28 +180,23 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         let data: [String: Any] = [
             SocketKeys.EVENT: SocketEventTypes.LOCATION,
             SocketKeys.SUB_EVENT: SocketSubEventTypes.UPDATE,
-            SocketKeys.DATA: [
-                "id": userId,
-                "location": location,
-            ]
+            SocketKeys.DATA: ["location": location]
         ]
         
         if let jsonToSend = jsonToNSData(json: data) {
             if let str = String(data: jsonToSend, encoding: .utf8) {
-                self.socketConnection.send(message: str)
+                self.socketConnection?.send(message: str)
             }
         }
     }
-    
-    deinit {
-        
-        
-        print("view deinit TCPTVC")
-        
+  
+    override func viewDidDisappear(_ animated: Bool) {
         timer?.invalidate()
         timer = nil
-        locationManager?.stopMonitoringVisits()
-        socketConnection.disconnect()
+        locationManager?.stopUpdatingLocation()
+        locationManager = nil
+        socketConnection?.disconnect()
+        socketConnection = nil
     }
     
     func getTaskCollectionPoints () -> [TaskCollectionPoint] {
@@ -259,14 +253,9 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-//        if let indexPath = tableView.indexPathForSelectedRow() {
-//                tableView.deselectRowAtIndexPath(indexPath, animated: true)
-//            }
-//
-//        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         fetchTaskCollectionPoints()
     }
+
     
     func updateDataFromTaskRoute(taskRoute: TaskRoute) {
         let newCollectionPoints = taskRoute.taskCollectionPoints

@@ -25,38 +25,37 @@ class CollectionPointMasterViewController: UITableViewController {
     
     private let notificationCenter = NotificationCenter.default
     
-    let socketConnection = WebSocketConnector(withSocketURL: URL(string: Environment.SERVER_SOCKET_URL + "updates/")!)
+    var socketConnection: WebSocketConnector?
 
     private func setupConnection(){
-        socketConnection.establishConnection()
+        let userToken = UserDefaults.standard.string(forKey: UserDefaultsConstants.AUTH_TOKEN)
+        let queryItems = [URLQueryItem(name: "token", value: userToken)]
+        let socketBaseUrl = Environment.SERVER_SOCKET_URL + "subscribe/base-route/" + baseRouteId + "/"
+        var urlComponent = URLComponents(string: socketBaseUrl)!
+        urlComponent.queryItems = queryItems
+        let finalUrl = urlComponent.url!
+        socketConnection = WebSocketConnector(withSocketURL: finalUrl)
+
+        socketConnection?.establishConnection()
         
-        socketConnection.didReceiveError = { error in
+        socketConnection?.didReceiveError = { error in
             //Handle error here
         }
         
-        socketConnection.didOpenConnection = {
-            let data: [String: Any] = [
-                SocketKeys.EVENT: SocketUpdateTypes.SUBSCRIBE,
-                SocketKeys.SUB_EVENT: "",
-                SocketKeys.DATA: WebSocketChannels.COLLECTION_POINT_CHANNEL
-            ]
-            
-            if let jsonToSend = jsonToNSData(json: data) {
-                if let str = String(data: jsonToSend, encoding: .utf8) {
-                    self.socketConnection.send(message: str)
-                }
-            }
+        socketConnection?.didOpenConnection = {
+            // Connection opened
         }
         
-        socketConnection.didCloseConnection = {
+        socketConnection?.didCloseConnection = {
             // Connection closed
         }
         
-        socketConnection.didReceiveData = { data in
+        socketConnection?.didReceiveData = { data in
             // Get your data here
         }
         
-        socketConnection.didReceiveMessage = {message in
+        socketConnection?.didReceiveMessage = {message in
+            print("message", message)
             let dict = convertToDictionary(text: message)
             if let event = dict?[SocketKeys.EVENT] as?String, let sub_event = dict?[SocketKeys.SUB_EVENT] as?String {
                 if event == SocketEventTypes.BASE_ROUTE {
@@ -117,6 +116,11 @@ class CollectionPointMasterViewController: UITableViewController {
         setupConnection()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        socketConnection?.disconnect()
+        socketConnection = nil
+    }
+    
     @objc
     func collectionPointUpdateFromMap(_ notification: Notification) {
         let cp = notification.object as! CollectionPoint
@@ -132,9 +136,9 @@ class CollectionPointMasterViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         fetchCollectionPoints()
-        super.viewWillAppear(animated)
     }
     
     func updateFromBaseRoute(route: BaseRoute, notify: Bool = false) {
