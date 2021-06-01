@@ -120,7 +120,9 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
                 }
                 else if event == SocketEventTypes.LOCATION {
                     if sub_event == SocketSubEventTypes.UPDATE {
-                        print("SocketKeys.DATA", message)
+                        let userLocationData = jsonToNSData(json: dict?[SocketKeys.DATA] as Any)
+                        let userLocations = try! JSONDecoder().decode([UserLocation].self, from: userLocationData!)
+                        self.notificationCenter.post(name: .TaskCollectionPointsUserLocationsUpdate, object: userLocations)
                     }
                 }
             }

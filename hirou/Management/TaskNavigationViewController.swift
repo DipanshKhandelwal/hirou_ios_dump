@@ -221,6 +221,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     
     private let notificationCenter = NotificationCenter.default
     
+    let userId = UserDefaults.standard.string(forKey: UserDefaultsConstants.USER_ID)
     
     @IBOutlet weak var navigationViewContainer: UIView!
     @IBOutlet weak var mapViewContainer: NavigationMapView!
@@ -283,6 +284,8 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .TaskCollectionPointsHListSelect, object: nil)
         notificationCenter.addObserver(self, selector: #selector(hideCompletedTriggered(_:)), name: .TaskCollectionPointsHideCompleted, object: nil)
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdate(_:)), name: .TaskCollectionPointsUpdate, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(locationsUpdated(_:)), name: .TaskCollectionPointsUserLocationsUpdate, object: nil)
+
         self.getPoints()
     }
     
@@ -314,6 +317,49 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             }
             else {
                 mapView.addGestureRecognizer(gestureRecognizer)
+            }
+        }
+    }
+    
+    @objc
+    func locationsUpdated(_ notification: Notification) {
+        let userLocations = notification.object as! [UserLocation]
+        let style = mapView.style
+        
+        userLocations.forEach { userLocation in
+            if String(userLocation.id) == userId {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                if let source = style?.source(withIdentifier: String(userLocation.id)) {
+                    if let droneLayer = style?.layer(withIdentifier: String(userLocation.id)) {
+                        style?.removeLayer(droneLayer)
+                        style?.removeSource(source)
+                    }
+                }
+                
+                let lat = Double(userLocation.location.latitude)!
+                let long = Double(userLocation.location.longitude)!
+                let coordinates =  CLLocationCoordinate2D(latitude: lat , longitude: long);
+                
+                let point = MGLPointAnnotation()
+                point.coordinate = coordinates
+                
+                let source = MGLShapeSource(identifier: String(userLocation.id), shape: point, options: nil)
+                style?.addSource(source)
+      
+                let droneLayer = MGLSymbolStyleLayer(identifier: String(userLocation.id), source: source)
+                droneLayer.iconScale = NSExpression(forConstantValue: 0.5)
+                // TODO: change the text to user name ?
+                droneLayer.text = NSExpression(forConstantValue: String(userLocation.id))
+                droneLayer.textAnchor =  NSExpression(forConstantValue: "bottom")
+                droneLayer.textTranslation = NSExpression(forConstantValue: NSValue(cgVector: CGVector(dx: 0, dy: -10)))
+                droneLayer.textFontSize = NSExpression(forConstantValue: "18")
+                droneLayer.textHaloColor = NSExpression(forConstantValue:UIColor.white)
+                droneLayer.iconImageName = NSExpression(forConstantValue: "truck-icon")
+                droneLayer.iconHaloColor = NSExpression(forConstantValue: UIColor.white)
+                style?.addLayer(droneLayer)
             }
         }
     }
