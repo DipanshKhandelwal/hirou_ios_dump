@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8zy-G3-CJg">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -429,10 +428,10 @@
             </objects>
             <point key="canvasLocation" x="-14" y="1069"/>
         </scene>
-        <!--Split View Controller-->
+        <!--Collection Point Split View Controller-->
         <scene sceneID="ied-2J-2uk">
             <objects>
-                <splitViewController id="y29-yR-YbL" sceneMemberID="viewController">
+                <splitViewController id="y29-yR-YbL" customClass="CollectionPointSplitViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="JpH-Uo-aTn"/>
                     <connections>
@@ -934,9 +933,9 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="barButtonItem:d5W-nL-8gr:image" width="128" height="113"/>
-        <image name="chevron.compact.right" catalog="system" width="32" height="32"/>
-        <image name="doc.on.doc" catalog="system" width="32" height="32"/>
-        <image name="house.fill" catalog="system" width="32" height="32"/>
+        <image name="chevron.compact.right" catalog="system" width="64" height="128"/>
+        <image name="doc.on.doc" catalog="system" width="116" height="128"/>
+        <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="imageView:17n-aA-UIf:image" width="128" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
