@@ -53,6 +53,7 @@
 		31A882A524A38A2500C3A692 /* CollectionPointsNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A882A424A38A2500C3A692 /* CollectionPointsNotifications.swift */; };
 		31B09589248F75FC00D560B0 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B09588248F75FC00D560B0 /* Environment.swift */; };
 		31B755AE2665962A00ECADC6 /* UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B755AD2665962A00ECADC6 /* UserLocation.swift */; };
+		31BE2C232668257F00D63EBA /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BE2C222668257F00D63EBA /* AppUtility.swift */; };
 		31C24F1B2435E6BF000C3206 /* CollectionPointFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C24F1A2435E6BF000C3206 /* CollectionPointFormViewController.swift */; };
 		31C5473F2448C7FE00CE0F6C /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C5473E2448C7FE00CE0F6C /* TaskDetailViewController.swift */; };
 		31C9AE022480FB4D00161374 /* TaskAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C9AE012480FB4D00161374 /* TaskAddViewController.swift */; };
@@ -144,6 +145,7 @@
 		31A882A424A38A2500C3A692 /* CollectionPointsNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointsNotifications.swift; sourceTree = "<group>"; };
 		31B09588248F75FC00D560B0 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		31B755AD2665962A00ECADC6 /* UserLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocation.swift; sourceTree = "<group>"; };
+		31BE2C222668257F00D63EBA /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
 		31C24F1A2435E6BF000C3206 /* CollectionPointFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointFormViewController.swift; sourceTree = "<group>"; };
 		31C5473E2448C7FE00CE0F6C /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		31C9AE012480FB4D00161374 /* TaskAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskAddViewController.swift; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 				31F26E49255EA25000D08A6E /* APIHeaders.swift */,
 				31FEB53E25E1F7FE00E77B74 /* Sound.swift */,
 				313CF8F2262C78EB007CA36C /* JSONHelper.swift */,
+				31BE2C222668257F00D63EBA /* AppUtility.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -624,6 +627,7 @@
 				31920C9F241CD5D900A55403 /* Location.swift in Sources */,
 				31093F9D23CFA6B40025679A /* LoginViewController.swift in Sources */,
 				310C5687255EC0EC0012B8B1 /* User.swift in Sources */,
+				31BE2C232668257F00D63EBA /* AppUtility.swift in Sources */,
 				31F26E38255D42E900D08A6E /* UserDefaultsConstants.swift in Sources */,
 				31EBE46324477F640023305D /* TaskRoute.swift in Sources */,
 				31803C2C24AC735D00B8D1C8 /* ImagePicker.swift in Sources */,
