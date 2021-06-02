@@ -216,6 +216,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     var selectedTaskCollectionPoint: TaskCollectionPoint!
     var taskCollectionPoints = [TaskCollectionPoint]()
     var annotations = [TaskCollectionPointPointAnnotation]()
+    var userLocations = [UserLocation]()
     var route:TaskRoute?
     var hideCompleted: Bool = false
     
@@ -323,20 +324,35 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     
     @objc
     func locationsUpdated(_ notification: Notification) {
-        let userLocations = notification.object as! [UserLocation]
+        let newUserLocations = notification.object as! [UserLocation]
         let style = mapView.style
         
-        userLocations.forEach { userLocation in
-            if String(userLocation.id) == userId {
-                return
-            }
-            
-            DispatchQueue.main.async {
+        let oldLocations = self.userLocations
+        self.userLocations = newUserLocations
+        
+        DispatchQueue.main.async {
+            oldLocations.forEach{ userLocation in
+                if String(userLocation.id) == self.userId {
+                    return
+                }
+                
                 if let source = style?.source(withIdentifier: String(userLocation.id)) {
                     if let droneLayer = style?.layer(withIdentifier: String(userLocation.id)) {
                         style?.removeLayer(droneLayer)
                         style?.removeSource(source)
                     }
+                }
+            }
+        }
+
+        DispatchQueue.main.async {
+            self.usersCountText?.text = String(newUserLocations.count)
+        }
+        
+        DispatchQueue.main.async {
+            newUserLocations.forEach { userLocation in
+                if String(userLocation.id) == self.userId {
+                    return
                 }
                 
                 let lat = Double(userLocation.location.latitude)!
@@ -668,87 +684,6 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         if let image = UIImage(named: "truck") {
             mapView.style?.setImage(image, forName: "truck-icon")
         }
-        
-//        locationListener = db.collection("vehicles")
-//            .addSnapshotListener { querySnapshot, error in
-//                guard let snapshot = querySnapshot else {
-//                    print("Error fetching snapshots: \(error!)")
-//                    return
-//                }
-//
-//                self.usersCountText?.text = "Users: " +  String(snapshot.documents.count)
-//
-//                snapshot.documentChanges.forEach { diff in
-//                    if (diff.type == .added) {
-//                        print("New city: \(diff.document.data()) \(diff.document.documentID)")
-//
-//                        let latitude = diff.document.data() ["latitude"] as? NSNumber
-//                        let longitude = diff.document.data() ["longitude"] as? NSNumber
-//
-//                        let coordinates =  CLLocationCoordinate2D(latitude: Double(truncating: latitude ?? 0) , longitude: Double(truncating: longitude ?? 0));
-//
-//                        let point = MGLPointAnnotation()
-//                        point.coordinate = coordinates
-//
-//                        let source = MGLShapeSource(identifier: diff.document.documentID, shape: point, options: nil)
-//                        style.addSource(source)
-//
-//                        let droneLayer = MGLSymbolStyleLayer(identifier: diff.document.documentID, source: source)
-//                        droneLayer.iconScale = NSExpression(forConstantValue: 0.5)
-//                        // TODO: change the text to user name ?
-//                        droneLayer.text = NSExpression(forConstantValue: diff.document.documentID)
-//                        droneLayer.textAnchor =  NSExpression(forConstantValue: "bottom")
-//                        droneLayer.textTranslation = NSExpression(forConstantValue: NSValue(cgVector: CGVector(dx: 0, dy: -10)))
-//                        droneLayer.textFontSize = NSExpression(forConstantValue: "18")
-//                        droneLayer.textHaloColor = NSExpression(forConstantValue:UIColor.white)
-//                        droneLayer.iconImageName = NSExpression(forConstantValue: "truck-icon")
-//                        droneLayer.iconHaloColor = NSExpression(forConstantValue: UIColor.white)
-//                        style.addLayer(droneLayer)
-//
-//                    }
-//                    if (diff.type == .modified) {
-//                        print("Modified city: \(diff.document.data()) \(diff.document.documentID)")
-//
-////                        TODO :: Check if we can change the source coordinates without deleting and creating a new one
-//
-//                        if let source = style.source(withIdentifier: diff.document.documentID) {
-//                            if let droneLayer = style.layer(withIdentifier: diff.document.documentID) {
-//                                style.removeLayer(droneLayer)
-//                                style.removeSource(source)
-//                            }
-//                        }
-//
-//                        let latitude = diff.document.data() ["latitude"] as? NSNumber
-//                        let longitude = diff.document.data() ["longitude"] as? NSNumber
-//
-//                        let coordinates =  CLLocationCoordinate2D(latitude: Double(truncating: latitude ?? 0) , longitude: Double(truncating: longitude ?? 0));
-//
-//                        let point = MGLPointAnnotation()
-//                        point.coordinate = coordinates
-//
-//                        let source = MGLShapeSource(identifier: diff.document.documentID, shape: point, options: nil)
-//                        style.addSource(source)
-//
-//                        let droneLayer = MGLSymbolStyleLayer(identifier: diff.document.documentID, source: source)
-//                        droneLayer.iconScale = NSExpression(forConstantValue: 0.5)
-//                        droneLayer.iconImageName = NSExpression(forConstantValue: "truck-icon")
-//                        droneLayer.iconHaloColor = NSExpression(forConstantValue: UIColor.white)
-//                        style.addLayer(droneLayer)
-//
-//
-//                    }
-//                    if (diff.type == .removed) {
-//                        print("Removed city: \(diff.document.data()) \(diff.document.documentID)")
-//
-//                        if let source = style.source(withIdentifier: diff.document.documentID) {
-//                            if let droneLayer = style.layer(withIdentifier: diff.document.documentID) {
-//                                style.removeLayer(droneLayer)
-//                                style.removeSource(source)
-//                            }
-//                        }
-//                    }
-//                }
-//            }
     }
     
 //    // Calculate route to be used for navigation
