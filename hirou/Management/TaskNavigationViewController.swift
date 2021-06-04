@@ -368,7 +368,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
                 let droneLayer = MGLSymbolStyleLayer(identifier: String(userLocation.id), source: source)
                 droneLayer.iconScale = NSExpression(forConstantValue: 0.5)
                 // TODO: change the text to user name ?
-                droneLayer.text = NSExpression(forConstantValue: String(userLocation.id))
+                droneLayer.text = NSExpression(forConstantValue: String(userLocation.name))
                 droneLayer.textAnchor =  NSExpression(forConstantValue: "bottom")
                 droneLayer.textTranslation = NSExpression(forConstantValue: NSValue(cgVector: CGVector(dx: 0, dy: -10)))
                 droneLayer.textFontSize = NSExpression(forConstantValue: "18")
