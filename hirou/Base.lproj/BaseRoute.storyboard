@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8zy-G3-CJg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8zy-G3-CJg">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,7 +18,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reuseIdentifier" rowHeight="100" id="1lc-mf-Fr0" customClass="RouteTableViewCell" customModule="hirou" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="24.5" width="768" height="100"/>
+                                <rect key="frame" x="0.0" y="28" width="768" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1lc-mf-Fr0" id="Vmk-Gw-ocY">
                                     <rect key="frame" x="0.0" y="0.0" width="768" height="100"/>
@@ -77,7 +77,7 @@
                             <outlet property="delegate" destination="8zy-G3-CJg" id="0qd-M7-NZp"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Route List" id="jFZ-sd-tE7">
+                    <navigationItem key="navigationItem" title="ルート一覧" id="jFZ-sd-tE7">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="d5W-nL-8gr">
                             <connections>
                                 <segue destination="8Lu-KB-8Xt" kind="show" id="esN-AN-N57"/>
@@ -114,7 +114,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P8o-c7-ZDF" userLabel="Name View">
                                         <rect key="frame" x="0.0" y="1" width="768" height="80"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVg-gX-E0A">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ルート名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVg-gX-E0A">
                                                 <rect key="frame" x="24" y="0.0" width="160" height="80"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="160" id="mB3-FK-tmC"/>
@@ -165,7 +165,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nw5-iY-hSY" userLabel="Customer View">
                                         <rect key="frame" x="0.0" y="82" width="768" height="80"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HAA-Qi-O8I">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="顧客" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HAA-Qi-O8I">
                                                 <rect key="frame" x="24" y="0.0" width="160" height="80"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="160" id="Ewm-a7-xCe"/>
@@ -216,7 +216,7 @@
                                     <view contentMode="scaleToFill" restorationIdentifier="Garbage Types View" translatesAutoresizingMaskIntoConstraints="NO" id="fL5-GN-z6N" userLabel="Garbage Types View">
                                         <rect key="frame" x="0.0" y="163" width="768" height="80"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Garbage Types" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gll-Yc-fPw">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="品目" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gll-Yc-fPw">
                                                 <rect key="frame" x="24" y="0.0" width="160" height="80"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="160" id="bhY-dG-8wX"/>
@@ -278,7 +278,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uTA-yt-uX2" userLabel="Route View">
                                         <rect key="frame" x="0.0" y="1" width="768" height="80"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Route" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqw-OS-GJU">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="マップ" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqw-OS-GJU">
                                                 <rect key="frame" x="24" y="0.0" width="160" height="80"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="160" id="PF0-jc-sC0"/>
@@ -300,7 +300,7 @@
                                                     <segue destination="y29-yR-YbL" kind="presentation" id="kMZ-ud-t1X"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="you cannot make a route without first saving" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e74-fG-RFy">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ルート情報を一度保存してからマップを作成してください" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e74-fG-RFy">
                                                 <rect key="frame" x="184" y="0.0" width="536" height="80"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" systemColor="systemRedColor"/>
@@ -356,7 +356,7 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Route Details" id="Ie3-w4-jEz" userLabel="Route Details">
+                    <navigationItem key="navigationItem" title="ルート情報" id="Ie3-w4-jEz" userLabel="Route Details">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="trash" id="tez-dt-7Cu">
                                 <connections>
@@ -400,7 +400,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="garbageListCell" textLabel="2gt-qs-X1n" style="IBUITableViewCellStyleDefault" id="858-mt-WJy">
-                                <rect key="frame" x="0.0" y="24.5" width="320" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="858-mt-WJy" id="Ech-tR-y9N">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -473,7 +473,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="collectionPointCell" rowHeight="90" id="6NC-aC-LI4" customClass="CollectionPointTableViewCell" customModule="hirou" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="24.5" width="320" height="90"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6NC-aC-LI4" id="1DY-6b-Y9I">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
@@ -536,7 +536,7 @@
                             <outlet property="delegate" destination="Fx9-6H-G54" id="5zh-hG-ueX"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Collection Point List" id="M6r-fU-vjK"/>
+                    <navigationItem key="navigationItem" title="集積所一覧" id="M6r-fU-vjK"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gtG-6Z-rgW" sceneMemberID="firstResponder"/>
@@ -619,7 +619,7 @@
                                                     <view contentMode="scaleToFill" restorationIdentifier="Sequence View" translatesAutoresizingMaskIntoConstraints="NO" id="W4F-Kf-kUA" userLabel="Sequence View">
                                                         <rect key="frame" x="0.0" y="1" width="768" height="80"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sequence" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6KC-r3-cXS" userLabel="Collection Point Sequence">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="収集順番" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6KC-r3-cXS" userLabel="Collection Point Sequence">
                                                                 <rect key="frame" x="24" y="0.0" width="160" height="80"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="160" id="zCB-qz-SY4"/>
@@ -670,7 +670,7 @@
                                                     <view contentMode="scaleToFill" restorationIdentifier="Name View" translatesAutoresizingMaskIntoConstraints="NO" id="U5u-TW-EIo" userLabel="Name View">
                                                         <rect key="frame" x="0.0" y="82" width="768" height="80"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7x-s7-Aki" userLabel="Collection Point Name">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="集積所名" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7x-s7-Aki" userLabel="Collection Point Name">
                                                                 <rect key="frame" x="24" y="0.0" width="160" height="80"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="160" id="x4d-pd-GYb"/>
@@ -721,7 +721,7 @@
                                                     <view contentMode="scaleToFill" restorationIdentifier="Address View" translatesAutoresizingMaskIntoConstraints="NO" id="Wix-ke-fa9" userLabel="Address View">
                                                         <rect key="frame" x="0.0" y="163" width="768" height="80"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFv-Hk-lzG">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="住所" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFv-Hk-lzG">
                                                                 <rect key="frame" x="24" y="0.0" width="160" height="80"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="160" id="fCf-VC-LaJ"/>
@@ -772,7 +772,7 @@
                                                     <view contentMode="scaleToFill" restorationIdentifier="Memo View" translatesAutoresizingMaskIntoConstraints="NO" id="Rfr-6y-ho3" userLabel="Memo View">
                                                         <rect key="frame" x="0.0" y="244" width="768" height="80"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Memo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGW-0a-EZp">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="メモ" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGW-0a-EZp">
                                                                 <rect key="frame" x="24" y="0.0" width="160" height="80"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="160" id="Esi-tJ-feC"/>
@@ -915,7 +915,7 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Collection Point Details" id="xgK-PS-Clr" userLabel="Vehicle Details"/>
+                    <navigationItem key="navigationItem" title="マップ" id="xgK-PS-Clr" userLabel="Vehicle Details"/>
                     <connections>
                         <outlet property="mapView" destination="YFT-8v-qwT" id="e9Z-IA-Kij"/>
                         <segue destination="RU1-ST-XiR" kind="show" identifier="addCollectionPoint" id="J6M-Sp-KZM"/>
