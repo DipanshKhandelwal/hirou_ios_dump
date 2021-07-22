@@ -19,6 +19,8 @@ class TaskTableViewCell: UITableViewCell {
 
 class TaskTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     var taskRoutes = [TaskRoute]()
+    var filteredData = [TaskRoute]()
+    
     var delegate: PageViewController!
     
     @IBOutlet weak var searchBar: UISearchBar! {
@@ -61,6 +63,7 @@ class TaskTableViewController: UIViewController, UITableViewDelegate, UITableVie
             case .success(let value):
                 let decoder = JSONDecoder()
                 self.taskRoutes = try! decoder.decode([TaskRoute].self, from: value!)
+                self.filteredData = self.taskRoutes
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -79,13 +82,13 @@ class TaskTableViewController: UIViewController, UITableViewDelegate, UITableVie
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.taskRoutes.count
+        return self.filteredData.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskTableCell", for: indexPath) as! TaskTableViewCell
         
-        let taskRoute = self.taskRoutes[indexPath.row]
+        let taskRoute = self.filteredData[indexPath.row]
         cell.routeName?.text = taskRoute.name
         cell.routeCustomer?.text = taskRoute.customer?.name ?? "n/a"
         cell.baseRouteName?.text = taskRoute.baseRouteName
@@ -148,7 +151,7 @@ class TaskTableViewController: UIViewController, UITableViewDelegate, UITableVie
         // Pass the selected object to the new view controller.
         if segue.identifier == "showTaskDetails" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let route = self.taskRoutes[indexPath.row]
+                let route = self.filteredData[indexPath.row]
                 let controller = (segue.destination as! TaskDetailViewController)
                 controller.detailItem = route as Any
             }
