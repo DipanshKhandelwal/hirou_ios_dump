@@ -15,9 +15,8 @@ class RouteTableViewCell : UITableViewCell {
     @IBOutlet weak var garbageTypeLabel: UILabel!
 }
 
-class RouteMasterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class RouteMasterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
-    //    var detailViewController: RouteDetailViewController? = nil
     var baseRoutes = [BaseRoute]()
     var filteredData = [BaseRoute]()
     
@@ -76,6 +75,10 @@ class RouteMasterViewController: UIViewController, UITableViewDelegate, UITableV
         cell.customerLabel?.text = route.customer?.name ?? "n/a"
         cell.garbageTypeLabel?.text =  route.getGarbagesNameList()
         return cell
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+
     }
     
     // MARK: - Segues
