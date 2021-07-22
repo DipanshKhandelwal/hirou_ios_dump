@@ -19,7 +19,12 @@ class RouteMasterViewController: UIViewController, UITableViewDelegate, UITableV
     
     //    var detailViewController: RouteDetailViewController? = nil
     var baseRoutes = [BaseRoute]()
-
+    @IBOutlet weak var searchBar: UISearchBar! {
+        didSet {
+            searchBar.delegate = self
+        }
+    }
+    
     @IBOutlet weak var addRouteButton: UIBarButtonItem!
     
     override func viewDidLoad() {

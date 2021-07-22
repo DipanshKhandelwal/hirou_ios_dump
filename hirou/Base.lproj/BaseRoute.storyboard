@@ -935,6 +935,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="addRouteButton" destination="7wZ-jh-dTS" id="bRS-2d-YhM"/>
+                        <outlet property="searchBar" destination="auN-1A-8qU" id="VRL-fN-3lx"/>
                         <outlet property="tableView" destination="De2-8q-OWU" id="fzE-5a-oAk"/>
                     </connections>
                 </viewController>
