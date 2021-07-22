@@ -26,7 +26,9 @@ struct Location : Encodable, Decodable{
         let container = try decoder.singleValueContainer()
         let locationString = try container.decode(String.self)
         let locationCoordinates = locationString.split{$0 == ","}.map(String.init)
-        latitude = locationCoordinates[0]
-        longitude = locationCoordinates[1]
+        if(locationCoordinates.count == 2) {
+            latitude = locationCoordinates[0]
+            longitude = locationCoordinates[1]
+        }
     }
 }
