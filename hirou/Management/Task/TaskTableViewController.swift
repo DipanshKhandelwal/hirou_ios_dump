@@ -109,8 +109,18 @@ class TaskTableViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.count == 0 {
+            self.filteredData = self.taskRoutes
+            self.tableView.reloadData()
+        } else {
+            self.filteredData = self.taskRoutes.filter({ (taskRoute: TaskRoute) -> Bool in
+                let tmp: NSString = taskRoute.name as NSString
+                let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+                return range.location != NSNotFound
+            })
+            self.tableView.reloadData()
+        }
     }
-
 
     /*
     // Override to support conditional editing of the table view.
