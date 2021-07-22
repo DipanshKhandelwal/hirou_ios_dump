@@ -78,7 +78,17 @@ class RouteMasterViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-
+        if searchText.count == 0 {
+            self.filteredData = self.baseRoutes
+            self.tableView.reloadData()
+        } else {
+            self.filteredData = self.baseRoutes.filter({ (baseRoute: BaseRoute) -> Bool in
+                let tmp: NSString = baseRoute.name as NSString
+                let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+                return range.location != NSNotFound
+            })
+            self.tableView.reloadData()
+        }
     }
     
     // MARK: - Segues
