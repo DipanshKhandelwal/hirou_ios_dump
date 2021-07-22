@@ -15,15 +15,23 @@ class RouteTableViewCell : UITableViewCell {
     @IBOutlet weak var garbageTypeLabel: UILabel!
 }
 
-class RouteMasterViewController: UITableViewController {
+class RouteMasterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //    var detailViewController: RouteDetailViewController? = nil
     var baseRoutes = [BaseRoute]()
+
     @IBOutlet weak var addRouteButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItems = [self.addRouteButton]
+    }
+
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.dataSource = self
+            tableView.delegate = self
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,15 +53,15 @@ class RouteMasterViewController: UITableViewController {
         super.viewWillAppear(animated)
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.baseRoutes.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! RouteTableViewCell
         let route = baseRoutes[indexPath.row]
         cell.routeNameLabel?.text = route.name
