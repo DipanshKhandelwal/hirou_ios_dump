@@ -107,6 +107,10 @@ class TaskTableViewController: UIViewController, UITableViewDelegate, UITableVie
 
         return cell
     }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    }
+
 
     /*
     // Override to support conditional editing of the table view.
