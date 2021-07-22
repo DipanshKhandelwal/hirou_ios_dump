@@ -17,9 +17,25 @@ class TaskTableViewCell: UITableViewCell {
     @IBOutlet weak var baseRouteName: UILabel!
 }
 
-class TaskTableViewController: UITableViewController {
+class TaskTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     var taskRoutes = [TaskRoute]()
+    var filteredData = [TaskRoute]()
+    
     var delegate: PageViewController!
+    
+    @IBOutlet weak var searchBar: UISearchBar! {
+        didSet {
+            searchBar.delegate = self
+        }
+    }
+        
+    
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            self.tableView.dataSource = self
+            self.tableView.delegate = self
+        }
+    }
     
     var date: Date? {
          didSet {
@@ -47,6 +63,7 @@ class TaskTableViewController: UITableViewController {
             case .success(let value):
                 let decoder = JSONDecoder()
                 self.taskRoutes = try! decoder.decode([TaskRoute].self, from: value!)
+                self.filteredData = self.taskRoutes
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -58,20 +75,20 @@ class TaskTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.taskRoutes.count
+        return self.filteredData.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskTableCell", for: indexPath) as! TaskTableViewCell
         
-        let taskRoute = self.taskRoutes[indexPath.row]
+        let taskRoute = self.filteredData[indexPath.row]
         cell.routeName?.text = taskRoute.name
         cell.routeCustomer?.text = taskRoute.customer?.name ?? "n/a"
         cell.baseRouteName?.text = taskRoute.baseRouteName
@@ -89,6 +106,20 @@ class TaskTableViewController: UITableViewController {
         }
 
         return cell
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.count == 0 {
+            self.filteredData = self.taskRoutes
+            self.tableView.reloadData()
+        } else {
+            self.filteredData = self.taskRoutes.filter({ (taskRoute: TaskRoute) -> Bool in
+                let tmp: NSString = taskRoute.name as NSString
+                let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+                return range.location != NSNotFound
+            })
+            self.tableView.reloadData()
+        }
     }
 
     /*
@@ -134,7 +165,7 @@ class TaskTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         if segue.identifier == "showTaskDetails" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let route = self.taskRoutes[indexPath.row]
+                let route = self.filteredData[indexPath.row]
                 let controller = (segue.destination as! TaskDetailViewController)
                 controller.detailItem = route as Any
             }
