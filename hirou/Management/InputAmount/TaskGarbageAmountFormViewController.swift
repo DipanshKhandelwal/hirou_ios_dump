@@ -167,8 +167,7 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
                 .responseString {
                     response in
                     switch response.result {
-                    case .success(let value):
-                        print("value", value)
+                    case .success(_):
                         _ = self.navigationController?.popViewController(animated: true)
                         
                     case .failure(let error):
@@ -208,8 +207,7 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
             .responseJSON {
                 response in
                 switch response.result {
-                case .success(let value):
-                    print("value", value)
+                case .success(_):
                     _ = self.navigationController?.popViewController(animated: true)
                     
                 case .failure(let error):
