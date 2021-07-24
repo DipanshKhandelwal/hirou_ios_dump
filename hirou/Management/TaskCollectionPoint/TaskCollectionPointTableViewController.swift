@@ -139,6 +139,9 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(self.goBack))
+        navigationItem.setLeftBarButtonItems([backButton], animated: true)
+
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromHList(_:)), name: .TaskCollectionPointsHListUpdate, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromMap(_:)), name: .TaskCollectionPointsMapSelect, object: nil)
@@ -152,6 +155,11 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         locationManager?.requestWhenInUseAuthorization()
         
         timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { _ in self.updateLocation() })
+    }
+    
+    @objc
+    func goBack() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
