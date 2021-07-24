@@ -19,6 +19,16 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     var collectionPoints = [CollectionPoint]()
     var annotations = [CollectionPointPointAnnotation]()
     
+    var isUserTrackingMode = true
+    
+    @IBOutlet weak var trackUserButton: UIButton! {
+        didSet {
+            trackUserButton.setBackgroundImage(UIImage(systemName: "location.fill"), for: .normal)
+            isUserTrackingMode = true
+            trackUserButton.addTarget(self, action: #selector(toggleUserTrackingMode), for: .touchDown)
+        }
+    }
+    
     var gestures : [UIGestureRecognizer] = []
     
     private let notificationCenter = NotificationCenter.default
@@ -37,6 +47,20 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         }
     }
     
+    @IBOutlet weak var zoomOutButton: UIButton! {
+        didSet {
+            zoomOutButton.setBackgroundImage(UIImage(systemName: "arrow.down.right.and.arrow.up.left.circle"), for: .normal)
+            zoomOutButton.addTarget(self, action: #selector(zoomOut), for: .touchDown)
+        }
+    }
+    
+    @IBOutlet weak var zoomInButton: UIButton! {
+        didSet {
+            zoomInButton.setBackgroundImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right.circle"), for: .normal)
+            zoomInButton.addTarget(self, action: #selector(zoomIn), for: .touchDown)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -45,16 +69,6 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         mapView.userTrackingMode = .followWithCourse
         mapView.showsUserHeadingIndicator = true
 //        mapView.zoomLevel = 22
-        
-        let plus = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(zoomIn))
-        let minus = UIBarButtonItem(image: UIImage(systemName: "minus"), style: .plain, target: self, action: #selector(zoomOut))
-        
-        let lockUserTracking = UISwitch(frame: .zero)
-        lockUserTracking.isOn = true
-        lockUserTracking.addTarget(self, action: #selector(switchToggled(_:)), for: .valueChanged)
-        let switch_display = UIBarButtonItem(customView: lockUserTracking)
-        
-        navigationItem.setLeftBarButtonItems([minus, plus, switch_display], animated: true)
 
         self.id = UserDefaults.standard.string(forKey: "selectedRoute")!
         
@@ -69,15 +83,21 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     }
     
     @objc
-    func switchToggled(_ sender: UISwitch) {
-        if sender.isOn {
+    func toggleUserTrackingMode() {
+        if !isUserTrackingMode {
             toggleGestures(disable: true)
             self.addNewPointGesture()
             mapView.userTrackingMode = .followWithCourse
             mapView.showsUserHeadingIndicator = true
+            
+            isUserTrackingMode = true
+            trackUserButton.setBackgroundImage(UIImage(systemName: "location.fill"), for: .normal)
         }
         else{
             toggleGestures(disable: false)
+            
+            isUserTrackingMode = false
+            trackUserButton.setBackgroundImage(UIImage(systemName: "location"), for: .normal)
         }
     }
     
