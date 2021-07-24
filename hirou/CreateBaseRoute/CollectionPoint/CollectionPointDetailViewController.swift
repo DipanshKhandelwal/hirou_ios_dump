@@ -19,6 +19,16 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     var collectionPoints = [CollectionPoint]()
     var annotations = [CollectionPointPointAnnotation]()
     
+    var isUserTrackingMode = true
+    
+    @IBOutlet weak var trackUserButton: UIButton! {
+        didSet {
+            trackUserButton.setBackgroundImage(UIImage(systemName: "location.fill"), for: .normal)
+            isUserTrackingMode = true
+            trackUserButton.addTarget(self, action: #selector(toggleUserTrackingMode), for: .touchDown)
+        }
+    }
+    
     var gestures : [UIGestureRecognizer] = []
     
     private let notificationCenter = NotificationCenter.default
@@ -73,15 +83,21 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     }
     
     @objc
-    func switchToggled(_ sender: UISwitch) {
-        if sender.isOn {
+    func toggleUserTrackingMode() {
+        if !isUserTrackingMode {
             toggleGestures(disable: true)
             self.addNewPointGesture()
             mapView.userTrackingMode = .followWithCourse
             mapView.showsUserHeadingIndicator = true
+            
+            isUserTrackingMode = true
+            trackUserButton.setBackgroundImage(UIImage(systemName: "location.fill"), for: .normal)
         }
         else{
             toggleGestures(disable: false)
+            
+            isUserTrackingMode = false
+            trackUserButton.setBackgroundImage(UIImage(systemName: "location"), for: .normal)
         }
     }
     
