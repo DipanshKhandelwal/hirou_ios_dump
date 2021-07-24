@@ -230,9 +230,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     var navigationViewController: NavigationViewController!
        
     var gestures : [UIGestureRecognizer] = []
-    
-    var allLayoutButton: UIBarButtonItem? = nil;
-    
+
     var lockUserTracking: UISwitch = UISwitch()
 
     override func viewDidLoad() {
@@ -269,8 +267,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         completedHiddenSwitch.addTarget(self, action: #selector(switchToggled(_:)), for: .valueChanged)
         let switch_display = UIBarButtonItem(customView: completedHiddenSwitch)
 
-        self.allLayoutButton = UIBarButtonItem(image: UIImage(systemName: "selection.pin.in.out"), style: .plain, target: self, action: #selector(adjustMap))
-        navigationItem.setRightBarButtonItems([self.allLayoutButton!, switch_display], animated: true)
+        navigationItem.setRightBarButtonItems([switch_display], animated: true)
         
         self.gestures = self.mapView.gestureRecognizers ?? []
         toggleGestures(disable: false)
@@ -384,13 +381,9 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             toggleGestures(disable: true)
             mapView.userTrackingMode = .followWithCourse
             mapView.showsUserHeadingIndicator = true
-            
-            self.allLayoutButton?.isEnabled = false
         }
         else{
             toggleGestures(disable: false)
-            
-            self.allLayoutButton?.isEnabled = true
         }
     }
     
@@ -417,11 +410,6 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             self.collectionView.reloadData()
             self.addPointsTopMap()
         }
-    }
-    
-    @objc
-    func adjustMap() {
-        handleAutomaticZoom()
     }
 
     @objc
@@ -520,68 +508,6 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         }
         
         mapView.addAnnotations(annotations)
-//        self.handleAutomaticZoom()
-    }
-    
-    func handleAutomaticZoom() {
-        let annotations = self.annotations
-        
-        var firstCoordinate: CLLocationCoordinate2D
-        
-        if mapView.userLocation?.coordinate != nil {
-            firstCoordinate = mapView.userLocation!.coordinate
-        }
-        else {
-            firstCoordinate = annotations[0].coordinate
-        }
-        
-        if annotations.count > 0 {
-//            let firstCoordinate = annotations[0].coordinate
-            
-            //Find the southwest and northeast point
-            var northEastLatitude = firstCoordinate.latitude
-            var northEastLongitude = firstCoordinate.longitude
-            var southWestLatitude = firstCoordinate.latitude
-            var southWestLongitude = firstCoordinate.longitude
-            
-            for annotation in annotations {
-                let coordinate = annotation.coordinate
-                
-                northEastLatitude = max(northEastLatitude, coordinate.latitude)
-                northEastLongitude = max(northEastLongitude, coordinate.longitude)
-                southWestLatitude = min(southWestLatitude, coordinate.latitude)
-                southWestLongitude = min(southWestLongitude, coordinate.longitude)
-            }
-            let verticalMarginInPixels = 250.0
-            let horizontalMarginInPixels = 250.0
-            
-            let verticalMarginPercentage = verticalMarginInPixels/Double(mapView.bounds.size.height)
-            let horizontalMarginPercentage = horizontalMarginInPixels/Double(mapView.bounds.size.width)
-            
-            let verticalMargin = (northEastLatitude-southWestLatitude)*verticalMarginPercentage
-            let horizontalMargin = (northEastLongitude-southWestLongitude)*horizontalMarginPercentage
-            
-            southWestLatitude -= verticalMargin
-            southWestLongitude -= horizontalMargin
-            
-            northEastLatitude += verticalMargin
-            northEastLongitude += horizontalMargin
-            
-            if (southWestLatitude < -85.0) {
-                southWestLatitude = -85.0
-            }
-            if (southWestLongitude < -180.0) {
-                southWestLongitude = -180.0
-            }
-            if (northEastLatitude > 85) {
-                northEastLatitude = 85.0
-            }
-            if (northEastLongitude > 180.0) {
-                northEastLongitude = 180.0
-            }
-            
-            mapView.setVisibleCoordinateBounds(MGLCoordinateBoundsMake(CLLocationCoordinate2DMake(southWestLatitude, southWestLongitude), CLLocationCoordinate2DMake(northEastLatitude, northEastLongitude)), animated: true)
-        }
     }
     
     func navigate(coordinate: CLLocationCoordinate2D) {
