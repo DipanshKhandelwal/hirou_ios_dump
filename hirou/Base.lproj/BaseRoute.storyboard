@@ -212,7 +212,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <state key="normal" title="Next"/>
                                                 <connections>
-                                                    <segue destination="y29-yR-YbL" kind="presentation" id="kMZ-ud-t1X"/>
+                                                    <segue destination="y29-yR-YbL" kind="presentation" modalPresentationStyle="fullScreen" id="kMZ-ud-t1X"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ルート情報を一度保存してからマップを作成してください" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e74-fG-RFy">
@@ -363,11 +363,11 @@
             <objects>
                 <navigationController title="Master" toolbarHidden="NO" id="mBN-AK-IzB" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="QKs-p5-k9J">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bjj-8W-hq0">
-                        <rect key="frame" x="0.0" y="954" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="974" width="320" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
