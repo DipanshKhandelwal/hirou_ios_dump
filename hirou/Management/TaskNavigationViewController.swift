@@ -231,7 +231,6 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
        
     var gestures : [UIGestureRecognizer] = []
     
-    var userLocationButton: UIBarButtonItem? = nil;
     var allLayoutButton: UIBarButtonItem? = nil;
     
     var lockUserTracking: UISwitch = UISwitch()
@@ -269,10 +268,9 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         completedHiddenSwitch.isOn = false
         completedHiddenSwitch.addTarget(self, action: #selector(switchToggled(_:)), for: .valueChanged)
         let switch_display = UIBarButtonItem(customView: completedHiddenSwitch)
-                
-        self.userLocationButton = UIBarButtonItem(image: UIImage(systemName: "mappin.and.ellipse"), style: .plain, target: self, action: #selector(goToUserLocation))
+
         self.allLayoutButton = UIBarButtonItem(image: UIImage(systemName: "selection.pin.in.out"), style: .plain, target: self, action: #selector(adjustMap))
-        navigationItem.setRightBarButtonItems([self.userLocationButton!, self.allLayoutButton!, switch_display], animated: true)
+        navigationItem.setRightBarButtonItems([self.allLayoutButton!, switch_display], animated: true)
         
         self.gestures = self.mapView.gestureRecognizers ?? []
         toggleGestures(disable: false)
@@ -388,13 +386,11 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             mapView.showsUserHeadingIndicator = true
             
             self.allLayoutButton?.isEnabled = false
-            self.userLocationButton?.isEnabled = false
         }
         else{
             toggleGestures(disable: false)
             
             self.allLayoutButton?.isEnabled = true
-            self.userLocationButton?.isEnabled = true
         }
     }
     
@@ -421,12 +417,6 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             self.collectionView.reloadData()
             self.addPointsTopMap()
         }
-    }
-    
-    @objc
-    func goToUserLocation() {
-        let userCoordinate = (mapView.userLocation?.coordinate)!
-        mapView.setCenter(userCoordinate, zoomLevel: self.mapView.zoomLevel, animated: true)
     }
     
     @objc
