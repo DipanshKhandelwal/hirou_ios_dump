@@ -30,5 +30,9 @@ struct Location : Encodable, Decodable{
             latitude = locationCoordinates[0]
             longitude = locationCoordinates[1]
         }
+        else {
+            latitude = "0"
+            longitude = "0"
+        }
     }
 }
