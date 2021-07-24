@@ -37,6 +37,20 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         }
     }
     
+    @IBOutlet weak var zoomOutButton: UIButton! {
+        didSet {
+            zoomOutButton.setBackgroundImage(UIImage(systemName: "arrow.down.right.and.arrow.up.left.circle"), for: .normal)
+            zoomOutButton.addTarget(self, action: #selector(zoomOut), for: .touchDown)
+        }
+    }
+    
+    @IBOutlet weak var zoomInButton: UIButton! {
+        didSet {
+            zoomInButton.setBackgroundImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right.circle"), for: .normal)
+            zoomInButton.addTarget(self, action: #selector(zoomIn), for: .touchDown)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
