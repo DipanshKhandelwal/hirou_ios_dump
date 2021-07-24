@@ -22,10 +22,6 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     var gestures : [UIGestureRecognizer] = []
     
     private let notificationCenter = NotificationCenter.default
-    
-    var userLocationButton: UIBarButtonItem? = nil;
-    var allLayoutButton: UIBarButtonItem? = nil;
-    var navigateButton: UIBarButtonItem? = nil;
 
     @objc
     func zoomIn() {
@@ -62,23 +58,14 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
 
         self.id = UserDefaults.standard.string(forKey: "selectedRoute")!
         
-        self.userLocationButton = UIBarButtonItem(image: UIImage(systemName: "mappin.and.ellipse"), style: .plain, target: self, action: #selector(goToUserLocation))
-        self.allLayoutButton = UIBarButtonItem(image: UIImage(systemName: "selection.pin.in.out"), style: .plain, target: self, action: #selector(self.handleAutomaticZoom))
-        self.navigateButton = UIBarButtonItem(image: UIImage(systemName: "car"), style: .plain, target: self, action: #selector(self.followVehicle))
-        navigationItem.setRightBarButtonItems([self.userLocationButton!, self.allLayoutButton!, self.navigateButton!], animated: true)
-        
         self.gestures = self.mapView.gestureRecognizers ?? []
         toggleGestures(disable: true)
-        self.allLayoutButton?.isEnabled = false
-        self.userLocationButton?.isEnabled = false
-        self.navigateButton?.isEnabled = false
         
         self.addNewPointGesture()
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .CollectionPointsTableSelect, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointReorderFromVList(_:)), name: .CollectionPointsTableReorder, object: nil)
-
     }
     
     @objc
@@ -88,17 +75,9 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
             self.addNewPointGesture()
             mapView.userTrackingMode = .followWithCourse
             mapView.showsUserHeadingIndicator = true
-            
-            self.allLayoutButton?.isEnabled = false
-            self.userLocationButton?.isEnabled = false
-            self.navigateButton?.isEnabled = false
         }
         else{
             toggleGestures(disable: false)
-            
-            self.allLayoutButton?.isEnabled = true
-            self.userLocationButton?.isEnabled = true
-            self.navigateButton?.isEnabled = true
         }
     }
     
@@ -171,7 +150,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         }
     }
     
-    func addPointsToMap(autoZoom: Bool = false) {
+    func addPointsToMap() {
         self.mapView.removeAnnotations(self.annotations)
         if self.newAnnotation != nil {
             self.mapView.removeAnnotation(self.newAnnotation)
@@ -189,90 +168,6 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         }
         
         mapView.addAnnotations(annotations)
-        
-        if autoZoom {
-            self.handleAutomaticZoom()
-        }
-        // Center the map on the annotation.
-        //        mapView.setCenter(annotations[0].coordinate, zoomLevel: 14, animated: false)
-        
-        // Pop-up the callout view.
-        //        mapView.selectAnnotation(annotations[0], animated: true, completionHandler: nil)
-    }
-    
-    @objc
-    func goToUserLocation() {
-        guard let userCoordinate = mapView.userLocation?.coordinate else { return }
-        mapView.setCenter(userCoordinate, zoomLevel: 18, animated: true)
-    }
-    
-    @objc func handleAutomaticZoom() {
-        let annotations = self.annotations
-        
-        var firstCoordinate: CLLocationCoordinate2D
-        
-        if mapView.userLocation?.coordinate != nil {
-            firstCoordinate = mapView.userLocation!.coordinate
-        }
-        else {
-            firstCoordinate = annotations[0].coordinate
-        }
-        
-        if annotations.count > 0 {
-            
-//            let firstCoordinate = annotations[0].coordinate
-            
-            //Find the southwest and northeast point
-            var northEastLatitude = firstCoordinate.latitude
-            var northEastLongitude = firstCoordinate.longitude
-            var southWestLatitude = firstCoordinate.latitude
-            var southWestLongitude = firstCoordinate.longitude
-            
-            for annotation in annotations {
-                let coordinate = annotation.coordinate
-                
-                northEastLatitude = max(northEastLatitude, coordinate.latitude)
-                northEastLongitude = max(northEastLongitude, coordinate.longitude)
-                southWestLatitude = min(southWestLatitude, coordinate.latitude)
-                southWestLongitude = min(southWestLongitude, coordinate.longitude)
-                
-                
-            }
-            let verticalMarginInPixels = 250.0
-            let horizontalMarginInPixels = 250.0
-            
-            let verticalMarginPercentage = verticalMarginInPixels/Double(mapView.bounds.size.height)
-            let horizontalMarginPercentage = horizontalMarginInPixels/Double(mapView.bounds.size.width)
-            
-            let verticalMargin = (northEastLatitude-southWestLatitude)*verticalMarginPercentage
-            let horizontalMargin = (northEastLongitude-southWestLongitude)*horizontalMarginPercentage
-            
-            southWestLatitude -= verticalMargin
-            southWestLongitude -= horizontalMargin
-            
-            northEastLatitude += verticalMargin
-            northEastLongitude += horizontalMargin
-            
-            if (southWestLatitude < -85.0) {
-                southWestLatitude = -85.0
-            }
-            if (southWestLongitude < -180.0) {
-                southWestLongitude = -180.0
-            }
-            if (northEastLatitude > 85) {
-                northEastLatitude = 85.0
-            }
-            if (northEastLongitude > 180.0) {
-                northEastLongitude = 180.0
-            }
-            
-            mapView.setVisibleCoordinateBounds(MGLCoordinateBoundsMake(CLLocationCoordinate2DMake(southWestLatitude, southWestLongitude), CLLocationCoordinate2DMake(northEastLatitude, northEastLongitude)), animated: true)
-        }
-    }
-    
-    @objc
-    func followVehicle() {
-        mapView.userTrackingMode = .followWithCourse
     }
     
     @objc func handleNewPointTap(_ gesture: UILongPressGestureRecognizer) {
