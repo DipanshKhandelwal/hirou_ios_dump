@@ -113,9 +113,17 @@ class CollectionPointMasterViewController: UITableViewController {
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromMap(_:)), name: .CollectionPointsMapSelect, object: nil)
 
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(self.goBack))
+        navigationItem.setLeftBarButtonItems([backButton], animated: true)
+
         setupConnection()
     }
     
+    @objc
+    func goBack() {
+        self.dismiss(animated: true, completion: nil)
+    }
+
     override func viewDidDisappear(_ animated: Bool) {
         socketConnection?.disconnect()
         socketConnection = nil
