@@ -45,16 +45,6 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         mapView.userTrackingMode = .followWithCourse
         mapView.showsUserHeadingIndicator = true
 //        mapView.zoomLevel = 22
-        
-        let plus = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(zoomIn))
-        let minus = UIBarButtonItem(image: UIImage(systemName: "minus"), style: .plain, target: self, action: #selector(zoomOut))
-        
-        let lockUserTracking = UISwitch(frame: .zero)
-        lockUserTracking.isOn = true
-        lockUserTracking.addTarget(self, action: #selector(switchToggled(_:)), for: .valueChanged)
-        let switch_display = UIBarButtonItem(customView: lockUserTracking)
-        
-        navigationItem.setLeftBarButtonItems([minus, plus, switch_display], animated: true)
 
         self.id = UserDefaults.standard.string(forKey: "selectedRoute")!
         
