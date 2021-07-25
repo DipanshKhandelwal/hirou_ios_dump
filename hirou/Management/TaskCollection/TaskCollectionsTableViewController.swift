@@ -30,6 +30,31 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
         }
     }
     
+    
+    @IBOutlet weak var collectionStack: UIStackView! {
+        didSet {
+            collectionStack.axis = .horizontal
+            collectionStack.spacing = 10
+            collectionStack.distribution = .fillEqually
+        }
+    }
+    
+    func updateCollectionStack () {
+        collectionStack.arrangedSubviews.forEach{ $0.removeFromSuperview() }
+        for num in 0...taskCollections.count-1 {
+            let taskCollection = taskCollections[num];
+            let garbageView = UIButton(type: .system)
+            garbageView.setTitle(taskCollection.garbage.name, for: .normal)
+            garbageView.layer.borderWidth = 1
+            garbageView.layer.cornerRadius = 20
+            garbageView.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+            garbageView.layer.backgroundColor = taskCollection.complete ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
+            garbageView.layer.borderColor = taskCollection.complete ? UIColor.systemBlue.cgColor : UIColor.systemGray3.cgColor
+            garbageView.setTitleColor(.black, for: .normal)
+            collectionStack.addArrangedSubview(garbageView)
+        }
+    }
+    
     private let notificationCenter = NotificationCenter.default
     
     override func viewDidLoad() {
@@ -42,6 +67,8 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         //         self.navigationItem.rightBarButtonItem = self.editButtonItem
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .TaskCollectionPointsVListUpdate, object: nil)
+        
+        updateCollectionStack()
     }
     
     @objc
