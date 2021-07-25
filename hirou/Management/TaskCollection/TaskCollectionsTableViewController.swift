@@ -44,6 +44,8 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
         for num in 0...taskCollections.count-1 {
             let taskCollection = taskCollections[num];
             let garbageView = UIButton(type: .system)
+            garbageView.tag = num
+            garbageView.addTarget(self, action: #selector(toggleCollectionFromStack), for: .touchDown)
             garbageView.setTitle(taskCollection.garbage.name, for: .normal)
             garbageView.layer.borderWidth = 1
             garbageView.layer.cornerRadius = 20
@@ -53,6 +55,19 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
             garbageView.setTitleColor(.black, for: .normal)
             collectionStack.addArrangedSubview(garbageView)
         }
+    }
+    
+    @objc
+    func switchToggle(_ sender: UISwitch) {
+        let taskCollection = self.taskCollections[sender.tag]
+        setTaskCollectionComplete(taskId: taskCollection.id, switchState: sender.isOn, position: sender.tag)
+    }
+    
+    @objc
+    func toggleCollectionFromStack (_ sender: UIButton) {
+        let taskCollection = self.taskCollections[sender.tag]
+        let state = !taskCollection.complete
+        setTaskCollectionComplete(taskId: taskCollection.id, switchState: state, position: sender.tag)
     }
     
     private let notificationCenter = NotificationCenter.default
@@ -67,8 +82,6 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         //         self.navigationItem.rightBarButtonItem = self.editButtonItem
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromVList(_:)), name: .TaskCollectionPointsVListUpdate, object: nil)
-        
-        updateCollectionStack()
     }
     
     @objc
@@ -146,12 +159,6 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
         cell.collectionSwitch.tag = row
         cell.collectionSwitch!.addTarget(self, action: #selector(switchToggle(_:)), for: .valueChanged)
         return cell
-    }
-    
-    @objc
-    func switchToggle(_ sender: UISwitch) {
-        let taskCollection = self.taskCollections[sender.tag]
-        setTaskCollectionComplete(taskId: taskCollection.id, switchState: sender.isOn, position: sender.tag)
     }
     
     func setTaskCollectionComplete(taskId: Int, switchState: Bool, position: Int) {
