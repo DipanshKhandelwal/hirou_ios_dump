@@ -220,6 +220,8 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     var route:TaskRoute?
     var hideCompleted: Bool = false
     
+    var isUserTrackingMode = false
+    
     private let notificationCenter = NotificationCenter.default
     
     let userId = UserDefaults.standard.string(forKey: UserDefaultsConstants.USER_ID)
@@ -230,11 +232,6 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     var navigationViewController: NavigationViewController!
        
     var gestures : [UIGestureRecognizer] = []
-    
-    var userLocationButton: UIBarButtonItem? = nil;
-    var allLayoutButton: UIBarButtonItem? = nil;
-    
-    var lockUserTracking: UISwitch = UISwitch()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -254,25 +251,13 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         let transform = CGAffineTransform(scaleX: 0.8, y: 0.9)
         collectionView.itemSize = collectionView.frame.size.applying(transform)
         collectionView.decelerationDistance = FSPagerView.automaticDistance
-        
-        let plus = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(zoomIn))
-        let minus = UIBarButtonItem(image: UIImage(systemName: "minus"), style: .plain, target: self, action: #selector(zoomOut))
-        
-        self.lockUserTracking = UISwitch(frame: .zero)
-        lockUserTracking.isOn = false
-        lockUserTracking.addTarget(self, action: #selector(userTrackingSwitchToggled(_:)), for: .valueChanged)
-        let user_track_switch_display = UIBarButtonItem(customView: lockUserTracking)
-        
-        navigationItem.setLeftBarButtonItems([minus, plus, user_track_switch_display], animated: true)
-        
+                
         let completedHiddenSwitch = UISwitch(frame: .zero)
         completedHiddenSwitch.isOn = false
         completedHiddenSwitch.addTarget(self, action: #selector(switchToggled(_:)), for: .valueChanged)
         let switch_display = UIBarButtonItem(customView: completedHiddenSwitch)
-                
-        self.userLocationButton = UIBarButtonItem(image: UIImage(systemName: "mappin.and.ellipse"), style: .plain, target: self, action: #selector(goToUserLocation))
-        self.allLayoutButton = UIBarButtonItem(image: UIImage(systemName: "selection.pin.in.out"), style: .plain, target: self, action: #selector(adjustMap))
-        navigationItem.setRightBarButtonItems([self.userLocationButton!, self.allLayoutButton!, switch_display], animated: true)
+
+        navigationItem.setRightBarButtonItems([switch_display], animated: true)
         
         self.gestures = self.mapView.gestureRecognizers ?? []
         toggleGestures(disable: false)
@@ -288,6 +273,28 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         notificationCenter.addObserver(self, selector: #selector(locationsUpdated(_:)), name: .TaskCollectionPointsUserLocationsUpdate, object: nil)
 
         self.getPoints()
+    }
+    
+    @IBOutlet weak var zoomOutButton: UIButton! {
+        didSet {
+            zoomOutButton.setBackgroundImage(UIImage(systemName: "arrow.down.right.and.arrow.up.left.circle"), for: .normal)
+            zoomOutButton.addTarget(self, action: #selector(zoomOut), for: .touchDown)
+        }
+    }
+    
+    @IBOutlet weak var zoomInButton: UIButton! {
+        didSet {
+            zoomInButton.setBackgroundImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right.circle"), for: .normal)
+            zoomInButton.addTarget(self, action: #selector(zoomIn), for: .touchDown)
+        }
+    }
+    
+    @IBOutlet weak var trackUserButton: UIButton! {
+        didSet {
+            trackUserButton.setBackgroundImage(UIImage(systemName: "location"), for: .normal)
+            isUserTrackingMode = false
+            trackUserButton.addTarget(self, action: #selector(userTrackingSwitchToggled), for: .touchDown)
+        }
     }
     
     func getTaskCollectionPoints () -> [TaskCollectionPoint] {
@@ -381,20 +388,20 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     }
     
     @objc
-    func userTrackingSwitchToggled(_ sender: UISwitch) {
-        if sender.isOn {
+    func userTrackingSwitchToggled() {
+        if !isUserTrackingMode {
             toggleGestures(disable: true)
             mapView.userTrackingMode = .followWithCourse
             mapView.showsUserHeadingIndicator = true
             
-            self.allLayoutButton?.isEnabled = false
-            self.userLocationButton?.isEnabled = false
+            isUserTrackingMode = true
+            trackUserButton.setBackgroundImage(UIImage(systemName: "location.fill"), for: .normal)
         }
         else{
             toggleGestures(disable: false)
             
-            self.allLayoutButton?.isEnabled = true
-            self.userLocationButton?.isEnabled = true
+            isUserTrackingMode = false
+            trackUserButton.setBackgroundImage(UIImage(systemName: "location"), for: .normal)
         }
     }
     
@@ -421,17 +428,6 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
             self.collectionView.reloadData()
             self.addPointsTopMap()
         }
-    }
-    
-    @objc
-    func goToUserLocation() {
-        let userCoordinate = (mapView.userLocation?.coordinate)!
-        mapView.setCenter(userCoordinate, zoomLevel: self.mapView.zoomLevel, animated: true)
-    }
-    
-    @objc
-    func adjustMap() {
-        handleAutomaticZoom()
     }
 
     @objc
@@ -483,7 +479,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     }
     
     func focusPoint(index: Int) {
-        if(!lockUserTracking.isOn) {
+        if(!isUserTrackingMode) {
             mapView.setCenter(self.annotations[index].coordinate, zoomLevel: self.mapView.zoomLevel, direction: -1, animated: true)
         }
         mapView.selectAnnotation(self.annotations[index], animated: false, completionHandler: nil)
@@ -530,68 +526,6 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         }
         
         mapView.addAnnotations(annotations)
-//        self.handleAutomaticZoom()
-    }
-    
-    func handleAutomaticZoom() {
-        let annotations = self.annotations
-        
-        var firstCoordinate: CLLocationCoordinate2D
-        
-        if mapView.userLocation?.coordinate != nil {
-            firstCoordinate = mapView.userLocation!.coordinate
-        }
-        else {
-            firstCoordinate = annotations[0].coordinate
-        }
-        
-        if annotations.count > 0 {
-//            let firstCoordinate = annotations[0].coordinate
-            
-            //Find the southwest and northeast point
-            var northEastLatitude = firstCoordinate.latitude
-            var northEastLongitude = firstCoordinate.longitude
-            var southWestLatitude = firstCoordinate.latitude
-            var southWestLongitude = firstCoordinate.longitude
-            
-            for annotation in annotations {
-                let coordinate = annotation.coordinate
-                
-                northEastLatitude = max(northEastLatitude, coordinate.latitude)
-                northEastLongitude = max(northEastLongitude, coordinate.longitude)
-                southWestLatitude = min(southWestLatitude, coordinate.latitude)
-                southWestLongitude = min(southWestLongitude, coordinate.longitude)
-            }
-            let verticalMarginInPixels = 250.0
-            let horizontalMarginInPixels = 250.0
-            
-            let verticalMarginPercentage = verticalMarginInPixels/Double(mapView.bounds.size.height)
-            let horizontalMarginPercentage = horizontalMarginInPixels/Double(mapView.bounds.size.width)
-            
-            let verticalMargin = (northEastLatitude-southWestLatitude)*verticalMarginPercentage
-            let horizontalMargin = (northEastLongitude-southWestLongitude)*horizontalMarginPercentage
-            
-            southWestLatitude -= verticalMargin
-            southWestLongitude -= horizontalMargin
-            
-            northEastLatitude += verticalMargin
-            northEastLongitude += horizontalMargin
-            
-            if (southWestLatitude < -85.0) {
-                southWestLatitude = -85.0
-            }
-            if (southWestLongitude < -180.0) {
-                southWestLongitude = -180.0
-            }
-            if (northEastLatitude > 85) {
-                northEastLatitude = 85.0
-            }
-            if (northEastLongitude > 180.0) {
-                northEastLongitude = 180.0
-            }
-            
-            mapView.setVisibleCoordinateBounds(MGLCoordinateBoundsMake(CLLocationCoordinate2DMake(southWestLatitude, southWestLongitude), CLLocationCoordinate2DMake(northEastLatitude, northEastLongitude)), animated: true)
-        }
     }
     
     func navigate(coordinate: CLLocationCoordinate2D) {
