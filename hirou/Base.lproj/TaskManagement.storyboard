@@ -1759,10 +1759,10 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="oZm-Ll-yk0">
                                                             <rect key="frame" x="629" y="105.5" width="49" height="59.5"/>
                                                             <subviews>
-                                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xmf-9S-LoZ">
+                                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xmf-9S-LoZ">
                                                                     <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
                                                                 </switch>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="完了" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zW0-Tk-dpf">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="完了" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zW0-Tk-dpf">
                                                                     <rect key="frame" x="7" y="39" width="35" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
@@ -1814,12 +1814,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="V6w-NW-bAA">
                         <rightBarButtonItems>
-                            <barButtonItem title="Report Admin" style="plain" id="fb5-Rh-8bE">
+                            <barButtonItem title="Report Admin" image="text.bubble.fill" catalog="system" style="plain" id="fb5-Rh-8bE">
                                 <connections>
                                     <segue destination="DT6-ff-ZEJ" kind="show" identifier="taskCollectionsToReportAdminFormSegue" id="Xck-sm-1VP"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Task Amount" style="plain" id="29c-oO-D96">
+                            <barButtonItem title="Task Amount" image="arrow.up.bin.fill" catalog="system" style="plain" id="29c-oO-D96">
                                 <connections>
                                     <segue destination="RrN-sE-2iT" kind="show" identifier="taskCollectionsToTaskAmountFormSegue" id="1JW-2v-0zI"/>
                                 </connections>
@@ -2123,12 +2123,14 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.down.right.and.arrow.up.left.circle" catalog="system" width="128" height="121"/>
+        <image name="arrow.up.bin.fill" catalog="system" width="128" height="93"/>
         <image name="arrow.up.left.and.arrow.down.right.circle" catalog="system" width="128" height="121"/>
         <image name="car.fill" catalog="system" width="128" height="93"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="location.fill" catalog="system" width="128" height="121"/>
         <image name="pencil.circle" catalog="system" width="128" height="121"/>
         <image name="person.crop.square" catalog="system" width="128" height="114"/>
+        <image name="text.bubble.fill" catalog="system" width="128" height="110"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
