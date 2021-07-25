@@ -1694,13 +1694,12 @@
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VDD-Se-RuW">
                                                 <rect key="frame" x="24" y="4" width="720" height="40"/>
-                                                <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="yVR-JT-45H"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                                         <constraints>
                                             <constraint firstItem="VDD-Se-RuW" firstAttribute="leading" secondItem="viH-UK-S4b" secondAttribute="leading" constant="24" id="3Eu-Qa-fV9"/>
                                             <constraint firstAttribute="trailing" secondItem="VDD-Se-RuW" secondAttribute="trailing" constant="24" id="Bid-Sc-G5w"/>
