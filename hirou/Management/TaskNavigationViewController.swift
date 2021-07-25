@@ -231,8 +231,6 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
        
     var gestures : [UIGestureRecognizer] = []
 
-    var lockUserTracking: UISwitch = UISwitch()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -251,17 +249,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         let transform = CGAffineTransform(scaleX: 0.8, y: 0.9)
         collectionView.itemSize = collectionView.frame.size.applying(transform)
         collectionView.decelerationDistance = FSPagerView.automaticDistance
-        
-        let plus = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(zoomIn))
-        let minus = UIBarButtonItem(image: UIImage(systemName: "minus"), style: .plain, target: self, action: #selector(zoomOut))
-        
-        self.lockUserTracking = UISwitch(frame: .zero)
-        lockUserTracking.isOn = false
-        lockUserTracking.addTarget(self, action: #selector(userTrackingSwitchToggled(_:)), for: .valueChanged)
-        let user_track_switch_display = UIBarButtonItem(customView: lockUserTracking)
-        
-        navigationItem.setLeftBarButtonItems([minus, plus, user_track_switch_display], animated: true)
-        
+                
         let completedHiddenSwitch = UISwitch(frame: .zero)
         completedHiddenSwitch.isOn = false
         completedHiddenSwitch.addTarget(self, action: #selector(switchToggled(_:)), for: .valueChanged)
