@@ -220,6 +220,8 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     var route:TaskRoute?
     var hideCompleted: Bool = false
     
+    var isUserTrackingMode = false
+    
     private let notificationCenter = NotificationCenter.default
     
     let userId = UserDefaults.standard.string(forKey: UserDefaultsConstants.USER_ID)
@@ -271,6 +273,28 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         notificationCenter.addObserver(self, selector: #selector(locationsUpdated(_:)), name: .TaskCollectionPointsUserLocationsUpdate, object: nil)
 
         self.getPoints()
+    }
+    
+    @IBOutlet weak var zoomOutButton: UIButton! {
+        didSet {
+            zoomOutButton.setBackgroundImage(UIImage(systemName: "arrow.down.right.and.arrow.up.left.circle"), for: .normal)
+            zoomOutButton.addTarget(self, action: #selector(zoomOut), for: .touchDown)
+        }
+    }
+    
+    @IBOutlet weak var zoomInButton: UIButton! {
+        didSet {
+            zoomInButton.setBackgroundImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right.circle"), for: .normal)
+            zoomInButton.addTarget(self, action: #selector(zoomIn), for: .touchDown)
+        }
+    }
+    
+    @IBOutlet weak var trackUserButton: UIButton! {
+        didSet {
+            trackUserButton.setBackgroundImage(UIImage(systemName: "location"), for: .normal)
+            isUserTrackingMode = false
+            trackUserButton.addTarget(self, action: #selector(userTrackingSwitchToggled), for: .touchDown)
+        }
     }
     
     func getTaskCollectionPoints () -> [TaskCollectionPoint] {
@@ -364,14 +388,20 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     }
     
     @objc
-    func userTrackingSwitchToggled(_ sender: UISwitch) {
-        if sender.isOn {
+    func userTrackingSwitchToggled() {
+        if !isUserTrackingMode {
             toggleGestures(disable: true)
             mapView.userTrackingMode = .followWithCourse
             mapView.showsUserHeadingIndicator = true
+            
+            isUserTrackingMode = true
+            trackUserButton.setBackgroundImage(UIImage(systemName: "location.fill"), for: .normal)
         }
         else{
             toggleGestures(disable: false)
+            
+            isUserTrackingMode = false
+            trackUserButton.setBackgroundImage(UIImage(systemName: "location"), for: .normal)
         }
     }
     
@@ -449,7 +479,7 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     }
     
     func focusPoint(index: Int) {
-        if(!lockUserTracking.isOn) {
+        if(!isUserTrackingMode) {
             mapView.setCenter(self.annotations[index].coordinate, zoomLevel: self.mapView.zoomLevel, direction: -1, animated: true)
         }
         mapView.selectAnnotation(self.annotations[index], animated: false, completionHandler: nil)
