@@ -99,6 +99,7 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
         }
         DispatchQueue.main.async {
             self.tableView.reloadRows(at: changedIndexes, with: .automatic)
+            self.updateCollectionStack()
         }
     }
     
@@ -129,6 +130,7 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
             DispatchQueue.main.async {
                 if (self.tableView != nil) {
                     self.tableView.reloadData()
+                    self.updateCollectionStack()
                 }
             }
         }
@@ -185,6 +187,7 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
                     self.taskCollections[position] = taskCollection
                     DispatchQueue.main.async {
                         self.tableView.reloadRows(at: [ IndexPath(row: position, section: 0) ], with: .automatic)
+                        self.updateCollectionStack()
                     }
                     self.notificationCenter.post(name: .TaskCollectionPointsHListUpdate, object: [taskCollection])
                 case .failure(let error):
