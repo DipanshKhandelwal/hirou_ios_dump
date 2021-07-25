@@ -30,6 +30,46 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
         }
     }
     
+    
+    @IBOutlet weak var collectionStack: UIStackView! {
+        didSet {
+            collectionStack.axis = .horizontal
+            collectionStack.spacing = 10
+            collectionStack.distribution = .fillEqually
+        }
+    }
+    
+    func updateCollectionStack () {
+        collectionStack.arrangedSubviews.forEach{ $0.removeFromSuperview() }
+        for num in 0...taskCollections.count-1 {
+            let taskCollection = taskCollections[num];
+            let garbageView = UIButton(type: .system)
+            garbageView.tag = num
+            garbageView.addTarget(self, action: #selector(toggleCollectionFromStack), for: .touchDown)
+            garbageView.setTitle(taskCollection.garbage.name, for: .normal)
+            garbageView.layer.borderWidth = 1
+            garbageView.layer.cornerRadius = 20
+            garbageView.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+            garbageView.layer.backgroundColor = taskCollection.complete ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
+            garbageView.layer.borderColor = taskCollection.complete ? UIColor.systemBlue.cgColor : UIColor.systemGray3.cgColor
+            garbageView.setTitleColor(.black, for: .normal)
+            collectionStack.addArrangedSubview(garbageView)
+        }
+    }
+    
+    @objc
+    func switchToggle(_ sender: UISwitch) {
+        let taskCollection = self.taskCollections[sender.tag]
+        setTaskCollectionComplete(taskId: taskCollection.id, switchState: sender.isOn, position: sender.tag)
+    }
+    
+    @objc
+    func toggleCollectionFromStack (_ sender: UIButton) {
+        let taskCollection = self.taskCollections[sender.tag]
+        let state = !taskCollection.complete
+        setTaskCollectionComplete(taskId: taskCollection.id, switchState: state, position: sender.tag)
+    }
+    
     private let notificationCenter = NotificationCenter.default
     
     override func viewDidLoad() {
@@ -59,6 +99,7 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
         }
         DispatchQueue.main.async {
             self.tableView.reloadRows(at: changedIndexes, with: .automatic)
+            self.updateCollectionStack()
         }
     }
     
@@ -89,6 +130,7 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
             DispatchQueue.main.async {
                 if (self.tableView != nil) {
                     self.tableView.reloadData()
+                    self.updateCollectionStack()
                 }
             }
         }
@@ -121,12 +163,6 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
         return cell
     }
     
-    @objc
-    func switchToggle(_ sender: UISwitch) {
-        let taskCollection = self.taskCollections[sender.tag]
-        setTaskCollectionComplete(taskId: taskCollection.id, switchState: sender.isOn, position: sender.tag)
-    }
-    
     func setTaskCollectionComplete(taskId: Int, switchState: Bool, position: Int) {
         let url = Environment.SERVER_URL + "api/task_collection/"+String(taskId)+"/"
         
@@ -151,6 +187,7 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
                     self.taskCollections[position] = taskCollection
                     DispatchQueue.main.async {
                         self.tableView.reloadRows(at: [ IndexPath(row: position, section: 0) ], with: .automatic)
+                        self.updateCollectionStack()
                     }
                     self.notificationCenter.post(name: .TaskCollectionPointsHListUpdate, object: [taskCollection])
                 case .failure(let error):
