@@ -283,7 +283,7 @@
                                     <action selector="copyRoute:" destination="8Lu-KB-8Xt" id="dV6-34-tzN"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Save" id="e6C-ue-qcu">
+                            <barButtonItem title="Item" image="checkmark" catalog="system" id="e6C-ue-qcu">
                                 <connections>
                                     <action selector="saveRoute:" destination="8Lu-KB-8Xt" id="GZo-hA-mnw"/>
                                 </connections>
@@ -989,6 +989,7 @@
         <image name="arrow.down.right.and.arrow.up.left.circle" catalog="system" width="128" height="121"/>
         <image name="arrow.up.left.and.arrow.down.right.circle" catalog="system" width="128" height="121"/>
         <image name="barButtonItem:d5W-nL-8gr:image" width="128" height="113"/>
+        <image name="checkmark" catalog="system" width="128" height="114"/>
         <image name="chevron.compact.right" catalog="system" width="64" height="128"/>
         <image name="doc.on.doc" catalog="system" width="116" height="128"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
