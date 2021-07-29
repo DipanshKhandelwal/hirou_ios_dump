@@ -10,7 +10,6 @@ import UIKit
 import Alamofire
 
 class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
-    @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var deleteButton: UIBarButtonItem!
     
     var garbages = [Garbage]()
@@ -58,6 +57,9 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         
         self.deleteButton?.isEnabled = false
         
+        let saveButton = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(saveClicked))
+        navigationItem.setRightBarButton(saveButton, animated: true)
+
         fetchVehicles()
         
         configureView()
@@ -102,7 +104,6 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
             self.amountLabel?.text = String(taskAmount.amount)
             self.memoLabel?.text = taskAmount.memo
             
-            self.addButton?.setTitle("Save", for: .normal)
             self.deleteButton?.isEnabled = true
             self.title = "Edit Task Garbage Amount"
         }
@@ -116,11 +117,8 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         self.vehicleLabel.resignFirstResponder();
     }
 
-    @IBAction func cancel(_ sender: Any) {
-        _ = self.navigationController?.popViewController(animated: true)
-    }
-
-    @IBAction func addClicked(_ sender: Any) {
+    @objc
+    func saveClicked(_ sender: Any) {
         if selectedGarbage == nil {
             let addAlert = UIAlertController(title: "Please select a garbage type !!", message: "", preferredStyle: .alert)
             addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
