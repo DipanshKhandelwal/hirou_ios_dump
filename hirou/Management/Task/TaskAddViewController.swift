@@ -26,6 +26,10 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
+        
+        let saveButton = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(addNewTaskHandler))
+        navigationItem.setRightBarButton(saveButton, animated: true)
+        
     }
     
     @objc
@@ -53,11 +57,8 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
     }
     
-    @IBAction func cancelAddTask(_ sender: Any) {
-        _ = self.navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func addNewTask(_ sender: Any) {
+    @objc
+    func addNewTaskHandler() {
         if selectedBaseRoute == nil {
             let addAlert = UIAlertController(title: "Please select a base route !!", message: "", preferredStyle: .alert)
             addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
