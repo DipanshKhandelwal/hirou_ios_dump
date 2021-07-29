@@ -37,6 +37,9 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
         
+        let saveButton = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(handleAddClick))
+        navigationItem.setRightBarButton(saveButton, animated: true)
+        
         setupPickers()
         self.deleteButton?.isEnabled = false
         configureView()
@@ -196,11 +199,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     @IBAction func showImagePicker(_ sender: UIButton) {
         self.imagePicker.present(from: sender)
     }
-    
-    @IBAction func cancel(_ sender: Any) {
-        _ = self.navigationController?.popViewController(animated: true)
-    }
-    
+
     @IBAction func handleDeleteClicked(_ sender: Any) {
         let deleteAlert = UIAlertController(title: "Delete Task Report ?", message: "Are you sure you want to delete the report ?", preferredStyle: .alert)
         
@@ -215,7 +214,8 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         self.present(deleteAlert, animated: true, completion: nil)
     }
     
-    @IBAction func handleAddClick(_ sender: Any) {
+    @objc
+    func handleAddClick() {
         if selectedCollectionPoint == nil {
             let addAlert = UIAlertController(title: "Please select a collection point !!", message: "", preferredStyle: .alert)
             addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
