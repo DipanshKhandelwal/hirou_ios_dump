@@ -177,7 +177,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1ra-en-ATf">
-                                <rect key="frame" x="0.0" y="100" width="768" height="487"/>
+                                <rect key="frame" x="0.0" y="100" width="768" height="325"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GQx-m0-JQg">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="1"/>
@@ -362,69 +362,6 @@
                                             <constraint firstAttribute="height" constant="1" id="IS7-kK-tES"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Avf-Pm-1FN">
-                                        <rect key="frame" x="0.0" y="325" width="768" height="80"/>
-                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="qDi-TO-gyS"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0tM-KZ-kVG">
-                                        <rect key="frame" x="0.0" y="405" width="768" height="1"/>
-                                        <color key="backgroundColor" systemColor="systemGray4Color"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="ppt-si-cEq"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u1J-o8-yT1">
-                                        <rect key="frame" x="0.0" y="406" width="768" height="80"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="XJO-OC-lgG">
-                                                <rect key="frame" x="24" y="0.0" width="720" height="80"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pW3-4h-HrJ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="360" height="80"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <state key="normal" title="Add"/>
-                                                        <connections>
-                                                            <action selector="addClicked:" destination="RrN-sE-2iT" eventType="touchUpInside" id="D0b-BC-Ewy"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDf-MH-f4A">
-                                                        <rect key="frame" x="360" y="0.0" width="360" height="80"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <state key="normal" title="Cancel">
-                                                            <color key="titleColor" systemColor="systemRedColor"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="cancel:" destination="RrN-sE-2iT" eventType="touchUpInside" id="lfr-gn-K1u"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="pW3-4h-HrJ" firstAttribute="height" secondItem="XJO-OC-lgG" secondAttribute="height" id="C32-CG-dsm"/>
-                                                    <constraint firstItem="pW3-4h-HrJ" firstAttribute="centerY" secondItem="XJO-OC-lgG" secondAttribute="centerY" id="Vhr-TR-1Y3"/>
-                                                    <constraint firstItem="VDf-MH-f4A" firstAttribute="centerY" secondItem="XJO-OC-lgG" secondAttribute="centerY" id="bca-xR-dgh"/>
-                                                    <constraint firstItem="VDf-MH-f4A" firstAttribute="height" secondItem="XJO-OC-lgG" secondAttribute="height" id="v08-Xe-ctn"/>
-                                                </constraints>
-                                            </stackView>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstItem="XJO-OC-lgG" firstAttribute="height" secondItem="u1J-o8-yT1" secondAttribute="height" id="Raj-Qc-aZO"/>
-                                            <constraint firstAttribute="trailing" secondItem="XJO-OC-lgG" secondAttribute="trailing" constant="24" id="Rij-NU-5bB"/>
-                                            <constraint firstAttribute="height" constant="80" id="oEC-5Q-XwM"/>
-                                            <constraint firstItem="XJO-OC-lgG" firstAttribute="centerY" secondItem="u1J-o8-yT1" secondAttribute="centerY" id="pB3-mJ-cQg"/>
-                                            <constraint firstItem="XJO-OC-lgG" firstAttribute="leading" secondItem="u1J-o8-yT1" secondAttribute="leading" constant="24" id="z1Z-Hh-uvN"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X11-J4-WX0">
-                                        <rect key="frame" x="0.0" y="486" width="768" height="1"/>
-                                        <color key="backgroundColor" systemColor="systemGray4Color"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="ifX-Py-Dyp"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -444,7 +381,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="addButton" destination="pW3-4h-HrJ" id="Ufg-Ii-eh5"/>
                         <outlet property="amountLabel" destination="Qwe-j0-w2x" id="abt-cv-1sA"/>
                         <outlet property="deleteButton" destination="WyN-pX-4r6" id="5U8-Xm-SZd"/>
                         <outlet property="garbageLabel" destination="cXA-iL-fYX" id="grQ-5T-vbq"/>
