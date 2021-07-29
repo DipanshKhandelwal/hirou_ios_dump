@@ -980,7 +980,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="XMM-YU-t0p">
-                                <rect key="frame" x="0.0" y="100" width="704" height="406"/>
+                                <rect key="frame" x="0.0" y="100" width="704" height="244"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DGR-SR-7DV">
                                         <rect key="frame" x="0.0" y="0.0" width="704" height="1"/>
@@ -1124,63 +1124,6 @@
                                             <constraint firstAttribute="height" constant="1" id="KpA-uD-Dtz"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vRz-SU-J4r">
-                                        <rect key="frame" x="0.0" y="244" width="704" height="80"/>
-                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="waS-eZ-OAg"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LZA-BK-3xq">
-                                        <rect key="frame" x="0.0" y="324" width="704" height="1"/>
-                                        <color key="backgroundColor" systemColor="systemGray4Color"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="1Ib-QR-fCA"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lm7-yK-S9h" userLabel="OptionsView">
-                                        <rect key="frame" x="0.0" y="325" width="704" height="80"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Txr-bN-V4H">
-                                                <rect key="frame" x="24" y="0.0" width="656" height="80"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0PR-mC-Z2B">
-                                                        <rect key="frame" x="0.0" y="0.0" width="313" height="80"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <state key="normal" title="Add Task"/>
-                                                        <connections>
-                                                            <action selector="addNewTask:" destination="x0Q-bg-kCI" eventType="touchUpInside" id="Bn0-uX-3Rk"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dH5-R9-Dtf">
-                                                        <rect key="frame" x="343" y="0.0" width="313" height="80"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <state key="normal" title="Cancel">
-                                                            <color key="titleColor" systemColor="systemRedColor"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="cancelAddTask:" destination="x0Q-bg-kCI" eventType="touchUpInside" id="P0c-34-3AJ"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="FeO-0f-UpD"/>
-                                            <constraint firstItem="Txr-bN-V4H" firstAttribute="height" secondItem="Lm7-yK-S9h" secondAttribute="height" id="SNe-HE-H2E"/>
-                                            <constraint firstAttribute="trailing" secondItem="Txr-bN-V4H" secondAttribute="trailing" constant="24" id="fda-x6-d05"/>
-                                            <constraint firstItem="Txr-bN-V4H" firstAttribute="leading" secondItem="Lm7-yK-S9h" secondAttribute="leading" constant="24" id="u9G-x4-tri"/>
-                                            <constraint firstItem="Txr-bN-V4H" firstAttribute="centerY" secondItem="Lm7-yK-S9h" secondAttribute="centerY" id="zCa-tM-1Ld"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XKg-gW-Jil">
-                                        <rect key="frame" x="0.0" y="405" width="704" height="1"/>
-                                        <color key="backgroundColor" systemColor="systemGray4Color"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="aVg-1f-vAY"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="M9p-FV-9Cg" secondAttribute="trailing" id="0U9-Pf-Uzc"/>
@@ -1188,9 +1131,7 @@
                                     <constraint firstItem="M9p-FV-9Cg" firstAttribute="leading" secondItem="XMM-YU-t0p" secondAttribute="leading" id="Cqu-K4-OO0"/>
                                     <constraint firstAttribute="trailing" secondItem="K3J-1p-J0p" secondAttribute="trailing" id="MbE-Sm-qF4"/>
                                     <constraint firstItem="8Up-Ae-iHv" firstAttribute="leading" secondItem="XMM-YU-t0p" secondAttribute="leading" id="NgA-Pe-ELw"/>
-                                    <constraint firstItem="Lm7-yK-S9h" firstAttribute="leading" secondItem="XMM-YU-t0p" secondAttribute="leading" id="Tww-KQ-yrl"/>
                                     <constraint firstItem="K3J-1p-J0p" firstAttribute="leading" secondItem="XMM-YU-t0p" secondAttribute="leading" id="eEm-wJ-Y82"/>
-                                    <constraint firstAttribute="trailing" secondItem="Lm7-yK-S9h" secondAttribute="trailing" id="hwY-Mj-NlI"/>
                                 </constraints>
                             </stackView>
                         </subviews>
