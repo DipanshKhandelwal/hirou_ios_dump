@@ -486,7 +486,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vgR-xs-Wnr">
-                                <rect key="frame" x="0.0" y="100" width="768" height="653"/>
+                                <rect key="frame" x="0.0" y="100" width="768" height="571"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jg1-b5-rXQ">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="1"/>
@@ -694,54 +694,6 @@
                                             <constraint firstItem="UWw-Ju-2jY" firstAttribute="centerY" secondItem="TuM-6j-xLf" secondAttribute="centerY" id="e2d-Gw-J3h"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qcY-d6-aoU">
-                                        <rect key="frame" x="0.0" y="571" width="768" height="1"/>
-                                        <color key="backgroundColor" systemColor="systemGray4Color"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="WjJ-8l-q5m"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9bt-db-bB0">
-                                        <rect key="frame" x="0.0" y="572" width="768" height="80"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="9pg-kJ-zv4">
-                                                <rect key="frame" x="24" y="0.0" width="720" height="80"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXU-3d-n7Q">
-                                                        <rect key="frame" x="0.0" y="0.0" width="360" height="80"/>
-                                                        <state key="normal" title="Add"/>
-                                                        <connections>
-                                                            <action selector="handleAddClick:" destination="DT6-ff-ZEJ" eventType="touchUpInside" id="FjQ-kg-oP1"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v7T-XY-NIs">
-                                                        <rect key="frame" x="360" y="0.0" width="360" height="80"/>
-                                                        <state key="normal" title="Cancel">
-                                                            <color key="titleColor" systemColor="systemRedColor"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="cancel:" destination="DT6-ff-ZEJ" eventType="touchUpInside" id="YtL-Tn-LbO"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstItem="9pg-kJ-zv4" firstAttribute="centerY" secondItem="9bt-db-bB0" secondAttribute="centerY" id="Caw-DO-XFe"/>
-                                            <constraint firstItem="9pg-kJ-zv4" firstAttribute="height" secondItem="9bt-db-bB0" secondAttribute="height" id="QoN-jT-NWj"/>
-                                            <constraint firstAttribute="height" constant="80" id="abA-eF-0iK"/>
-                                            <constraint firstAttribute="trailing" secondItem="9pg-kJ-zv4" secondAttribute="trailing" constant="24" id="fso-r7-wbq"/>
-                                            <constraint firstItem="9pg-kJ-zv4" firstAttribute="leading" secondItem="9bt-db-bB0" secondAttribute="leading" constant="24" id="ygB-JS-sQK"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LeS-oV-p6m">
-                                        <rect key="frame" x="0.0" y="652" width="768" height="1"/>
-                                        <color key="backgroundColor" systemColor="systemGray4Color"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="uPx-hd-rPW"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -761,7 +713,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="addButton" destination="lXU-3d-n7Q" id="jcA-PU-iJx"/>
                         <outlet property="deleteButton" destination="25a-Bl-uep" id="3Ah-Ey-U2c"/>
                         <outlet property="descriptionLabel" destination="OC2-4U-nRb" id="wc6-f3-RmU"/>
                         <outlet property="reportImage" destination="UWw-Ju-2jY" id="X6v-0x-aGm"/>
@@ -2072,9 +2023,6 @@
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
