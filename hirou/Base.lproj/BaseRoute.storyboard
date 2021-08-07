@@ -820,27 +820,62 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WW2-wT-rHN" userLabel="OptionsView">
-                                <rect key="frame" x="699" y="747" width="45" height="155"/>
+                                <rect key="frame" x="694" y="732" width="50" height="170"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="caP-2C-wam">
-                                        <rect key="frame" x="0.0" y="0.0" width="45" height="155"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="170"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aPV-rf-HkK" userLabel="zoomOutButton">
-                                                <rect key="frame" x="0.0" y="0.5" width="45" height="44"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cai-bf-cTD" customClass="RoundedView" customModule="hirou" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aPV-rf-HkK" userLabel="zoomOutButton" customClass="RoundedButton" customModule="hirou" customModuleProvider="target">
+                                                        <rect key="frame" x="5" y="5.5" width="40" height="39"/>
+                                                        <state key="normal" backgroundImage="arrow.down.right.and.arrow.up.left.circle" catalog="system"/>
+                                                    </button>
+                                                </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="45" id="29k-op-kWM"/>
-                                                    <constraint firstAttribute="width" secondItem="aPV-rf-HkK" secondAttribute="height" multiplier="1:1" id="dLs-RF-8eg"/>
+                                                    <constraint firstAttribute="width" secondItem="Cai-bf-cTD" secondAttribute="height" multiplier="1:1" id="3rb-d0-Kpa"/>
+                                                    <constraint firstItem="aPV-rf-HkK" firstAttribute="centerX" secondItem="Cai-bf-cTD" secondAttribute="centerX" id="MKT-V5-9xK"/>
+                                                    <constraint firstItem="aPV-rf-HkK" firstAttribute="centerY" secondItem="Cai-bf-cTD" secondAttribute="centerY" id="afI-sd-TrE"/>
+                                                    <constraint firstItem="aPV-rf-HkK" firstAttribute="width" secondItem="Cai-bf-cTD" secondAttribute="width" multiplier="0.8" id="jiA-Mb-0Mj"/>
+                                                    <constraint firstItem="aPV-rf-HkK" firstAttribute="height" secondItem="Cai-bf-cTD" secondAttribute="height" multiplier="0.8" id="qdP-CK-mYT"/>
+                                                    <constraint firstAttribute="width" constant="50" id="uc2-a7-Vb9"/>
                                                 </constraints>
-                                                <state key="normal" backgroundImage="arrow.down.right.and.arrow.up.left.circle" catalog="system"/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O1S-Bv-evY" userLabel="zoomInButton">
-                                                <rect key="frame" x="0.0" y="55.5" width="45" height="44"/>
-                                                <state key="normal" backgroundImage="arrow.up.left.and.arrow.down.right.circle" catalog="system"/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8cZ-AS-aJt" userLabel="trackUserButton">
-                                                <rect key="frame" x="0.0" y="111" width="45" height="44"/>
-                                                <state key="normal" backgroundImage="location.fill" catalog="system"/>
-                                            </button>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IoF-Uh-ryR" customClass="RoundedView" customModule="hirou" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="60" width="50" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O1S-Bv-evY" userLabel="zoomInButton" customClass="RoundedButton" customModule="hirou" customModuleProvider="target">
+                                                        <rect key="frame" x="5" y="5.5" width="40" height="39"/>
+                                                        <state key="normal" backgroundImage="arrow.up.left.and.arrow.down.right.circle" catalog="system"/>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="8gI-3o-59A"/>
+                                                    <constraint firstItem="O1S-Bv-evY" firstAttribute="centerY" secondItem="IoF-Uh-ryR" secondAttribute="centerY" id="HBz-Jm-E7y"/>
+                                                    <constraint firstItem="O1S-Bv-evY" firstAttribute="height" secondItem="IoF-Uh-ryR" secondAttribute="height" multiplier="0.8" id="Sv6-GI-A32"/>
+                                                    <constraint firstItem="O1S-Bv-evY" firstAttribute="width" secondItem="IoF-Uh-ryR" secondAttribute="width" multiplier="0.8" id="VPQ-J1-t1p"/>
+                                                    <constraint firstItem="O1S-Bv-evY" firstAttribute="centerX" secondItem="IoF-Uh-ryR" secondAttribute="centerX" id="WaJ-DL-G14"/>
+                                                    <constraint firstAttribute="width" secondItem="IoF-Uh-ryR" secondAttribute="height" multiplier="1:1" id="mhI-4t-V01"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Dk-0v-7mK" customClass="RoundedView" customModule="hirou" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="120" width="50" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8cZ-AS-aJt" userLabel="trackUserButton" customClass="RoundedButton" customModule="hirou" customModuleProvider="target">
+                                                        <rect key="frame" x="5" y="6" width="40" height="39"/>
+                                                        <state key="normal" backgroundImage="location.fill" catalog="system"/>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="6mt-t6-7WG"/>
+                                                    <constraint firstItem="8cZ-AS-aJt" firstAttribute="centerY" secondItem="0Dk-0v-7mK" secondAttribute="centerY" id="Csh-2P-GXn"/>
+                                                    <constraint firstItem="8cZ-AS-aJt" firstAttribute="centerX" secondItem="0Dk-0v-7mK" secondAttribute="centerX" id="N9g-I7-h6h"/>
+                                                    <constraint firstAttribute="width" secondItem="0Dk-0v-7mK" secondAttribute="height" multiplier="1:1" id="b6d-7D-wjt"/>
+                                                    <constraint firstItem="8cZ-AS-aJt" firstAttribute="width" secondItem="0Dk-0v-7mK" secondAttribute="width" multiplier="0.8" id="dJz-uJ-gi9"/>
+                                                    <constraint firstItem="8cZ-AS-aJt" firstAttribute="height" secondItem="0Dk-0v-7mK" secondAttribute="height" multiplier="0.8" id="iUB-fW-iqb"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                     </stackView>
                                 </subviews>
