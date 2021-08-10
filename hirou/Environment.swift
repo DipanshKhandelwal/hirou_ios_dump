@@ -9,9 +9,11 @@
 import Foundation
 
 struct Environment {
-//    static private var URL = "127.0.0.1:8000"
-    static private var URL = "18.191.207.99"
-    
-    static let SERVER_URL = "http://" + URL + "/"
-    static let SERVER_SOCKET_URL = "ws://" + URL + "/ws/"
+//    // dev
+//    static let SERVER_URL = "http://127.0.0.1:8000/"
+//    static let SERVER_SOCKET_URL = "ws://127.0.0.1:8000/ws/"
+
+    // prod
+    static let SERVER_URL = "https://api.spitzer.co.in/"
+    static let SERVER_SOCKET_URL = "wss://api.spitzer.co.in/ws/"
 }
