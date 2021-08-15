@@ -162,7 +162,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
                 let route = try! JSONDecoder().decode(BaseRoute.self, from: value!)
                 let newCollectionPoints = route.collectionPoints
                 self.collectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
-                self.addPointsToMap()
+                self.addPointsToMap(focusLast: true)
                 
             case .failure(let error):
                 print(error)
@@ -170,7 +170,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         }
     }
     
-    func addPointsToMap() {
+    func addPointsToMap(focusLast: Bool = false) {
         self.mapView.removeAnnotations(self.annotations)
         if self.newAnnotation != nil {
             self.mapView.removeAnnotation(self.newAnnotation)
@@ -188,6 +188,11 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         }
         
         mapView.addAnnotations(annotations)
+        DispatchQueue.main.async {
+            if(focusLast){
+                self.focusPoint(index: self.annotations.count-1)
+            }
+        }
     }
     
     @objc func handleNewPointTap(_ gesture: UILongPressGestureRecognizer) {
