@@ -21,7 +21,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MGLMapboxAccessToken</key>
-	<string>pk.eyJ1IjoiZGlwYW5zaGtoYW5kZWx3YWwiLCJhIjoiY2tzNWthb3p1MmdveTJ2bXJzeDRkbDlrcCJ9.LA0vaylIj4xXJUrOpn2s6g</string>
+	<string>pk.eyJ1Ijoicm9oYW4yNTk5IiwiYSI6ImNqd3B4cjNseTI3anAzenA2Nmk4ZnYzOWUifQ.3r3MLJcFyZZP--tL0hFyWw</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow hirou to access camera</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
