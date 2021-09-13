@@ -14,6 +14,6 @@ struct Environment {
 //    static let SERVER_SOCKET_URL = "ws://127.0.0.1:8000/ws/"
 
     // prod
-    static let SERVER_URL = "https://api.spitzer.co.in/"
-    static let SERVER_SOCKET_URL = "wss://api.spitzer.co.in/ws/"
+    static let SERVER_URL = "https://api.routor.biz/"
+    static let SERVER_SOCKET_URL = "wss://api.routor.biz/ws/"
 }
