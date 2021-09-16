@@ -767,19 +767,10 @@
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="ステータス" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dDQ-nx-XMd">
-                                                    <rect key="frame" x="20" y="112" width="84" height="19"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="41.5" id="6oJ-as-xhO"/>
-                                                    </constraints>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="ステータス" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dDQ-nx-XMd">
+                                                    <rect key="frame" x="20" y="111.5" width="71.5" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Status Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0a-j6-phf">
-                                                    <rect key="frame" x="126" y="112" width="622" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" systemColor="systemGrayColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Garbage Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qsa-Js-Ccz">
@@ -794,6 +785,12 @@
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Status Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0a-j6-phf">
+                                                    <rect key="frame" x="106" y="112" width="85.5" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" systemColor="systemGrayColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="BV0-20-uTv" secondAttribute="trailing" constant="20" symbolic="YES" id="39r-X6-ggy"/>
@@ -806,9 +803,9 @@
                                                 <constraint firstItem="Qsa-Js-Ccz" firstAttribute="centerY" secondItem="WoF-AJ-PkZ" secondAttribute="centerY" id="OGV-sF-Iz3"/>
                                                 <constraint firstAttribute="bottom" secondItem="dDQ-nx-XMd" secondAttribute="bottom" constant="10" id="YfD-zU-vSq"/>
                                                 <constraint firstItem="BV0-20-uTv" firstAttribute="top" secondItem="Opq-Rw-IKk" secondAttribute="bottom" constant="4" id="YyT-tb-BIO"/>
-                                                <constraint firstItem="Y0a-j6-phf" firstAttribute="leading" secondItem="dDQ-nx-XMd" secondAttribute="trailing" constant="15" id="Yyk-WH-sxO" userLabel="Status Label.leading = Status.trailing + 15"/>
                                                 <constraint firstItem="Qsa-Js-Ccz" firstAttribute="leading" secondItem="WoF-AJ-PkZ" secondAttribute="trailing" constant="15" id="aEX-hL-pPQ"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Qsa-Js-Ccz" secondAttribute="trailing" constant="20" symbolic="YES" id="aRn-pu-e4t"/>
+                                                <constraint firstItem="Y0a-j6-phf" firstAttribute="leading" secondItem="dDQ-nx-XMd" secondAttribute="trailing" constant="20" id="bcW-XI-oql"/>
                                                 <constraint firstItem="dDQ-nx-XMd" firstAttribute="leading" secondItem="9SL-fw-5hd" secondAttribute="leading" constant="20" id="daK-9E-3yw"/>
                                                 <constraint firstItem="WoF-AJ-PkZ" firstAttribute="top" secondItem="xXY-v5-56i" secondAttribute="bottom" constant="8" id="e46-Vt-EiG"/>
                                                 <constraint firstItem="MxG-IK-zvT" firstAttribute="leading" secondItem="xXY-v5-56i" secondAttribute="trailing" constant="15" id="eTu-lM-R51" userLabel="Customer Label.leading = Customer.trailing + 15"/>
