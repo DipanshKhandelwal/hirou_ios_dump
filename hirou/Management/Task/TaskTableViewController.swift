@@ -53,7 +53,7 @@ class TaskTableViewController: UIViewController, UITableViewDelegate, UITableVie
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateStr = dateFormatter.string(from: dateToFetch)
-        let parameters: Parameters = [ "date": dateStr ]
+        let parameters: Parameters = [ "date": dateStr, "type": "list" ]
         
         let headers = APIHeaders.getHeaders()
         
@@ -95,15 +95,17 @@ class TaskTableViewController: UIViewController, UITableViewDelegate, UITableVie
 
         cell.routeGarbageList?.text = taskRoute.getGarbagesNameList()
         
-        let routeStatus = taskRoute.getCompleteStatus()
-        
-        if(routeStatus) {
-            cell.routeStatus?.text = "Complete"
-            cell.routeStatus.textColor = .green
-        } else {
-            cell.routeStatus?.text = "Incomplete"
-            cell.routeStatus.textColor = .red
-        }
+//        let routeStatus = taskRoute.getCompleteStatus()
+//
+//        if(routeStatus) {
+//            cell.routeStatus?.text = "Complete"
+//            cell.routeStatus.textColor = .green
+//        } else {
+//            cell.routeStatus?.text = "Incomplete"
+//            cell.routeStatus.textColor = .red
+//        }
+        cell.routeStatus?.text = "---"
+        cell.routeStatus.textColor = .darkGray
 
         return cell
     }
