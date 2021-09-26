@@ -47,6 +47,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     
     override func viewDidAppear(_ animated: Bool) {
         fetchReportTypes();
+        fetchTaskCollectionPoints();
         super.viewWillAppear(animated)
     }
     
@@ -76,7 +77,6 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
             let receivedTaskCollectionPoint = (taskCollectionPoint as! TaskCollectionPoint)
             self.selectedCollectionPoint = receivedTaskCollectionPoint.id
             self.taskCollectionPointLabel?.text = receivedTaskCollectionPoint.name
-            self.taskCollectionPointLabel?.isUserInteractionEnabled = false
             self.taskCollectionPointLabel?.isEnabled = false
             self.taskCollectionPointPicker.isUserInteractionEnabled = false
         }
@@ -139,6 +139,24 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
                 self.reportTypes = try! JSONDecoder().decode([ReportType].self, from: value!)
                 DispatchQueue.main.async {
                     self.reportTypePicker.reloadAllComponents()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func fetchTaskCollectionPoints() {
+        let headers = APIHeaders.getHeaders()
+        let taskId = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
+        AF.request(Environment.SERVER_URL + "api/task_route/"+String(taskId)+"/", method: .get, headers: headers).validate().response { response in
+            switch response.result {
+            case .success(let value):
+                let route = try! JSONDecoder().decode(TaskRoute.self, from: value!)
+                let newCollectionPoints = route.taskCollectionPoints
+                self.collectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
+                DispatchQueue.main.async {
+                    self.taskCollectionPointPicker.reloadAllComponents()
                 }
             case .failure(let error):
                 print(error)
