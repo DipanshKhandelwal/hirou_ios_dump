@@ -19,6 +19,12 @@ class LoginViewController: UIViewController {
         }
     }
     
+    @IBAction func onInquiryClicked(_ sender: Any) {
+        if let url = URL(string: "https://www.fieldprotect.co.jp/contact/") {
+            UIApplication.shared.open(url)
+        }
+    }
+
     @IBAction func loginButtonClicked(_ sender: Any) {
         guard let user = username.text, let pass = password.text else {
             print("LoginScreen::error getting username and password")
