@@ -47,6 +47,7 @@
 		317E231B23C6306D00F8F0C1 /* hirouTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E231A23C6306D00F8F0C1 /* hirouTests.swift */; };
 		317E232623C6306D00F8F0C1 /* hirouUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317E232523C6306D00F8F0C1 /* hirouUITests.swift */; };
 		31803C2C24AC735D00B8D1C8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31803C2B24AC735D00B8D1C8 /* ImagePicker.swift */; };
+		3184F82E271424D50086E74C /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3184F82D271424D50086E74C /* MyPageViewController.swift */; };
 		319035112442731A0020E152 /* CollectionPointPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319035102442731A0020E152 /* CollectionPointPointAnnotation.swift */; };
 		31920C9C241C074A00A55403 /* RouteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31920C9B241C074A00A55403 /* RouteDetailViewController.swift */; };
 		31920C9F241CD5D900A55403 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31920C9E241CD5D900A55403 /* Location.swift */; };
@@ -144,6 +145,7 @@
 		317E232523C6306D00F8F0C1 /* hirouUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hirouUITests.swift; sourceTree = "<group>"; };
 		317E232723C6306D00F8F0C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31803C2B24AC735D00B8D1C8 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		3184F82D271424D50086E74C /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		319035102442731A0020E152 /* CollectionPointPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointPointAnnotation.swift; sourceTree = "<group>"; };
 		31920C9B241C074A00A55403 /* RouteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailViewController.swift; sourceTree = "<group>"; };
 		31920C9E241CD5D900A55403 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				317E230123C6306C00F8F0C1 /* AppDelegate.swift */,
 				317E230323C6306C00F8F0C1 /* SceneDelegate.swift */,
 				31093F9C23CFA6B40025679A /* LoginViewController.swift */,
+				3184F82D271424D50086E74C /* MyPageViewController.swift */,
 				31B09588248F75FC00D560B0 /* Environment.swift */,
 				317E231123C6306D00F8F0C1 /* Info.plist */,
 				317E230C23C6306D00F8F0C1 /* Assets.xcassets */,
@@ -674,6 +677,7 @@
 				312E7AC12462A7AD00A73363 /* TaskCollectionsTableViewController.swift in Sources */,
 				31BE2C272668375F00D63EBA /* CollectionPointSplitViewController.swift in Sources */,
 				3154873A247B8CDB00A16100 /* PageViewController.swift in Sources */,
+				3184F82E271424D50086E74C /* MyPageViewController.swift in Sources */,
 				312E9A2D242A39F10073D165 /* CollectionPointDetailViewController.swift in Sources */,
 				313CF8F3262C78EB007CA36C /* JSONHelper.swift in Sources */,
 				31F57D1C243A600A00903F38 /* GarbageTypesTableViewController.swift in Sources */,
