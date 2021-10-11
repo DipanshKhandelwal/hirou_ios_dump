@@ -20,9 +20,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func onInquiryClicked(_ sender: Any) {
-        if let url = URL(string: "https://www.fieldprotect.co.jp/contact/") {
-            UIApplication.shared.open(url)
-        }
+        openUrlInBrowser(url: Urls.CONTACT_US)
     }
 
     @IBAction func loginButtonClicked(_ sender: Any) {
