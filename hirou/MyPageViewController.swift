@@ -39,6 +39,11 @@ class MyPageViewController: UIViewController {
         }
         self.performSegue(withIdentifier: "myPageLogoutSegue", sender: self)
     }
+    
+    @IBAction func onEnquiryClicked(_ sender: Any) {
+        openUrlInBrowser(url: Urls.CONTACT_US)
+    }
+    
     /*
     // MARK: - Navigation
 
