@@ -44,6 +44,10 @@ class MyPageViewController: UIViewController {
         openUrlInBrowser(url: Urls.CONTACT_US)
     }
     
+    @IBAction func onPrivatePolicyClicked(_ sender: Any) {
+        openUrlInBrowser(url: Urls.PRIVATE_POLICY)
+    }
+    
     /*
     // MARK: - Navigation
 
