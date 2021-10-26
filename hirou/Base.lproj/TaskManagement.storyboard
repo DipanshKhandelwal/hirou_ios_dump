@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -41,7 +42,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskGarbageAmountTableViewCell" rowHeight="115" id="44Z-2w-3I6" customClass="TaskGarbageAmountTableViewCell" customModule="hirou" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="24.5" width="768" height="115"/>
+                                <rect key="frame" x="0.0" y="44.5" width="768" height="115"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="44Z-2w-3I6" id="6sA-XX-cuW">
                                     <rect key="frame" x="0.0" y="0.0" width="768" height="115"/>
@@ -402,7 +403,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reportAdminTableViewCell" id="9qm-q4-VH7" customClass="ReportAdminTableViewCell" customModule="hirou" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="24.5" width="768" height="80"/>
+                                <rect key="frame" x="0.0" y="44.5" width="768" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9qm-q4-VH7" id="jYL-Ch-WEo">
                                     <rect key="frame" x="0.0" y="0.0" width="768" height="80"/>
@@ -733,11 +734,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="140" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GA3-VW-AND">
-                                <rect key="frame" x="0.0" y="101" width="768" height="923"/>
+                                <rect key="frame" x="0.0" y="121" width="768" height="903"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskTableCell" id="bFg-bA-ciH" customClass="TaskTableViewCell" customModule="hirou" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="768" height="140"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="768" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bFg-bA-ciH" id="9SL-fw-5hd">
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="140"/>
@@ -829,7 +830,7 @@
                                 </prototypes>
                             </tableView>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="EgF-C8-jaK">
-                                <rect key="frame" x="0.0" y="50" width="768" height="51"/>
+                                <rect key="frame" x="0.0" y="70" width="768" height="51"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                         </subviews>
@@ -1047,7 +1048,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Uzh-k9-pv8">
-                                <rect key="frame" x="0.0" y="130" width="768" height="163"/>
+                                <rect key="frame" x="0.0" y="150" width="768" height="163"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WjG-JM-n7z">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="1"/>
@@ -1152,7 +1153,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vcL-cJ-OiW">
-                                <rect key="frame" x="0.0" y="373" width="768" height="244"/>
+                                <rect key="frame" x="0.0" y="393" width="768" height="244"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jyz-WC-jSV">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="1"/>
@@ -1463,7 +1464,7 @@
                                                 <rect key="frame" x="0.0" y="120" width="50" height="50"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2oF-RM-Grk">
-                                                        <rect key="frame" x="5" y="6" width="40" height="39"/>
+                                                        <rect key="frame" x="5" y="6" width="40" height="38.5"/>
                                                         <state key="normal" backgroundImage="location.fill" catalog="system"/>
                                                     </button>
                                                 </subviews>
@@ -1580,7 +1581,7 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="collectionCell" id="jcQ-s6-zkH" customClass="TaskCollectionsCell" customModule="hirou" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="768" height="130"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="768" height="130"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jcQ-s6-zkH" id="lV7-gc-03J">
                                                     <rect key="frame" x="0.0" y="0.0" width="768" height="130"/>
@@ -1746,7 +1747,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCollectionPointCell" rowHeight="130" id="dpz-LB-PyY" customClass="TaskCollectionPointCell" customModule="hirou" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="24.5" width="768" height="130"/>
+                                <rect key="frame" x="0.0" y="44.5" width="768" height="130"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dpz-LB-PyY" id="1bG-mf-uTc">
                                     <rect key="frame" x="0.0" y="0.0" width="768" height="130"/>
@@ -1830,7 +1831,7 @@
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="garbageSummaryTableCell" id="jbT-0U-TR7" customClass="GarbageSummaryCell" customModule="hirou" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="320" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="320" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jbT-0U-TR7" id="kot-hP-kFs">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -1869,7 +1870,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCollectionPointCell" rowHeight="130" id="LE6-dw-EGn" customClass="TaskCollectionPointCell" customModule="hirou" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="320" height="130"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="320" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LE6-dw-EGn" id="nb5-f7-Z2B">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
@@ -2004,7 +2005,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vfV-O9-MD7" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7Jf-1u-evU">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="50"/>
+                        <rect key="frame" x="0.0" y="20" width="768" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

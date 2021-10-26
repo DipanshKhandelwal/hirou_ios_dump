@@ -13,6 +13,17 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
     
+    override func viewDidLoad() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc
+    func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        self.username.resignFirstResponder();
+        self.password.resignFirstResponder();
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         if UserDefaults.standard.string(forKey: UserDefaultsConstants.AUTH_TOKEN) != nil {
             self.performSegue(withIdentifier: "loginSuccessfulSegue", sender: self)
