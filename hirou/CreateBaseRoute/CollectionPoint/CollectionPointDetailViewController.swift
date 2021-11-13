@@ -189,7 +189,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         
         mapView.addAnnotations(annotations)
         DispatchQueue.main.async {
-            if(focusLast){
+            if(focusLast && !self.annotations.isEmpty){
                 self.focusPoint(index: self.annotations.count-1)
             }
         }
