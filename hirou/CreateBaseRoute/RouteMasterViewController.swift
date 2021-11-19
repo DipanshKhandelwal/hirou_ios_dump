@@ -43,7 +43,8 @@ class RouteMasterViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewWillAppear(_ animated: Bool) {
         //        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         let headers = APIHeaders.getHeaders()
-        AF.request(Environment.SERVER_URL + "api/base_route/", method: .get, headers: headers).validate().response { response in
+        let parameters: Parameters = [ "type": "list" ]
+        AF.request(Environment.SERVER_URL + "api/base_route/", method: .get, parameters: parameters, headers: headers).validate().response { response in
             switch response.result {
             case .success(let value):
                 let decoder = JSONDecoder()
