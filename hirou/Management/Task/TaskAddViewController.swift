@@ -96,7 +96,8 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     override func viewWillAppear(_ animated: Bool) {
         let headers = APIHeaders.getHeaders()
-        AF.request(Environment.SERVER_URL + "api/base_route/", method: .get, headers: headers)
+        let parameters: Parameters = [ "type": "list" ]
+        AF.request(Environment.SERVER_URL + "api/base_route/", method: .get, parameters: parameters, headers: headers)
             .validate()
             .response { response in
                 switch response.result {
