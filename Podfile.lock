@@ -1,6 +1,11 @@
 PODS:
   - Alamofire (5.0.0-rc.3)
   - FSPagerView (0.8.3)
+  - GoogleMaps (6.0.1):
+    - GoogleMaps/Maps (= 6.0.1)
+  - GoogleMaps/Base (6.0.1)
+  - GoogleMaps/Maps (6.0.1):
+    - GoogleMaps/Base
   - JTAppleCalendar (7.1.8)
   - Mapbox-iOS-SDK (5.9.0):
     - MapboxMobileEvents (= 0.10.2)
@@ -30,6 +35,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-rc.3)
   - FSPagerView
+  - GoogleMaps (= 6.0.1)
   - JTAppleCalendar (~> 7.1)
   - Mapbox-iOS-SDK (~> 5.9)
   - MapboxNavigation (~> 0.40.0)
@@ -38,6 +44,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - FSPagerView
+    - GoogleMaps
     - JTAppleCalendar
     - Mapbox-iOS-SDK
     - MapboxAccounts
@@ -54,6 +61,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
+  GoogleMaps: c213fc2334b7374144cede914da779b99be0ab74
   JTAppleCalendar: b7fb40852f5f319fe55c8ec3861f1de0edc99cc8
   Mapbox-iOS-SDK: a5915700ec84bc1a7f8b3e746d474789e35b7956
   MapboxAccounts: f9716ba2cc66013e44ef93e0e16cfa1049f3aeec
@@ -67,6 +75,6 @@ SPEC CHECKSUMS:
   Solar: 2dc6e7cc39186cb0c8228fa08df76fb50c7d8f24
   Turf: c6bdf62d6a70c647874f295dd1cf4eefc0c3e9e6
 
-PODFILE CHECKSUM: e153573b3584d607574b3c0584fb8b6a2fb778d3
+PODFILE CHECKSUM: 1268cee4217cbd4b686e107676c926dcb9bcf039
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2
