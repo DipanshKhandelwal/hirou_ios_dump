@@ -219,13 +219,13 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     }
 
     @IBAction func handleDeleteClicked(_ sender: Any) {
-        let deleteAlert = UIAlertController(title: "Delete Task Report ?", message: "Are you sure you want to delete the report ?", preferredStyle: .alert)
+        let deleteAlert = UIAlertController(title: "報告の削除", message: "報告を削除しますか？ ", preferredStyle: .alert)
         
-        deleteAlert.addAction(UIAlertAction(title: "Yes. Delete", style: .default, handler: { (action: UIAlertAction!) in
+        deleteAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
             self.deleteTaskReport()
         }))
         
-        deleteAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        deleteAlert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: { (action: UIAlertAction!) in
             print("Delte cancelled by the user.")
         }))
         
@@ -236,14 +236,14 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     func handleAddClick() {
         if selectedCollectionPoint == nil {
             let addAlert = UIAlertController(title: "Please select a collection point !!", message: "", preferredStyle: .alert)
-            addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
+            addAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in return }))
             self.present(addAlert, animated: true, completion: nil)
             return
         }
         
         if selectedReportType == nil {
             let addAlert = UIAlertController(title: "Please select a report type !!", message: "", preferredStyle: .alert)
-            addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
+            addAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in return }))
             self.present(addAlert, animated: true, completion: nil)
             return
         }
