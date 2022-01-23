@@ -135,10 +135,12 @@ class CollectionPointMasterViewController: UITableViewController {
         if self.collectionPoints.count == 0 {
             return
         }
-        for num in 0...self.collectionPoints.count-1 {
-            if self.collectionPoints[num].id == cp.id {
-                self.tableView.selectRow(at: IndexPath(row: num, section: 0), animated: true, scrollPosition: .middle)
-                return
+        if(self.collectionPoints.count > 0) {
+            for num in 0...self.collectionPoints.count-1 {
+                if self.collectionPoints[num].id == cp.id {
+                    self.tableView.selectRow(at: IndexPath(row: num, section: 0), animated: true, scrollPosition: .middle)
+                    return
+                }
             }
         }
     }
