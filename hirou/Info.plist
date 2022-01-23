@@ -30,17 +30,17 @@
 	<key>MGLMapboxAccessToken</key>
 	<string>pk.eyJ1Ijoicm9oYW4yNTk5IiwiYSI6ImNqd3B4cjNseTI3anAzenA2Nmk4ZnYzOWUifQ.3r3MLJcFyZZP--tL0hFyWw</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow hirou to access camera</string>
+	<string>ROUTORでは収集ポイント毎に写真を設定できます</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Shows your location on the map and helps improve the map.</string>
+	<string>ROUTORでは位置情報を利用してルートを作成します</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Shows your location on the map and helps improve the map.</string>
+	<string>ROUTORでは位置情報を利用してルートを作成します</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Shows your location on the map and helps improve the map.</string>
+	<string>ROUTORでは位置情報を利用してルートを作成します</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Allow hirou to add to gallery</string>
+	<string>ROUTORでは収集ポイント毎に写真を設定できます</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow hirou to access gallery</string>
+	<string>ROUTORでは収集ポイント毎に写真を設定できます</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
