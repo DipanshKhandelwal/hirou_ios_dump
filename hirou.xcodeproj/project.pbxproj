@@ -26,6 +26,7 @@
 		313CF8E9262C693C007CA36C /* WebSocketConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313CF8E8262C693C007CA36C /* WebSocketConnector.swift */; };
 		313CF8EE262C6ED5007CA36C /* WebSocketConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313CF8ED262C6ED5007CA36C /* WebSocketConstants.swift */; };
 		313CF8F3262C78EB007CA36C /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313CF8F2262C78EB007CA36C /* JSONHelper.swift */; };
+		313E8D47279872C5001D26E2 /* TaskCollectionPointMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313E8D46279872C5001D26E2 /* TaskCollectionPointMarker.swift */; };
 		3150138C26BEA1E4005D0197 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150138B26BEA1E4005D0197 /* RoundedView.swift */; };
 		3153653D243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3153653C243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift */; };
 		31538CF624E44DFC00976EEE /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31538CF524E44DFC00976EEE /* CustomAnnotationView.swift */; };
@@ -119,6 +120,7 @@
 		313CF8E8262C693C007CA36C /* WebSocketConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketConnector.swift; sourceTree = "<group>"; };
 		313CF8ED262C6ED5007CA36C /* WebSocketConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketConstants.swift; sourceTree = "<group>"; };
 		313CF8F2262C78EB007CA36C /* JSONHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONHelper.swift; sourceTree = "<group>"; };
+		313E8D46279872C5001D26E2 /* TaskCollectionPointMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionPointMarker.swift; sourceTree = "<group>"; };
 		3150138B26BEA1E4005D0197 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		3153653C243F8BD2001ED8C4 /* CollectionPointDraggableAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointDraggableAnnotationView.swift; sourceTree = "<group>"; };
 		31538CF524E44DFC00976EEE /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				31E28244264B0A320090ECC1 /* TaskCollectionPointPointAnnotation.swift */,
 				3150138B26BEA1E4005D0197 /* RoundedView.swift */,
 				31B8D9272795AA7B006CFD26 /* CollectionPointMarker.swift */,
+				313E8D46279872C5001D26E2 /* TaskCollectionPointMarker.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -663,6 +666,7 @@
 				311BA35C24B8BF6900CE1BD9 /* TaskReport.swift in Sources */,
 				3159198524A0B7BB009D064B /* GarbageButton.swift in Sources */,
 				31B09589248F75FC00D560B0 /* Environment.swift in Sources */,
+				313E8D47279872C5001D26E2 /* TaskCollectionPointMarker.swift in Sources */,
 				31F26E4A255EA25000D08A6E /* APIHeaders.swift in Sources */,
 				3133F2042424BE0F001C158C /* BaseRoute.swift in Sources */,
 				313CF8E1262C6921007CA36C /* WebSocketProtocol.swift in Sources */,
