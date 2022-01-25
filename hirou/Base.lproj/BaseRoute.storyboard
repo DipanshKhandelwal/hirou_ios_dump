@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Xlf-ho-woe">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Xlf-ho-woe">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -13,7 +14,7 @@
             <objects>
                 <viewController title="Detail" id="8Lu-KB-8Xt" customClass="RouteDetailViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zcb-E0-gba">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="974"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="954"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="57w-yV-sIu">
@@ -203,7 +204,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.compact.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CvS-oU-TPQ">
-                                                <rect key="frame" x="734.5" y="29.5" width="9.5" height="21"/>
+                                                <rect key="frame" x="733.5" y="28.5" width="10.5" height="23"/>
                                                 <color key="tintColor" systemColor="systemGray4Color"/>
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                             </imageView>
@@ -250,7 +251,7 @@
                                 </subviews>
                             </stackView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JGC-Ok-sii">
-                                <rect key="frame" x="0.0" y="758" width="768" height="216"/>
+                                <rect key="frame" x="0.0" y="738" width="768" height="216"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="216" id="xFO-tc-kST"/>
                                 </constraints>
@@ -315,7 +316,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="garbageListCell" textLabel="2gt-qs-X1n" style="IBUITableViewCellStyleDefault" id="858-mt-WJy">
-                                <rect key="frame" x="0.0" y="24.5" width="320" height="43.5"/>
+                                <rect key="frame" x="0.0" y="44.5" width="320" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="858-mt-WJy" id="Ech-tR-y9N">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -383,12 +384,12 @@
             <objects>
                 <tableViewController title="Master" modalPresentationStyle="fullScreen" clearsSelectionOnViewWillAppear="NO" id="Fx9-6H-G54" customClass="CollectionPointMasterViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ZMQ-Fw-nfU">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="974"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="954"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="collectionPointCell" rowHeight="90" id="6NC-aC-LI4" customClass="CollectionPointTableViewCell" customModule="hirou" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="24.5" width="320" height="90"/>
+                                <rect key="frame" x="0.0" y="44.5" width="320" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6NC-aC-LI4" id="1DY-6b-Y9I">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
@@ -407,7 +408,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="house.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="YUg-1W-Uhu">
-                                            <rect key="frame" x="9" y="9" width="72" height="72"/>
+                                            <rect key="frame" x="9" y="8" width="72" height="72"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="72" id="LAJ-4M-V3T" userLabel="width = 72"/>
                                                 <constraint firstAttribute="height" constant="72" id="ZJx-Bn-jwX"/>
@@ -463,11 +464,11 @@
             <objects>
                 <viewController id="RU1-ST-XiR" customClass="CollectionPointFormViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qjt-Bx-cYQ">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="974"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="954"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l0x-oz-1vQ">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="974"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="954"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="71s-GS-9z4">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="974"/>
@@ -793,7 +794,7 @@
                     <navigationItem key="navigationItem" id="EaX-Di-DHy"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="GSY-ds-qu4">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="50"/>
+                        <rect key="frame" x="0.0" y="20" width="768" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0Rj-hG-yxX">
@@ -812,18 +813,18 @@
             <objects>
                 <viewController title="Detail" modalPresentationStyle="fullScreen" id="xsF-ox-xTh" customClass="CollectionPointDetailViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OvU-Ae-Sff">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="974"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="954"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YFT-8v-qwT" customClass="MGLMapView">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="974"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YFT-8v-qwT" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="954"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WW2-wT-rHN" userLabel="OptionsView">
-                                <rect key="frame" x="694" y="732" width="50" height="170"/>
+                                <rect key="frame" x="694" y="772" width="50" height="110"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="caP-2C-wam">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="170"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="110"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cai-bf-cTD" customClass="RoundedView" customModule="hirou" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -859,23 +860,6 @@
                                                     <constraint firstAttribute="width" secondItem="IoF-Uh-ryR" secondAttribute="height" multiplier="1:1" id="mhI-4t-V01"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Dk-0v-7mK" customClass="RoundedView" customModule="hirou" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="120" width="50" height="50"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8cZ-AS-aJt" userLabel="trackUserButton" customClass="RoundedButton" customModule="hirou" customModuleProvider="target">
-                                                        <rect key="frame" x="5" y="6" width="40" height="39"/>
-                                                        <state key="normal" backgroundImage="location.fill" catalog="system"/>
-                                                    </button>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="50" id="6mt-t6-7WG"/>
-                                                    <constraint firstItem="8cZ-AS-aJt" firstAttribute="centerY" secondItem="0Dk-0v-7mK" secondAttribute="centerY" id="Csh-2P-GXn"/>
-                                                    <constraint firstItem="8cZ-AS-aJt" firstAttribute="centerX" secondItem="0Dk-0v-7mK" secondAttribute="centerX" id="N9g-I7-h6h"/>
-                                                    <constraint firstAttribute="width" secondItem="0Dk-0v-7mK" secondAttribute="height" multiplier="1:1" id="b6d-7D-wjt"/>
-                                                    <constraint firstItem="8cZ-AS-aJt" firstAttribute="width" secondItem="0Dk-0v-7mK" secondAttribute="width" multiplier="0.8" id="dJz-uJ-gi9"/>
-                                                    <constraint firstItem="8cZ-AS-aJt" firstAttribute="height" secondItem="0Dk-0v-7mK" secondAttribute="height" multiplier="0.8" id="iUB-fW-iqb"/>
-                                                </constraints>
-                                            </view>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -901,8 +885,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="マップ" id="xgK-PS-Clr" userLabel="Vehicle Details"/>
                     <connections>
-                        <outlet property="mapView" destination="YFT-8v-qwT" id="e9Z-IA-Kij"/>
-                        <outlet property="trackUserButton" destination="8cZ-AS-aJt" id="PpH-9q-5Gx"/>
+                        <outlet property="mapView" destination="YFT-8v-qwT" id="Jrf-dc-an4"/>
                         <outlet property="zoomInButton" destination="O1S-Bv-evY" id="zpm-My-p23"/>
                         <outlet property="zoomOutButton" destination="aPV-rf-HkK" id="zNv-Q3-4HE"/>
                         <segue destination="RU1-ST-XiR" kind="show" identifier="addCollectionPoint" id="J6M-Sp-KZM"/>
@@ -918,7 +901,7 @@
             <objects>
                 <viewController id="Xlf-ho-woe" customClass="RouteMasterViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="whi-o4-b4O">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="974"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="954"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="auN-1A-8qU">
@@ -926,11 +909,11 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="De2-8q-OWU">
-                                <rect key="frame" x="0.0" y="51" width="768" height="923"/>
+                                <rect key="frame" x="0.0" y="51" width="768" height="903"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reuseIdentifier" id="G7e-Zr-atA" customClass="RouteTableViewCell" customModule="hirou" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="768" height="100"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="768" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G7e-Zr-atA" id="VUP-Mi-A3M">
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="100"/>
@@ -1029,7 +1012,6 @@
         <image name="doc.on.doc" catalog="system" width="116" height="128"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="imageView:17n-aA-UIf:image" width="128" height="128"/>
-        <image name="location.fill" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
