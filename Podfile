@@ -6,6 +6,7 @@ target 'hirou' do
 #  maps
   pod 'Mapbox-iOS-SDK', '~> 5.9'
   pod 'MapboxNavigation', '~> 0.40.0'
+  pod 'GoogleMaps', '6.0.1'
   
 #  REST
   pod 'Alamofire', '~> 5.0.0-rc.3'

@@ -7,14 +7,9 @@
 //
 
 import UIKit
-import Mapbox
+import GoogleMaps
 import Alamofire
 import FSPagerView
-
-import Mapbox
-import MapboxCoreNavigation
-import MapboxNavigation
-import MapboxDirections
 
 extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSource {
     func numberOfItems(in pagerView: FSPagerView) -> Int {
@@ -101,7 +96,11 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
                 switch response.result {
                 case .success(let value):
                     let taskCollectionsNew = try! JSONDecoder().decode([TaskCollection].self, from: value!)
-                    self.getTaskCollectionPoints()[sender.tag].taskCollections = taskCollectionsNew
+                    
+                    let list = self.getTaskCollectionPoints()
+                    if(list.count > sender.tag) {
+                        list[sender.tag].taskCollections = taskCollectionsNew
+                    }
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
                         self.addPointsTopMap()
@@ -202,11 +201,13 @@ extension TaskNavigationViewController: FSPagerViewDelegate, FSPagerViewDataSour
     }
 }
 
-class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, NavigationViewControllerDelegate {
+//class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, NavigationViewControllerDelegate {
+class TaskNavigationViewController: UIViewController, GMSMapViewDelegate {
     var id: String = ""
     
     @IBOutlet weak var usersCountText: UILabel!
-    @IBOutlet weak var mapView: NavigationMapView!
+//    @IBOutlet weak var mapView: NavigationMapView!
+    @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var collectionView: FSPagerView! {
         didSet {
             self.collectionView.register(UINib(nibName: "TaskCollectionPointPagerCell", bundle: Bundle.main), forCellWithReuseIdentifier: "taskCollectionPointPagerCell")
@@ -215,34 +216,24 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     
     var selectedTaskCollectionPoint: TaskCollectionPoint!
     var taskCollectionPoints = [TaskCollectionPoint]()
-    var annotations = [TaskCollectionPointPointAnnotation]()
-    var userLocations = [UserLocation]()
+    
+//    var annotations = [TaskCollectionPointPointAnnotation]()
+    var markers = [TaskCollectionPointMarker]()
+    
+    var userLocationMarkers = [UserLocationMarker]()
     var route:TaskRoute?
     var hideCompleted: Bool = false
-    
-    var isUserTrackingMode = false
-    
+        
     private let notificationCenter = NotificationCenter.default
     
     let userId = UserDefaults.standard.string(forKey: UserDefaultsConstants.USER_ID)
-    
-    @IBOutlet weak var navigationViewContainer: UIView!
-    @IBOutlet weak var mapViewContainer: NavigationMapView!
-    
-    var navigationViewController: NavigationViewController!
-       
-    var gestures : [UIGestureRecognizer] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.delegate = self
-        mapView.showsUserLocation = true
-        mapView.userTrackingMode = .followWithHeading
-        mapView.showsUserHeadingIndicator = true
-        
-        navigationViewContainer.isHidden = true
-        mapViewContainer.isHidden = false
+        mapView.isMyLocationEnabled = true
+//        mapView.settings.myLocationButton = true
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -258,9 +249,6 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         let switch_display = UIBarButtonItem(customView: completedHiddenSwitch)
 
         navigationItem.setRightBarButtonItems([switch_display], animated: true)
-        
-        self.gestures = self.mapView.gestureRecognizers ?? []
-        toggleGestures(disable: false)
         
         self.id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
         // Do any additional setup after loading the view.
@@ -289,14 +277,6 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
         }
     }
     
-    @IBOutlet weak var trackUserButton: UIButton! {
-        didSet {
-            trackUserButton.setBackgroundImage(UIImage(systemName: "location"), for: .normal)
-            isUserTrackingMode = false
-            trackUserButton.addTarget(self, action: #selector(userTrackingSwitchToggled), for: .touchDown)
-        }
-    }
-    
     func getTaskCollectionPoints () -> [TaskCollectionPoint] {
         if(hideCompleted) {
             return self.taskCollectionPoints.filter { !$0.getCompleteStatus() }
@@ -306,102 +286,53 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
 
     @objc
     func zoomIn() {
-        if(self.mapView.zoomLevel + 1 <= self.mapView.maximumZoomLevel) {
-            self.mapView.setZoomLevel(self.mapView.zoomLevel + 1, animated: true)
+        let zoom = self.mapView.camera.zoom
+        if(zoom + 1 <= self.mapView.maxZoom) {
+            self.mapView.animate(toZoom: zoom + 1)
         }
     }
     
     @objc
     func zoomOut() {
-        if(self.mapView.zoomLevel - 1 >= self.mapView.minimumZoomLevel) {
-            self.mapView.setZoomLevel(self.mapView.zoomLevel - 1, animated: true)
-        }
-    }
-    
-    func toggleGestures(disable: Bool = true) {
-        for gestureRecognizer in self.gestures {
-            if(disable){
-                mapView.removeGestureRecognizer(gestureRecognizer)
-            }
-            else {
-                mapView.addGestureRecognizer(gestureRecognizer)
-            }
+        let zoom = self.mapView.camera.zoom
+        if(zoom - 1 >= self.mapView.minZoom) {
+            self.mapView.animate(toZoom: zoom - 1)
         }
     }
     
     @objc
     func locationsUpdated(_ notification: Notification) {
         let newUserLocations = notification.object as! [UserLocation]
-        let style = mapView.style
-        
-        let oldLocations = self.userLocations
-        self.userLocations = newUserLocations
         
         DispatchQueue.main.async {
-            oldLocations.forEach{ userLocation in
-                if String(userLocation.id) == self.userId {
-                    return
-                }
-                
-                if let source = style?.source(withIdentifier: String(userLocation.id)) {
-                    if let droneLayer = style?.layer(withIdentifier: String(userLocation.id)) {
-                        style?.removeLayer(droneLayer)
-                        style?.removeSource(source)
-                    }
-                }
+            self.userLocationMarkers.forEach {userLocationMarker in
+                if String(userLocationMarker.userLocation.id) == self.userId { return }
+                userLocationMarker.map = nil
             }
         }
-
+        
         DispatchQueue.main.async {
             self.usersCountText?.text = String(newUserLocations.count)
         }
-        
+
         DispatchQueue.main.async {
             newUserLocations.forEach { userLocation in
                 if String(userLocation.id) == self.userId {
                     return
                 }
-                
+
                 let lat = Double(userLocation.location.latitude)!
                 let long = Double(userLocation.location.longitude)!
-                let coordinates =  CLLocationCoordinate2D(latitude: lat , longitude: long);
+                let position =  CLLocationCoordinate2D(latitude: lat , longitude: long);
+                let markerObj = UserLocationMarker(userLocation: userLocation)
+                markerObj.position = position
                 
-                let point = MGLPointAnnotation()
-                point.coordinate = coordinates
-                
-                let source = MGLShapeSource(identifier: String(userLocation.id), shape: point, options: nil)
-                style?.addSource(source)
-      
-                let droneLayer = MGLSymbolStyleLayer(identifier: String(userLocation.id), source: source)
-                droneLayer.iconScale = NSExpression(forConstantValue: 0.5)
-                // TODO: change the text to user name ?
-                droneLayer.text = NSExpression(forConstantValue: String(userLocation.name))
-                droneLayer.textAnchor =  NSExpression(forConstantValue: "bottom")
-                droneLayer.textTranslation = NSExpression(forConstantValue: NSValue(cgVector: CGVector(dx: 0, dy: -10)))
-                droneLayer.textFontSize = NSExpression(forConstantValue: "18")
-                droneLayer.textHaloColor = NSExpression(forConstantValue:UIColor.white)
-                droneLayer.iconImageName = NSExpression(forConstantValue: "truck-icon")
-                droneLayer.iconHaloColor = NSExpression(forConstantValue: UIColor.white)
-                style?.addLayer(droneLayer)
+                let markerIcon = UIImage(named: "truck")
+                markerObj.icon = markerIcon
+
+                markerObj.map = self.mapView
+                self.userLocationMarkers.append(markerObj)
             }
-        }
-    }
-    
-    @objc
-    func userTrackingSwitchToggled() {
-        if !isUserTrackingMode {
-            toggleGestures(disable: true)
-            mapView.userTrackingMode = .followWithCourse
-            mapView.showsUserHeadingIndicator = true
-            
-            isUserTrackingMode = true
-            trackUserButton.setBackgroundImage(UIImage(systemName: "location.fill"), for: .normal)
-        }
-        else{
-            toggleGestures(disable: false)
-            
-            isUserTrackingMode = false
-            trackUserButton.setBackgroundImage(UIImage(systemName: "location"), for: .normal)
         }
     }
     
@@ -434,26 +365,43 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     func collectionPointUpdateFromVList(_ notification: Notification) {
         let tcs = notification.object as! [TaskCollection]
         for tc in tcs {
-            for tcp in getTaskCollectionPoints() {
+            
+            for tcp in self.taskCollectionPoints {
+                
                 for (num, _) in tcp.taskCollections.enumerated() {
                     if tcp.taskCollections[num].id == tc.id {
                         tcp.taskCollections[num] = tc
-                        for x in annotations {
-                            if x.taskCollectionPoint.id == tcp.id {
-                                DispatchQueue.main.async {
-                                    self.mapView.removeAnnotation(x)
-                                    self.mapView.addAnnotation(x)
-                                }
-                            }
-                        }
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadData()
-                        }
+//                        for x in markers {
+//                            if x.taskCollectionPoint.id == tcp.id {
+//                                DispatchQueue.main.async {
+//                                    if(x.taskCollectionPoint.getCompleteStatus()) {
+//                                        if(!self.hideCompleted) {
+//                                            x.icon = GMSMarker.markerImage(with: UIColor.gray)
+//                                        }
+//                                        else {
+//                                            x.map = nil
+//                                        }
+//                                    } else {
+//                                        x.icon = GMSMarker.markerImage(with: nil)
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        DispatchQueue.main.async {
+//                            self.collectionView.reloadData()
+//                        }
                         break
                     }
                 }
+                
             }
         }
+        
+        DispatchQueue.main.async {
+            self.addPointsTopMap()
+            self.collectionView.reloadData()
+        }
+        
     }
     
     @objc
@@ -479,10 +427,18 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     }
     
     func focusPoint(index: Int) {
-        if(!isUserTrackingMode) {
-            mapView.setCenter(self.annotations[index].coordinate, zoomLevel: self.mapView.zoomLevel, direction: -1, animated: true)
+        mapView.selectedMarker = self.markers[index]
+        mapView.animate(toLocation: CLLocationCoordinate2D(latitude: Double(self.taskCollectionPoints[index].location.latitude)!, longitude: Double(self.taskCollectionPoints[index].location.longitude)!))
+        mapView.animate(toZoom: 18)
+        
+        collectionView.layoutIfNeeded()
+        collectionView.reloadData()
+        
+        if let numberOfItems = collectionView.dataSource?.numberOfItems(in: collectionView), numberOfItems > 0 {
+            if(numberOfItems > index) {
+                collectionView.scrollToItem(at: index, animated: true)
+            }
         }
-        mapView.selectAnnotation(self.annotations[index], animated: false, completionHandler: nil)
     }
     
     func getPoints() {
@@ -509,257 +465,93 @@ class TaskNavigationViewController: UIViewController, MGLMapViewDelegate, Naviga
     }
     
     func addPointsTopMap() {
-        self.mapView.removeAnnotations(self.annotations)
-        self.annotations = []
+        self.markers = []
+        self.mapView.clear()
         
         for cp in getTaskCollectionPoints() {
-            let annotation = TaskCollectionPointPointAnnotation(taskCollectionPoint: cp)
+            let markerObj = TaskCollectionPointMarker(taskCollectionPoint: cp)
             let lat = Double(cp.location.latitude)!
             let long = Double(cp.location.longitude)!
-            annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-            annotation.title = cp.name
-            //            annotation.subtitle = "\(Double(annotation.coordinate.latitude)), \(Double(annotation.coordinate.longitude))"
+            let position = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            markerObj.position = position
+            markerObj.title = cp.name
+            markerObj.map = mapView
             
-            if(!cp.getCompleteStatus() || !hideCompleted) {
-                annotations.append(annotation)
-            }
-        }
-        
-        mapView.addAnnotations(annotations)
-    }
-    
-    func navigate(coordinate: CLLocationCoordinate2D) {
-//        navigationViewContainer.isHidden = false
-//        mapViewContainer.isHidden = true
-        
-        var waypoints = [Waypoint]()
-        waypoints.append(Waypoint(coordinate: (mapView.userLocation?.coordinate)!))
-        
-        for (index, i)  in self.annotations.enumerated() {
-            waypoints.append(Waypoint(coordinate: i.coordinate, name: self.taskCollectionPoints[index].name))
-        }
-        
-//        waypoints.append(Waypoint(coordinate: coordinate))
-        
-        let options = NavigationRouteOptions(waypoints: waypoints, profileIdentifier: .automobile)
-        Directions.shared.calculate(options) { [weak self] (session, result) in
-            switch result {
-            case .failure(let error):
-                print(error.localizedDescription)
-            case .success(let response):
-                guard let route = response.routes?.first, let strongSelf = self else {
-                    return
+            if(cp.getCompleteStatus()) {
+                if(!self.hideCompleted) {
+                    markerObj.icon = GMSMarker.markerImage(with: UIColor.gray)
+                    self.markers.append(markerObj)
                 }
-                
-                strongSelf.navigationViewContainer.isHidden = false
-                strongSelf.mapViewContainer.isHidden = true
-                
-                let navigationService = MapboxNavigationService(route: route, routeOptions: options, simulating: .never)
-                let navigationOptions = NavigationOptions(navigationService: navigationService)
-                strongSelf.navigationViewController = NavigationViewController(for: route, routeOptions: options, navigationOptions: navigationOptions)
-                strongSelf.navigationViewController.delegate = strongSelf
-                strongSelf.navigationViewContainer.addSubview(strongSelf.navigationViewController.view)
-                
-                strongSelf.navigationViewController.view.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    strongSelf.navigationViewController.view.leadingAnchor.constraint(equalTo: (strongSelf.navigationViewContainer.leadingAnchor), constant: 0),
-                    strongSelf.navigationViewController.view.trailingAnchor.constraint(equalTo: (strongSelf.navigationViewContainer.trailingAnchor), constant: 0),
-                    strongSelf.navigationViewController.view.topAnchor.constraint(equalTo: (strongSelf.navigationViewContainer.topAnchor), constant: 0),
-                    strongSelf.navigationViewController.view.bottomAnchor.constraint(equalTo: (strongSelf.navigationViewContainer.bottomAnchor), constant: 0)
-                ])
-                strongSelf.navigationViewController.didMove(toParent: strongSelf)
+                else {
+                    markerObj.map = nil
+                }
+            }
+            else {
+                self.markers.append(markerObj)
             }
         }
     }
-    
-    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-        if annotation is MGLUserLocation {
-            return false
-        }
-        return true
-    }
-    
-    func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
+
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         Sound.playInteractionSound()
-        
-        if annotation is TaskCollectionPointPointAnnotation {
-            let ann = annotation as! TaskCollectionPointPointAnnotation
+
+        if marker is TaskCollectionPointMarker {
+            let ann = marker as! TaskCollectionPointMarker
             let annTcpId = ann.taskCollectionPoint.id
 
             for (index, cp) in self.taskCollectionPoints.enumerated() {
                 if cp.id == annTcpId {
                     self.selectedTaskCollectionPoint = self.taskCollectionPoints[index];
-                    collectionView.selectItem(at: index, animated: true)
+                    
                     self.notificationCenter.post(name: .TaskCollectionPointsMapSelect, object: self.taskCollectionPoints[index])
+                    
+                    collectionView.layoutIfNeeded()
+                    collectionView.reloadData()
+                    if let numberOfItems = collectionView.dataSource?.numberOfItems(in: collectionView), numberOfItems > 0 {
+                        if(numberOfItems > index) {
+                            collectionView.scrollToItem(at: index, animated: true)
+                        }
+                    }
+                    
                     break
                 }
             }
         }
-
-        let origin = (mapView.userLocation?.coordinate)!
-        let coordinate = annotation.coordinate
-        calculateRoute(from: origin, to: coordinate)
+        return false
     }
     
-    func mapView(_ mapView: MGLMapView, didDeselect annotation: MGLAnnotation) {
-        if(annotation is TaskCollectionPointPointAnnotation) {
-            let ann = annotation as! TaskCollectionPointPointAnnotation
-            let annCpId = ann.taskCollectionPoint.id
-            for (index, cp) in self.taskCollectionPoints.enumerated() {
-                if cp.id == annCpId {
-                    self.selectedTaskCollectionPoint = self.taskCollectionPoints[index];
-                    break
-                }
-            }
-        }
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        editPointSegue()
     }
     
-    func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
-        if let image = UIImage(named: "truck") {
-            mapView.style?.setImage(image, forName: "truck-icon")
-        }
-    }
-    
-    // Calculate route to be used for navigation
-    func calculateRoute(from origin: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D) {
-        // Coordinate accuracy is how close the route must come to the waypoint in order to be considered viable. It is measured in meters. A negative value indicates that the route is viable regardless of how far the route is from the waypoint.
-        let origin = Waypoint(coordinate: origin, name: "Start")
-        let destination = Waypoint(coordinate: destination, name: "Finish")
-
-        // Specify that the route is intended for automobiles avoiding traffic
-        let routeOptions = NavigationRouteOptions(waypoints: [origin, destination], profileIdentifier: .automobileAvoidingTraffic)
-
-        // Generate the route object and draw it on the map
-        Directions.shared.calculate(routeOptions) { [weak self] (session, result) in
-            switch result {
-            case .failure(let error):
-                print(error.localizedDescription)
-            case .success(let response):
-                guard let route = response.routes?.first, let _ = self else {
-                    return
-                }
-//              self.route = route
-//              self.routeOptions = routeOptions
-
-                // Draw the route on the map after creating it
-                self!.drawRoute(route: route)
-
-                // Show destination waypoint on the map
-                self?.mapView.showWaypoints(on: route)
-            }
-        }
-    }
-    
-    func drawRoute(route: Route) {
-        guard let routeShape = route.shape, routeShape.coordinates.count > 0 else { return }
-        // Convert the route’s coordinates into a polyline
-        var routeCoordinates = routeShape.coordinates
-        let polyline = MGLPolylineFeature(coordinates: &routeCoordinates, count: UInt(routeCoordinates.count))
+    func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
+        let stack = UIStackView(frame: CGRect(x: 0, y: 0, width: 60, height:30));
+        stack.axis = .horizontal
+        stack.alignment = .center
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        label.textAlignment = .center
+        label.text = String((marker as! TaskCollectionPointMarker).taskCollectionPoint.sequence)
+        stack.addArrangedSubview(label)
         
-        // If there's already a route line on the map, reset its shape to the new route
-        if let source = mapView.style?.source(withIdentifier: "route-source") as? MGLShapeSource {
-            source.shape = polyline
-        } else {
-            let source = MGLShapeSource(identifier: "route-source", features: [polyline], options: nil)
-            
-            // Customize the route line color and width
-            let lineStyle = MGLLineStyleLayer(identifier: "route-style", source: source)
-            lineStyle.lineColor = NSExpression(forConstantValue: #colorLiteral(red: 0.1897518039, green: 0.3010634184, blue: 0.7994888425, alpha: 1))
-            lineStyle.lineWidth = NSExpression(forConstantValue: 3)
-            
-            // Add the source and style layer of the route line to the map
-            mapView.style?.addSource(source)
-            mapView.style?.addLayer(lineStyle)
-        }
-    }
-    
-    func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
-        let editPoint = UIButton(type: .detailDisclosure)
-        editPoint.addTarget(self, action: #selector(editPointSegue(sender:)), for: .touchDown)
-        return editPoint
-    }
-    
-    func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
-        if(annotation is TaskCollectionPointPointAnnotation) {
-            let image = UIImage(systemName: "location")
-            let button   = UIButton(type: UIButton.ButtonType.custom)
-            button.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
-            button.setBackgroundImage(image, for: .normal)
-            button.addTarget(self, action: #selector(navigateToPoint(sender:)), for: .touchDown)
-
-            let ann = annotation as! TaskCollectionPointPointAnnotation
+        if(marker is TaskCollectionPointMarker) {
+            let ann = marker as! TaskCollectionPointMarker
             let annCpId = ann.taskCollectionPoint.id
             for (currentIndex, cp) in self.taskCollectionPoints.enumerated() {
                 if annCpId == cp.id {
                     self.selectedTaskCollectionPoint = self.taskCollectionPoints[currentIndex];
-                    button.tag = currentIndex
                     break
                 }
             }
-            return button
+            let editPoint = UIButton(type: .detailDisclosure)
+            editPoint.frame.size = CGSize(width: 6, height: 6)
+            stack.addArrangedSubview(editPoint)
         }
         
-        return nil
+        return stack
     }
     
-    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-        guard annotation is TaskCollectionPointPointAnnotation else {
-            return nil
-        }
-        
-        let ann = annotation as! TaskCollectionPointPointAnnotation
-        let annTcpId = ann.taskCollectionPoint.id
-        
-        // Use the point annotation’s longitude value (as a string) as the reuse identifier for its view.
-        let reuseIdentifier = "\(annotation.coordinate.longitude)"
-        
-        // For better performance, always try to reuse existing annotations.
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
-        
-        // If there’s no reusable annotation view available, initialize a new one.
-        if annotationView == nil {
-            annotationView = CustomAnnotationView(reuseIdentifier: reuseIdentifier)
-            annotationView!.bounds = CGRect(x: 0, y: 0, width: 20, height: 20)
-            annotationView!.backgroundColor = UIColor.red
-            
-            for tcp in self.taskCollectionPoints {
-                if tcp.id == annTcpId {
-                    if tcp.getCompleteStatus() {
-                        annotationView!.backgroundColor = UIColor.gray
-                    }
-                }
-            }
-        }
-        
-        return annotationView
-    }
-    
-    @objc
-    func navigateToPoint (sender: UIButton) {
-        navigate(coordinate: self.annotations[sender.tag].coordinate)
-    }
-    
-    @objc func editPointSegue(sender: UIButton) {
+    func editPointSegue() {
         self.performSegue(withIdentifier: "editTaskCollectionPoint", sender: self)
-    }
-    
-    func navigationViewControllerDidDismiss(_ navigationViewController: NavigationViewController, byCanceling canceled: Bool) {
-        if(canceled) {
-            navigationViewController.willMove(toParent: nil)
-            navigationViewController.removeFromParent()
-            navigationViewContainer.isHidden = true
-            mapViewContainer.isHidden = false
-        }
-    }
-
-    func navigationViewController(_ navigationViewController: NavigationViewController, waypointStyleLayerWithIdentifier identifier: String, source: MGLSource) -> MGLStyleLayer? {
-        
-        let waypointStyleLayer = MGLCircleStyleLayer(identifier: identifier, source: source)
-        waypointStyleLayer.circleColor = NSExpression(forConstantValue: UIColor.yellow)
-        waypointStyleLayer.circleRadius = NSExpression(forConstantValue: 10)
-        waypointStyleLayer.circleStrokeColor = NSExpression(forConstantValue: UIColor.black)
-        waypointStyleLayer.circleStrokeWidth = NSExpression(forConstantValue: 1)
-        return waypointStyleLayer
     }
 
     // MARK: - Navigation

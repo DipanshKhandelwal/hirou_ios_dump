@@ -220,12 +220,15 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         var changedIndexes = [IndexPath]()
         for tc in tcs {
             for tcp_num in 0...getTaskCollectionPoints().count-1 {
-                let tcp = getTaskCollectionPoints()[tcp_num]
-                for num in 0...tcp.taskCollections.count-1 {
-                    if tcp.taskCollections[num].id == tc.id {
-                        tcp.taskCollections[num] = tc
-                        changedIndexes.append(IndexPath(row: tcp_num, section: 0))
-                        break;
+                let list = getTaskCollectionPoints();
+                if(list.count > tcp_num) {
+                    let tcp = getTaskCollectionPoints()[tcp_num]
+                    for num in 0...tcp.taskCollections.count-1 {
+                        if tcp.taskCollections[num].id == tc.id {
+                            tcp.taskCollections[num] = tc
+                            changedIndexes.append(IndexPath(row: tcp_num, section: 0))
+                            break;
+                        }
                     }
                 }
             }
@@ -328,30 +331,33 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         }
         else {
             let tcpCell = cell as! TaskCollectionPointCell
+            let list = getTaskCollectionPoints();
             
-            let tcp = getTaskCollectionPoints()[indexPath.row]
-            tcpCell.sequence!.text = String(tcp.sequence)
-            tcpCell.name!.text = tcp.name
-            tcpCell.memo!.text = tcp.memo
+            if(list.count > indexPath.row) {
+                let tcp = getTaskCollectionPoints()[indexPath.row]
+                tcpCell.sequence!.text = String(tcp.sequence)
+                tcpCell.name!.text = tcp.name
+                tcpCell.memo!.text = tcp.memo
 
-            if tcp.taskCollections.count >= 1 {
-                tcpCell.garbageStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
-                tcpCell.garbageStack.spacing = 10
-                tcpCell.garbageStack.axis = .horizontal
-                tcpCell.garbageStack.distribution = .equalCentering
-                
-                let toggleAllTasksButton = GarbageButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-                toggleAllTasksButton.tag = indexPath.row;
-                toggleAllTasksButton.addTarget(self, action: #selector(TaskCollectionPointTableViewController.toggleAllTasks(sender:)), for: .touchDown)
-                toggleAllTasksButton.layer.backgroundColor = tcp.getCompleteStatus() ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
-                tcpCell.garbageStack.addArrangedSubview(toggleAllTasksButton)
-                
-                for num in 0...tcp.taskCollections.count-1 {
-                    let taskCollection = tcp.taskCollections[num];
+                if tcp.taskCollections.count >= 1 {
+                    tcpCell.garbageStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
+                    tcpCell.garbageStack.spacing = 10
+                    tcpCell.garbageStack.axis = .horizontal
+                    tcpCell.garbageStack.distribution = .equalCentering
                     
-                    let garbageView = GarbageButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0), taskCollectionPointPosition: indexPath.row, taskPosition: num, taskCollection: taskCollection)
-                    garbageView.addTarget(self, action: #selector(TaskCollectionPointTableViewController.pressed(sender:)), for: .touchDown)
-                    tcpCell.garbageStack.addArrangedSubview(garbageView)
+                    let toggleAllTasksButton = GarbageButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+                    toggleAllTasksButton.tag = indexPath.row;
+                    toggleAllTasksButton.addTarget(self, action: #selector(TaskCollectionPointTableViewController.toggleAllTasks(sender:)), for: .touchDown)
+                    toggleAllTasksButton.layer.backgroundColor = tcp.getCompleteStatus() ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
+                    tcpCell.garbageStack.addArrangedSubview(toggleAllTasksButton)
+                    
+                    for num in 0...tcp.taskCollections.count-1 {
+                        let taskCollection = tcp.taskCollections[num];
+                        
+                        let garbageView = GarbageButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0), taskCollectionPointPosition: indexPath.row, taskPosition: num, taskCollection: taskCollection)
+                        garbageView.addTarget(self, action: #selector(TaskCollectionPointTableViewController.pressed(sender:)), for: .touchDown)
+                        tcpCell.garbageStack.addArrangedSubview(garbageView)
+                    }
                 }
             }
         }
@@ -395,8 +401,12 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
                 switch response.result {
                 case .success(let value):
                     let taskCollectionsNew = try! JSONDecoder().decode([TaskCollection].self, from: value!)
-                    self.getTaskCollectionPoints()[sender.tag].taskCollections = taskCollectionsNew
-                    self.garbageSummaryList = self.getGarbageSummaryList(taskCollectionPoints: self.getTaskCollectionPoints())
+                    
+                    let list = self.getTaskCollectionPoints()
+                    if(list.count > sender.tag) {
+                        list[sender.tag].taskCollections = taskCollectionsNew
+                    }
+                    self.garbageSummaryList = self.getGarbageSummaryList(taskCollectionPoints: list)
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
 //                        self.tableView.reloadRows(at: [ IndexPath(row: sender.tag, section: 0) ], with: .automatic)

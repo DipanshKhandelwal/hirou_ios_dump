@@ -7,43 +7,32 @@
 //
 
 import UIKit
-import Mapbox
 import Alamofire
+import GoogleMaps
 
-class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate {
-    
+class CollectionPointDetailViewController: UIViewController, GMSMapViewDelegate {
     var id: String = ""
-    @IBOutlet var mapView: MGLMapView!
-    var newAnnotation: CollectionPointPointAnnotation!
+    @IBOutlet weak var mapView: GMSMapView!
+    var newMarker: CollectionPointMarker!
     var selectedCollectionPoint: CollectionPoint!
     var collectionPoints = [CollectionPoint]()
-    var annotations = [CollectionPointPointAnnotation]()
-    
-    var isUserTrackingMode = true
-    
-    @IBOutlet weak var trackUserButton: UIButton! {
-        didSet {
-            trackUserButton.setBackgroundImage(UIImage(systemName: "location.fill"), for: .normal)
-            isUserTrackingMode = true
-            trackUserButton.addTarget(self, action: #selector(toggleUserTrackingMode), for: .touchDown)
-        }
-    }
-    
-    var gestures : [UIGestureRecognizer] = []
+    var markers = [CollectionPointMarker]()
     
     private let notificationCenter = NotificationCenter.default
 
     @objc
     func zoomIn() {
-        if(self.mapView.zoomLevel + 1 <= self.mapView.maximumZoomLevel) {
-            self.mapView.setZoomLevel(self.mapView.zoomLevel + 1, animated: true)
+        let zoom = self.mapView.camera.zoom
+        if(zoom + 1 <= self.mapView.maxZoom) {
+            self.mapView.animate(toZoom: zoom + 1)
         }
     }
     
     @objc
     func zoomOut() {
-        if(self.mapView.zoomLevel - 1 >= self.mapView.minimumZoomLevel) {
-            self.mapView.setZoomLevel(self.mapView.zoomLevel - 1, animated: true)
+        let zoom = self.mapView.camera.zoom
+        if(zoom - 1 >= self.mapView.minZoom) {
+            self.mapView.animate(toZoom: zoom - 1)
         }
     }
     
@@ -65,53 +54,16 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         super.viewDidLoad()
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.delegate = self
-        mapView.showsUserLocation = true
-        mapView.userTrackingMode = .followWithCourse
-        mapView.showsUserHeadingIndicator = true
-//        mapView.zoomLevel = 22
+        mapView.isMyLocationEnabled = true
+        mapView.settings.myLocationButton = true
 
         self.id = UserDefaults.standard.string(forKey: "selectedRoute")!
-        
-        self.gestures = self.mapView.gestureRecognizers ?? []
-        toggleGestures(disable: true)
-        
-        self.addNewPointGesture()
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .CollectionPointsTableSelect, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointReorderFromVList(_:)), name: .CollectionPointsTableReorder, object: nil)
     }
-    
-    @objc
-    func toggleUserTrackingMode() {
-        if !isUserTrackingMode {
-            toggleGestures(disable: true)
-            self.addNewPointGesture()
-            mapView.userTrackingMode = .followWithCourse
-            mapView.showsUserHeadingIndicator = true
-            
-            isUserTrackingMode = true
-            trackUserButton.setBackgroundImage(UIImage(systemName: "location.fill"), for: .normal)
-        }
-        else{
-            toggleGestures(disable: false)
-            
-            isUserTrackingMode = false
-            trackUserButton.setBackgroundImage(UIImage(systemName: "location"), for: .normal)
-        }
-    }
-    
-    func toggleGestures(disable: Bool = true) {
-        for gestureRecognizer in self.gestures {
-            if(disable){
-                mapView.removeGestureRecognizer(gestureRecognizer)
-            }
-            else {
-                mapView.addGestureRecognizer(gestureRecognizer)
-            }
-        }
-    }
-    
+
     @objc
     func collectionPointSelectFromVList(_ notification: Notification) {
         let cp = notification.object as! CollectionPoint
@@ -139,17 +91,14 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     }
     
     func focusPoint(index: Int) {
-        mapView.setCenter(self.annotations[index].coordinate, zoomLevel: 18, direction: -1, animated: true)
-        mapView.selectAnnotation(self.annotations[index], animated: false, completionHandler: nil)
+        mapView.selectedMarker = self.markers[index]
+        mapView.animate(toLocation: CLLocationCoordinate2D(latitude: Double(self.collectionPoints[index].location.latitude)!, longitude: Double(self.collectionPoints[index].location.longitude)!))
+        mapView.animate(toZoom: 18)
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.getPoints()
-    }
-    
-    func addNewPointGesture() {
-        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(handleNewPointTap(_:)))
-        mapView?.addGestureRecognizer(gesture)
     }
     
     func getPoints() {
@@ -171,68 +120,40 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
     }
     
     func addPointsToMap(focusLast: Bool = false) {
-        self.mapView.removeAnnotations(self.annotations)
-        if self.newAnnotation != nil {
-            self.mapView.removeAnnotation(self.newAnnotation)
+        if((self.newMarker) != nil) {
+            self.newMarker.map = nil
         }
-        self.annotations = []
-        
+        self.newMarker = nil
+        self.markers = []
+        self.mapView.clear()
+
         for cp in self.collectionPoints {
-            let annotation = CollectionPointPointAnnotation(collectionPoint: cp)
+            let markerObj = CollectionPointMarker(collectionPoint: cp)
             let lat = Double(cp.location.latitude)!
             let long = Double(cp.location.longitude)!
-            annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
-            annotation.title = cp.name
-            //            annotation.subtitle = "\(Double(annotation.coordinate.latitude)), \(Double(annotation.coordinate.longitude))"
-            annotations.append(annotation)
+            let position = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            markerObj.position = position
+            markerObj.title = cp.name
+            markerObj.map = mapView
+            self.markers.append(markerObj)
         }
+
         
-        mapView.addAnnotations(annotations)
         DispatchQueue.main.async {
-            if(focusLast && !self.annotations.isEmpty){
-                self.focusPoint(index: self.annotations.count-1)
+            if(focusLast && !self.markers.isEmpty){
+                self.focusPoint(index: self.markers.count-1)
             }
         }
     }
     
-    @objc func handleNewPointTap(_ gesture: UILongPressGestureRecognizer) {
-        guard gesture.state == .ended else { return }
-        let spot = gesture.location(in: mapView)
-        guard let location = mapView?.convert(spot, toCoordinateFrom: mapView) else { return }
-        
-        if (self.newAnnotation != nil) {
-            mapView.removeAnnotation(self.newAnnotation)
-        }
-        
-        let lat = location.latitude
-        let long = location.longitude
-        let loc = Location(latitude: String(lat), longitude: String(long))!
-        let seq = self.collectionPoints.count + 1
-        
-        self.newAnnotation = CollectionPointPointAnnotation(collectionPoint: CollectionPoint(id: -1, name: "", address: "", memo: "", route: Int(self.id) ?? -1, location: loc, sequence: seq, image: "")!)
-        
-        self.newAnnotation.coordinate = location
-        self.newAnnotation.title = "New Collection Point"
-        mapView.addAnnotation(self.newAnnotation)
-        mapView.selectAnnotation(self.newAnnotation, animated: true, completionHandler: nil)
-    }
-    
-    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-        if annotation is MGLUserLocation {
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        Sound.playInteractionSound()
+        if marker.title == "New Collection Point" {
             return false
         }
-        return true
-    }
-    
-    func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
-        Sound.playInteractionSound()
-        
-        if annotation.title == "New Collection Point" {
-            return
-        }
-        
-        if(annotation is CollectionPointPointAnnotation) {
-            let ann = annotation as! CollectionPointPointAnnotation
+
+        if(marker is CollectionPointMarker) {
+            let ann = marker as! CollectionPointMarker
             let annCpId = ann.collectionPoint.id
             for (index, cp) in self.collectionPoints.enumerated() {
                 if annCpId == cp.id {
@@ -242,24 +163,67 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
                 }
             }
         }
+        return false
+    }
+
+    
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        print("marker.position.longitude", marker.position.longitude)
+        print("marker.position.latitude", marker.position.latitude)
+        let a = marker as! CollectionPointMarker
+        print("a.collectionPoint", a.collectionPoint.name, a.collectionPoint.id, a.collectionPoint.sequence)
+        
+        if(a.collectionPoint.id == -1) {
+            callAddPointSegue()
+        }else {
+            callEditPointSegue()
+        }
     }
     
-    func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+    
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        let position = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        
+        if(self.newMarker != nil) {
+            CATransaction.begin()
+            CATransaction.setAnimationDuration(0.4)
+            self.newMarker.position = position
+            CATransaction.commit()
+            return
+        }
+        
+        let lat = coordinate.latitude
+        let long = coordinate.longitude
+        let loc = Location(latitude: String(lat), longitude: String(long))!
+        let seq = self.collectionPoints.count + 1
+        
+        let marker = CollectionPointMarker(collectionPoint: CollectionPoint(id: -1, name: "", address: "", memo: "", route: Int(self.id) ?? -1, location: loc, sequence: seq, image: "")!)
+        marker.title = "New Collection Point"
+        marker.position = position
+        marker.icon = GMSMarker.markerImage(with: .blue)
+        marker.isDraggable = true
+        marker.isTappable = true
+        marker.map = mapView
+        
+        self.newMarker = marker
+    }
+    
+    func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
+        let stack = UIStackView(frame: CGRect(x: 0, y: 0, width: 60, height:30));
+        stack.axis = .horizontal
+        stack.alignment = .center
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         label.textAlignment = .center
-        label.textColor = UIColor(red: 0.81, green: 0.71, blue: 0.23, alpha: 1)
-        label.text = String((annotation as! CollectionPointPointAnnotation).collectionPoint.sequence)
-        return label
-    }
-    
-    func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
-        if annotation.title == "New Collection Point" {
+        label.text = String((marker as! CollectionPointMarker).collectionPoint.sequence)
+        stack.addArrangedSubview(label)
+        
+        if marker.title == "New Collection Point" {
             let addPoint = UIButton(type: .contactAdd)
-            addPoint.addTarget(self, action: #selector(addPointSegue(sender:)), for: .touchDown)
-            return addPoint
+            stack.addArrangedSubview(addPoint)
+            
         } else {
-            if(annotation is CollectionPointPointAnnotation) {
-                let ann = annotation as! CollectionPointPointAnnotation
+            if(marker is CollectionPointMarker) {
+                let ann = marker as! CollectionPointMarker
                 let annCpId = ann.collectionPoint.id
                 for (currentIndex, cp) in self.collectionPoints.enumerated() {
                     if annCpId == cp.id {
@@ -268,37 +232,20 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
                     }
                 }
                 let editPoint = UIButton(type: .detailDisclosure)
-                editPoint.addTarget(self, action: #selector(editPointSegue(sender:)), for: .touchDown)
-                return editPoint
+                editPoint.frame.size = CGSize(width: 6, height: 6)
+                stack.addArrangedSubview(editPoint)
             }
         }
-        return nil
+        
+        return stack
     }
     
-    @objc func addPointSegue(sender: UIButton) {
-        self.performSegue(withIdentifier: "addCollectionPoint", sender: self)
-    }
-    
-    @objc func editPointSegue(sender: UIButton) {
+    func callEditPointSegue() {
         self.performSegue(withIdentifier: "editCollectionPoint", sender: self)
     }
     
-    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-        guard annotation is MGLPointAnnotation else {
-            return nil
-        }
-        
-        var color: UIColor = .red
-        
-        if annotation.title == "New Collection Point" {
-            color = .blue
-        }
-        
-        //        if let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "draggablePoint") {
-        //            return annotationView
-        //        } else {
-        return CollectionPointDraggableAnnotationView(annotation: annotation as! CollectionPointPointAnnotation, reuseIdentifier: "draggablePoint", size: 20, color: color)
-        //        }
+    func callAddPointSegue() {
+        self.performSegue(withIdentifier: "addCollectionPoint", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -306,7 +253,7 @@ class CollectionPointDetailViewController: UIViewController, MGLMapViewDelegate 
         // Pass the selected object to the new view controller.
         if segue.identifier == "addCollectionPoint" {
             let controller = (segue.destination as! CollectionPointFormViewController)
-            controller.detailItem = self.newAnnotation.collectionPoint
+            controller.detailItem = self.newMarker.collectionPoint
         }
         
         if segue.identifier == "editCollectionPoint" {

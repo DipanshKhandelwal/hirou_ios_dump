@@ -105,7 +105,7 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
             self.memoLabel?.text = taskAmount.memo
             
             self.deleteButton?.isEnabled = true
-            self.title = "Edit Task Garbage Amount"
+            self.title = "収集量の編集"
         }
     }
     
@@ -120,22 +120,22 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
     @objc
     func saveClicked(_ sender: Any) {
         if selectedGarbage == nil {
-            let addAlert = UIAlertController(title: "Please select a garbage type !!", message: "", preferredStyle: .alert)
-            addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
+            let addAlert = UIAlertController(title: "品目を選択してください", message: "", preferredStyle: .alert)
+            addAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in return }))
             self.present(addAlert, animated: true, completion: nil)
             return
         }
         
         if selectedVehicle == nil {
-            let addAlert = UIAlertController(title: "Please select a vehicle !!", message: "", preferredStyle: .alert)
-            addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
+            let addAlert = UIAlertController(title: "車両を選択してください", message: "", preferredStyle: .alert)
+            addAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in return }))
             self.present(addAlert, animated: true, completion: nil)
             return
         }
 
         if amountLabel.text?.count == 0 {
-            let addAlert = UIAlertController(title: "Please enter a garbage amount !!", message: "", preferredStyle: .alert)
-            addAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (action: UIAlertAction!) in return }))
+            let addAlert = UIAlertController(title: "収集量を入力してください", message: "", preferredStyle: .alert)
+            addAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in return }))
             self.present(addAlert, animated: true, completion: nil)
             return
         }
@@ -143,14 +143,14 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
     }
     
     @IBAction func deleteClicked(_ sender: Any) {
-        let deleteAlert = UIAlertController(title: "Delete Task Amount ?", message: "Are you sure you want to delete the amount ?", preferredStyle: .alert)
+        let deleteAlert = UIAlertController(title: "収集量の削除", message: "収集量を削除しますか？ ", preferredStyle: .alert)
         
-        deleteAlert.addAction(UIAlertAction(title: "Yes. Delete", style: .default, handler: { (action: UIAlertAction!) in
+        deleteAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
             self.deleteTaskAmount()
         }))
         
-        deleteAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-            print("Delte cancelled by the user.")
+        deleteAlert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: { (action: UIAlertAction!) in
+            print("Delete cancelled by the user.")
         }))
         
         self.present(deleteAlert, animated: true, completion: nil)
@@ -236,7 +236,7 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         toolBar.sizeToFit()
         
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.garbagePickerDone))
+        let doneButton = UIBarButtonItem(title: "完了", style: .done, target: self, action: #selector(self.garbagePickerDone))
         
         toolBar.setItems([flexibleSpace, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
@@ -257,7 +257,7 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
         toolBar.sizeToFit()
         
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.vehiclePickerDone))
+        let doneButton = UIBarButtonItem(title: "完了", style: .done, target: self, action: #selector(self.vehiclePickerDone))
         
         toolBar.setItems([flexibleSpace, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
