@@ -223,6 +223,7 @@ class TaskNavigationViewController: UIViewController, GMSMapViewDelegate {
     var userLocationMarkers = [UserLocationMarker]()
     var route:TaskRoute?
     var hideCompleted: Bool = false
+    var isUserTrackingMode: Bool = true
         
     private let notificationCenter = NotificationCenter.default
     
@@ -259,8 +260,28 @@ class TaskNavigationViewController: UIViewController, GMSMapViewDelegate {
         notificationCenter.addObserver(self, selector: #selector(hideCompletedTriggered(_:)), name: .TaskCollectionPointsHideCompleted, object: nil)
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdate(_:)), name: .TaskCollectionPointsUpdate, object: nil)
         notificationCenter.addObserver(self, selector: #selector(locationsUpdated(_:)), name: .TaskCollectionPointsUserLocationsUpdate, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(presentUserLocationUpdated(_:)), name: .TaskCollectionPointsPresentUserLocationUpdate, object: nil)
 
         self.getPoints()
+    }
+    @IBOutlet weak var trackUserButton: UIButton! {
+        didSet {
+            trackUserButton.setBackgroundImage(UIImage(systemName: "location.fill"), for: .normal)
+            isUserTrackingMode = true
+            trackUserButton.addTarget(self, action: #selector(userTrackingSwitchToggled), for: .touchDown)
+        }
+    }
+    
+    @objc
+    func userTrackingSwitchToggled() {
+        if !isUserTrackingMode {
+            isUserTrackingMode = true
+            trackUserButton.setBackgroundImage(UIImage(systemName: "location.fill"), for: .normal)
+        }
+        else{
+            isUserTrackingMode = false
+            trackUserButton.setBackgroundImage(UIImage(systemName: "location"), for: .normal)
+        }
     }
     
     @IBOutlet weak var zoomOutButton: UIButton! {
@@ -297,6 +318,16 @@ class TaskNavigationViewController: UIViewController, GMSMapViewDelegate {
         let zoom = self.mapView.camera.zoom
         if(zoom - 1 >= self.mapView.minZoom) {
             self.mapView.animate(toZoom: zoom - 1)
+        }
+    }
+    
+    @objc
+    func presentUserLocationUpdated(_ notification: Notification) {
+        let newUserLocation = notification.object as! CLLocationCoordinate2D
+        if(isUserTrackingMode) {
+            DispatchQueue.main.async {
+                self.mapView.animate(toLocation: newUserLocation)
+            }
         }
     }
     
