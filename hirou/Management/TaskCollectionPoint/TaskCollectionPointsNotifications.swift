@@ -36,4 +36,8 @@ extension Notification.Name {
     static var TaskCollectionPointsUserLocationsUpdate: Notification.Name {
         return .init(rawValue: "TaskCollectionPoints.UserLocationsUpdate")
     }
+    
+    static var TaskCollectionPointsPresentUserLocationUpdate: Notification.Name {
+        return .init(rawValue: "TaskCollectionPoints.PresentUserLocationUpdate")
+    }
 }

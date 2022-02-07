@@ -183,6 +183,10 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         let latitude = (presentLocation?.coordinate.latitude)!
         let longitude = (presentLocation?.coordinate.longitude)!
         
+        let location2D = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        
+        self.notificationCenter.post(name: .TaskCollectionPointsPresentUserLocationUpdate, object: location2D)
+        
         let location = String(latitude) + "," + String(longitude)
         
         let data: [String: Any] = [
