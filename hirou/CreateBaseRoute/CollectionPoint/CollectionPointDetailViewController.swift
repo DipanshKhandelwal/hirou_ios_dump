@@ -18,6 +18,8 @@ class CollectionPointDetailViewController: UIViewController, GMSMapViewDelegate 
     var collectionPoints = [CollectionPoint]()
     var markers = [CollectionPointMarker]()
     
+    var isUserTrackingMode: Bool = true
+    
     private let notificationCenter = NotificationCenter.default
 
     @objc
@@ -36,6 +38,16 @@ class CollectionPointDetailViewController: UIViewController, GMSMapViewDelegate 
         }
     }
     
+    @objc
+    func presentUserLocationUpdated(_ notification: Notification) {
+        let newUserLocation = notification.object as! CLLocationCoordinate2D
+        if(isUserTrackingMode) {
+            DispatchQueue.main.async {
+                self.mapView.animate(toLocation: newUserLocation)
+            }
+        }
+    }
+    
     @IBOutlet weak var zoomOutButton: UIButton! {
         didSet {
             zoomOutButton.setBackgroundImage(UIImage(systemName: "arrow.down.right.and.arrow.up.left.circle"), for: .normal)
@@ -47,6 +59,27 @@ class CollectionPointDetailViewController: UIViewController, GMSMapViewDelegate 
         didSet {
             zoomInButton.setBackgroundImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right.circle"), for: .normal)
             zoomInButton.addTarget(self, action: #selector(zoomIn), for: .touchDown)
+        }
+    }
+    
+    @IBOutlet weak var trackUserButton: UIButton! {
+        didSet {
+            trackUserButton.setBackgroundImage(UIImage(systemName: "location.fill"), for: .normal)
+            isUserTrackingMode = true
+            trackUserButton.addTarget(self, action: #selector(userTrackingSwitchToggled), for: .touchDown)
+        }
+    }
+    
+    
+    @objc
+    func userTrackingSwitchToggled() {
+        if !isUserTrackingMode {
+            isUserTrackingMode = true
+            trackUserButton.setBackgroundImage(UIImage(systemName: "location.fill"), for: .normal)
+        }
+        else{
+            isUserTrackingMode = false
+            trackUserButton.setBackgroundImage(UIImage(systemName: "location"), for: .normal)
         }
     }
     
@@ -62,6 +95,8 @@ class CollectionPointDetailViewController: UIViewController, GMSMapViewDelegate 
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromVList(_:)), name: .CollectionPointsTableSelect, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointReorderFromVList(_:)), name: .CollectionPointsTableReorder, object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(presentUserLocationUpdated(_:)), name: .CollectionPointsPresentUserLocationUpdate, object: nil)
     }
 
     @objc
