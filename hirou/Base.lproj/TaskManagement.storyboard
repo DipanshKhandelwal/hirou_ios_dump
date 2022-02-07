@@ -1293,13 +1293,30 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k8f-Cs-Glg" userLabel="OptionsView">
-                                <rect key="frame" x="694" y="688" width="50" height="110"/>
+                                <rect key="frame" x="694" y="628" width="50" height="170"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gmK-md-kfd">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="110"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="170"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q0N-Ar-d77" customClass="RoundedView" customModule="hirou" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gxt-nW-YNy" customClass="RoundedView" customModule="hirou" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NTp-LK-4ZN" userLabel="User Tracking Button">
+                                                        <rect key="frame" x="5" y="6" width="40" height="38.5"/>
+                                                        <state key="normal" backgroundImage="location.fill" catalog="system"/>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="NTp-LK-4ZN" firstAttribute="centerY" secondItem="Gxt-nW-YNy" secondAttribute="centerY" id="Cjd-60-4ks"/>
+                                                    <constraint firstItem="NTp-LK-4ZN" firstAttribute="width" secondItem="Gxt-nW-YNy" secondAttribute="width" multiplier="0.8" id="Rm8-x5-Iqw"/>
+                                                    <constraint firstAttribute="width" secondItem="Gxt-nW-YNy" secondAttribute="height" multiplier="1:1" id="gFo-Tk-LYO"/>
+                                                    <constraint firstAttribute="width" constant="50" id="mHU-O0-VMG"/>
+                                                    <constraint firstItem="NTp-LK-4ZN" firstAttribute="height" secondItem="Gxt-nW-YNy" secondAttribute="height" multiplier="0.8" id="rzY-qY-07F"/>
+                                                    <constraint firstItem="NTp-LK-4ZN" firstAttribute="centerX" secondItem="Gxt-nW-YNy" secondAttribute="centerX" id="uyh-Gh-1Kf"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q0N-Ar-d77" customClass="RoundedView" customModule="hirou" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="60" width="50" height="50"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JCo-aa-AbW">
                                                         <rect key="frame" x="5" y="5.5" width="40" height="39"/>
@@ -1316,7 +1333,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lgg-py-sVu" customClass="RoundedView" customModule="hirou" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="60" width="50" height="50"/>
+                                                <rect key="frame" x="0.0" y="120" width="50" height="50"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZzC-lP-SJy">
                                                         <rect key="frame" x="5" y="5.5" width="40" height="39"/>
@@ -1333,6 +1350,9 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Gxt-nW-YNy" firstAttribute="width" secondItem="Gxt-nW-YNy" secondAttribute="height" multiplier="1:1" id="eOb-Kr-t9I"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
@@ -1364,6 +1384,7 @@
                     <connections>
                         <outlet property="collectionView" destination="0iM-ZG-OIo" id="3DE-aG-eS7"/>
                         <outlet property="mapView" destination="xUY-eU-34k" id="Pxf-Gz-SLv"/>
+                        <outlet property="trackUserButton" destination="NTp-LK-4ZN" id="3Xm-rc-JFX"/>
                         <outlet property="usersCountText" destination="GLg-ZL-GWk" id="gLh-El-2h9"/>
                         <outlet property="zoomInButton" destination="ZzC-lP-SJy" id="x0f-Jz-Mas"/>
                         <outlet property="zoomOutButton" destination="JCo-aa-AbW" id="yIf-Bb-SHR"/>
@@ -1863,6 +1884,7 @@
         <image name="arrow.up.left.and.arrow.down.right.circle" catalog="system" width="128" height="121"/>
         <image name="car.fill" catalog="system" width="128" height="93"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="location.fill" catalog="system" width="128" height="121"/>
         <image name="pencil.circle" catalog="system" width="128" height="121"/>
         <image name="person.crop.square" catalog="system" width="128" height="114"/>
         <systemColor name="systemBackgroundColor">

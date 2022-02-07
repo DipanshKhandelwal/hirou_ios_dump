@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import CoreLocation
 
 class CollectionPointTableViewCell : UITableViewCell {
     @IBOutlet weak var collectionPointIndexLabel: UILabel!
@@ -16,7 +17,7 @@ class CollectionPointTableViewCell : UITableViewCell {
     @IBOutlet weak var collectionPointImage: UIImageView!
 }
 
-class CollectionPointMasterViewController: UITableViewController {
+class CollectionPointMasterViewController: UITableViewController, CLLocationManagerDelegate {
     
     var detailViewController: CollectionPointDetailViewController? = nil
     var collectionPoints = [CollectionPoint]()
@@ -26,6 +27,10 @@ class CollectionPointMasterViewController: UITableViewController {
     private let notificationCenter = NotificationCenter.default
     
     var socketConnection: WebSocketConnector?
+    
+    var locationManager: CLLocationManager?
+    var presentLocation: CLLocation?
+    var timer: Timer?
 
     private func setupConnection(){
         let userToken = UserDefaults.standard.string(forKey: UserDefaultsConstants.AUTH_TOKEN)
@@ -117,14 +122,50 @@ class CollectionPointMasterViewController: UITableViewController {
         navigationItem.setLeftBarButtonItems([backButton], animated: true)
 
         setupConnection()
+        
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.requestWhenInUseAuthorization()
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { _ in self.updateLocation() })
     }
     
     @objc
     func goBack() {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse || status == .authorizedAlways{
+            locationManager?.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            presentLocation = location
+        }
+    }
+    
+    func updateLocation() {
+        if presentLocation == nil {
+            print("Present Location not found :: Location not updated")
+            return
+        }
+        
+        let latitude = (presentLocation?.coordinate.latitude)!
+        let longitude = (presentLocation?.coordinate.longitude)!
+        
+        let location2D = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        
+        self.notificationCenter.post(name: .CollectionPointsPresentUserLocationUpdate, object: location2D)
+    }
 
     override func viewDidDisappear(_ animated: Bool) {
+        timer?.invalidate()
+        timer = nil
+        locationManager?.stopUpdatingLocation()
+        locationManager = nil
         socketConnection?.disconnect()
         socketConnection = nil
     }
