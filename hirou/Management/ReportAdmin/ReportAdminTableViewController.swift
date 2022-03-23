@@ -28,7 +28,7 @@ class ReportAdminTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        self.title = "Report Admin"
+        self.title = "管理者報告"
     }
     
     override func viewWillAppear(_ animated: Bool) {

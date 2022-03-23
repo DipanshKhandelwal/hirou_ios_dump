@@ -15,6 +15,7 @@ class TaskCollectionPointCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var memo: UILabel!
     @IBOutlet weak var garbageStack: UIStackView!
+    @IBOutlet weak var btnReport: UIButton!
 }
 
 class GarbageSummaryCell: UITableViewCell {
@@ -42,6 +43,8 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     var locationManager: CLLocationManager?
     var presentLocation: CLLocation?
     var timer: Timer?
+    
+    var currentTaskCollectionPoint: TaskCollectionPoint?
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -342,6 +345,8 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
                 tcpCell.sequence!.text = String(tcp.sequence)
                 tcpCell.name!.text = tcp.name
                 tcpCell.memo!.text = tcp.memo
+                tcpCell.btnReport.tag = indexPath.row
+                tcpCell.btnReport.addTarget(self, action: #selector(TaskCollectionPointTableViewController.report(sender:)), for: .touchDown)
 
                 if tcp.taskCollections.count >= 1 {
                     tcpCell.garbageStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
@@ -424,6 +429,11 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     }
     
     @objc
+    func report(sender: UIButton) {
+        currentTaskCollectionPoint = getTaskCollectionPoints()[sender.tag]
+    }
+    
+    @objc
     func toggleAllTasks(sender: UIButton) {
         let taskCollectionPoint = getTaskCollectionPoints()[sender.tag]
         if( isAllCompleted(taskCollectionPoint: taskCollectionPoint)) {
@@ -489,13 +499,13 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         let taskCollection = taskCollectionPoint.taskCollections[sender.taskPosition!]
         
         if(taskCollection.complete == true) {
-            let confirmAlert = UIAlertController(title: "Incomplete ?", message: "Are you sure you want to incomplete the collection ?", preferredStyle: .alert)
+            let confirmAlert = UIAlertController(title: "不完全な ?", message: "コレクションを不完全にしてよろしいですか?", preferredStyle: .alert)
             
-            confirmAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            confirmAlert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: { (action: UIAlertAction!) in
                 return
             }))
             
-            confirmAlert.addAction(UIAlertAction(title: "Yes. Incomplete", style: .default, handler: { (action: UIAlertAction!) in
+            confirmAlert.addAction(UIAlertAction(title: "不完全な", style: .default, handler: { (action: UIAlertAction!) in
                 self.changeTaskStatus(sender: sender)
             }))
             
@@ -579,14 +589,19 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
      }
      */
     
-    /*
+    
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
+         if segue.identifier == "showReport" {
+             let controller = (segue.destination as! ReportAdminFormViewController)
+             if currentTaskCollectionPoint != nil {
+                 controller.currentTaskCollectionPoint = self.currentTaskCollectionPoint
+                 controller.selectedCollectionPoint = currentTaskCollectionPoint?.id
+             }
+         }
      }
-     */
+     
     
 }
