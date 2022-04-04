@@ -72,6 +72,8 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         }
     }
     
+    var currentTaskCollectionPoint : TaskCollectionPoint?
+    
     func setTaskCollectionPointFromSegue() {
         if let taskCollectionPoint = segueTaskCollectionPoint {
             let receivedTaskCollectionPoint = (taskCollectionPoint as! TaskCollectionPoint)
@@ -83,6 +85,11 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     }
     
     func configureView() {
+        
+        if let currentTaskCollectionPoint = currentTaskCollectionPoint {
+            taskCollectionPointLabel.text = currentTaskCollectionPoint.name
+        }
+        
         if let detail = detailItem {
             let task = detail as! TaskRoute
             self.collectionPoints = task.taskCollectionPoints
@@ -125,7 +132,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
             
             self.addButton?.setTitle("Save", for: .normal)
             self.deleteButton?.isEnabled = true
-            self.title = "Edit Report Admin Form"
+            self.title = "管理者報告フォーム"
         }
         
         setTaskCollectionPointFromSegue()
@@ -169,7 +176,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         self.reportImage.image = image
     }
     
-    func saveImage(id: Int) {
+    func uploadImage(id: Int) {
         let image = self.selectedImage
         if image == nil {
             _ = self.navigationController?.popViewController(animated: true)
@@ -235,14 +242,14 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     @objc
     func handleAddClick() {
         if selectedCollectionPoint == nil {
-            let addAlert = UIAlertController(title: "Please select a collection point !!", message: "", preferredStyle: .alert)
+            let addAlert = UIAlertController(title: "収集場所をお選びください!", message: "", preferredStyle: .alert)
             addAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in return }))
             self.present(addAlert, animated: true, completion: nil)
             return
         }
         
         if selectedReportType == nil {
-            let addAlert = UIAlertController(title: "Please select a report type !!", message: "", preferredStyle: .alert)
+            let addAlert = UIAlertController(title: "レポートタイプを選択してください", message: "", preferredStyle: .alert)
             addAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in return }))
             self.present(addAlert, animated: true, completion: nil)
             return
@@ -283,7 +290,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
                 switch response.result {
                 case .success(let value):
                     let id = ((value as AnyObject)["id"] as! Int)
-                    self.saveImage(id: id)
+                    self.uploadImage(id: id)
 
                 case .failure(let error):
                     print(error)
