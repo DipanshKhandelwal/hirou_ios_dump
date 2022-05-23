@@ -19,7 +19,7 @@ class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate,
     var taskCollections = [TaskCollection]()
     @IBOutlet weak var collectionPointImage: UIImageView! {
         didSet {
-            collectionPointImage.image = UIImage(systemName: "house")
+            collectionPointImage.image = UIImage(named: "placeholder")
         }
     }
 

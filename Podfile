@@ -16,4 +16,8 @@ target 'hirou' do
   
 # Pager
   pod 'FSPagerView'
+  
+#Cache Image
+  pod 'Kingfisher'
+  pod 'KingfisherWebP'
 end

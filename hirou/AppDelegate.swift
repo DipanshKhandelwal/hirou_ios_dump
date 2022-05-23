@@ -11,6 +11,7 @@ import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    static let gmsKey = "AIzaSyC6Qwvll2yNSAb_4vbYqMMUsZtigKOPMGU"
     
     var orientationLock = UIInterfaceOrientationMask.all
 
@@ -20,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        GMSServices.provideAPIKey("AIzaSyBKtmiMnPzYWHTWRqzmRsiX0Djr3kWNSRg")
+        GMSServices.provideAPIKey(AppDelegate.gmsKey)
         return true
     }
 

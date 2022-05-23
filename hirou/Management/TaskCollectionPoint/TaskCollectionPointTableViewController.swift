@@ -10,14 +10,6 @@ import UIKit
 import Alamofire
 import CoreLocation
 
-class TaskCollectionPointCell: UITableViewCell {
-    @IBOutlet weak var sequence: UILabel!
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var memo: UILabel!
-    @IBOutlet weak var garbageStack: UIStackView!
-    @IBOutlet weak var btnReport: UIButton!
-}
-
 class GarbageSummaryCell: UITableViewCell {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var amount: UILabel!
@@ -499,13 +491,13 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         let taskCollection = taskCollectionPoint.taskCollections[sender.taskPosition!]
         
         if(taskCollection.complete == true) {
-            let confirmAlert = UIAlertController(title: "不完全な ?", message: "コレクションを不完全にしてよろしいですか?", preferredStyle: .alert)
+            let confirmAlert = UIAlertController(title: "", message: "解除しますか？", preferredStyle: .alert)
             
             confirmAlert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: { (action: UIAlertAction!) in
                 return
             }))
             
-            confirmAlert.addAction(UIAlertAction(title: "不完全な", style: .default, handler: { (action: UIAlertAction!) in
+            confirmAlert.addAction(UIAlertAction(title: "解除する", style: .default, handler: { (action: UIAlertAction!) in
                 self.changeTaskStatus(sender: sender)
             }))
             

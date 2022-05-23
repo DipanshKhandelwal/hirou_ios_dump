@@ -14,9 +14,6 @@ class GarbageButton: UIButton {
 
     override init(frame: CGRect) {
         super.init(frame: frame);
-        self.layer.borderColor = UIColor.red.cgColor
-        self.setTitle("*", for: .normal)
-        self.titleLabel?.font = self.titleLabel?.font.withSize(20)
         configureButton()
     }
 
@@ -24,17 +21,16 @@ class GarbageButton: UIButton {
         self.taskCollectionPointPosition = taskCollectionPointPosition;
         self.taskPosition = taskPosition;
         super.init(frame: frame);
-        self.layer.borderColor = UIColor.systemBlue.cgColor
-        self.layer.backgroundColor = taskCollection.complete ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
-        self.setTitle(String(taskCollection.garbage.name.prefix(1)), for: .normal)
-        self.titleLabel?.font = self.titleLabel?.font.withSize(15)
+//        self.layer.backgroundColor = taskCollection.complete ? UIColor.systemGray3.cgColor : UIColor.white.cgColor
+//        self.setTitle(String(taskCollection.garbage.name.prefix(1)), for: .normal)
+//        self.titleLabel?.font = self.titleLabel?.font.withSize(15)
+        self.setImage(taskCollection.complete
+                      ? taskCollection.garbage.customButton?.iconActive
+                      : taskCollection.garbage.customButton?.iconInactive, for: .normal)
         configureButton()
     }
     
     func configureButton() {
-        self.setTitleColor(.black, for: .normal)
-        self.layer.borderWidth = 2
-        self.layer.cornerRadius = 10
         self.addTarget(self, action: #selector(buttonClicked(_:)), for: .touchDown)
     }
     

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BGN-LU-jTo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BGN-LU-jTo">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -94,7 +94,9 @@
                             <constraint firstItem="Z15-oI-J2p" firstAttribute="centerY" secondItem="qi9-W9-pkU" secondAttribute="centerY" id="fDf-zr-Rgk"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="oET-g8-mx4"/>
+                    <navigationItem key="navigationItem" id="oET-g8-mx4">
+                        <barButtonItem key="backBarButtonItem" title="戻る" id="cls-8P-yDi"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="password" destination="aTc-nh-f1E" id="sbI-ou-R4k"/>
                         <outlet property="username" destination="TPh-j1-K2C" id="fIE-N9-7Eu"/>
@@ -140,7 +142,7 @@
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="M9j-K0-z0v">
-                                                <rect key="frame" x="24" y="25" width="24" height="30"/>
+                                                <rect key="frame" x="24" y="26" width="24" height="28"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -150,7 +152,7 @@
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.compact.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="0jQ-fa-6FF">
-                                                <rect key="frame" x="669.5" y="28.5" width="10.5" height="23"/>
+                                                <rect key="frame" x="670.5" y="29.5" width="9.5" height="21"/>
                                                 <color key="tintColor" systemColor="systemGray4Color"/>
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                             </imageView>
@@ -206,7 +208,7 @@
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ss3-MG-fOy">
-                                                <rect key="frame" x="24" y="25" width="24" height="30"/>
+                                                <rect key="frame" x="24" y="26" width="24" height="28"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -216,7 +218,7 @@
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.compact.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6P8-So-gKj">
-                                                <rect key="frame" x="669.5" y="28.5" width="10.5" height="23"/>
+                                                <rect key="frame" x="670.5" y="29.5" width="9.5" height="21"/>
                                                 <color key="tintColor" systemColor="systemGray4Color"/>
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                             </imageView>
@@ -272,7 +274,7 @@
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ljB-Jh-HWx">
-                                                <rect key="frame" x="24" y="26.5" width="24" height="27.5"/>
+                                                <rect key="frame" x="24" y="27.5" width="24" height="25.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -282,7 +284,7 @@
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.compact.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="FWr-TG-vHF">
-                                                <rect key="frame" x="669.5" y="28.5" width="10.5" height="23"/>
+                                                <rect key="frame" x="670.5" y="29.5" width="9.5" height="21"/>
                                                 <color key="tintColor" systemColor="systemGray4Color"/>
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                             </imageView>
@@ -331,6 +333,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="WmL-CK-WwI">
+                        <barButtonItem key="backBarButtonItem" title="戻る" id="rov-eX-ocn"/>
                         <barButtonItem key="rightBarButtonItem" title="ログアウト" style="plain" id="zxq-xn-zWT">
                             <connections>
                                 <action selector="logoutPressed:" destination="mGe-w2-RF3" id="reA-Ot-Qkm"/>
@@ -351,7 +354,9 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="MCu-za-UV4" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="aQV-9J-0Wn"/>
+                    <navigationItem key="navigationItem" id="aQV-9J-0Wn">
+                        <barButtonItem key="backBarButtonItem" title="戻る" id="YLX-fg-CNS"/>
+                    </navigationItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JBC-Rp-5OV">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -369,7 +374,9 @@
         <scene sceneID="m3k-eH-XyA">
             <objects>
                 <viewControllerPlaceholder storyboardName="BaseRoute" id="qfF-SB-D93" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="RV9-jN-cKh"/>
+                    <navigationItem key="navigationItem" id="RV9-jN-cKh">
+                        <barButtonItem key="backBarButtonItem" title="戻る" id="cim-fe-Clb"/>
+                    </navigationItem>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="daz-I1-x2y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -379,7 +386,9 @@
         <scene sceneID="lpO-is-jCH">
             <objects>
                 <viewControllerPlaceholder storyboardName="TaskManagement" referencedIdentifier="UIPageViewController-94k-Zy-Qih" id="dFt-Ib-mIq" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="9Ah-Ej-ivy"/>
+                    <navigationItem key="navigationItem" id="9Ah-Ej-ivy">
+                        <barButtonItem key="backBarButtonItem" title="戻る" id="xmZ-xO-PHU"/>
+                    </navigationItem>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GRA-yy-TRv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -420,7 +429,7 @@
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="zqO-i9-C28">
-                                                <rect key="frame" x="24" y="25" width="24" height="30"/>
+                                                <rect key="frame" x="24" y="26" width="24" height="28"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -430,7 +439,7 @@
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.compact.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="oyJ-fD-gDO">
-                                                <rect key="frame" x="669.5" y="28.5" width="10.5" height="23"/>
+                                                <rect key="frame" x="670.5" y="29.5" width="9.5" height="21"/>
                                                 <color key="tintColor" systemColor="systemGray4Color"/>
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                             </imageView>
@@ -486,7 +495,7 @@
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lock.doc" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="lDz-D0-yka">
-                                                <rect key="frame" x="24" y="24.5" width="24" height="31"/>
+                                                <rect key="frame" x="24" y="25.5" width="24" height="29"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -496,7 +505,7 @@
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.compact.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ABR-Ey-57u">
-                                                <rect key="frame" x="669.5" y="28.5" width="10.5" height="23"/>
+                                                <rect key="frame" x="670.5" y="29.5" width="9.5" height="21"/>
                                                 <color key="tintColor" systemColor="systemGray4Color"/>
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                             </imageView>
@@ -552,7 +561,7 @@
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stop.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="TP6-AV-vdL">
-                                                <rect key="frame" x="24" y="25" width="24" height="30"/>
+                                                <rect key="frame" x="24" y="26" width="24" height="28"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -562,7 +571,7 @@
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.compact.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="gHO-k8-DBW">
-                                                <rect key="frame" x="669.5" y="28.5" width="10.5" height="23"/>
+                                                <rect key="frame" x="670.5" y="29.5" width="9.5" height="21"/>
                                                 <color key="tintColor" systemColor="systemGray4Color"/>
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                             </imageView>
@@ -602,7 +611,9 @@
                             <constraint firstItem="TIg-YZ-1dU" firstAttribute="leading" secondItem="DQG-jL-B64" secondAttribute="leading" id="eE2-nb-OWq"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="WRk-OM-8Of"/>
+                    <navigationItem key="navigationItem" id="WRk-OM-8Of">
+                        <barButtonItem key="backBarButtonItem" title="戻る" id="fRZ-7I-rHw"/>
+                    </navigationItem>
                     <connections>
                         <segue destination="BGN-LU-jTo" kind="showDetail" identifier="myPageLogoutSegue" id="OLA-gz-kI1"/>
                     </connections>

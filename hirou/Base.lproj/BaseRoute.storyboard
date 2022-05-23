@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Xlf-ho-woe">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Xlf-ho-woe">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -204,7 +204,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.compact.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CvS-oU-TPQ">
-                                                <rect key="frame" x="733.5" y="28.5" width="10.5" height="23"/>
+                                                <rect key="frame" x="734.5" y="29.5" width="9.5" height="21"/>
                                                 <color key="tintColor" systemColor="systemGray4Color"/>
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                             </imageView>
@@ -273,6 +273,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="ルート情報" id="Ie3-w4-jEz" userLabel="Route Details">
+                        <barButtonItem key="backBarButtonItem" title="戻る" id="hlp-5L-1Hf"/>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="trash" id="tez-dt-7Cu">
                                 <connections>
@@ -338,7 +339,9 @@
                             <outlet property="delegate" destination="7jd-IK-BGJ" id="sBC-5G-eoo"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Select Garbage Types" id="ele-LN-W7F"/>
+                    <navigationItem key="navigationItem" title="Select Garbage Types" id="ele-LN-W7F">
+                        <barButtonItem key="backBarButtonItem" title="戻る" id="wqn-qU-BxS"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ehw-hE-3w6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -349,7 +352,9 @@
             <objects>
                 <splitViewController id="y29-yR-YbL" customClass="CollectionPointSplitViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="JpH-Uo-aTn"/>
+                    <navigationItem key="navigationItem" id="JpH-Uo-aTn">
+                        <barButtonItem key="backBarButtonItem" title="戻る" id="hZj-e3-KXT"/>
+                    </navigationItem>
                     <connections>
                         <segue destination="mBN-AK-IzB" kind="relationship" relationship="masterViewController" id="Y3F-Sb-8Mo"/>
                         <segue destination="lU6-MM-cQm" kind="relationship" relationship="detailViewController" id="YSO-hA-LPQ"/>
@@ -452,7 +457,9 @@
                             <outlet property="delegate" destination="Fx9-6H-G54" id="5zh-hG-ueX"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="集積所一覧" id="M6r-fU-vjK"/>
+                    <navigationItem key="navigationItem" title="集積所一覧" id="M6r-fU-vjK">
+                        <barButtonItem key="backBarButtonItem" title="戻る" id="bdR-EP-VKa"/>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gtG-6Z-rgW" sceneMemberID="firstResponder"/>
@@ -760,6 +767,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Collection Point" id="Khz-21-Xs9">
+                        <barButtonItem key="backBarButtonItem" title="戻る" id="NaQ-7S-cwq"/>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="save" id="eTN-14-89Y">
                                 <connections>
@@ -791,7 +799,9 @@
         <scene sceneID="WUV-Na-Pre">
             <objects>
                 <navigationController id="lU6-MM-cQm" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="EaX-Di-DHy"/>
+                    <navigationItem key="navigationItem" id="EaX-Di-DHy">
+                        <barButtonItem key="backBarButtonItem" title="戻る" id="R2o-m9-XFv"/>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="GSY-ds-qu4">
                         <rect key="frame" x="0.0" y="20" width="768" height="50"/>
@@ -903,7 +913,9 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="マップ" id="xgK-PS-Clr" userLabel="Vehicle Details"/>
+                    <navigationItem key="navigationItem" title="マップ" id="xgK-PS-Clr" userLabel="Vehicle Details">
+                        <barButtonItem key="backBarButtonItem" title="戻る" id="oRG-KH-yF9"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="YFT-8v-qwT" id="Jrf-dc-an4"/>
                         <outlet property="trackUserButton" destination="NeD-LZ-tUZ" id="8M2-2p-7Sr"/>

@@ -238,7 +238,7 @@ class CollectionPointMasterViewController: UITableViewController, CLLocationMana
         cell.collectionPointIndexLabel!.text = String(collectionPoint.sequence)
         
         if let image = cell.collectionPointImage {
-            image.image = UIImage(systemName: "house")
+            image.image = UIImage(named: "placeholder")
             
             if collectionPoint.image != nil {
                 DispatchQueue.global().async { [] in

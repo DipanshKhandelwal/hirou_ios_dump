@@ -4,8 +4,8 @@ import UIKit
 class RoundedView: UIView {
     override func draw(_ rect: CGRect) {
         layer.masksToBounds = true
-        layer.cornerRadius = frame.width/2
-        layer.opacity = 0.8
+        layer.cornerRadius = frame.height/2
+        layer.opacity = 1
         layer.backgroundColor = UIColor.white.cgColor
     }
 }

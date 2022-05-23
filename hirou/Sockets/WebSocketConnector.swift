@@ -30,24 +30,25 @@ class WebSocketConnector : NSObject {
     
     private func addListener(){
         socket.receive {[weak self] (result) in
-            switch result {
-            case .success(let response):
-                switch response {
-                    
-                case .data(let data):
-                    self?.didReceiveData?(data)
-
-                case .string(let message):
-                    self?.didReceiveMessage?(message)
-
-                @unknown default:
-                    print("response", response)
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let response):
+                    switch response {
+                        
+                    case .data(let data):
+                        self?.didReceiveData?(data)
+                        
+                    case .string(let message):
+                        self?.didReceiveMessage?(message)
+                        
+                    @unknown default:
+                        print("response", response)
+                    }
+                case .failure(let error):
+                    self?.didReceiveError?(error)
                 }
-            case .failure(let error):
-                self?.didReceiveError?(error)
+                self?.addListener()
             }
-            self?.addListener()
-
         }
     }
 }
