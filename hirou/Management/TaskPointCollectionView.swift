@@ -205,6 +205,7 @@ extension TaskNavigationViewController: UICollectionViewDelegate, UICollectionVi
             cell.btlToggleAll.tag = index
             cell.btlToggleAll.backgroundColor = isAllCompleted(taskCollectionPoint: tcp) ? UIColor(0xE22B40) : .white
             cell.btlToggleAll.setTitleColor(isAllCompleted(taskCollectionPoint: tcp) ? .white : UIColor(0xE22B40) , for: .normal)
+            cell.btlToggleAll.setTitle(isAllCompleted(taskCollectionPoint: tcp) ? "全てを解除" : "全てを選択", for: .normal)
             cell.btlToggleAll.viewBorderWidth = 1
             cell.btlToggleAll.viewBorderColor = isAllCompleted(taskCollectionPoint: tcp) ? .white : UIColor(0xE22B40)
             cell.btlToggleAll.addTarget(self, action: #selector(TaskNavigationViewController.toggleAllTasks(sender:)), for: .touchDown)
