@@ -7,6 +7,19 @@ PODS:
   - GoogleMaps/Maps (6.0.1):
     - GoogleMaps/Base
   - JTAppleCalendar (7.1.8)
+  - Kingfisher (7.2.2)
+  - KingfisherWebP (1.4.0):
+    - Kingfisher (~> 7.0)
+    - libwebp (>= 1.1.0)
+  - libwebp (1.2.1):
+    - libwebp/demux (= 1.2.1)
+    - libwebp/mux (= 1.2.1)
+    - libwebp/webp (= 1.2.1)
+  - libwebp/demux (1.2.1):
+    - libwebp/webp
+  - libwebp/mux (1.2.1):
+    - libwebp/demux
+  - libwebp/webp (1.2.1)
   - Mapbox-iOS-SDK (5.9.0):
     - MapboxMobileEvents (= 0.10.2)
   - MapboxAccounts (2.2.0)
@@ -37,6 +50,8 @@ DEPENDENCIES:
   - FSPagerView
   - GoogleMaps (= 6.0.1)
   - JTAppleCalendar (~> 7.1)
+  - Kingfisher
+  - KingfisherWebP
   - Mapbox-iOS-SDK (~> 5.9)
   - MapboxNavigation (~> 0.40.0)
 
@@ -46,6 +61,9 @@ SPEC REPOS:
     - FSPagerView
     - GoogleMaps
     - JTAppleCalendar
+    - Kingfisher
+    - KingfisherWebP
+    - libwebp
     - Mapbox-iOS-SDK
     - MapboxAccounts
     - MapboxCoreNavigation
@@ -63,6 +81,9 @@ SPEC CHECKSUMS:
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   GoogleMaps: c213fc2334b7374144cede914da779b99be0ab74
   JTAppleCalendar: b7fb40852f5f319fe55c8ec3861f1de0edc99cc8
+  Kingfisher: 184d4d1a8c36666e663caf8e08abe87898595c53
+  KingfisherWebP: f4b76064c50a36c4cadd37548496ecebfdcb39e8
+  libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
   Mapbox-iOS-SDK: a5915700ec84bc1a7f8b3e746d474789e35b7956
   MapboxAccounts: f9716ba2cc66013e44ef93e0e16cfa1049f3aeec
   MapboxCoreNavigation: 2856c46bd064bb11c406ba00191d579cda424efa
@@ -75,6 +96,6 @@ SPEC CHECKSUMS:
   Solar: 2dc6e7cc39186cb0c8228fa08df76fb50c7d8f24
   Turf: c6bdf62d6a70c647874f295dd1cf4eefc0c3e9e6
 
-PODFILE CHECKSUM: 1268cee4217cbd4b686e107676c926dcb9bcf039
+PODFILE CHECKSUM: 3cc0fa4eb6566cf8174df57ef692985b220e8a0e
 
 COCOAPODS: 1.11.2

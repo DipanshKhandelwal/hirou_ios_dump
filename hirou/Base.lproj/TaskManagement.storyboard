@@ -1608,8 +1608,94 @@
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zal-rU-SwS">
+                                        <rect key="frame" x="16" y="200" width="188" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="188" id="bnx-zB-dEx"/>
+                                            <constraint firstAttribute="height" constant="50" id="rIU-ft-51A"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="16"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="報告">
+                                            <color key="titleColor" red="0.0" green="0.16470588235294117" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="viewCornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="viewBorderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="viewBorderColor">
+                                                <color key="value" red="0.0" green="0.16470588235294117" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="reportAdminAction:" destination="Vjx-SN-QwH" eventType="touchUpInside" id="wXT-Ks-khI"/>
+                                        </connections>
+                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="w0Z-cZ-hUK">
+                                        <rect key="frame" x="16" y="258" width="704" height="50"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xrE-5c-LPl">
+                                                <rect key="frame" x="0.0" y="0.0" width="115" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="115" id="xT8-sD-Ehb"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="14"/>
+                                                <color key="textColor" red="0.070588235289999995" green="0.0039215686269999999" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="収集時間" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oz0-sq-mug">
+                                                <rect key="frame" x="135" y="0.0" width="150.5" height="50"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="14"/>
+                                                <color key="textColor" red="0.070588235289999995" green="0.0039215686269999999" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tt8-NG-oWA">
+                                                <rect key="frame" x="305.5" y="0.0" width="6" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="6" id="0H8-fs-8p4"/>
+                                                    <constraint firstAttribute="width" constant="6" id="mBa-N5-VjT"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="14"/>
+                                                <color key="textColor" red="0.070588235289999995" green="0.0039215686269999999" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="収集車両" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BtH-pv-AIC">
+                                                <rect key="frame" x="331.5" y="0.0" width="150" height="50"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="14"/>
+                                                <color key="textColor" red="0.070588235289999995" green="0.0039215686269999999" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5eV-FQ-KOd">
+                                                <rect key="frame" x="501.5" y="0.0" width="6" height="50"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="14"/>
+                                                <color key="textColor" red="0.070588235289999995" green="0.0039215686269999999" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="収集ユーザー" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aea-sM-Yoq">
+                                                <rect key="frame" x="527.5" y="0.0" width="150.5" height="50"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="14"/>
+                                                <color key="textColor" red="0.070588235289999995" green="0.0039215686269999999" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FzC-eF-W57">
+                                                <rect key="frame" x="698" y="0.0" width="6" height="50"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="14"/>
+                                                <color key="textColor" red="0.070588235289999995" green="0.0039215686269999999" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="aea-sM-Yoq" firstAttribute="width" secondItem="BtH-pv-AIC" secondAttribute="width" id="08s-6V-XlD"/>
+                                            <constraint firstItem="FzC-eF-W57" firstAttribute="width" secondItem="5eV-FQ-KOd" secondAttribute="width" id="9oX-1e-fFA"/>
+                                            <constraint firstItem="BtH-pv-AIC" firstAttribute="width" secondItem="Oz0-sq-mug" secondAttribute="width" id="CXp-pe-u8f"/>
+                                            <constraint firstItem="5eV-FQ-KOd" firstAttribute="width" secondItem="Tt8-NG-oWA" secondAttribute="width" id="kTM-YL-DAR"/>
+                                        </constraints>
+                                    </stackView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eIp-b0-U15">
-                                        <rect key="frame" x="0.0" y="266" width="736" height="218"/>
+                                        <rect key="frame" x="0.0" y="308" width="736" height="176"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="collectionCell" id="jXX-7d-C4z" customClass="TaskCollectionsCell" customModule="hirou" customModuleProvider="target">
@@ -1776,43 +1862,20 @@
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zal-rU-SwS">
-                                        <rect key="frame" x="16" y="200" width="188" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="188" id="bnx-zB-dEx"/>
-                                            <constraint firstAttribute="height" constant="50" id="rIU-ft-51A"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="16"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="報告">
-                                            <color key="titleColor" red="0.0" green="0.16470588235294117" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="viewCornerRadius">
-                                                <real key="value" value="8"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="viewBorderWidth">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="viewBorderColor">
-                                                <color key="value" red="0.0" green="0.16470588235294117" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="reportAdminAction:" destination="Vjx-SN-QwH" eventType="touchUpInside" id="wXT-Ks-khI"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="rlI-7j-3gn" firstAttribute="top" secondItem="SiV-g6-h8u" secondAttribute="top" id="0FP-ta-faJ"/>
+                                    <constraint firstItem="w0Z-cZ-hUK" firstAttribute="trailing" secondItem="7IL-SM-NlM" secondAttribute="trailing" constant="-16" id="5r0-zR-2Ja"/>
+                                    <constraint firstItem="w0Z-cZ-hUK" firstAttribute="leading" secondItem="7IL-SM-NlM" secondAttribute="leading" constant="16" id="F6K-mK-awW"/>
                                     <constraint firstAttribute="trailing" secondItem="eIp-b0-U15" secondAttribute="trailing" id="F7v-hh-WbR"/>
                                     <constraint firstItem="7IL-SM-NlM" firstAttribute="leading" secondItem="SiV-g6-h8u" secondAttribute="leading" id="GzF-fR-Fr5"/>
                                     <constraint firstAttribute="bottom" secondItem="eIp-b0-U15" secondAttribute="bottom" priority="999" constant="16" id="I9u-LL-rvG"/>
+                                    <constraint firstItem="w0Z-cZ-hUK" firstAttribute="top" secondItem="zal-rU-SwS" secondAttribute="bottom" constant="8" id="JMJ-SW-buI"/>
                                     <constraint firstAttribute="height" constant="500" id="OFf-9M-mhB"/>
+                                    <constraint firstItem="eIp-b0-U15" firstAttribute="top" secondItem="w0Z-cZ-hUK" secondAttribute="bottom" id="Tmv-pv-7QF"/>
                                     <constraint firstItem="zal-rU-SwS" firstAttribute="top" secondItem="7IL-SM-NlM" secondAttribute="bottom" constant="8" id="dW0-TO-n5V"/>
                                     <constraint firstAttribute="trailing" secondItem="rlI-7j-3gn" secondAttribute="trailing" id="i6K-Lb-3Gl"/>
-                                    <constraint firstItem="eIp-b0-U15" firstAttribute="top" secondItem="zal-rU-SwS" secondAttribute="bottom" constant="16" id="iGD-lP-g0w"/>
                                     <constraint firstItem="eIp-b0-U15" firstAttribute="leading" secondItem="SiV-g6-h8u" secondAttribute="leading" id="mWI-uA-j2H"/>
                                     <constraint firstAttribute="trailing" secondItem="7IL-SM-NlM" secondAttribute="trailing" id="nA6-jF-fLn"/>
                                     <constraint firstItem="7IL-SM-NlM" firstAttribute="top" secondItem="rlI-7j-3gn" secondAttribute="bottom" id="r0Z-TM-xad"/>
