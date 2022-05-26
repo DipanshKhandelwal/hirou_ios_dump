@@ -251,6 +251,7 @@ class TaskNavigationViewController: UIViewController, GMSMapViewDelegate {
             self.btnReport.isHidden = false
         })
         isTaskCollectionsHidden = false
+        toggleHideTask(isHideTask: false)
     }
     
     func animationHideTaskCollections() {
@@ -261,6 +262,7 @@ class TaskNavigationViewController: UIViewController, GMSMapViewDelegate {
             self.btnReport.isHidden = true
         })
         isTaskCollectionsHidden = true
+        toggleHideTask(isHideTask: false)
     }
     
     @objc func animationHeightTaskCollections(_ sender: UIPanGestureRecognizer) {

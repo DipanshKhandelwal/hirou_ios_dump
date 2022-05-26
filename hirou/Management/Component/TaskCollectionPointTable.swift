@@ -334,7 +334,9 @@ class TaskCollectionPointTable: UIView, UITableViewDelegate, UITableViewDataSour
                     let garbageView = GarbageButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0), taskCollectionPointPosition: indexPath.row, taskPosition: num, taskCollection: taskCollection)
                     garbageView.addTarget(self, action: #selector(pressed(sender:)), for: .touchDown)
                     tcpCell.garbageStack.addArrangedSubview(garbageView)
+                    garbageView.isUserInteractionEnabled = false
                 }
+                toggleAllTasksButton.isUserInteractionEnabled = false
             }
         }
     }
