@@ -11,7 +11,7 @@ import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    static let gmsKey = "AIzaSyC6Qwvll2yNSAb_4vbYqMMUsZtigKOPMGU"
+    static let gmsKey = "AIzaSyBKtmiMnPzYWHTWRqzmRsiX0Djr3kWNSRg"
     
     var orientationLock = UIInterfaceOrientationMask.all
 
