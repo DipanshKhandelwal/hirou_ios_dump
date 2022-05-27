@@ -328,7 +328,6 @@ class TaskNavigationViewController: UIViewController, GMSMapViewDelegate {
     @objc
     func collectionPointUpdateFromVList(_ notification: Notification) {
         let tcs = notification.object as! [TaskCollection]
-        
         DispatchQueue.main.async {
             for tc in tcs {
                 for tcp in self.taskCollectionPoints {
@@ -338,7 +337,7 @@ class TaskNavigationViewController: UIViewController, GMSMapViewDelegate {
                 }
             }
             self.addPointsTopMap()
-            self.clvTask.reloadData()
+            self.clvTask.reloadItems(at: self.clvTask.visibleCells.compactMap({ self.clvTask.indexPath(for: $0) }))
         }
         
     }
