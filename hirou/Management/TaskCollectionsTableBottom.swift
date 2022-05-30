@@ -74,10 +74,9 @@ extension TaskNavigationViewController: UITableViewDelegate, UITableViewDataSour
         
         let row = indexPath.row
         let taskCollection = self.taskCollections[indexPath.row]
-        print("tableView: \(taskCollection.dictionary ?? [:])")
         cell.garbageLabel!.text = taskCollection.garbage.name
-        cell.pickupTimeLabel!.text = taskCollection.timestamp ?? "無し"
-        
+        cell.pickupTimeLabel!.text = taskCollection.timestamp?.dateBy(format: "E MMM dd HH:mm:ss yyyy", timeZone: Date.gmtTimeZone)?.stringBy(format: "dd/mm/yyyy HH:mm") ?? "無し"
+        cell.nameLabel.text = taskCollection.users?.username ?? "無し"
         cell.collectionSwitch.isOn = taskCollection.complete
         cell.collectionSwitch.tag = row
         cell.collectionSwitch!.addTarget(self, action: #selector(switchToggle(_:)), for: .valueChanged)
@@ -90,4 +89,30 @@ extension Encodable {
     guard let data = try? JSONEncoder().encode(self) else { return nil }
     return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)).flatMap { $0 as? [String: Any] }
   }
+}
+
+extension String {
+    func dateBy(format: String, calendar: Calendar = Date.currentCalendar, timeZone: TimeZone = Date.currentTimeZone) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        dateFormatter.calendar = calendar
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = timeZone
+        return dateFormatter.date(from: self)
+    }
+}
+
+extension Date {
+    static let currentCalendar = Calendar(identifier: .gregorian)
+    static let currentTimeZone = TimeZone.ReferenceType.local
+    static let gmtTimeZone = TimeZone(identifier: "GMT")!
+    
+    func stringBy(format: String, calendar: Calendar = Date.currentCalendar, timeZone: TimeZone = Date.currentTimeZone, locale: Locale = Locale(identifier: "vi_VN_POSIX")) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = locale
+        dateFormatter.dateFormat = format
+        dateFormatter.calendar = calendar
+        dateFormatter.timeZone = timeZone
+        return dateFormatter.string(from: self)
+    }
 }

@@ -7,17 +7,17 @@
 //
 
 import Foundation
-import Mapbox
+//import Mapbox
 
-class CollectionPointPointAnnotation: MGLPointAnnotation {
-    var collectionPoint: CollectionPoint!
-    
-    init(collectionPoint: CollectionPoint) {
-        super.init()
-        self.collectionPoint = collectionPoint
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
+//class CollectionPointPointAnnotation: MGLPointAnnotation {
+//    var collectionPoint: CollectionPoint!
+//    
+//    init(collectionPoint: CollectionPoint) {
+//        super.init()
+//        self.collectionPoint = collectionPoint
+//    }
+//    
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//}

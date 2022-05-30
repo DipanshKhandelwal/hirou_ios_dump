@@ -275,16 +275,16 @@ class CollectionPointMasterViewController: UITableViewController, CLLocationMana
         
         if fromIndex == toIndex { return }
         
-        let updateAlert = UIAlertController(title: "Update sequence ?", message: "Are you sure you want to update the sequence ?", preferredStyle: .alert)
+        let updateAlert = UIAlertController(title: "シーケンスの更新 ?", message: "シーケンスを更新してもよろしいですか ?", preferredStyle: .alert)
         
-        updateAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        updateAlert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: { (action: UIAlertAction!) in
             print("Update sequence cancelled by the user.")
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }))
         
-        updateAlert.addAction(UIAlertAction(title: "Yes. Update", style: .default, handler: { (action: UIAlertAction!) in
+        updateAlert.addAction(UIAlertAction(title: "更新", style: .default, handler: { (action: UIAlertAction!) in
             let cp: CollectionPoint = self.collectionPoints[fromIndex]
             if(fromIndex < toIndex) {
                 (fromIndex...toIndex-1).forEach { index in

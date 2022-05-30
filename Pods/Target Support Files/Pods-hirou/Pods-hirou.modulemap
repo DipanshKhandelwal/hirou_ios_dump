@@ -1,0 +1,6 @@
+framework module Pods_hirou {
+  umbrella header "Pods-hirou-umbrella.h"
+
+  export *
+  module * { export * }
+}

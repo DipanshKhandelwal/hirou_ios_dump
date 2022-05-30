@@ -25,8 +25,8 @@ class GarbageButton: UIButton {
 //        self.setTitle(String(taskCollection.garbage.name.prefix(1)), for: .normal)
 //        self.titleLabel?.font = self.titleLabel?.font.withSize(15)
         self.setImage(taskCollection.complete
-                      ? taskCollection.garbage.customButton?.iconActive
-                      : taskCollection.garbage.customButton?.iconInactive, for: .normal)
+                      ? taskCollection.garbage.customButton?.iconInactive
+                      : taskCollection.garbage.customButton?.iconActive, for: .normal)
         configureButton()
     }
     

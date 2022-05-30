@@ -11,9 +11,18 @@ import GoogleMaps
 import Alamofire
 import FSPagerView
 import CoreLocation
+//import MapboxNavigation
+import UIKit
 
 extension TaskNavigationViewController {
-    
+    private var mapRouted: [String: [String: String]]? {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "mapRouted")
+        }
+        get {
+            return UserDefaults.standard.value(forKey: "mapRouted") as? [String: [String: String]]
+        }
+    }
     @objc func zoomIn() {
         let zoom = self.mapView.camera.zoom
         if(zoom + 1 <= self.mapView.maxZoom) {
@@ -26,6 +35,10 @@ extension TaskNavigationViewController {
         if(zoom - 1 >= self.mapView.minZoom) {
             self.mapView.animate(toZoom: zoom - 1)
         }
+    }
+    
+    @objc func toggleDirection() {
+        isDirectionRoute = !isDirectionRoute
     }
     
     @objc func presentUserLocationUpdated(_ notification: Notification) {
@@ -100,6 +113,7 @@ extension TaskNavigationViewController {
     }
     
     func addPointsTopMap() {
+        let selectedMarker = mapView.selectedMarker as? TaskCollectionPointMarker
         self.markers = []
         self.mapView.clear()
         
@@ -121,15 +135,20 @@ extension TaskNavigationViewController {
                 else {
                     markerObj.map = nil
                 }
+            } else {
+                self.markers.append(markerObj)
             }
-            else {
-            }
-            self.markers.append(markerObj)
+            
         }
-        if mapView.selectedMarker == nil {
+        if let selectedMarker = selectedMarker,
+           let marker = markers.first(where: { $0.taskCollectionPoint.id == selectedMarker.taskCollectionPoint.id }){
+            mapView.selectedMarker = marker
+        } else {
             mapView.selectedMarker = markers.first
         }
     }
+    
+    
 
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         Sound.playInteractionSound()
@@ -137,7 +156,9 @@ extension TaskNavigationViewController {
         if marker is TaskCollectionPointMarker {
             let ann = marker as! TaskCollectionPointMarker
             let annTcpId = ann.taskCollectionPoint.id
-
+            if selectedTaskCollectionPoint.id == annTcpId {
+                return true
+            }
             for (index, cp) in self.taskCollectionPoints.enumerated() {
                 if cp.id == annTcpId {
                     self.selectedTaskCollectionPoint = self.taskCollectionPoints[index];
@@ -160,11 +181,10 @@ extension TaskNavigationViewController {
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        editPointSegue()
+//        editPointSegue()
     }
     
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
-        print("setup map")
         let fontAttributes = [NSAttributedString.Key.font: UIFont(name: "HiraginoSans-W6", size: 14)!]
         var text = ""
         if let marker = marker as? TaskCollectionPointMarker {
@@ -174,7 +194,8 @@ extension TaskNavigationViewController {
         }
         let size = (text as NSString).size(withAttributes: fontAttributes)
         
-        let stack = UIStackView(frame: CGRect(x: 0, y: 0, width: max(size.width, 30) + 30, height:30));
+        let stack = UIStackView(frame: CGRect(x: 0, y: 0, width: max(size.width, 30), height:30));
+//        let stack = UIStackView(frame: CGRect(x: 0, y: 0, width: max(size.width, 30) + 30, height:30));
         stack.axis = .horizontal
         stack.alignment = .center
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: max(size.width, 30), height: 30))
@@ -186,23 +207,86 @@ extension TaskNavigationViewController {
         if(marker is TaskCollectionPointMarker) {
             let ann = marker as! TaskCollectionPointMarker
             let annCpId = ann.taskCollectionPoint.id
-            for (currentIndex, cp) in self.taskCollectionPoints.enumerated() {
-                if annCpId == cp.id {
-                    self.selectedTaskCollectionPoint = self.taskCollectionPoints[currentIndex];
-                    break
+            if let tcp = taskCollectionPoints.first(where: { $0.id == annCpId }) {
+                self.selectedTaskCollectionPoint = tcp
+            }
+            if let oldNextIndex = oldNextIndex,
+               oldNextIndex < markers.count,
+               let tcp = getTaskCollectionPoints().first(where: { $0.id == markers[oldNextIndex].taskCollectionPoint.id }) {
+                if(tcp.getCompleteStatus()) {
+                    markers[oldNextIndex].icon = UIImage(named: "ic_location_gray")
+                } else {
+                    markers[oldNextIndex].icon = UIImage(named: "ic_location_green")
+                }
+                self.oldNextIndex = nil
+            }
+            if let oldSelectedIndex = oldSelectedIndex,
+               oldSelectedIndex < markers.count,
+               let tcp = getTaskCollectionPoints().first(where: { $0.id == markers[oldSelectedIndex].taskCollectionPoint.id }) {
+                if(tcp.getCompleteStatus()) {
+                    markers[oldSelectedIndex].icon = UIImage(named: "ic_location_gray")
+                } else {
+                    markers[oldSelectedIndex].icon = UIImage(named: "ic_location_green")
                 }
             }
-            let editPoint = UIButton(type: .detailDisclosure)
-            editPoint.frame.size = CGSize(width: 6, height: 6)
-            stack.addArrangedSubview(editPoint)
+            if let index = markers.firstIndex(of: ann),
+               index + 1 < markers.count,
+               let tcp = getTaskCollectionPoints().first(where: { $0.id == markers[index + 1].taskCollectionPoint.id }){
+                if(tcp.getCompleteStatus()) {
+                    markers[index + 1].icon = UIImage(named: "ic_next_point_gray")
+                } else {
+                    markers[index + 1].icon = UIImage(named: "ic_next_point_green")
+                }
+                oldNextIndex = index + 1
+                oldSelectedIndex = index
+            }
+//            let editPoint = UIButton(type: .detailDisclosure)
+//            editPoint.frame.size = CGSize(width: 6, height: 6)
+//            stack.addArrangedSubview(editPoint)
         }
-        
-        return stack
+        marker.icon = UIImage(named: "ic_location_red")
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: max(size.width, 30), height:30))
+//        let view = UIView(frame: CGRect(x: 0, y: 0, width: max(size.width, 30) + 30, height:30))
+        view.translatesAutoresizingMaskIntoConstraints = true
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(stack)
+        NSLayoutConstraint.activate([
+            stack.topAnchor.constraint(equalTo: view.topAnchor),
+            stack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
+            stack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            stack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+        ])
+        view.backgroundColor = .clear
+        return view
     }
     
+    func clearRouting() {
+        oldRoutingPoly?.map = nil
+        oldRoutingPoly = nil
+    }
     
     func fetchRoute(from source: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D) {
-        
+        guard isDirectionRoute else { return }
+        if let oldDestination = oldDestinationRoute,
+           oldDestination != destination {
+            clearRouting()
+        }
+        oldOriginRoute = source
+        oldDestinationRoute = destination
+        if let destinationRouted = mapRouted?["\(destination.latitude),\(destination.longitude)"] {
+            for item in destinationRouted {
+                if let originRoutedLat = Double(item.key.components(separatedBy: ",").first ?? ""),
+                   let originRoutedLong = Double(item.key.components(separatedBy: ",").last ?? "") {
+                    let origin = CLLocation(latitude: source.latitude, longitude: source.longitude)
+                    let originRouted = CLLocation(latitude: originRoutedLat, longitude: originRoutedLong)
+                    if origin.distance(from: originRouted) < Constants.distanceUpdateRouting {
+                        clearRouting()
+                        drawPath(from: item.value)
+                        return
+                    }
+                }
+            }
+        }
         let session = URLSession.shared
         let origin = "\(source.latitude),\(source.longitude)"
         let destination = "\(destination.latitude),\(destination.longitude)"
@@ -236,18 +320,41 @@ extension TaskNavigationViewController {
             guard let polyLineString = overview_polyline["points"] as? String else {
                 return
             }
-            
+            if var mapRouted = self.mapRouted {
+                if var destinationRouted = mapRouted[destination] {
+                    destinationRouted["\(source.latitude),\(source.longitude)"] = polyLineString
+                    mapRouted[destination] = destinationRouted
+                    self.mapRouted = mapRouted
+                } else {
+                    mapRouted[destination] = ["\(source.latitude),\(source.longitude)": polyLineString]
+                    self.mapRouted = mapRouted
+                }
+            } else {
+                var mapRouted: [String: [String:String]] = [:]
+                mapRouted[destination] = ["\(source.latitude),\(source.longitude)": polyLineString]
+                self.mapRouted = mapRouted
+            }
             //Call this method to draw path on map
-            self.drawPath(from: polyLineString)
+            DispatchQueue.main.async {
+                self.drawPath(from: polyLineString)
+            }
         })
         task.resume()
     }
     
     func drawPath(from polyStr: String){
+        clearRouting()
         let path = GMSPath(fromEncodedPath: polyStr)
         let polyline = GMSPolyline(path: path)
         polyline.strokeWidth = 3.0
         polyline.strokeColor = UIColor(0x3483ff)
         polyline.map = mapView // Google MapView
+        oldRoutingPoly = polyline
+    }
+}
+
+extension CLLocationCoordinate2D: Equatable {
+    static public func ==(lhs: Self, rhs: Self) -> Bool {
+        return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
     }
 }

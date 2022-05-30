@@ -429,13 +429,13 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
     func toggleAllTasks(sender: UIButton) {
         let taskCollectionPoint = getTaskCollectionPoints()[sender.tag]
         if( isAllCompleted(taskCollectionPoint: taskCollectionPoint)) {
-            let confirmAlert = UIAlertController(title: "Incomplete ?", message: "Are you sure you want to incomplete the collection ?", preferredStyle: .alert)
+            let confirmAlert = UIAlertController(title: "不完全な ?", message: "コレクションを不完全にしますか?", preferredStyle: .alert)
             
-            confirmAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            confirmAlert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: { (action: UIAlertAction!) in
                 return
             }))
             
-            confirmAlert.addAction(UIAlertAction(title: "Yes. Incomplete", style: .default, handler: { (action: UIAlertAction!) in
+            confirmAlert.addAction(UIAlertAction(title: "不完全な", style: .default, handler: { (action: UIAlertAction!) in
                 self.changeAllApiCall(sender: sender)
             }))
             

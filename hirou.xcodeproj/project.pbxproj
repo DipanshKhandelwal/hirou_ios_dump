@@ -81,6 +81,9 @@
 		CA39CD8325A4C12300FE116A /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA39CD8225A4C12200FE116A /* MainMenuViewController.swift */; };
 		DF1F2BBB282EB35A00266516 /* TaskCollectionPointPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F2BB9282EB35900266516 /* TaskCollectionPointPageCell.swift */; };
 		DF1F2BBC282EB35A00266516 /* TaskCollectionPointPageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF1F2BBA282EB35900266516 /* TaskCollectionPointPageCell.xib */; };
+		DF26E7E9284509A300AECE15 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF26E7E8284509A300AECE15 /* Constants.swift */; };
+		DF3C8FED285C21B30042349C /* BaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3C8FEC285C21B30042349C /* BaseLabel.swift */; };
+		DF7E3769284EE11F00EB6A40 /* CollectionPointDetailTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7E3768284EE11F00EB6A40 /* CollectionPointDetailTable.swift */; };
 		DF837126282A13F100B96F4E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF837125282A13F100B96F4E /* UIView+Extension.swift */; };
 		DF837128282A3F6B00B96F4E /* TaskCollectionPointTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF837127282A3F6B00B96F4E /* TaskCollectionPointTable.swift */; };
 		DF83712C282A4A7200B96F4E /* TaskCollectionPointCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF83712A282A4A7200B96F4E /* TaskCollectionPointCell.swift */; };
@@ -199,6 +202,9 @@
 		CA39CD8225A4C12200FE116A /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		DF1F2BB9282EB35900266516 /* TaskCollectionPointPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionPointPageCell.swift; sourceTree = "<group>"; };
 		DF1F2BBA282EB35900266516 /* TaskCollectionPointPageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskCollectionPointPageCell.xib; sourceTree = "<group>"; };
+		DF26E7E8284509A300AECE15 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		DF3C8FEC285C21B30042349C /* BaseLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLabel.swift; sourceTree = "<group>"; };
+		DF7E3768284EE11F00EB6A40 /* CollectionPointDetailTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionPointDetailTable.swift; sourceTree = "<group>"; };
 		DF837125282A13F100B96F4E /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		DF837127282A3F6B00B96F4E /* TaskCollectionPointTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionPointTable.swift; sourceTree = "<group>"; };
 		DF83712A282A4A7200B96F4E /* TaskCollectionPointCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionPointCell.swift; sourceTree = "<group>"; };
@@ -260,6 +266,7 @@
 				312E9A2C242A39F10073D165 /* CollectionPointDetailViewController.swift */,
 				31A882A424A38A2500C3A692 /* CollectionPointsNotifications.swift */,
 				31BE2C262668375F00D63EBA /* CollectionPointSplitViewController.swift */,
+				DF7E3768284EE11F00EB6A40 /* CollectionPointDetailTable.swift */,
 			);
 			path = CollectionPoint;
 			sourceTree = "<group>";
@@ -459,6 +466,7 @@
 				DF837125282A13F100B96F4E /* UIView+Extension.swift */,
 				DF83712E282A53E400B96F4E /* UIViewController+Extension.swift */,
 				DF93A0AB283C6D1400DE781D /* UIImageView+Extension.swift */,
+				DF26E7E8284509A300AECE15 /* Constants.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -491,6 +499,7 @@
 				DF9AE2A0282E96FC00A40943 /* GarbageLineButton.xib */,
 				DF1F2BB9282EB35900266516 /* TaskCollectionPointPageCell.swift */,
 				DF1F2BBA282EB35900266516 /* TaskCollectionPointPageCell.xib */,
+				DF3C8FEC285C21B30042349C /* BaseLabel.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -535,7 +544,7 @@
 				317E22FB23C6306C00F8F0C1 /* Frameworks */,
 				317E22FC23C6306C00F8F0C1 /* Resources */,
 				A78C4069DD99AE826BCF423F /* [CP] Embed Pods Frameworks */,
-				31BBA1BD51EEB933A8B00ABC /* [CP] Copy Pods Resources */,
+				5019C1B0058360B5FC640EF3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -682,7 +691,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		31BBA1BD51EEB933A8B00ABC /* [CP] Copy Pods Resources */ = {
+		5019C1B0058360B5FC640EF3 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -781,7 +790,9 @@
 				31B755AE2665962A00ECADC6 /* UserLocation.swift in Sources */,
 				31E28245264B0A330090ECC1 /* TaskCollectionPointPointAnnotation.swift in Sources */,
 				313172682445E5D800585B7F /* TaskTableViewController.swift in Sources */,
+				DF7E3769284EE11F00EB6A40 /* CollectionPointDetailTable.swift in Sources */,
 				31B8D9282795AA7B006CFD26 /* CollectionPointMarker.swift in Sources */,
+				DF26E7E9284509A300AECE15 /* Constants.swift in Sources */,
 				313CF8E9262C693C007CA36C /* WebSocketConnector.swift in Sources */,
 				312E9A2A242A39980073D165 /* CollectionPointMasterViewController.swift in Sources */,
 				319035112442731A0020E152 /* CollectionPointPointAnnotation.swift in Sources */,
@@ -790,6 +801,7 @@
 				31EBE46524477FE40023305D /* TaskCollectionPoint.swift in Sources */,
 				310C56AC255F097A0012B8B1 /* FirestoreConstants.swift in Sources */,
 				31B482912714AAFB0043D414 /* Urls.swift in Sources */,
+				DF3C8FED285C21B30042349C /* BaseLabel.swift in Sources */,
 				312E7AC12462A7AD00A73363 /* TaskCollectionsTableViewController.swift in Sources */,
 				31BE2C272668375F00D63EBA /* CollectionPointSplitViewController.swift in Sources */,
 				DF83712C282A4A7200B96F4E /* TaskCollectionPointCell.swift in Sources */,

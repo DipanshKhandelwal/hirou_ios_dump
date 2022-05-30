@@ -16,8 +16,9 @@ class TaskCollection : Encodable, Decodable{
     var amount: Int
     var garbage: Garbage
     var available: Bool
+    var users: User?
     
-    init?(id: Int, timestamp: String, complete: Bool, amount: Int, garbage: Garbage, available: Bool) {
+    init?(id: Int, timestamp: String, complete: Bool, amount: Int, garbage: Garbage, user: User?, available: Bool) {
         // Initialize stored properties.
         self.id = id
         self.timestamp = timestamp
@@ -25,6 +26,7 @@ class TaskCollection : Encodable, Decodable{
         self.amount = amount
         self.garbage = garbage
         self.available = available
+        self.users = user
     }
     
     enum CodingKeys : String, CodingKey {
@@ -34,6 +36,7 @@ class TaskCollection : Encodable, Decodable{
         case amount
         case garbage
         case available
+        case users
     }
     
     required init(from decoder: Decoder) throws {
@@ -44,5 +47,6 @@ class TaskCollection : Encodable, Decodable{
         amount = try container.decode(Int.self, forKey: .amount)
         garbage = try container.decode(Garbage.self, forKey: .garbage)
         available = try container.decode(Bool.self, forKey: .available)
+        users = try? container.decode(User.self, forKey: .users)
     }
 }

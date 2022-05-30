@@ -72,6 +72,25 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nxl-Wv-GBe">
+                                        <rect key="frame" x="500" y="0.0" width="110" height="47.5"/>
+                                        <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="16"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="報告">
+                                            <color key="titleColor" red="0.0" green="0.1647058824" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="viewCornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="viewBorderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="viewBorderColor">
+                                                <color key="value" red="0.0" green="0.1647058824" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t53-Gd-3ev">
                                         <rect key="frame" x="422.5" y="23" width="22" height="22"/>
                                         <constraints>
@@ -86,11 +105,16 @@
                                     <constraint firstItem="ik7-ON-d9L" firstAttribute="top" secondItem="xh0-XQ-zWd" secondAttribute="top" id="0nB-Sh-X8i"/>
                                     <constraint firstItem="xh0-XQ-zWd" firstAttribute="centerY" secondItem="Gcc-TC-pJ7" secondAttribute="centerY" id="1RK-02-etY"/>
                                     <constraint firstItem="t53-Gd-3ev" firstAttribute="leading" secondItem="ik7-ON-d9L" secondAttribute="trailing" constant="8" id="2Ha-R1-uO0"/>
+                                    <constraint firstItem="Nxl-Wv-GBe" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="t53-Gd-3ev" secondAttribute="trailing" constant="12" id="2Ta-0T-DPW"/>
+                                    <constraint firstItem="Nxl-Wv-GBe" firstAttribute="bottom" secondItem="ik7-ON-d9L" secondAttribute="bottom" id="65v-Eu-ETW"/>
                                     <constraint firstItem="xBL-wR-03J" firstAttribute="leading" secondItem="ik7-ON-d9L" secondAttribute="leading" id="A7l-2c-gVU"/>
                                     <constraint firstItem="PgC-LJ-ZcT" firstAttribute="bottom" secondItem="xBL-wR-03J" secondAttribute="bottom" id="Ahx-OU-akS"/>
                                     <constraint firstItem="PgC-LJ-ZcT" firstAttribute="top" secondItem="xBL-wR-03J" secondAttribute="top" id="AjZ-zm-iwv"/>
                                     <constraint firstItem="xBL-wR-03J" firstAttribute="top" secondItem="ik7-ON-d9L" secondAttribute="bottom" constant="8" id="ER4-7O-lfV"/>
                                     <constraint firstItem="PgC-LJ-ZcT" firstAttribute="width" secondItem="PgC-LJ-ZcT" secondAttribute="height" id="Kgm-9Z-TM7"/>
+                                    <constraint firstItem="Nxl-Wv-GBe" firstAttribute="top" secondItem="Gcc-TC-pJ7" secondAttribute="top" id="MDf-vO-F0U"/>
+                                    <constraint firstItem="Nxl-Wv-GBe" firstAttribute="trailing" secondItem="PgC-LJ-ZcT" secondAttribute="trailing" id="NZU-gw-J7t"/>
+                                    <constraint firstItem="Nxl-Wv-GBe" firstAttribute="width" secondItem="PgC-LJ-ZcT" secondAttribute="width" id="USJ-p8-zhW"/>
                                     <constraint firstAttribute="trailing" secondItem="PgC-LJ-ZcT" secondAttribute="trailing" id="YGG-54-UbZ"/>
                                     <constraint firstItem="xh0-XQ-zWd" firstAttribute="leading" secondItem="Gcc-TC-pJ7" secondAttribute="leading" id="jYP-D7-UcS"/>
                                     <constraint firstItem="t53-Gd-3ev" firstAttribute="centerY" secondItem="ik7-ON-d9L" secondAttribute="centerY" id="kaJ-h1-j2N"/>
@@ -121,6 +145,7 @@
             <connections>
                 <outlet property="btlToggleAll" destination="PgC-LJ-ZcT" id="EGl-u4-wpZ"/>
                 <outlet property="btnInfomation" destination="t53-Gd-3ev" id="L34-h5-B7f"/>
+                <outlet property="btnReport" destination="Nxl-Wv-GBe" id="F1n-GI-CHc"/>
                 <outlet property="garbageStack" destination="xBL-wR-03J" id="KhF-Tc-tzJ"/>
                 <outlet property="image" destination="xh0-XQ-zWd" id="OIJ-wy-Qiv"/>
                 <outlet property="name" destination="ik7-ON-d9L" id="Pfp-4d-k6e"/>

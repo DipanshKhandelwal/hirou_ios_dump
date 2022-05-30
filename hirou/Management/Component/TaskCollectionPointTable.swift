@@ -28,6 +28,8 @@ class TaskCollectionPointTable: UIView, UITableViewDelegate, UITableViewDataSour
     
     var currentTaskCollectionPoint: TaskCollectionPoint?
     
+    var widthConstraint: NSLayoutConstraint?
+    
     private var tableView: UITableView! = UITableView()
     
     func updateTaskCollectionPointFromEventData(taskCPData: Data) {
@@ -81,6 +83,14 @@ class TaskCollectionPointTable: UIView, UITableViewDelegate, UITableViewDataSour
                 if event == SocketEventTypes.TASK_COLLECTION_POINT {
                     if sub_event == SocketSubEventTypes.BULK_COMPLETE {
                         let taskCPData = jsonToNSData(json: dict?[SocketKeys.DATA] as Any)
+                        if let theJSONData = try?  JSONSerialization.data(
+                            withJSONObject: dict!,
+                            options: .prettyPrinted
+                            ),
+                            let theJSONText = String(data: theJSONData,
+                                                     encoding: String.Encoding.ascii) {
+                                print("JSON string = \n\(theJSONText)")
+                          }
                         self.updateTaskCollectionPointFromEventData(taskCPData: taskCPData!)
                     }
                 }
@@ -88,6 +98,14 @@ class TaskCollectionPointTable: UIView, UITableViewDelegate, UITableViewDataSour
                     if sub_event == SocketSubEventTypes.UPDATE {
                         let taskCPData = jsonToNSData(json: dict?[SocketKeys.DATA] as Any)
                         self.updateTaskCollectionPointFromEventData(taskCPData: taskCPData!)
+                        if let theJSONData = try?  JSONSerialization.data(
+                            withJSONObject: dict!,
+                            options: .prettyPrinted
+                            ),
+                            let theJSONText = String(data: theJSONData,
+                                                     encoding: String.Encoding.ascii) {
+                                print("JSON string = \n\(theJSONText)")
+                          }
                     }
                 }
                 else if event == SocketEventTypes.LOCATION {
@@ -117,6 +135,9 @@ class TaskCollectionPointTable: UIView, UITableViewDelegate, UITableViewDataSour
     }
     
     private func setupView() {
+        widthConstraint = widthAnchor.constraint(equalToConstant: 100)
+        widthConstraint?.isActive = true
+        widthConstraint?.priority = UILayoutPriority(999)
         notificationCenter.addObserver(self, selector: #selector(collectionPointUpdateFromHList(_:)), name: .TaskCollectionPointsHListUpdate, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(collectionPointSelectFromMap(_:)), name: .TaskCollectionPointsMapSelect, object: nil)
@@ -130,7 +151,7 @@ class TaskCollectionPointTable: UIView, UITableViewDelegate, UITableViewDataSour
         locationManager?.requestWhenInUseAuthorization()
         locationManager?.startUpdatingLocation()
         
-        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { _ in self.updateLocation() })
+        timer = Timer.scheduledTimer(withTimeInterval: Constants.updateLocationTimeInterval, repeats: true, block: { _ in self.updateLocation() })
         setupTableView()
     }
     
@@ -236,6 +257,7 @@ class TaskCollectionPointTable: UIView, UITableViewDelegate, UITableViewDataSour
         for num in 0...getTaskCollectionPoints().count-1 {
             if getTaskCollectionPoints()[num].id == tcp.id {
                 self.tableView.selectRow(at: IndexPath(row: num, section: 0), animated: true, scrollPosition: .middle)
+                self.tableView.deselectRow(at: IndexPath(row: num, section: 0), animated: true)
             }
         }
     }
@@ -252,6 +274,7 @@ class TaskCollectionPointTable: UIView, UITableViewDelegate, UITableViewDataSour
     
     func viewWillAppear() {
         fetchTaskCollectionPoints()
+        locationManager?.startUpdatingLocation()
     }
 
     
@@ -292,6 +315,9 @@ class TaskCollectionPointTable: UIView, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        let maxCount = getTaskCollectionPoints().map({ $0.taskCollections.count }).max() ?? 0
+        widthConstraint?.constant = CGFloat((maxCount + 1) * 30 + maxCount * 10) + 40
+        
         if tableView == self.tableView {
             return getTaskCollectionPoints().count
         }
@@ -310,6 +336,8 @@ class TaskCollectionPointTable: UIView, UITableViewDelegate, UITableViewDataSour
         
         if(list.count > indexPath.row) {
             let tcp = getTaskCollectionPoints()[indexPath.row]
+            tcpCell.sequence.textColor = tcp.getCompleteStatus() ? UIColor(0xc4c4c4) : UIColor(0x000000)
+            tcpCell.name.textColor = tcp.getCompleteStatus() ? UIColor(0xc4c4c4) : UIColor(0x120101)
             tcpCell.sequence!.text = String(tcp.sequence)
             tcpCell.name!.text = tcp.name
             tcpCell.memo!.text = tcp.memo
@@ -325,7 +353,7 @@ class TaskCollectionPointTable: UIView, UITableViewDelegate, UITableViewDataSour
                 let toggleAllTasksButton = GarbageButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
                 toggleAllTasksButton.tag = indexPath.row;
                 toggleAllTasksButton.addTarget(self, action: #selector(toggleAllTasks(sender:)), for: .touchDown)
-                toggleAllTasksButton.setImage(tcp.getCompleteStatus() ? UIImage(named: "ic_complete_active") : UIImage(named: "ic_complete_inactive"), for: .normal)
+                toggleAllTasksButton.setImage(tcp.getCompleteStatus() ? UIImage(named: "ic_complete_inactive") : UIImage(named: "ic_complete_active"), for: .normal)
                 tcpCell.garbageStack.addArrangedSubview(toggleAllTasksButton)
                 
                 for num in 0...tcp.taskCollections.count-1 {

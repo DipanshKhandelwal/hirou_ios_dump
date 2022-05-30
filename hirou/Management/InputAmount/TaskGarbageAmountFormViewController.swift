@@ -217,11 +217,21 @@ class TaskGarbageAmountFormViewController: UIViewController, UIPickerViewDelegat
     @objc
     func garbagePickerDone() {
         garbageLabel.resignFirstResponder()
+        let row = garbagePicker.selectedRow(inComponent: 0)
+        guard row < garbages.count else { return }
+        let garbage = self.garbages[row]
+        self.selectedGarbage = garbage
+        self.garbageLabel.text = garbage.name
     }
     
     @objc
     func vehiclePickerDone() {
         vehicleLabel.resignFirstResponder()
+        let row = vehiclePicker.selectedRow(inComponent: 0)
+        guard row < vehicles.count else { return }
+        let vehicle = self.vehicles[row]
+        self.selectedVehicle = vehicle
+        self.vehicleLabel.text = vehicle.registrationNumber
     }
     
     func setupGarbagePicker() {

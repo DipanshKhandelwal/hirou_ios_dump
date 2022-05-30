@@ -13,6 +13,7 @@ class TaskCollectionsCell : UITableViewCell {
     @IBOutlet weak var garbageLabel: UILabel!
     @IBOutlet weak var collectionSwitch: UISwitch!
     @IBOutlet weak var pickupTimeLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
 }
 
 class TaskCollectionsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {

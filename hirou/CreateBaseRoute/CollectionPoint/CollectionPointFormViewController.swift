@@ -184,13 +184,13 @@ class CollectionPointFormViewController: UIViewController, ImagePickerDelegate {
     }
     
     @IBAction func deletePressed(_ sender: Any) {
-        let deleteAlert = UIAlertController(title: "Delete Collection Point ?", message: "Are you sure you want to delete the collection point ?", preferredStyle: .alert)
+        let deleteAlert = UIAlertController(title: "収集ポイントの削除?", message: "収集ポイントを削除してもよろしいですか？", preferredStyle: .alert)
         
-        deleteAlert.addAction(UIAlertAction(title: "Yes. Delete", style: .default, handler: { (action: UIAlertAction!) in
+        deleteAlert.addAction(UIAlertAction(title: "削除", style: .default, handler: { (action: UIAlertAction!) in
             self.deleteCPCall()
         }))
         
-        deleteAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        deleteAlert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: { (action: UIAlertAction!) in
             print("Delte cancelled by the user.")
         }))
         

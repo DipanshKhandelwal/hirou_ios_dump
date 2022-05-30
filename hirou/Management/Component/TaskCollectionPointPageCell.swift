@@ -18,6 +18,7 @@ class TaskCollectionPointPageCell: UICollectionViewCell {
     @IBOutlet weak var stackGarbage2: UIStackView!
     @IBOutlet weak var btnInfomation: UIButton!
     @IBOutlet weak var btlToggleAll: UIButton!
+    @IBOutlet weak var btnReport: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

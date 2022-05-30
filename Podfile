@@ -4,8 +4,8 @@ target 'hirou' do
   use_frameworks!
 
 #  maps
-  pod 'Mapbox-iOS-SDK', '~> 5.9'
-  pod 'MapboxNavigation', '~> 0.40.0'
+#  pod 'Mapbox-iOS-SDK', '~> 5.9'
+#  pod 'MapboxNavigation', '~> 0.40.0'
   pod 'GoogleMaps', '6.0.1'
   
 #  REST
@@ -20,4 +20,6 @@ target 'hirou' do
 #Cache Image
   pod 'Kingfisher'
   pod 'KingfisherWebP'
+#Keyboard Manager
+  pod 'IQKeyboardManagerSwift'
 end

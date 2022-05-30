@@ -2,7 +2,7 @@
 //  UIImageView+Extension.swift
 //  hirou
 //
-//  Created by ThanhND on 5/24/22.
+//  Created by ThuNQ on 5/24/22.
 //  Copyright © 2022 Dipansh Khandelwal. All rights reserved.
 //
 

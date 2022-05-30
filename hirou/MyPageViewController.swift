@@ -17,13 +17,13 @@ class MyPageViewController: UIViewController {
     }
     
     @IBAction func logout(_ sender: Any) {
-        let confirmAlert = UIAlertController(title: "Logout ?", message: "Are you sure you want to logout?", preferredStyle: .alert)
+        let confirmAlert = UIAlertController(title: "ログアウト ?", message: "ログアウトしてもよろしいですか？", preferredStyle: .alert)
         
-        confirmAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        confirmAlert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: { (action: UIAlertAction!) in
             return
         }))
         
-        confirmAlert.addAction(UIAlertAction(title: "Yes. Logout", style: .default, handler: { (action: UIAlertAction!) in
+        confirmAlert.addAction(UIAlertAction(title: "ログアウト", style: .default, handler: { (action: UIAlertAction!) in
             self.logout()
         }))
         

@@ -13,14 +13,37 @@ import GoogleMaps
 class CollectionPointDetailViewController: UIViewController, GMSMapViewDelegate {
     var id: String = ""
     @IBOutlet weak var mapView: GMSMapView!
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.allowsSelectionDuringEditing = false
+        }
+    }
     var newMarker: CollectionPointMarker!
     var selectedCollectionPoint: CollectionPoint!
     var collectionPoints = [CollectionPoint]()
     var markers = [CollectionPointMarker]()
     
-    var isUserTrackingMode: Bool = true
+    let baseRouteId = UserDefaults.standard.string(forKey: "selectedRoute")!
     
-    private let notificationCenter = NotificationCenter.default
+    let notificationCenter = NotificationCenter.default
+    
+    var socketConnection: WebSocketConnector?
+    
+    var locationManager: CLLocationManager?
+    var presentLocation: CLLocation?
+    var timer: Timer?
+    
+    var isUserTrackingMode: Bool = true
+    var isEnableEditTable: Bool {
+        set {
+            tableView.isEditing = newValue
+        }
+        get {
+            return tableView.isEditing
+        }
+    }
 
     @objc
     func zoomIn() {
@@ -48,16 +71,19 @@ class CollectionPointDetailViewController: UIViewController, GMSMapViewDelegate 
         }
     }
     
+    @IBOutlet weak var btnEditTable: UIButton! {
+        didSet {
+            btnEditTable.addTarget(self, action: #selector(toggleEditTable), for: .touchDown)
+        }
+    }
     @IBOutlet weak var zoomOutButton: UIButton! {
         didSet {
-            zoomOutButton.setBackgroundImage(UIImage(systemName: "arrow.down.right.and.arrow.up.left.circle"), for: .normal)
             zoomOutButton.addTarget(self, action: #selector(zoomOut), for: .touchDown)
         }
     }
     
     @IBOutlet weak var zoomInButton: UIButton! {
         didSet {
-            zoomInButton.setBackgroundImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right.circle"), for: .normal)
             zoomInButton.addTarget(self, action: #selector(zoomIn), for: .touchDown)
         }
     }
@@ -69,7 +95,12 @@ class CollectionPointDetailViewController: UIViewController, GMSMapViewDelegate 
             trackUserButton.addTarget(self, action: #selector(userTrackingSwitchToggled), for: .touchDown)
         }
     }
-    
+    @IBOutlet weak var heightCollectionPoint: NSLayoutConstraint!
+    @IBOutlet weak var lineCollectionPointTable: UIView! {
+        didSet {
+            lineCollectionPointTable.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(animationHeightPoinTable(_:))))
+        }
+    }
     
     @objc
     func userTrackingSwitchToggled() {
@@ -88,7 +119,7 @@ class CollectionPointDetailViewController: UIViewController, GMSMapViewDelegate 
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.delegate = self
         mapView.isMyLocationEnabled = true
-        mapView.settings.myLocationButton = true
+        mapView.settings.myLocationButton = false
 
         self.id = UserDefaults.standard.string(forKey: "selectedRoute")!
         
@@ -97,6 +128,33 @@ class CollectionPointDetailViewController: UIViewController, GMSMapViewDelegate 
         notificationCenter.addObserver(self, selector: #selector(collectionPointReorderFromVList(_:)), name: .CollectionPointsTableReorder, object: nil)
         
         notificationCenter.addObserver(self, selector: #selector(presentUserLocationUpdated(_:)), name: .CollectionPointsPresentUserLocationUpdate, object: nil)
+        setupConnection()
+        
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.requestWhenInUseAuthorization()
+        
+        timer = Timer.scheduledTimer(withTimeInterval: Constants.updateLocationTimeInterval, repeats: true, block: { _ in self.updateLocation() })
+        
+        animationShowCollectionPointTable()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        timer?.invalidate()
+        timer = nil
+        locationManager?.stopUpdatingLocation()
+        locationManager = nil
+        socketConnection?.disconnect()
+        socketConnection = nil
+        AppUtility.lockOrientation(.all)
+    }
+    
+    @IBAction func toggleMapType(_ sender: Any) {
+        if mapView.mapType == .satellite {
+            mapView.mapType = .normal
+        } else {
+            mapView.mapType = .satellite
+        }
     }
 
     @objc
@@ -125,6 +183,19 @@ class CollectionPointDetailViewController: UIViewController, GMSMapViewDelegate 
         }
     }
     
+    func updatePoints() {
+        DispatchQueue.main.async {
+            self.addPointsToMap()
+            if((self.selectedCollectionPoint) != nil) {
+                for (idx, cp) in self.collectionPoints.enumerated() {
+                    if self.selectedCollectionPoint.id == cp.id {
+                        self.focusPoint(index: idx)
+                    }
+                }
+            }
+        }
+    }
+    
     func focusPoint(index: Int) {
         mapView.selectedMarker = self.markers[index]
         mapView.animate(toLocation: CLLocationCoordinate2D(latitude: Double(self.collectionPoints[index].location.latitude)!, longitude: Double(self.collectionPoints[index].location.longitude)!))
@@ -134,6 +205,7 @@ class CollectionPointDetailViewController: UIViewController, GMSMapViewDelegate 
     
     override func viewDidAppear(_ animated: Bool) {
         self.getPoints()
+        AppUtility.lockOrientation(.landscape, andRotateTo: .landscapeRight)
     }
     
     func getPoints() {

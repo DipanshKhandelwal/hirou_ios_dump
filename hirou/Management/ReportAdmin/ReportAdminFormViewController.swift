@@ -249,7 +249,7 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
         }
         
         if selectedReportType == nil {
-            let addAlert = UIAlertController(title: "レポートタイプを選択してください", message: "", preferredStyle: .alert)
+            let addAlert = UIAlertController(title: "分類を選択してください", message: "", preferredStyle: .alert)
             addAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in return }))
             self.present(addAlert, animated: true, completion: nil)
             return
@@ -371,11 +371,21 @@ class ReportAdminFormViewController: UIViewController, UIPickerViewDelegate, UIP
     @objc
     func taskCollectionPointPickerDone() {
         taskCollectionPointLabel.resignFirstResponder();
+        let row = taskCollectionPointPicker.selectedRow(inComponent: 0)
+        guard row < collectionPoints.count else { return }
+        let collectionPoint = self.collectionPoints[row]
+        self.selectedCollectionPoint = collectionPoint.id
+        self.taskCollectionPointLabel.text = collectionPoint.name
     }
     
     @objc
     func reportTypePickerDone() {
         reportTypeLabel.resignFirstResponder();
+        let row = reportTypePicker.selectedRow(inComponent: 0)
+        guard row < reportTypes.count else { return }
+        let reportType = self.reportTypes[row]
+        self.selectedReportType = reportType
+        self.reportTypeLabel.text = reportType.name
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

@@ -157,13 +157,13 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     
     @IBAction func copyRoute(_ sender: Any) {
-        let copyAlert = UIAlertController(title: "Copy Route ?", message: "Are you sure you want to copy the base route ?", preferredStyle: .alert)
+        let copyAlert = UIAlertController(title: "ルートをコピー ?", message: "ベースルートをコピーしてもよろしいですか ?", preferredStyle: .alert)
         
-        copyAlert.addAction(UIAlertAction(title: "Yes. Copy", style: .default, handler: { (action: UIAlertAction!) in
+        copyAlert.addAction(UIAlertAction(title: "コピー", style: .default, handler: { (action: UIAlertAction!) in
             self.copyRouteCall()
         }))
         
-        copyAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        copyAlert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: { (action: UIAlertAction!) in
         }))
         
         self.present(copyAlert, animated: true, completion: nil)
@@ -182,13 +182,13 @@ class RouteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     
     @IBAction func deleteRoute(_ sender: Any) {
-        let deleteAlert = UIAlertController(title: "Delete Route ?", message: "Are you sure you want to delete the base route ?", preferredStyle: .alert)
+        let deleteAlert = UIAlertController(title: "ルートを削除?", message: "ベースルートを削除してもよろしいですか？", preferredStyle: .alert)
         
-        deleteAlert.addAction(UIAlertAction(title: "Yes. Delete", style: .default, handler: { (action: UIAlertAction!) in
+        deleteAlert.addAction(UIAlertAction(title: "削除", style: .default, handler: { (action: UIAlertAction!) in
             self.deleteRouteCall()
         }))
         
-        deleteAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        deleteAlert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: { (action: UIAlertAction!) in
             print("Delte cancelled by the user.")
         }))
         

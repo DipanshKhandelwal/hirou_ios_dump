@@ -195,7 +195,7 @@ extension TaskNavigationViewController: UICollectionViewDelegate, UICollectionVi
         cell.name?.text = tcp.name
 //        cell.memo?.text = tcp.memo
         cell.image.loadImage(urlString: tcp.image, placeholder: UIImage(named: "placeholder"))
-        
+        cell.btnReport.addTarget(self, action: #selector(reportAdminAction(_:)), for: .touchDown)
         if tcp.taskCollections.count >= 1 {
             cell.stackGarbage1.arrangedSubviews.forEach { $0.removeFromSuperview() }
             cell.stackGarbage2.arrangedSubviews.forEach { $0.removeFromSuperview() }

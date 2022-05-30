@@ -140,6 +140,16 @@ class TaskAddViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @objc
     func pickerDone() {
         routeLabel.resignFirstResponder()
+        let row = baseRoutePicker.selectedRow(inComponent: 0)
+        guard row < baseRoutes.count else { return }
+        let route = self.baseRoutes[row]
+        self.selectedBaseRoute = route
+        self.routeLabel?.text = route.name
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMM"
+        let dateMonthText = dateFormatter.string(from: self.date)
+        self.taskName?.text = dateMonthText + " : " + route.name
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

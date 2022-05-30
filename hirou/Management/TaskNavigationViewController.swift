@@ -43,7 +43,13 @@ class TaskNavigationViewController: UIViewController, GMSMapViewDelegate {
     @IBOutlet weak var containerHideTask: RoundedView!
     @IBOutlet weak var containerHideLocation: RoundedView!
     @IBOutlet weak var btnReport: UIButton!
+    @IBOutlet weak var stackHeaderBottomSheet: UIStackView!
     
+    @IBOutlet weak var btnDirection: UIButton! {
+        didSet {
+            btnDirection.addTarget(self, action: #selector(toggleDirection), for: .touchDown)
+        }
+    }
     @IBOutlet weak var zoomOutButton: UIButton! {
         didSet {
 //            zoomOutButton.setBackgroundImage(UIImage(systemName: "arrow.down.right.and.arrow.up.left.circle"), for: .normal)
@@ -70,6 +76,8 @@ class TaskNavigationViewController: UIViewController, GMSMapViewDelegate {
     
 //    var annotations = [TaskCollectionPointPointAnnotation]()
     var markers = [TaskCollectionPointMarker]()
+    var oldNextIndex: Int?
+    var oldSelectedIndex: Int?
     var currentLocation: CLLocationCoordinate2D? {
         didSet {
             guard let currentLocation = currentLocation, let selectedLocation = mapView.selectedMarker?.position  else { return }
@@ -105,6 +113,27 @@ class TaskNavigationViewController: UIViewController, GMSMapViewDelegate {
     var isHideTask: Bool = false
     var isUserTrackingMode: Bool = true
     
+    var isDirectionRoute: Bool = false {
+        didSet {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.btnDirection.superview?.backgroundColor = !self.isDirectionRoute ? .white : UIColor(0x56cb87)
+                self.btnDirection.setBackgroundImage(!self.isDirectionRoute ? UIImage(named: "ic_routing_cyan") : UIImage(named: "ic_routing_white"), for: .normal)
+            })
+            if isDirectionRoute {
+//                btnDirection.isUserInteractionEnabled = false
+                guard let currentLocation = currentLocation, let selectedLocation = mapView.selectedMarker?.position  else { return }
+                fetchRoute(from: currentLocation, to: selectedLocation)
+            } else {
+                clearRouting()
+                oldOriginRoute = nil
+                oldDestinationRoute = nil
+            }
+        }
+    }
+    var oldOriginRoute: CLLocationCoordinate2D?
+    var oldDestinationRoute: CLLocationCoordinate2D?
+    var oldRoutingPoly: GMSPolyline?
+    
     let minHeightTC: CGFloat = 208 + bottomSafeArea
     var maxHeightTC: CGFloat {
         // maxHeight = heightScreenAvailable - (topViewTable + spacingTableWBottomSheet + minHeightTable)
@@ -129,7 +158,7 @@ class TaskNavigationViewController: UIViewController, GMSMapViewDelegate {
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.delegate = self
         mapView.isMyLocationEnabled = true
-        
+        isDirectionRoute = false
         let completedHiddenSwitch = UISwitch(frame: .zero)
         completedHiddenSwitch.isOn = false
         completedHiddenSwitch.addTarget(self, action: #selector(switchToggled(_:)), for: .valueChanged)
@@ -248,7 +277,7 @@ class TaskNavigationViewController: UIViewController, GMSMapViewDelegate {
             self.taskCollectionHeightCst.constant = self.maxHeightTC
             self.view.layoutIfNeeded()
         }, completion: { _ in
-            self.btnReport.isHidden = false
+            self.stackHeaderBottomSheet.isHidden = false
         })
         isTaskCollectionsHidden = false
         toggleHideTask(isHideTask: false)
@@ -259,7 +288,7 @@ class TaskNavigationViewController: UIViewController, GMSMapViewDelegate {
             self.taskCollectionHeightCst.constant = self.minHeightTC
             self.view.layoutIfNeeded()
         }, completion: { _ in
-            self.btnReport.isHidden = true
+            self.stackHeaderBottomSheet.isHidden = true
         })
         isTaskCollectionsHidden = true
         toggleHideTask(isHideTask: false)
@@ -268,7 +297,7 @@ class TaskNavigationViewController: UIViewController, GMSMapViewDelegate {
     @objc func animationHeightTaskCollections(_ sender: UIPanGestureRecognizer) {
         tcpBottomCstWithTC.priority = UILayoutPriority(1000)
         taskCollectionPointHeightCst.priority = UILayoutPriority(999)
-        self.btnReport.isHidden = false
+        self.stackHeaderBottomSheet.isHidden = false
         self.clvTask.isHidden = false
         switch sender.state {
         case .changed:

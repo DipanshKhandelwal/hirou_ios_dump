@@ -7,17 +7,17 @@
 //
 
 import Foundation
-import Mapbox
+//import Mapbox
 
-class TaskCollectionPointPointAnnotation: MGLPointAnnotation {
-    var taskCollectionPoint: TaskCollectionPoint!
-    
-    init(taskCollectionPoint: TaskCollectionPoint) {
-        super.init()
-        self.taskCollectionPoint = taskCollectionPoint
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
+//class TaskCollectionPointPointAnnotation: MGLPointAnnotation {
+//    var taskCollectionPoint: TaskCollectionPoint!
+//    
+//    init(taskCollectionPoint: TaskCollectionPoint) {
+//        super.init()
+//        self.taskCollectionPoint = taskCollectionPoint
+//    }
+//    
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//}

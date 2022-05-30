@@ -59,13 +59,13 @@ class TaskDetailViewController: UIViewController {
     // button pressed
     
     @IBAction func deleteTask(_ sender: Any) {
-        let deleteAlert = UIAlertController(title: "Delete Task ?", message: "Are you sure you want to delete the task ?", preferredStyle: .alert)
+        let deleteAlert = UIAlertController(title: "タスクの削除", message: "タスクを削除してもよろしいですか ?", preferredStyle: .alert)
         
-        deleteAlert.addAction(UIAlertAction(title: "Yes. Delete", style: .default, handler: { (action: UIAlertAction!) in
+        deleteAlert.addAction(UIAlertAction(title: "削除します", style: .default, handler: { (action: UIAlertAction!) in
             self.deleteTaskCall()
         }))
         
-        deleteAlert.addAction(UIAlertAction(title: "No. Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        deleteAlert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: { (action: UIAlertAction!) in
             print("Delte cancelled by the user.")
         }))
         
