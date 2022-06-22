@@ -193,7 +193,7 @@ class CollectionPointMasterViewController: UITableViewController, CLLocationMana
     }
     
     func updateFromBaseRoute(route: BaseRoute, notify: Bool = false) {
-        let newCollectionPoints = route.collectionPoints
+        let newCollectionPoints = route.collectionPoints ?? []
         self.collectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
         if notify {
             self.notificationCenter.post(name: .CollectionPointsTableReorder, object: self.collectionPoints)

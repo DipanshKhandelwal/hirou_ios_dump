@@ -181,7 +181,15 @@ extension TaskNavigationViewController {
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-//        editPointSegue()
+        editRoute()
+    }
+    
+    func editRoute() {
+        UserDefaults.standard.set(route?.baseRoute.id, forKey: "selectedRoute")
+        let storyboard = UIStoryboard(name: "BaseRoute", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "CollectionPointDetailViewController") as!CollectionPointDetailViewController
+        vc.selectedIndex = markers.firstIndex(where: { $0.taskCollectionPoint.id == selectedTaskCollectionPoint.id })
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
@@ -194,8 +202,8 @@ extension TaskNavigationViewController {
         }
         let size = (text as NSString).size(withAttributes: fontAttributes)
         
-        let stack = UIStackView(frame: CGRect(x: 0, y: 0, width: max(size.width, 30), height:30));
-//        let stack = UIStackView(frame: CGRect(x: 0, y: 0, width: max(size.width, 30) + 30, height:30));
+//        let stack = UIStackView(frame: CGRect(x: 0, y: 0, width: max(size.width, 30), height:30));
+        let stack = UIStackView(frame: CGRect(x: 0, y: 0, width: max(size.width, 30) + 30, height:30));
         stack.axis = .horizontal
         stack.alignment = .center
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: max(size.width, 30), height: 30))
@@ -229,24 +237,29 @@ extension TaskNavigationViewController {
                     markers[oldSelectedIndex].icon = UIImage(named: "ic_location_green")
                 }
             }
-            if let index = markers.firstIndex(of: ann),
-               index + 1 < markers.count,
-               let tcp = getTaskCollectionPoints().first(where: { $0.id == markers[index + 1].taskCollectionPoint.id }){
-                if(tcp.getCompleteStatus()) {
-                    markers[index + 1].icon = UIImage(named: "ic_next_point_gray")
-                } else {
-                    markers[index + 1].icon = UIImage(named: "ic_next_point_green")
+            if let index = markers.firstIndex(of: ann) {
+                if index + 1 < markers.count,
+                    let tcp = getTaskCollectionPoints().first(where: { $0.id == markers[index + 1].taskCollectionPoint.id }){
+                    if(tcp.getCompleteStatus()) {
+                        markers[index + 1].icon = UIImage(named: "ic_next_point_gray")
+                    } else {
+                        markers[index + 1].icon = UIImage(named: "ic_next_point_green")
+                    }
+                    oldNextIndex = index + 1
                 }
-                oldNextIndex = index + 1
                 oldSelectedIndex = index
             }
 //            let editPoint = UIButton(type: .detailDisclosure)
 //            editPoint.frame.size = CGSize(width: 6, height: 6)
 //            stack.addArrangedSubview(editPoint)
+            let editPoint = UIButton()
+            editPoint.frame.size = CGSize(width: 6, height: 6)
+            editPoint.setImage(UIImage(systemName: "pencil.circle"), for: .normal)
+            stack.addArrangedSubview(editPoint)
         }
         marker.icon = UIImage(named: "ic_location_red")
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: max(size.width, 30), height:30))
-//        let view = UIView(frame: CGRect(x: 0, y: 0, width: max(size.width, 30) + 30, height:30))
+//        let view = UIView(frame: CGRect(x: 0, y: 0, width: max(size.width, 30), height:30))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: max(size.width, 30) + 30, height:30))
         view.translatesAutoresizingMaskIntoConstraints = true
         stack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stack)

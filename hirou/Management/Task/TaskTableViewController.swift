@@ -91,7 +91,7 @@ class TaskTableViewController: UIViewController, UITableViewDelegate, UITableVie
         let taskRoute = self.filteredData[indexPath.row]
         cell.routeName?.text = taskRoute.name
         cell.routeCustomer?.text = taskRoute.customer?.name ?? "n/a"
-        cell.baseRouteName?.text = taskRoute.baseRouteName
+        cell.baseRouteName?.text = taskRoute.baseRoute.name
 
         cell.routeGarbageList?.text = taskRoute.getGarbagesNameList()
         

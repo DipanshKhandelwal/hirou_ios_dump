@@ -196,7 +196,7 @@ extension CollectionPointDetailViewController: CLLocationManagerDelegate, UITabl
     }
     
     func updateFromBaseRoute(route: BaseRoute, notify: Bool = false) {
-        let newCollectionPoints = route.collectionPoints
+        let newCollectionPoints = route.collectionPoints ?? []
         self.collectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
         if notify {
             updatePoints()

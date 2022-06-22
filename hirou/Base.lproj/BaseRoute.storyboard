@@ -821,7 +821,7 @@
         <!--Detail-->
         <scene sceneID="zqJ-5M-ZoT">
             <objects>
-                <viewController title="Detail" modalPresentationStyle="fullScreen" id="xsF-ox-xTh" customClass="CollectionPointDetailViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CollectionPointDetailViewController" title="Detail" modalPresentationStyle="fullScreen" id="xsF-ox-xTh" customClass="CollectionPointDetailViewController" customModule="hirou" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OvU-Ae-Sff">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="954"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

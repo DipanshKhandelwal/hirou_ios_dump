@@ -34,6 +34,7 @@ class CollectionPointDetailViewController: UIViewController, GMSMapViewDelegate 
     var locationManager: CLLocationManager?
     var presentLocation: CLLocation?
     var timer: Timer?
+    var selectedIndex: Int?
     
     var isUserTrackingMode: Bool = true
     var isEnableEditTable: Bool {
@@ -216,7 +217,7 @@ class CollectionPointDetailViewController: UIViewController, GMSMapViewDelegate 
             switch response.result {
             case .success(let value):
                 let route = try! JSONDecoder().decode(BaseRoute.self, from: value!)
-                let newCollectionPoints = route.collectionPoints
+                let newCollectionPoints = route.collectionPoints ?? []
                 self.collectionPoints = newCollectionPoints.sorted() { $0.sequence < $1.sequence }
                 self.addPointsToMap(focusLast: true)
                 
@@ -247,7 +248,10 @@ class CollectionPointDetailViewController: UIViewController, GMSMapViewDelegate 
 
         
         DispatchQueue.main.async {
-            if(focusLast && !self.markers.isEmpty){
+            if let selectedIndex = self.selectedIndex, selectedIndex < self.markers.count {
+                self.focusPoint(index: selectedIndex)
+                self.selectedIndex = nil
+            } else if(focusLast && !self.markers.isEmpty){
                 self.focusPoint(index: self.markers.count-1)
             }
         }
@@ -344,7 +348,18 @@ class CollectionPointDetailViewController: UIViewController, GMSMapViewDelegate 
             }
         }
         
-        return stack
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 60, height:30))
+        view.translatesAutoresizingMaskIntoConstraints = true
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(stack)
+        NSLayoutConstraint.activate([
+            stack.topAnchor.constraint(equalTo: view.topAnchor),
+            stack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
+            stack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            stack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+        ])
+        view.backgroundColor = .clear
+        return view
     }
     
     func callEditPointSegue() {
