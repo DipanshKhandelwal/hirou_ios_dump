@@ -9,6 +9,6 @@
 import Foundation
 
 struct Constants {
-   static let updateLocationTimeInterval: TimeInterval = 5
+   static let updateLocationTimeInterval: TimeInterval = 15
    static let distanceUpdateRouting: Double = 20
 }

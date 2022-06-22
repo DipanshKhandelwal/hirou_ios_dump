@@ -149,7 +149,7 @@ class TaskCollectionPointTableViewController: UIViewController, UITableViewDeleg
         locationManager?.delegate = self
         locationManager?.requestWhenInUseAuthorization()
         
-        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { _ in self.updateLocation() })
+        timer = Timer.scheduledTimer(withTimeInterval: Constants.updateLocationTimeInterval, repeats: true, block: { _ in self.updateLocation() })
     }
     
     @objc
