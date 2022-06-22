@@ -282,7 +282,7 @@ extension CollectionPointDetailViewController: CLLocationManagerDelegate, UITabl
             }
         }))
         
-        updateAlert.addAction(UIAlertAction(title: "Yes. Update", style: .default, handler: { (action: UIAlertAction!) in
+        updateAlert.addAction(UIAlertAction(title: "アップデート", style: .default, handler: { (action: UIAlertAction!) in
             let cp: CollectionPoint = self.collectionPoints[fromIndex]
             if(fromIndex < toIndex) {
                 (fromIndex...toIndex-1).forEach { index in
