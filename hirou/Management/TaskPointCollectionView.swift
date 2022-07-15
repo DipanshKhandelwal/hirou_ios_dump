@@ -203,11 +203,11 @@ extension TaskNavigationViewController: UICollectionViewDelegate, UICollectionVi
 //            let toggleAllTasksButton = GarbageButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
 //            toggleAllTasksButton.tag = index;
             cell.btlToggleAll.tag = index
-            cell.btlToggleAll.backgroundColor = isAllCompleted(taskCollectionPoint: tcp) ? UIColor(0xE22B40) : .white
-            cell.btlToggleAll.setTitleColor(isAllCompleted(taskCollectionPoint: tcp) ? .white : UIColor(0xE22B40) , for: .normal)
+            cell.btlToggleAll.backgroundColor = isAllCompleted(taskCollectionPoint: tcp) ? UIColor(0xC9C9C9) : UIColor(0xE22B40)
+            cell.btlToggleAll.setTitleColor(.white , for: .normal)
             cell.btlToggleAll.setTitle(isAllCompleted(taskCollectionPoint: tcp) ? "全てを解除" : "全てを選択", for: .normal)
-            cell.btlToggleAll.viewBorderWidth = 1
-            cell.btlToggleAll.viewBorderColor = isAllCompleted(taskCollectionPoint: tcp) ? .white : UIColor(0xE22B40)
+//            cell.btlToggleAll.viewBorderWidth = 1
+//            cell.btlToggleAll.viewBorderColor = isAllCompleted(taskCollectionPoint: tcp) ? .white : UIColor(0xE22B40)
             cell.btlToggleAll.addTarget(self, action: #selector(TaskNavigationViewController.toggleAllTasks(sender:)), for: .touchDown)
             cell.btnInfomation.addTarget(self, action: #selector(toggleShowTaskCollection), for: .touchDown)
 //            toggleAllTasksButton.layer.backgroundColor = tcp.getCompleteStatus() ? UIColor.systemGray3.cgColor : UIColor.white.cgColor

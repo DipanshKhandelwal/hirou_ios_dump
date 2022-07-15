@@ -87,27 +87,19 @@ class TaskNavigationViewController: UIViewController, GMSMapViewDelegate {
     var userLocationMarkers = [UserLocationMarker]()
     var route:TaskRoute?
     var hideCompleted: Bool = false
-    var hideMarker: Bool = false {
+    var hideCompleteMarker: Bool = false {
         didSet {
             UIView.animate(withDuration: 0.3, animations: {
-                self.containerHideLocation?.backgroundColor = self.hideMarker ? .white : UIColor(0x56cb87)
+                self.containerHideLocation?.backgroundColor = !self.hideCompleteMarker ? .white : UIColor(0x56cb87)
                 self.containerHideLocation.subviews.forEach({
                     if let imageView = $0 as? UIImageView {
-                        imageView.image = self.hideMarker ? UIImage(named: "ic_location_green") : UIImage(named: "ic_location_white")
+                        imageView.image = !self.hideCompleteMarker ? UIImage(named: "ic_location_green") : UIImage(named: "ic_location_white")
                     } else if let label = $0 as? UILabel {
-                        label.textColor = self.hideMarker ? UIColor(0x120101) : .white
+                        label.textColor = !self.hideCompleteMarker ? UIColor(0x120101) : .white
                     }
                 })
             })
-            if hideMarker {
-                markers.forEach({
-                    $0.map = nil
-                })
-            } else {
-                markers.forEach({
-                    $0.map = mapView
-                })
-            }
+            self.notificationCenter.post(name: .TaskCollectionPointsHideCompleted, object: hideCompleteMarker)
         }
     }
     var isHideTask: Bool = false
@@ -154,16 +146,17 @@ class TaskNavigationViewController: UIViewController, GMSMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         toggleHideTask(isHideTask: false, showAnimtionTask: true)
-        hideMarker = false
+        hideCompleteMarker = false
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.delegate = self
         mapView.isMyLocationEnabled = true
         isDirectionRoute = false
-        let completedHiddenSwitch = UISwitch(frame: .zero)
-        completedHiddenSwitch.isOn = false
-        completedHiddenSwitch.addTarget(self, action: #selector(switchToggled(_:)), for: .valueChanged)
-        let switch_display = UIBarButtonItem(customView: completedHiddenSwitch)
-        navigationItem.setRightBarButtonItems([switch_display], animated: true)
+        
+//        let completedHiddenSwitch = UISwitch(frame: .zero)
+//        completedHiddenSwitch.isOn = false
+//        completedHiddenSwitch.addTarget(self, action: #selector(switchToggled(_:)), for: .valueChanged)
+//        let switch_display = UIBarButtonItem(customView: completedHiddenSwitch)
+//        navigationItem.setRightBarButtonItems([switch_display], animated: true)
         
         self.id = UserDefaults.standard.string(forKey: "selectedTaskRoute")!
         // Do any additional setup after loading the view.
@@ -226,7 +219,7 @@ class TaskNavigationViewController: UIViewController, GMSMapViewDelegate {
     }
     
     @IBAction func toggleHideMarker(_ sender: UIButton) {
-        hideMarker = !hideMarker
+        hideCompleteMarker = !hideCompleteMarker
     }
     
     @IBAction func toggleHideTask(_ sender: Any) {

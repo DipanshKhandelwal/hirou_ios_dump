@@ -64,15 +64,14 @@ class GarbageLineButton: UIButton {
     
     func configButton(tc: TaskCollection, garbageItem: GarbageListItem?) {
         guard let button = tc.garbage.customButton else { return }
-        let color = tc.complete ? .white : button.color
         subTitle.text = "\(garbageItem?.complete ?? 0)/\(garbageItem?.total ?? 0)"
-        subTitle.textColor = color
+        subTitle.textColor = .white
         title.text = tc.garbage.name
-        title.textColor = color
-        icon.image = button.iconLine?.withTintColor(color)
-        contentView.backgroundColor = tc.complete ? button.color : .white
-        self.backgroundColor = tc.complete ? button.color : .white
-        self.viewBorderColor = color
-        self.viewBorderWidth = 1
+        title.textColor = .white
+        icon.image = button.iconLine?.withTintColor(.white)
+        contentView.backgroundColor = tc.complete ? UIColor(0xC9C9C9) : button.color
+        self.backgroundColor = tc.complete ? UIColor(0xC9C9C9) : button.color
+//        self.viewBorderColor = .white
+//        self.viewBorderWidth = 1
     }
 }
